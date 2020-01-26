@@ -4,12 +4,15 @@ import org.mini2Dx.desktop.DesktopMini2DxConfig;
 
 import com.badlogic.gdx.backends.lwjgl.DesktopMini2DxGame;
 
-import com.mystudio.gamename.MyMini2DxGame;
+import com.mystudio.gamename.Convalescent;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		DesktopMini2DxConfig config = new DesktopMini2DxConfig(MyMini2DxGame.GAME_IDENTIFIER);
-		config.vSyncEnabled = true;
-		new DesktopMini2DxGame(new MyMini2DxGame(), config);
+		DesktopMini2DxConfig cfg = new DesktopMini2DxConfig(Convalescent.GAME_IDENTIFIER);
+		cfg.title = "Convalescent";
+		cfg.width = 1400;
+		cfg.height = 900;
+		cfg.vSyncEnabled = true;
+		new DesktopMini2DxGame(new Convalescent(), cfg);
 	}
 }
