@@ -17,13 +17,13 @@ public class Avery extends Sprite {
 
     public Avery() {
         point = new CollisionPoint();
-        sprite = new Sprite(new Texture(Gdx.files.internal("/Users/gaeastorm/Desktop/demo/core/src/main/java/com/mystudio/gamename/Avery_Front.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("Avery_Front.png")));
 
         scale = (float) 0.9;
         sprite.setSize(250 * scale, 700 * scale);
 
         y_update = (int) (630 - sprite.getHeight());
-        x_update = (int) (300 - (sprite.getWidth()/2));
+        x_update = (int) (350 - sprite.getWidth());
 
         sprite.setPosition(x_update, y_update);
         point.set(x_update, y_update);
@@ -46,17 +46,22 @@ public class Avery extends Sprite {
 
     }
 
-    public void move() {
-//        System.out.println("Origin: " + sprite.getOriginX() + " " + sprite.getOriginY());
-//        System.out.println("Current Point: " + point.getX() + " " + point.getY());
-//        System.out.println("Update Point: " + x_update + " " + y_update);
-
-        if ((int) point.getX() != x_update && (int) point.getY() != y_update) {
+    public int move() {
+        if ((point.getX() < x_update-2 || point.getX() > x_update+2) && (point.getY() < y_update-2 || point.getY() > y_update+2)) {
             point.moveTowards(x_update, y_update, 4f);
+
+
             scale = (float) (0.9 - ((772.0 - max(sprite.getY(), 630)) * 0.05 / 142.0));
             sprite.setSize(250 * scale, 700 * scale);
-//            System.out.println("Scale: " + scale);
         }
+
+        if (point.getX() >= 1050 && sprite.isFlipX()) {
+            return 1;
+        }
+        if (point.getX() <= 300 && !sprite.isFlipX()) {
+            return -1;
+        }
+        return 0;
     }
 
     public void interpolate(float alpha) {
@@ -66,8 +71,13 @@ public class Avery extends Sprite {
         point.interpolate(null, alpha);
     }
 
+    public void set(float x, float y) {
+        point.forceTo(x, y);
+    }
+
     public void render(Graphics g) {
         //Use the point's render coordinates to draw the sprite
+//        System.out.println("Point: " + point.getX());
         g.drawSprite(sprite, point.getX(), point.getY());
     }
 }
