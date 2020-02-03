@@ -2,7 +2,7 @@ package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import org.mini2Dx.core.graphics.Graphics;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.mini2Dx.core.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -17,11 +17,11 @@ public class Inventory extends Sprite {
     Sprite close;
 
     public Inventory() {
-        sprite = new Sprite(new Texture(Gdx.files.internal("bag.png")));
-        sprite.setSize(100, 100);
+        sprite = new Sprite(new Texture(Gdx.files.internal("baggo.png")));
+        sprite.setSize(150, 150);
         sprite.setPosition(1290, 650);
 
-        texture = new Texture(Gdx.files.internal("inventory.png"));
+        texture = new Texture(Gdx.files.internal("back.png"));
         close = new Sprite(new Texture(Gdx.files.internal("close.png")));
         close.setSize(50, 50);
         close.setPosition(1130, 110);
@@ -50,16 +50,8 @@ public class Inventory extends Sprite {
         }
     }
 
-    public void render(Graphics g) {
-        g.drawSprite(sprite);
-
-        if (display) {
-            g.drawTexture(texture, 200, 100, 1000, 500);
-            g.drawSprite(close);
-            for (Asset object : objects) {
-                object.render(g, 200, 100);
-            }
-        }
+    public void render(SpriteBatch batch) {
+        batch.draw(sprite, 1290, 650);
     }
 
     public void display() {
