@@ -1,6 +1,6 @@
 package com.mystudio.gamename;
 
-import com.badlogic.gdx.Graphics;
+import org.mini2Dx.core.graphics.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface MiniGame {

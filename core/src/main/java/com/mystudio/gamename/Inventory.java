@@ -13,18 +13,10 @@ public class Inventory extends Sprite {
     ArrayList<Asset> objects;
     boolean display;
 
-    Texture texture;
-    Sprite close;
-
     public Inventory() {
         sprite = new Sprite(new Texture(Gdx.files.internal("baggo.png")));
-        sprite.setSize(150, 150);
-        sprite.setPosition(1290, 650);
-
-        texture = new Texture(Gdx.files.internal("back.png"));
-        close = new Sprite(new Texture(Gdx.files.internal("close.png")));
-        close.setSize(50, 50);
-        close.setPosition(1130, 110);
+        sprite.setSize(100, 100);
+        sprite.flip(false, true);
 
         objects = new ArrayList<Asset>();
 
@@ -51,7 +43,11 @@ public class Inventory extends Sprite {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, 1290, 650);
+        batch.draw(sprite, 1250, 0, 200, 200);
+
+        if (display) {
+
+        }
     }
 
     public void display() {

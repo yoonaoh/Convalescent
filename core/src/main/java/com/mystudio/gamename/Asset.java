@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.mini2Dx.core.engine.geom.CollisionPoint;
-import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -24,6 +23,7 @@ public class Asset extends Sprite {
         point = new CollisionPoint(x, y);
 
         sprite = new Sprite(new Texture(image));
+        sprite.flip(false, true);
         sprite.setPosition(x, y);
         sprite.setSize(width, height);
 
@@ -46,7 +46,7 @@ public class Asset extends Sprite {
     public void render(SpriteBatch batch, Boolean hovered) {
         //Use the point's render coordinates to draw the sprite
 
-//        batch.draw(sprite, point.getX(), point.getY());
+        batch.draw(sprite, point.getX(), point.getY(), sprite.getWidth(), sprite.getHeight());
 //        if (hovered) {
 //            batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
 //            batch.setColor(0.3f, 0.3f, 0.3f, 1f);

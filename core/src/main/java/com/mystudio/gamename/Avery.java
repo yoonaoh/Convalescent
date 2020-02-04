@@ -12,6 +12,7 @@ public class Avery extends Sprite {
 
     private CollisionPoint point;
     private Sprite sprite;
+    Sprite blank;
 
     float scale;
 
@@ -22,6 +23,8 @@ public class Avery extends Sprite {
         point = new CollisionPoint();
         sprite = new Sprite(new Texture(Gdx.files.internal("Avery_Front.png")));
         sprite.flip(false, true);
+
+        blank = new Sprite(new Texture(Gdx.files.internal("close.png")));
 
         scale = (float) 0.9;
         sprite.setSize(250 * scale, 700 * scale);
@@ -61,7 +64,9 @@ public class Avery extends Sprite {
             point.moveTowards(x_update, y_update, 4f);
 
             for (Asset deadzone : assets) {
-                if (deadzone.isCollision(point.getX(), point.getY())) {
+                System.out.println("Point at: " + point.getX() + ", " + point.getY());
+                System.out.println("Collision at: " + (point.getX() - (sprite.getWidth()/2)) + ", " +  (point.getY() - 50));
+                if (deadzone.isCollision(point.getX() + (sprite.getWidth()/2), point.getY() + 50)) {
                     y_update = y_old;
                     x_update = x_old;
                     point.forceTo(x_old, y_old);
@@ -79,5 +84,7 @@ public class Avery extends Sprite {
 
     public void render(SpriteBatch batch) {
         batch.draw(sprite, point.getX(), point.getY(), 200, 600);
+        batch.draw(blank, point.getX(), point.getY(), 4, 4);
+        batch.draw(blank, point.getX() + (sprite.getWidth()/2), point.getY()+50, 10, 10);
     }
 }

@@ -22,6 +22,7 @@ public class Convalescent extends BasicGame {
 
     private ArrayList<Asset> assets = new ArrayList<Asset>();
     private Asset asset;
+    RobotGame robogame = new RobotGame();
 
 //    Music music_level1;
 //    Music music_level2;
@@ -46,7 +47,7 @@ public class Convalescent extends BasicGame {
 
         sprite = new Avery();
         inventory = new Inventory();
-        asset = new Asset("trash.png", 600, 500, 100, 100, new float[]{
+        asset = new Asset("trash.png", 675, 222, 100, 100, new float[]{
                 583, 772-475,
                 893, 772-475,
                 949, 772-575,
@@ -66,9 +67,13 @@ public class Convalescent extends BasicGame {
         camera.update();
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-
+//            System.out.println("Cursor at: " + Gdx.input.getX() + ", " + Gdx.input.getY());
             if (Gdx.input.getX() >= 1320 && Gdx.input.getY() >= 650) {
+                System.out.println("Inventory is open");
                 inventory.display();
+            } else if (Gdx.input.getX() >= 600 && Gdx.input.getX() <= 800 && Gdx.input.getY() >= 457 && Gdx.input.getY() <= 557) {
+                System.out.println("Game has started");
+                robogame.start();
             } else {
                 sprite.update(Gdx.input.getX(), Gdx.input.getY(), assets);
             }
@@ -99,7 +104,13 @@ public class Convalescent extends BasicGame {
 
         // Inventory
         inventory.render(batch);
+
+        // Games
+        robogame.render(batch, g);
+
         batch.end();
+
+
 
 
     }
