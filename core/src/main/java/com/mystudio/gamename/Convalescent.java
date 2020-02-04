@@ -106,7 +106,9 @@ public class Convalescent extends BasicGame {
         inventory.render(batch);
 
         // Games
-        robogame.render(batch, g);
+        if (robogame.hasStarted()) {
+            robogame.render(batch, g);
+        }
 
         batch.end();
 

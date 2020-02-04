@@ -28,4 +28,8 @@ public class RobotGame implements MiniGame {
     }
 
     public void start() {}
+
+    public boolean hasStarted() {
+        return false;
+    }
 }
