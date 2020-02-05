@@ -73,8 +73,8 @@ public class Avery extends Sprite {
                 }
             }
 
-//            scale = (float) (0.9 - ((772.0 - max(sprite.getY(), 630)) * 0.05 / 142.0));
-//            sprite.setSize(250 * scale, 700 * scale);
+//            scale = (float) (0.9 - ((772.0 - max(avery.getY(), 630)) * 0.05 / 142.0));
+//            avery.setSize(250 * scale, 700 * scale);
         }
     }
 

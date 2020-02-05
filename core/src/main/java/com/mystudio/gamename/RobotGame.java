@@ -3,7 +3,7 @@ package com.mystudio.gamename;
 import org.mini2Dx.core.graphics.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class RobotGame implements MiniGame {
+public class RobotGame extends MiniGame {
 
     public RobotGame() {}
 
