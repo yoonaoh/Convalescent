@@ -2,8 +2,12 @@ package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -26,11 +30,17 @@ public class Convalescent extends BasicGame {
     /**
      * Orthographic camera for perspective
      */
-    private OrthographicCamera camera;
+    private Camera camera;
+    FitViewport viewport;
+
     /**
      * SpriteBatch containing all the sprites
      */
+
+    private Stage stage;
+
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     /**
      * List of assets in the game
      */
@@ -62,10 +72,12 @@ public class Convalescent extends BasicGame {
     @Override
     public void initialise() {
         // Set screen size
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1400, 772);
-        camera.position.set(700, 386, 0);
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        camera = new OrthographicCamera();
+        camera.position.set(700, 386, 0);
+        viewport = new FitViewport(1280, 720, camera);
+        stage = new Stage(viewport, batch);
 
         //Load the avery from an image
         texture = new Room();
@@ -73,10 +85,10 @@ public class Convalescent extends BasicGame {
         avery = new Avery();
         inventory = new Inventory();
         asset = new Asset("trash.png", 675, 222, 100, 100, new float[]{
-                583, 772-475,
-                893, 772-475,
-                949, 772-575,
-                539, 772-575});
+                583, 772 - 475,
+                893, 772 - 475,
+                949, 772 - 575,
+                539, 772 - 575});
         assets.add(asset);
 
 //        music_level1 = Gdx.audio.newMusic(Gdx.files.internal("secure.mp3"));
@@ -95,12 +107,11 @@ public class Convalescent extends BasicGame {
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             int xCoord = Gdx.input.getX();
             int yCoord = Gdx.input.getY();
+//            System.out.println("Cursor: " + xCoord + ", " + yCoord);
 
             // User clicked on the inventory icon (near 1400, 772)
             if (1320 <= xCoord && 650 <= yCoord) {
-                if (inventory.isOpen()) {
-                    inventory.close();
-                } else {
+                if (!inventory.isOpen()) {
                     inventory.open();
                 }
             }
@@ -116,17 +127,15 @@ public class Convalescent extends BasicGame {
             // User clicked to start the mini game
             else if (600 <= xCoord && xCoord <= 800 && 457 <= yCoord && yCoord <= 557) {
                 System.out.println("Game has started");
-                robogame.start();
+                robogame.open();
             }
 
             // User clicked to move Avery
             else {
-                avery.update(xCoord, yCoord, assets);
+                avery.update(xCoord, yCoord, assets, texture.getFloorspace());
             }
         }
-
         avery.move(assets);
-
     }
 
     @Override
@@ -137,31 +146,39 @@ public class Convalescent extends BasicGame {
     @Override
     public void render(Graphics g) {
         batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
+
         batch.begin();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         // Background
         texture.render(batch);
 
-        // Assets
-        asset.render(batch, false);
+        //Assets
+        asset.render(batch);
 
         // Player Character
         avery.render(batch);
 
         // Inventory
-        inventory.render(batch);
+        inventory.render(batch, shapeRenderer);
 
         // Games
-        if (robogame.hasStarted()) {
+        if (robogame.isOpen()) {
             robogame.render(batch, g);
         }
 
+        shapeRenderer.end();
         batch.end();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
+    }
+
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
 }

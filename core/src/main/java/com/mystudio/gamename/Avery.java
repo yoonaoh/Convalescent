@@ -2,9 +2,11 @@ package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import org.mini2Dx.core.engine.geom.CollisionPoint;
-import org.mini2Dx.core.graphics.Sprite;
+import org.mini2Dx.core.geom.Polygon;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class Avery extends Sprite {
     private CollisionPoint point;
     private Sprite sprite;
     Sprite blank;
+    private Actor actor;
 
     float scale;
 
@@ -22,25 +25,29 @@ public class Avery extends Sprite {
     public Avery() {
         point = new CollisionPoint();
         sprite = new Sprite(new Texture(Gdx.files.internal("Avery_Front.png")));
-        sprite.flip(false, true);
+//        sprite.flip(false, true);
+        actor = new Actor();
 
         blank = new Sprite(new Texture(Gdx.files.internal("close.png")));
 
         scale = (float) 0.9;
-        sprite.setSize(250 * scale, 700 * scale);
+        sprite.setSize(200, 600);
 
         y_update = 0;
         x_update = 0;
         sprite.setPosition(x_update, y_update);
     }
 
-    public void update(int x, int y, ArrayList<Asset> assets) {
+    public void update(int x, int y, ArrayList<Asset> assets, Polygon floorspace) {
         point.preUpdate();
         float x_old = x_update;
         float y_old = y_update;
         y_update = 772 - y - 50;
-        x_update = x - (sprite.getWidth()/2);
-
+        x_update = x - (sprite.getWidth() / 2);
+        if (!floorspace.contains(x_update,y_update)) {
+            y_update = y_old;
+            x_update = x_old;
+        }
         for (Asset deadzone : assets) {
             if (deadzone.isCollision(x_update, y_update)) {
                 y_update = y_old;
@@ -64,17 +71,19 @@ public class Avery extends Sprite {
             point.moveTowards(x_update, y_update, 4f);
 
             for (Asset deadzone : assets) {
-                System.out.println("Point at: " + point.getX() + ", " + point.getY());
-                System.out.println("Collision at: " + (point.getX() - (sprite.getWidth()/2)) + ", " +  (point.getY() - 50));
-                if (deadzone.isCollision(point.getX() + (sprite.getWidth()/2), point.getY() + 50)) {
+                if (sprite.isFlipX() && deadzone.isCollision(point.getX() + (140 * sprite.getScaleX()), point.getY() + 50)) {
+                    y_update = y_old;
+                    x_update = x_old;
+                    point.forceTo(x_old, y_old);
+                } else if ((!sprite.isFlipX()) && deadzone.isCollision(point.getX() + (60 * sprite.getScaleX()), point.getY() + 50)) {
                     y_update = y_old;
                     x_update = x_old;
                     point.forceTo(x_old, y_old);
                 }
             }
 
-//            scale = (float) (0.9 - ((772.0 - max(avery.getY(), 630)) * 0.05 / 142.0));
-//            avery.setSize(250 * scale, 700 * scale);
+            sprite.scale((float) -(0.3 * point.getY() / 352) + (1 - sprite.getScaleX()));
+
         }
     }
 
@@ -83,8 +92,10 @@ public class Avery extends Sprite {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, point.getX(), point.getY(), 200, 600);
-        batch.draw(blank, point.getX(), point.getY(), 4, 4);
-        batch.draw(blank, point.getX() + (sprite.getWidth()/2), point.getY()+50, 10, 10);
+        batch.draw(sprite, point.getX(), point.getY(),
+                sprite.getWidth() * sprite.getScaleX(),
+                sprite.getHeight() * sprite.getScaleY());
+
+        batch.draw(blank, point.getX() + (140 * sprite.getScaleX()), point.getY() + 50, 10, 10);
     }
 }

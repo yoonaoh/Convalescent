@@ -1,8 +1,10 @@
 package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.mini2Dx.core.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -16,15 +18,16 @@ public class Inventory extends Sprite {
      * Sprite that represents the inventory
      */
     Sprite sprite;
+
     /**
      * Collection of items that are in the inventory
      */
     ArrayList<Asset> items;
+
     /**
      * Boolean to determine whether the inventory is open
      */
     private boolean isOpen;
-
 
     /**
      * Constructs the inventory (should only be called once in the game?)
@@ -73,7 +76,6 @@ public class Inventory extends Sprite {
         return items;
     }
 
-
     //////////////////------ Opening and closing methods------///////////////////////////////
 
     /**
@@ -98,11 +100,10 @@ public class Inventory extends Sprite {
         return isOpen;
     }
 
-
     /**
-     *TODO: what does this do
-     * @param x
-     * @param y
+     * Update the position of the object
+     * @param x the x-value of the cursor
+     * @param y the y-value of the cursor
      */
     public void update(int x, int y) {
         if (x >= 1130 && x <= 1180 && y >= 110 && y <= 160) {
@@ -112,10 +113,18 @@ public class Inventory extends Sprite {
 
     /**
      * Renders the sprite for the inventory
-     * @param batch - SpriteBatch
+     * @param batch - SpriteBatch to display sprites.
+     * @param shapeRenderer - ShapeRenderer to display shapes
      */
-    public void render(SpriteBatch batch) {
-        batch.draw(sprite, 1250, 0, 200, 200);
+    public void render(SpriteBatch batch, ShapeRenderer shapeRenderer) {
+        if (isOpen()) {
+            shapeRenderer.rect(1250, 0, 200, 772, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
+//            for (int i = 0; i < items.size(); i++) {
+//
+//            }
+        } else {
+            batch.draw(sprite, 1250, -20, 200, 200);
+        }
 
     }
 }

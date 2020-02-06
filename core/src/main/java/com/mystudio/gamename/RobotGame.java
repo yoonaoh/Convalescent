@@ -26,10 +26,4 @@ public class RobotGame extends MiniGame {
     public void dispose() {
 
     }
-
-    public void start() {}
-
-    public boolean hasStarted() {
-        return false;
-    }
 }

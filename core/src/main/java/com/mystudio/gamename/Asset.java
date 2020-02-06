@@ -4,10 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.mini2Dx.core.engine.geom.CollisionPoint;
-import org.mini2Dx.core.graphics.Sprite;
 import org.mini2Dx.core.geom.Polygon;
-
-import java.awt.*;
+import org.mini2Dx.core.graphics.Sprite;
 
 /**
  * An interactable item within the game
@@ -38,14 +36,16 @@ public class Asset extends Sprite {
      * Texture region that defines the asset
      */
     TextureRegion tex;
+    Boolean hovered = false;
 
 
     /**
      * Constructs an asset
-     * @param image - String path of image file that represents the asset
-     * @param x - x position of the asset
-     * @param y - y position of the asset
-     * @param width - width of the asset
+     *
+     * @param image  - String path of image file that represents the asset
+     * @param x      - x position of the asset
+     * @param y      - y position of the asset
+     * @param width  - width of the asset
      * @param height - height of the asset
      * @param points - array of floats that make up the polygon region of the asset
      */
@@ -67,6 +67,7 @@ public class Asset extends Sprite {
 
     /**
      * Gets the position of the asset
+     *
      * @return CollisionPoint representing the asset's position
      */
     public CollisionPoint getPosition() {
@@ -83,6 +84,7 @@ public class Asset extends Sprite {
 
     /**
      * Determines if the asset is currently in the inventory
+     *
      * @return boolean of whether asset is currently in the inventor
      */
     public boolean isInventoried() {
@@ -98,11 +100,11 @@ public class Asset extends Sprite {
 
     /**
      * Renders the asset by drawing the asset's avery
+     *
      * @param batch - SpriteBatch that contains the asset's avery
-     * @param hovered - boolean that determines whether the asset was hovered over
      */
-    public void render(SpriteBatch batch, Boolean hovered) {
-        //Use the point's render coordinates to draw the avery
+    public void render(SpriteBatch batch) {
+        //Use the point's render coordinates to draw the sprite
 
         batch.draw(sprite, point.getX(), point.getY(), sprite.getWidth(), sprite.getHeight());
 //        if (hovered) {
@@ -118,7 +120,8 @@ public class Asset extends Sprite {
     /**
      * TODO: What does this function do? and why do we need it?
      * Makes the asset travel horizontally?
-     * @param difference
+     *
+     * @param difference the difference to move the asset by.
      */
     public void travel(float difference) {
         point.forceTo(point.getX() + difference, point.getY());
@@ -126,6 +129,7 @@ public class Asset extends Sprite {
 
     /**
      * Determines if the resulting movement produces a collision with the asset
+     *
      * @param x - x coordinate of the movement
      * @param y - y coordinate of the movement
      * @return boolean determining whether the movement produces a collision
