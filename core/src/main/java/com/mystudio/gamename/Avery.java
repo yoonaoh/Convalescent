@@ -60,7 +60,6 @@ public class Avery extends Sprite {
         } else if (point.getX() > x && sprite.isFlipX()) {
             sprite.flip(true, false);
         }
-
     }
 
     public void move(ArrayList<Asset> assets) {

@@ -52,7 +52,7 @@ public class Convalescent extends BasicGame {
     /**
      * Windup toy mini game
      */
-    RobotGame robogame = new RobotGame();
+    RobotGame robogame;
     /**
      * Texture that represents the room??
      */
@@ -75,7 +75,7 @@ public class Convalescent extends BasicGame {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();
-        camera.position.set(700, 386, 0);
+        camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         stage = new Stage(viewport, batch);
 
@@ -90,6 +90,7 @@ public class Convalescent extends BasicGame {
                 949, 772 - 575,
                 539, 772 - 575});
         assets.add(asset);
+        robogame = new RobotGame();
 
 //        music_level1 = Gdx.audio.newMusic(Gdx.files.internal("secure.mp3"));
 //        music_level1.setLooping(true);
@@ -102,6 +103,7 @@ public class Convalescent extends BasicGame {
     @Override
     public void update(float delta) {
         camera.update();
+        robogame.update(delta);
 
         // User used a left mouse click
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
@@ -175,6 +177,7 @@ public class Convalescent extends BasicGame {
     @Override
     public void dispose() {
         batch.dispose();
+//        shapeRenderer.dispose();
     }
 
     public void resize(int width, int height) {
