@@ -17,7 +17,7 @@ import org.mini2Dx.core.graphics.Sprite;
 /**
  * An interactable item within the game
  */
-public class Asset{
+public abstract class Asset{
 
     /**
      * Position of the asset
@@ -26,7 +26,7 @@ public class Asset{
     /**
      * Why do we need a separate avery here
      */
-    Sprite sprite;
+    public Sprite sprite;
     /**
      * Boolean to determine if the asset is in the inventory
      */
@@ -58,7 +58,6 @@ public class Asset{
      * @param y      - y position of the asset
      * @param width  - width of the asset
      * @param height - height of the asset
-     * @param points - array of floats that make up the polygon region of the asset
      */
     public Asset(String image, float x, float y, int width, int height, CollisionShape collisionShape, int offset) {
         this.collisionShape = collisionShape == null ? new CollisionBox(x, y, width, height) : collisionShape;
@@ -79,11 +78,11 @@ public class Asset{
         updateCollisionShape();
     }
 
-    /**
-     * Gets the position of the asset
-     *
-     * @return CollisionPoint representing the asset's position
-     */
+//    /**
+//     * Gets the position of the asset
+//     *
+//     * @return CollisionPoint representing the asset's position
+//     */
 //    public CollisionPoint getPosition() {
 //        return point;
 //    }

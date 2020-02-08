@@ -47,7 +47,6 @@ public class Inventory extends Sprite {
      * @param item - Asset within the inventory
      */
     public void use(Asset item) {
-        item.interact();
         removeItem(item);
     }
 

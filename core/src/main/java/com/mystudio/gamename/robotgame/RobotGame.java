@@ -90,10 +90,10 @@ public class RobotGame extends MiniGame  {
     }
 
     @Override
-    public void render(SpriteBatch batch, Graphics g, ShapeRenderer shapeRenderer) {
+    public void render(SpriteBatch batch, Graphics g) {
         batch.draw(background, 0, 0, 1280, 720);
         for (DraggableCircle x: renders) {
-            x.render(batch, shapeRenderer);
+            x.render(batch);
         }
     }
 

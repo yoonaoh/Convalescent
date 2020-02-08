@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mystudio.gamename.robotgame.RobotGame;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -45,10 +46,11 @@ public class Convalescent extends BasicGame {
      * List of assets in the game
      */
     private ArrayList<Asset> assets = new ArrayList<Asset>();
-    /**
-     * Current asset - stack of books
-     */
-    private Asset asset;
+
+//    /**
+//     * Current asset - stack of books
+//     */
+//    private Asset asset;
     /**
      * Windup toy mini game
      */
@@ -84,12 +86,12 @@ public class Convalescent extends BasicGame {
 //        titleScreen = new Texture("Title.jpeg");
         avery = new Avery();
         inventory = new Inventory();
-        asset = new Asset("trash.png", 675, 222, 100, 100, new float[]{
-                583, 772 - 475,
-                893, 772 - 475,
-                949, 772 - 575,
-                539, 772 - 575});
-        assets.add(asset);
+//        asset = new Asset("trash.png", 675, 222, 100, 100, new float[]{
+//                583, 772 - 475,
+//                893, 772 - 475,
+//                949, 772 - 575,
+//                539, 772 - 575});
+//        assets.add(asset);
         robogame = new RobotGame();
 
 //        music_level1 = Gdx.audio.newMusic(Gdx.files.internal("secure.mp3"));
@@ -122,8 +124,8 @@ public class Convalescent extends BasicGame {
             // asset.getPosition().x - 100 <= xCoord && xCoord <= asset.getPosition().x + 100
             else if (625 <= xCoord && xCoord <= 725 && 457 <= yCoord && yCoord <= 557) {
                 System.out.println("Books have been clicked on");
-                inventory.addItem(asset);
-                asset.markInInventory();
+//                inventory.addItem(asset);
+//                asset.markInInventory();
             }
 
             // User clicked to start the mini game
@@ -157,7 +159,7 @@ public class Convalescent extends BasicGame {
         texture.render(batch);
 
         //Assets
-        asset.render(batch);
+//        asset.render(batch);
 
         // Player Character
         avery.render(batch);
