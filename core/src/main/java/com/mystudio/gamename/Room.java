@@ -12,7 +12,6 @@ public class Room {
 
 
     public Room() {
-
         this.texture = new Texture("Room_perspective_practice.png");
         this.width = 1400;
         this.height = 772;

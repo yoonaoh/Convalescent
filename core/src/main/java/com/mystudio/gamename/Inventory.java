@@ -29,7 +29,7 @@ public class Inventory extends Sprite {
 
     public void add(Asset asset) {
         objects.add(asset);
-        asset.inventory();
+//        asset.inventory();
     }
 
     public void delete(Asset asset) {
