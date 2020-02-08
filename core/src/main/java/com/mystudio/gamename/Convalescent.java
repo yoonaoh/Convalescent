@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mystudio.gamename.robotgame.RobotGame;
+import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
+import com.mystudio.gamename.items.Item;
+import com.mystudio.gamename.views.Room;
+import com.mystudio.gamename.views.View;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -32,44 +35,44 @@ public class Convalescent extends BasicGame {
      * Orthographic camera for perspective
      */
     private Camera camera;
-    FitViewport viewport;
-
+    /**
+     * Viewport for the game window
+     */
+    private FitViewport viewport;
+    /**
+     * Stage for the game
+     */
+    private Stage stage;
     /**
      * SpriteBatch containing all the sprites
      */
-
-    private Stage stage;
-
     private SpriteBatch batch;
+    /**
+     * ShapeRenderer
+     */
     private ShapeRenderer shapeRenderer;
     /**
-     * List of assets in the game
+     * List of items in the game
      */
-    private ArrayList<Asset> assets = new ArrayList<Asset>();
-
-//    /**
-//     * Current asset - stack of books
-//     */
-//    private Asset asset;
+    private ArrayList<Item> items = new ArrayList<Item>();
     /**
-     * Windup toy mini game
+     * Gear puzzle toy mini game
      */
-    RobotGame robogame;
+    private GearPuzzleGame gearPuzzleGame;
     /**
-     * Texture that represents the room??
+     * Current view, only one at a time
      */
-    private Room texture;
+    private View view;
+    private Room room;
     /**
      * Avery sprite
      */
-    Avery avery;
+    private Avery avery;
     /**
      * Game inventory
      */
-    Inventory inventory;
+    private Inventory inventory;
 
-    //    Music music_level1;
-    //    Music music_level2;
 
     @Override
     public void initialise() {
@@ -81,37 +84,21 @@ public class Convalescent extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         stage = new Stage(viewport, batch);
 
-        //Load the avery from an image
-        texture = new Room();
-//        titleScreen = new Texture("Title.jpeg");
+        room = new Room();
         avery = new Avery();
         inventory = new Inventory();
-//        asset = new Asset("trash.png", 675, 222, 100, 100, new float[]{
-//                583, 772 - 475,
-//                893, 772 - 475,
-//                949, 772 - 575,
-//                539, 772 - 575});
-//        assets.add(asset);
-        robogame = new RobotGame();
-
-//        music_level1 = Gdx.audio.newMusic(Gdx.files.internal("secure.mp3"));
-//        music_level1.setLooping(true);
-//        music_level1.play();
-//        music_level2 = Gdx.audio.newMusic(Gdx.files.internal("Disturbed.mp3"));
-//        music_level2.setLooping(true);
-
+        gearPuzzleGame = new GearPuzzleGame();
     }
 
     @Override
     public void update(float delta) {
         camera.update();
-        robogame.update(delta);
+        gearPuzzleGame.update(delta);
 
         // User used a left mouse click
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             int xCoord = Gdx.input.getX();
             int yCoord = Gdx.input.getY();
-//            System.out.println("Cursor: " + xCoord + ", " + yCoord);
 
             // User clicked on the inventory icon (near 1400, 772)
             if (1320 <= xCoord && 650 <= yCoord) {
@@ -120,26 +107,18 @@ public class Convalescent extends BasicGame {
                 }
             }
 
-            // User clicked on the stack of books at (675, 222)
-            // asset.getPosition().x - 100 <= xCoord && xCoord <= asset.getPosition().x + 100
-            else if (625 <= xCoord && xCoord <= 725 && 457 <= yCoord && yCoord <= 557) {
-                System.out.println("Books have been clicked on");
-//                inventory.addItem(asset);
-//                asset.markInInventory();
-            }
-
             // User clicked to start the mini game
             else if (600 <= xCoord && xCoord <= 800 && 457 <= yCoord && yCoord <= 557) {
                 System.out.println("Game has started");
-                robogame.open();
+                gearPuzzleGame.start();
             }
 
             // User clicked to move Avery
             else {
-                avery.update(xCoord, yCoord, assets, texture.getFloorspace());
+                avery.update(xCoord, yCoord, items, room.getFloorspace());
             }
         }
-        avery.move(assets);
+        avery.move(items);
     }
 
     @Override
@@ -156,10 +135,12 @@ public class Convalescent extends BasicGame {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         // Background
-        texture.render(batch);
+        room.render(batch);
 
-        //Assets
-//        asset.render(batch);
+        // Items
+        for (Item item: items) {
+            item.render(batch);
+        }
 
         // Player Character
         avery.render(batch);
@@ -168,8 +149,8 @@ public class Convalescent extends BasicGame {
         inventory.render(batch, shapeRenderer);
 
         // Games
-        if (robogame.isOpen()) {
-            robogame.render(batch, g);
+        if (gearPuzzleGame.hasStarted()) {
+            gearPuzzleGame.render(batch, g);
         }
 
         shapeRenderer.end();
@@ -179,9 +160,13 @@ public class Convalescent extends BasicGame {
     @Override
     public void dispose() {
         batch.dispose();
-//        shapeRenderer.dispose();
     }
 
+    /**
+     * Resizes the viewport to the given width and height
+     * @param width - desired width
+     * @param height - desired height
+     */
     public void resize(int width, int height) {
         viewport.update(width, height);
     }

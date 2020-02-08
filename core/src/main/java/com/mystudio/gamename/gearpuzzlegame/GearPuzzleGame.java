@@ -1,15 +1,14 @@
-package com.mystudio.gamename.robotgame;
+package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mystudio.gamename.MiniGame;
 import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class RobotGame extends MiniGame  {
+public class GearPuzzleGame extends MiniGame  {
 
     private Texture background;
     private Gear gear1, gear2, gear3, gear4, gear5, gear6, gear7;
@@ -25,7 +24,7 @@ public class RobotGame extends MiniGame  {
     private ArrayList<Gear> gearsReversed = new ArrayList<Gear>();
 
 
-    public RobotGame() {
+    public GearPuzzleGame() {
         background = new Texture("robotgame_btemp.png");
         setUp();
     }

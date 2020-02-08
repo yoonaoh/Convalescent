@@ -1,13 +1,12 @@
-package com.mystudio.gamename.robotgame;
+package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mystudio.gamename.Asset;
+import com.mystudio.gamename.items.Item;
 import org.mini2Dx.core.engine.geom.CollisionCircle;
-import org.mini2Dx.core.engine.geom.CollisionShape;
 
 import java.util.ArrayList;
 
-public class DraggableCircle extends Asset {
+public class DraggableCircle extends Item {
 
     int radius;
     boolean fixed;

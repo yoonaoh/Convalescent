@@ -1,0 +1,48 @@
+package com.mystudio.gamename.items;
+
+import org.mini2Dx.core.engine.geom.CollisionShape;
+
+/**
+ * Items that can be picked up and placed into the inventory
+ */
+public class InventoryItem extends Item {
+
+  /**
+   * Boolean to determine if the asset is in the inventory
+   */
+  protected boolean inInventory;
+
+  /**
+   * Constructs an inventory item
+   * @param image  - String path of image file that represents the item
+   * @param x      - x position of the item
+   * @param y      - y position of the item
+   * @param width  - width of the item
+   * @param height - height of the item
+   * @param collisionShape - collisionShape of item
+   * @param offset - offset of item
+   */
+  public InventoryItem(String image, float x, float y, int width, int height,
+                       CollisionShape collisionShape, int offset) {
+    super(image, x, y, width, height, collisionShape, offset);
+  }
+
+  @Override
+  public void updateCollisionShape() {
+  }
+
+  /**
+   * Marks that the asset (item) has been put in the inventory
+   */
+  public void markInInventory() {
+      inInventory = true;
+  }
+
+  /**
+   * Determines if the asset is currently in the inventory
+   * @return boolean of whether asset is currently in the inventor
+   */
+  public boolean isInventoried() {
+      return inInventory;
+  }
+}

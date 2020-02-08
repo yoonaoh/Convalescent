@@ -1,4 +1,4 @@
-package com.mystudio.gamename.robotgame;
+package com.mystudio.gamename.gearpuzzlegame;
 
 public class Mount extends DraggableCircle {
 

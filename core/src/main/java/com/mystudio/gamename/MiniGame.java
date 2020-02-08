@@ -1,53 +1,54 @@
 package com.mystudio.gamename;
 
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.mini2Dx.core.graphics.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Abstract class for all MiniGames
+ */
 public abstract class MiniGame {
-
-    private boolean open = false;
-    private boolean ended = false;
-
     /**
-     * Used as a response to a mouse click.
+     * Boolean to determine whether MiniGame has started
      */
-    protected abstract void update(float delta); // (x,y) is where cursor click occurs
+    private boolean started = false;
 
-    /**
-     * Used for things that need to be updated with time.
-     */
-    protected abstract void interpolate(float alpha);
-
-    /**
-     * Used to actually do the drawing on screen.
-     */
-    protected abstract void render(SpriteBatch batch, Graphics g); // Use either but not both! Preferably use batch.
-
-    /**
-     * Used to dispose objects used to reduce time.
-     */
-    protected abstract void dispose();
 
     /**
      * Opens the game in current state
      */
-    public void open() {
-        open = true;
+    public void start() {
+        started = true;
     }
 
     /**
      * Closes the game if incomplete
      */
-    public void close() {
-        open = false;
+    public void end() {
+        started = false;
     }
 
     /**
-     * Checks if game is open
+     * Checks if game is started
      */
-    public boolean isOpen() {
-        return open;
+    public boolean hasStarted() {
+        return started;
     }
+
+
+    /**
+     * Used as a response to a mouse click.
+     */
+    protected abstract void update(float delta); // (x,y) is where cursor click occurs
+    /**
+     * Used for things that need to be updated with time.
+     */
+    protected abstract void interpolate(float alpha);
+    /**
+     * Used to actually do the drawing on screen.
+     */
+    protected abstract void render(SpriteBatch batch, Graphics g); // Use either but not both! Preferably use batch.
+    /**
+     * Used to dispose objects used to reduce time.
+     */
+    protected abstract void dispose();
 }

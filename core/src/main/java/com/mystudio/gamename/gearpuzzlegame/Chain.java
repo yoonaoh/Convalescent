@@ -1,4 +1,4 @@
-package com.mystudio.gamename.robotgame;
+package com.mystudio.gamename.gearpuzzlegame;
 
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionCircle;

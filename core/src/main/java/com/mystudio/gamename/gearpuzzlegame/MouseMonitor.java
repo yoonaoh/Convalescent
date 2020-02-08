@@ -1,4 +1,4 @@
-package com.mystudio.gamename.robotgame;
+package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

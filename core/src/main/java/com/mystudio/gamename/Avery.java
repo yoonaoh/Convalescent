@@ -5,12 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mystudio.gamename.items.Item;
 import org.mini2Dx.core.engine.geom.CollisionPoint;
 import org.mini2Dx.core.geom.Polygon;
 
 import java.util.ArrayList;
 
-public class Avery extends Sprite {
+public class Avery {
 
     private CollisionPoint point;
     private Sprite sprite;
@@ -38,7 +39,7 @@ public class Avery extends Sprite {
         sprite.setPosition(x_update, y_update);
     }
 
-    public void update(int x, int y, ArrayList<Asset> assets, Polygon floorspace) {
+    public void update(int x, int y, ArrayList<Item> items, Polygon floorspace) {
         point.preUpdate();
         float x_old = x_update;
         float y_old = y_update;
@@ -48,7 +49,7 @@ public class Avery extends Sprite {
             y_update = y_old;
             x_update = x_old;
         }
-        for (Asset deadzone : assets) {
+        for (Item deadzone : items) {
             if (deadzone.isCollision(x_update, y_update)) {
                 y_update = y_old;
                 x_update = x_old;
@@ -62,14 +63,14 @@ public class Avery extends Sprite {
         }
     }
 
-    public void move(ArrayList<Asset> assets) {
+    public void move(ArrayList<Item> items) {
         if ((point.getX() < x_update - 2 || point.getX() > x_update + 2) && (point.getY() < y_update - 2 || point.getY() > y_update + 2)) {
             float x_old = point.getX();
             float y_old = point.getY();
 
             point.moveTowards(x_update, y_update, 4f);
 
-            for (Asset deadzone : assets) {
+            for (Item deadzone : items) {
                 if (sprite.isFlipX() && deadzone.isCollision(point.getX() + (140 * sprite.getScaleX()), point.getY() + 50)) {
                     y_update = y_old;
                     x_update = x_old;

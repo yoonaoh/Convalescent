@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mystudio.gamename.items.InventoryItem;
+import com.mystudio.gamename.items.Item;
 import org.mini2Dx.core.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -12,22 +14,23 @@ import java.util.ArrayList;
 /**
  * Contains items used in puzzles
  */
-public class Inventory extends Sprite {
+public class Inventory {
 
     /**
      * Sprite that represents the inventory
      */
-    Sprite sprite;
+    private Sprite sprite;
 
     /**
      * Collection of items that are in the inventory
      */
-    ArrayList<Asset> items;
+    private ArrayList<Item> items;
 
     /**
-     * Boolean to determine whether the inventory is open
+     * Boolean to determine whether the inventory is start
      */
     private boolean isOpen;
+
 
     /**
      * Constructs the inventory (should only be called once in the game?)
@@ -36,34 +39,33 @@ public class Inventory extends Sprite {
         sprite = new Sprite(new Texture(Gdx.files.internal("baggo.png")));
         sprite.setSize(100, 100);
         sprite.flip(false, true);
-        items = new ArrayList<Asset>();
+        items = new ArrayList<Item>();
         isOpen = false;
     }
 
-    //////////////////------Item-related methods------///////////////////////////////////
 
     /**
      * Use the given item
-     * @param item - Asset within the inventory
+     * @param item - Item within the inventory
      */
-    public void use(Asset item) {
+    public void use(Item item) {
         removeItem(item);
     }
 
     /**
      * Add the given item into the inventory
-     * @param item - Asset to put into the inventory
+     * @param item - Item to put into the inventory
      */
-    public void addItem(Asset item) {
+    public void addItem(InventoryItem item) {
         items.add(item);
         item.markInInventory();
     }
 
     /**
      * Remove the given item from the inventory
-     * @param item - Asset to remove from the inventory
+     * @param item - Item to remove from the inventory
      */
-    public void removeItem(Asset item) {
+    public void removeItem(Item item) {
         items.remove(item);
     }
 
@@ -71,14 +73,13 @@ public class Inventory extends Sprite {
      * Returns the items currently in the inventory
      * @return ArrayList of items (assets)
      */
-    public ArrayList<Asset> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    //////////////////------ Opening and closing methods------///////////////////////////////
 
     /**
-     * Sets the inventory as open
+     * Sets the inventory as start
      */
     public void open() {
         isOpen = true;
@@ -92,12 +93,13 @@ public class Inventory extends Sprite {
     }
 
     /**
-     * Determines whether the inventory is open
-     * @return boolean of whether inventory is open
+     * Determines whether the inventory is start
+     * @return boolean of whether inventory is start
      */
     public boolean isOpen() {
         return isOpen;
     }
+
 
     /**
      * Update the position of the object
@@ -106,7 +108,7 @@ public class Inventory extends Sprite {
      */
     public void update(int x, int y) {
         if (x >= 1130 && x <= 1180 && y >= 110 && y <= 160) {
-            isOpen = false;
+            close();
         }
     }
 
@@ -118,9 +120,6 @@ public class Inventory extends Sprite {
     public void render(SpriteBatch batch, ShapeRenderer shapeRenderer) {
         if (isOpen()) {
             shapeRenderer.rect(1250, 0, 200, 772, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
-//            for (int i = 0; i < items.size(); i++) {
-//
-//            }
         } else {
             batch.draw(sprite, 1250, -20, 200, 200);
         }
