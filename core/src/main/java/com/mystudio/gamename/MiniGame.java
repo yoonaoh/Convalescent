@@ -12,6 +12,8 @@ public abstract class MiniGame {
      */
     private boolean started = false;
 
+    public boolean success = false;
+
 
     /**
      * Opens the game in current state

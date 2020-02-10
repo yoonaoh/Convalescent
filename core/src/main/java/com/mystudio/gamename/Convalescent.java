@@ -267,6 +267,10 @@ public class Convalescent extends BasicGame {
             // Games
             if (gearPuzzleGame.hasStarted()) {
                 gearPuzzleGame.render(batch);
+                if (gearPuzzleGame.success) {
+                    font.setColor(Color.WHITE);
+                    font.draw(batch, "GOOD JOB!", 500, 400);
+                }
             }
 
         }

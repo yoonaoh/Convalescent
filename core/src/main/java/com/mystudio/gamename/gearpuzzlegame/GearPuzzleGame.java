@@ -29,7 +29,7 @@ public class GearPuzzleGame extends MiniGame  {
 
 //    private DraggableItem test;
 
-    int gameOverPause = 180;
+    int gameOverPause = 120;
 
     public GearPuzzleGame() {
         background = new Texture("robotgame_btemp.png");
@@ -84,19 +84,19 @@ public class GearPuzzleGame extends MiniGame  {
 
     @Override
     public void update(final float delta) {
-//        if (corGear1.velocity > 0 && corGear2.velocity > 0) {
-//            gameOverPause -= 1;
-//            if (gameOverPause <= 0) {
-//                // End game here
-//                this.end();
-//            }
-//        }
+        if (corGear1.velocity > 0 && corGear2.velocity > 0) {
+            gameOverPause -= 1;
+            if (gameOverPause <= 0) {
+                // End game here
+                this.success = true;
+            }
+        }
         if (mouse.leftKeyDown() && cross.collideWith(mouse.pos())) {
             this.end();
         }
         if (hasStarted()) {
             Collections.reverse(interactables);
-            if (gameOverPause == 180) {
+            if (gameOverPause == 120) {
                 mouse.update();
                 mouse.updateInteractables(interactables);
             }
