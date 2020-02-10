@@ -116,7 +116,7 @@ public class Chain extends DraggableCircle {
     }
 
     private void setWorking() {
-        setImage("chain4.png");
+        setImage("chainsla.png");
         sprite.setOrigin(0, gap);
 
         int r = (int) Math.sqrt(Math.pow(host1.getPos().x - host2.getPos().x, 2) + Math.pow(host1.getPos().y - host2.getPos().y, 2));
