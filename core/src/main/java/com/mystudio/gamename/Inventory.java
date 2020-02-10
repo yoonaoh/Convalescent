@@ -107,7 +107,7 @@ public class Inventory {
      * @param y the y-value of the cursor
      */
     public void update(int x, int y) {
-        if (x >= 1130 && x <= 1180 && y >= 110 && y <= 160) {
+        if (x <= 1080) {
             close();
         }
     }
@@ -119,9 +119,15 @@ public class Inventory {
      */
     public void render(SpriteBatch batch, ShapeRenderer shapeRenderer) {
         if (isOpen()) {
-            shapeRenderer.rect(1250, 0, 200, 772, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
+          //shapeRenderer.setColor(Color.BROWN);
+          //shapeRenderer.rect(1080, 0, 200, 720, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
+          int offset = 620;
+            for (Item item: items) {
+              batch.draw(item.sprite, 1080, 600, 100, 100);
+              offset -= 20;
+            }
         } else {
-            batch.draw(sprite, 1250, -20, 200, 200);
+            batch.draw(sprite, 1080, 0, 200, 200);
         }
 
     }

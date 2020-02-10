@@ -11,14 +11,14 @@ import org.mini2Dx.core.geom.Polygon;
 public class Attic extends Room {
 
   public Attic() {
-    this.texture = new Texture("attic3.png");
+    this.texture = new Texture("dark_attic.png");
     this.floorspace = new Polygon(new float[]{
         0,0,
         0,192,
-        410,352,
-        1120,352,
-        1400,192,
-        1400,0
+        94,10,
+        616, 274,
+        1260, 277,
+        1080, 200,
     });
   }
 

@@ -9,12 +9,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
+import com.mystudio.gamename.items.InventoryItem;
 import com.mystudio.gamename.items.Item;
+import com.mystudio.gamename.items.TriggerItem;
+import com.mystudio.gamename.views.Attic;
+import com.mystudio.gamename.views.LightAttic;
 import com.mystudio.gamename.views.Room;
 import com.mystudio.gamename.views.View;
+import org.mini2Dx.core.engine.geom.CollisionCircle;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -68,6 +74,8 @@ public class Convalescent extends BasicGame {
      * Avery sprite
      */
     private Avery avery;
+    private TriggerItem windupToy;
+    private InventoryItem gears;
     /**
      * Game inventory
      */
@@ -76,17 +84,25 @@ public class Convalescent extends BasicGame {
 
     @Override
     public void initialise() {
-        // Set screen size
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
+
+        // Set screen size
         camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         stage = new Stage(viewport, batch);
 
-        room = new Room();
+        // Set up the assets
+        room = new Attic();
         avery = new Avery();
         inventory = new Inventory();
+        windupToy = new TriggerItem("windup_toy.png", 650, 250, 50, 50,
+            new CollisionCircle(50), 0);
+        gears = new InventoryItem("gearstack.png", 800, 200, 50, 50,
+            new CollisionCircle(50), 0);
+        items.add(windupToy);
+        items.add(gears);
         gearPuzzleGame = new GearPuzzleGame();
     }
 
@@ -98,26 +114,44 @@ public class Convalescent extends BasicGame {
         // User used a left mouse click
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             int xCoord = Gdx.input.getX();
-            int yCoord = Gdx.input.getY();
+            int yCoord = 720 - Gdx.input.getY(); // because the origin is bottom not top left
 
-            // User clicked on the inventory icon (near 1400, 772)
-            if (1320 <= xCoord && 650 <= yCoord) {
+            System.out.println("Point: " + xCoord + "," + yCoord);
+
+            // User clicked on the inventory icon (near 1280, 720)
+            if (1080 <= xCoord && yCoord <= 200) {
                 if (!inventory.isOpen()) {
                     inventory.open();
                 }
             }
 
-            // User clicked to start the mini game
-            else if (600 <= xCoord && xCoord <= 800 && 457 <= yCoord && yCoord <= 557) {
+            // User clicked on the blinds
+            else if (800 <= xCoord && xCoord <= 1000 && 350 <= yCoord && yCoord <= 550) {
+                room = new LightAttic();
+            }
+
+            // User clicked on the gear stack (800, 200)
+            else if (750 <= xCoord && xCoord <= 850 && 150 <= yCoord && yCoord <= 250) {
+                inventory.addItem(gears);
+                gears.markInInventory();
+                items.remove(gears);
+            }
+
+            // User clicked to start the mini game (650, 250)
+            else if (650 <= xCoord && xCoord <= 700 && 250 <= yCoord && yCoord <= 300) {
                 System.out.println("Game has started");
                 gearPuzzleGame.start();
             }
 
             // User clicked to move Avery
             else {
+                int yCoordNew = Gdx.input.getY(); // what we had before to make Avery move on floorspace
                 avery.update(xCoord, yCoord, items, room.getFloorspace());
             }
+
+            inventory.update(xCoord, yCoord);
         }
+
         avery.move(items);
     }
 
@@ -132,7 +166,19 @@ public class Convalescent extends BasicGame {
         shapeRenderer.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+        // Outlining the floorspace of the attic
+//        shapeRenderer.polygon(new float[] {
+//            88,8,
+//            616,274,
+//            1247,271,
+//            1270,247,
+//            1280,201,
+//            1079,199,
+//            1079,0,
+//            104,4
+//        });
 
         // Background
         room.render(batch);

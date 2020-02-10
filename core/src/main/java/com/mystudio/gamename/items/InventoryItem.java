@@ -1,5 +1,7 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
 /**
@@ -25,6 +27,7 @@ public class InventoryItem extends Item {
   public InventoryItem(String image, float x, float y, int width, int height,
                        CollisionShape collisionShape, int offset) {
     super(image, x, y, width, height, collisionShape, offset);
+    this.sprite.setTexture(new Texture(Gdx.files.internal(image)));
   }
 
   @Override
@@ -42,7 +45,8 @@ public class InventoryItem extends Item {
    * Determines if the asset is currently in the inventory
    * @return boolean of whether asset is currently in the inventor
    */
-  public boolean isInventoried() {
+  public boolean isInInventory() {
       return inInventory;
   }
+
 }

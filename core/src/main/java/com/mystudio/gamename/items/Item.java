@@ -19,7 +19,7 @@ public abstract class Item {
      */
     public CollisionShape collisionShape;
     /**
-     * Why do we need a separate avery here
+     * Sprite representing the item
      */
     public Sprite sprite;
     /**
@@ -101,7 +101,7 @@ public abstract class Item {
     }
 
     /**
-     * Determines if the resulting movement produces a collision with the asset
+     * Determines if the resulting movement produces a collision with the item
      *
      * @param x - x coordinate of the movement
      * @param y - y coordinate of the movement
@@ -111,14 +111,29 @@ public abstract class Item {
         return collisionShape.contains(new Vector2(x, y));
     }
 
+    /**
+     * Determines if the resulting movement produces a collision with the item
+     * @param other - other item
+     * @return boolean determining whether the movement produces a collision
+     */
     public boolean collideWith(Item other) {
         return collisionShape.intersects(other.collisionShape.getShape());
     }
 
+    /**
+     * Determines if the resulting movement produces a collision with the item
+     * @param pos - position of other item
+     * @return boolean determining whether the movement produces a collision
+     */
     public boolean collideWith(Vector2 pos) {
         return collisionShape.contains(pos);
     }
 
+    /**
+     * Finds the distance from current item to the other item
+     * @param other - item that we want to find the distance to
+     * @return float - representing the distance
+     */
     public float distance(Item other) {
         return collisionShape.getDistanceTo(other.collisionShape);
     }
