@@ -46,7 +46,7 @@ public abstract class MiniGame {
     /**
      * Used to actually do the drawing on screen.
      */
-    protected abstract void render(SpriteBatch batch, Graphics g); // Use either but not both! Preferably use batch.
+    protected abstract void render(SpriteBatch batch); // Use either but not both! Preferably use batch.
     /**
      * Used to dispose objects used to reduce time.
      */

@@ -89,7 +89,7 @@ public class GearPuzzleGame extends MiniGame  {
     }
 
     @Override
-    public void render(SpriteBatch batch, Graphics g) {
+    public void render(SpriteBatch batch) {
         batch.draw(background, 0, 0, 1280, 720);
         for (DraggableCircle x: renders) {
             x.render(batch);

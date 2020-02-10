@@ -115,12 +115,10 @@ public class Inventory {
     /**
      * Renders the sprite for the inventory
      * @param batch - SpriteBatch to display sprites.
-     * @param shapeRenderer - ShapeRenderer to display shapes
      */
-    public void render(SpriteBatch batch, ShapeRenderer shapeRenderer) {
+    public void render(SpriteBatch batch) {
         if (isOpen()) {
-          //shapeRenderer.setColor(Color.BROWN);
-          //shapeRenderer.rect(1080, 0, 200, 720, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
+
           int offset = 620;
             for (Item item: items) {
               batch.draw(item.sprite, 1080, 600, 100, 100);
@@ -130,5 +128,16 @@ public class Inventory {
             batch.draw(sprite, 1080, 0, 200, 200);
         }
 
+    }
+
+    /**
+     * Renders the background of the inventory
+     * @param shapeRenderer - ShapeRenderer to display shapes
+     */
+    public void render(ShapeRenderer shapeRenderer) {
+        if (isOpen()) {
+            shapeRenderer.setColor(Color.BROWN);
+            shapeRenderer.rect(1080, 0, 200, 720, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
+        }
     }
 }

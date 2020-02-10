@@ -42,8 +42,10 @@ public class Avery extends Actor {
 
     public void update(int x, int y, ArrayList<Item> assets, Polygon floorspace) {
         box.preUpdate();
-        y_update = 720 - y - 50;
+        y_update = y - 50;
         x_update = x - (sprite.getWidth() / 2);
+
+        System.out.println("Update to: " + x_update + ", " + y_update);
 
         if (box.getX() < x && !sprite.isFlipX()) {
             sprite.flip(true, false);
@@ -58,23 +60,28 @@ public class Avery extends Actor {
             float y_old = box.getY();
 
             box.moveTowards(x_update, y_update, 4f);
-
+            System.out.println("Move to: " + box.getX() + ", " + box.getY());
             if (!floorspace.contains(box)) {
+                System.out.println("Outside floor");
                 y_update = y_old;
                 x_update = x_old;
                 box.forceTo(x_old, y_old);
             }
-
             for (Item deadzone : assets) {
-                if (sprite.isFlipX() && deadzone.isCollision(box)) {
+                if (deadzone.isCollision(box)) {
+                    System.out.println("COLLIDED WITH!");
                     y_update = y_old;
                     x_update = x_old;
                     box.forceTo(x_old, y_old);
                 }
             }
 
+            System.out.println("Finish at: " + box.getX() + ", " + box.getY());
+
             scale = (float) (-(0.3 * box.getY() / 275) + (0.7 - sprite.getScaleX()));
-            box.scale(scale);
+
+            box.setHeight((float) (75 * (0.7 - (0.3 * box.getY() / 275))));
+            box.setWidth((float) (180 * (0.7 - (0.3 * box.getY() / 275))));
             sprite.scale(scale);
 
         }

@@ -1,8 +1,10 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.mini2Dx.core.geom.Polygon;
 import org.mini2Dx.core.geom.Shape;
 import org.mini2Dx.core.graphics.Sprite;
@@ -19,26 +21,32 @@ public abstract class Item {
      * Position of the asset
      */
     public CollisionShape collisionShape;
+
     /**
      * Sprite representing the item
      */
     public Sprite sprite;
+
     /**
      * Boolean to determine if the asset is currently interactable
      */
     boolean isInteractable;
+
     /**
      * Polygon region that defines the asset
      */
     protected Polygon region;
+
     /**
      * Texture region that defines the asset
      */
     protected TextureRegion tex;
+
     /**
      * Boolean to determine whether item is being hovered over
      */
     protected Boolean hovered = false;
+
     /**
      * Difference between collision shape and sprite
      */
@@ -85,6 +93,12 @@ public abstract class Item {
         sprite.draw(batch);
     }
 
+    public void render(ShapeRenderer shapeRenderer) {
+        shapeRenderer.setColor(Color.CYAN);
+        shapeRenderer.circle(collisionShape.getX(), collisionShape.getY(), collisionShape.getHeight()/2);
+
+    }
+
     /**
      * Sets the sprite for the item
      * @param image - filepath for the image representing the item
@@ -108,7 +122,7 @@ public abstract class Item {
      * @return boolean determining whether the movement produces a collision
      */
     public boolean isCollision(Shape s) {
-        return collisionShape.contains(s);
+        return collisionShape.intersects(s);
     }
 
     /**
