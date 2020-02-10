@@ -5,7 +5,7 @@ public class Mount extends DraggableCircle {
     boolean mounted = false;
 
     public Mount(float x, float y) {
-        super("ctest.png", x, y, 10);
+        super("ctest.png", x, y, 10, 0);
         this.fixed = true;
     }
 }
