@@ -2,6 +2,7 @@ package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -93,6 +94,8 @@ public class Convalescent extends BasicGame {
      */
     private Inventory inventory;
 
+    Music music;
+
     BitmapFont font;
     public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 
@@ -103,6 +106,10 @@ public class Convalescent extends BasicGame {
         parameter.size = 40;
         parameter.characters = FONT_CHARACTERS;
         font = generator.generateFont(parameter);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("secure.mp3"));
+        music.setLooping(true);
+        music.play();
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
