@@ -19,8 +19,8 @@ public class Gear extends DraggableCircle {
     boolean stuck;
 
     public Gear(float x, float y, int radius, boolean fixed, boolean mountable, boolean alwayshaspower, int renderLevel) {
-        super("small_gear.png", x, y,  radius, renderLevel);
-        if (radius > 50) {
+        super("small_gear2.png", x, y,  radius, renderLevel);
+        if (radius > 60) {
             setImage("big_gear.png");
         }
         this.radius = radius;

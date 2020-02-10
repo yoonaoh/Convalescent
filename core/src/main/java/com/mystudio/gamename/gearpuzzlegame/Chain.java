@@ -18,7 +18,7 @@ public class Chain extends DraggableCircle {
     Gear host1, host2;
 //    float angle;
     float velocity = 0;
-    int gap = 60;
+    int gap = 40;
 
     boolean passed;
     boolean stuck;

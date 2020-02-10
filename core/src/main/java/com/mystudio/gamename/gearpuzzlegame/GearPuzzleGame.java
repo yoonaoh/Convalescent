@@ -84,13 +84,13 @@ public class GearPuzzleGame extends MiniGame  {
 
     @Override
     public void update(final float delta) {
-        if (corGear1.velocity > 0 && corGear2.velocity > 0) {
-            gameOverPause -= 1;
-            if (gameOverPause <= 0) {
-                // End game here
-                this.end();
-            }
-        }
+//        if (corGear1.velocity > 0 && corGear2.velocity > 0) {
+//            gameOverPause -= 1;
+//            if (gameOverPause <= 0) {
+//                // End game here
+//                this.end();
+//            }
+//        }
         if (mouse.leftKeyDown() && cross.collideWith(mouse.pos())) {
             this.end();
         }
