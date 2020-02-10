@@ -10,7 +10,7 @@ public class MouseMonitor {
 
     boolean dragging = false;
     Vector2 dragStartPos = null;
-    DraggableCircle caught = null;
+    DraggableItem caught = null;
 
     public MouseMonitor() {}
 
@@ -24,14 +24,18 @@ public class MouseMonitor {
         }
     }
 
-    public void updateInteractables(ArrayList<DraggableCircle> interactables) {
+    public void updateInteractables(ArrayList<DraggableItem> interactables) {
         if (dragging) {
             if (caught != null) {
                 caught.handleDrag(this);
             } else {
-                for (DraggableCircle interactable: interactables) {
-                    if (interactable.collideWith(dragStartPos) && !interactable.fixed) {
-                        caught = interactable;
+                for (DraggableItem interactable: interactables) {
+                    if (interactable.collideWith(dragStartPos)) {
+                        if (interactable instanceof Gear && ((Gear) interactable).chain != null) {
+                            caught = ((Gear) interactable).chain;
+                        } else if (!interactable.fixed){
+                            caught = interactable;
+                        }
                         break;
                     }
                 }
@@ -40,7 +44,6 @@ public class MouseMonitor {
             caught.stopDrag(interactables);
             caught = null;
         }
-
     }
 
     public boolean leftKeyDown() {

@@ -160,7 +160,6 @@ public class Convalescent extends BasicGame {
                     view.update(state);
                 }
             }
-
             if (state == GameState.ATTIC_SHELF) {
 
                 if (!inventory.isOpen() && 1080 <= xCoord && yCoord <= 200) {
