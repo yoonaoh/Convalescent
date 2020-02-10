@@ -16,6 +16,7 @@ public class GearPuzzleGame extends MiniGame  {
     private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
     private Mount mount1, mount2, mount3;
     private Chain chain1, chain2;
+    private DraggableCircle cross;
 
     private ArrayList<Gear> gears = new ArrayList<Gear>();
     private ArrayList<Mount> mounts = new ArrayList<Mount>();
@@ -56,6 +57,7 @@ public class GearPuzzleGame extends MiniGame  {
         smallGear2 = new Gear(150, 540, 60, false, true, false, 1);
         midGear = new Gear(150, 415, 80, false, true, false, 1);
 
+        cross = new DraggableCircle("cross.png", 100, 650, 20, 0);
 
         gears.add(bigGear1); gears.add(bigGear2); gears.add(corGear1); gears.add(corGear2);
         gears.add(smallGear1); gears.add(smallGear2); gears.add(midGear);
@@ -89,27 +91,31 @@ public class GearPuzzleGame extends MiniGame  {
                 this.end();
             }
         }
-        Collections.reverse(interactables);
-
-        if (gameOverPause == 180) {
-            mouse.update();
-            mouse.updateInteractables(interactables);
+        if (mouse.leftKeyDown() && cross.collideWith(mouse.pos())) {
+            this.end();
         }
+        if (hasStarted()) {
+            Collections.reverse(interactables);
+            if (gameOverPause == 180) {
+                mouse.update();
+                mouse.updateInteractables(interactables);
+            }
 
-        for (DraggableItem interactable: interactables) {
-            interactable.update(delta);
-        }
-        for (Gear gear: gears) {
-            gear.velocity = 0;
-            gear.passed = false;
-        } for (Chain chain: chains) {
-            chain.velocity = 0;
-            chain.passed = false;
-        }
-        bigGear1.velocity = 10;
-        bigGear1.updateRotation(gears, chains);
+            for (DraggableItem interactable: interactables) {
+                interactable.update(delta);
+            }
+            for (Gear gear: gears) {
+                gear.velocity = 0;
+                gear.passed = false;
+            } for (Chain chain: chains) {
+                chain.velocity = 0;
+                chain.passed = false;
+            }
+            bigGear1.velocity = 10;
+            bigGear1.updateRotation(gears, chains);
 
-        Collections.reverse(interactables);
+            Collections.reverse(interactables);
+        }
     }
 
     @Override
@@ -122,6 +128,7 @@ public class GearPuzzleGame extends MiniGame  {
         for (DraggableItem x: interactables) {
             x.render(batch);
         }
+        cross.render(batch);
     }
 
     @Override

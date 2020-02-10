@@ -29,11 +29,11 @@ public class InventoryItem extends Item {
     this.sprite.setTexture(new Texture(Gdx.files.internal(image)));
   }
 
-  @Override
-  public void updateCollisionShape() {
-                       CollisionShape collisionShape, int renderLevel) {
-    super(image, x, y, width, height, collisionShape, renderLevel);
-  }
+//  @Override
+//  public void updateCollisionShape() {
+//                       CollisionShape collisionShape, int renderLevel) {
+//    super(image, x, y, width, height, collisionShape, renderLevel);
+//  }
 
   /**
    * Marks that the asset (item) has been put in the inventory

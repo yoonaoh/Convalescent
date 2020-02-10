@@ -100,16 +100,16 @@ public abstract class Item {
 
     public void render(SpriteBatch batch) {
 //        sprite.draw(batch);
-//        batch.draw(sprite,
-//                collisionShape.getX() - sprite.getOriginX(),
-//                collisionShape.getY() - sprite.getOriginY(),
-//                sprite.getOriginX(),
-//                sprite.getOriginY(),
-//                collisionShape.getWidth(),
-//                collisionShape.getHeight(),
-//                1,
-//                1,
-//                rotation);
+        batch.draw(sprite,
+                collisionShape.getX() - sprite.getOriginX(),
+                collisionShape.getY() - sprite.getOriginY(),
+                sprite.getOriginX(),
+                sprite.getOriginY(),
+                collisionShape.getWidth(),
+                collisionShape.getHeight(),
+                1,
+                1,
+                0);
     }
 
     public void render(ShapeRenderer shapeRenderer) {

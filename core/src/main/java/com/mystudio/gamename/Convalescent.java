@@ -16,6 +16,7 @@ import com.mystudio.gamename.items.InventoryItem;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.TriggerItem;
 import com.mystudio.gamename.views.View;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionCircle;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
@@ -120,9 +121,9 @@ public class Convalescent extends BasicGame {
 
         // Set up the assets
         windupToy = new TriggerItem("windup_toy.png", 320, 384, 100, 200,
-                new CollisionCircle(650, 250, 50), 0);
+                new CollisionBox(320, 384, 100, 200), 0);
         gears = new InventoryItem("gearstack.png", 839, 383, 100, 150,
-                new CollisionCircle(800, 200, 50), 0);
+                new CollisionBox(839, 383, 100, 150), 0);
         items.add(windupToy);
         items.add(gears);
 
@@ -177,10 +178,10 @@ public class Convalescent extends BasicGame {
                     gearPuzzleGame.start();
                 }
 
-                if (255 >= xCoord) {
-                    state = GameState.ATTIC;
-                    view.update(state);
-                }
+//                if (255 >= xCoord) {
+//                    state = GameState.ATTIC;
+//                    view.update(state);
+//                }
             }
 
             // User clicked on the inventory icon (near 1280, 720)
