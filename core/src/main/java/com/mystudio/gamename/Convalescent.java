@@ -151,8 +151,7 @@ public class Convalescent extends BasicGame {
 
             inventory.update(xCoord, yCoord);
         }
-
-        avery.move(items);
+        avery.move(items, room.getFloorspace());
     }
 
     @Override
@@ -189,7 +188,7 @@ public class Convalescent extends BasicGame {
         }
 
         // Player Character
-        avery.render(batch);
+        avery.render(batch, state);
 
         // Inventory
         inventory.render(batch, shapeRenderer);

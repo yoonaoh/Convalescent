@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.mini2Dx.core.geom.Polygon;
+import org.mini2Dx.core.geom.Shape;
 import org.mini2Dx.core.graphics.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import org.mini2Dx.core.engine.geom.CollisionBox;
@@ -103,12 +104,11 @@ public abstract class Item {
     /**
      * Determines if the resulting movement produces a collision with the item
      *
-     * @param x - x coordinate of the movement
-     * @param y - y coordinate of the movement
+     * @param s - the shape to which check collision against.
      * @return boolean determining whether the movement produces a collision
      */
-    public boolean isCollision(float x, float y) {
-        return collisionShape.contains(new Vector2(x, y));
+    public boolean isCollision(Shape s) {
+        return collisionShape.contains(s);
     }
 
     /**

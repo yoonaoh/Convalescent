@@ -1,7 +1,5 @@
 package com.mystudio.gamename;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -14,6 +12,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.Iterator;
 
 public class Drop extends ApplicationAdapter {
     private Texture dropImage;
@@ -55,7 +55,7 @@ public class Drop extends ApplicationAdapter {
 
     private void spawnRaindrop() {
         Rectangle raindrop = new Rectangle();
-        raindrop.x = MathUtils.random(0, 800-64);
+        raindrop.x = MathUtils.random(0, 800 - 64);
         raindrop.y = 480;
         raindrop.width = 64;
         raindrop.height = 64;
@@ -83,24 +83,24 @@ public class Drop extends ApplicationAdapter {
         // all drops
         batch.begin();
         batch.draw(bucketImage, bucket.x, bucket.y);
-        for(Rectangle raindrop: raindrops) {
+        for (Rectangle raindrop : raindrops) {
             batch.draw(dropImage, raindrop.x, raindrop.y, 50, 50);
         }
         batch.end();
 
         // process user input
-        if(Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
             bucket.x = (float) (touchPos.x - (64.0 / 2.0));
         }
-        if(Gdx.input.isKeyPressed(Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
 
         // make sure the bucket stays within the screen bounds
-        if(bucket.x < 0) bucket.x = 0;
-        if(bucket.x > 800 - 64) bucket.x = 800 - 64;
+        if (bucket.x < 0) bucket.x = 0;
+        if (bucket.x > 800 - 64) bucket.x = 800 - 64;
 
         // check if we need to create a new raindrop
         if (leftToCatch > 0) {
@@ -118,8 +118,8 @@ public class Drop extends ApplicationAdapter {
         for (Iterator<Rectangle> iter = raindrops.iterator(); iter.hasNext(); ) {
             Rectangle raindrop = iter.next();
             raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-            if(raindrop.y + 64 < 0) iter.remove();
-            if(raindrop.overlaps(bucket)) {
+            if (raindrop.y + 64 < 0) iter.remove();
+            if (raindrop.overlaps(bucket)) {
                 iter.remove();
                 leftToCatch--;
             }
