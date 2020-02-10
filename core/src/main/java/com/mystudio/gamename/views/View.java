@@ -60,8 +60,13 @@ public class View {
             this.texture = new Texture("dark_attic.png");
             this.floorspace = new Polygon(new float[]{
                     80,0,
-                    616, 274,
-                    1260, 277,
+                    616, 277,
+                    1035, 277,
+                    1035, 250,
+                    1185, 250,
+                    1185, 277,
+                    1250, 277,
+                    1280, 250,
                     1280, 0
             });
             this.avery = true;
@@ -69,15 +74,21 @@ public class View {
         } else if (gameState == GameState.ATTIC) {
             this.texture = new Texture("light_attic.png");
             this.floorspace = new Polygon(new float[]{
-                    80, 0,
-                    616, 274,
-                    1260, 277,
+                    80,0,
+                    616, 277,
+                    1035, 277,
+                    1035, 250,
+                    1185, 250,
+                    1185, 277,
+                    1250, 277,
+                    1280, 250,
                     1280, 0
             });
             this.avery = true;
 
         } else if (gameState == GameState.ATTIC_SHELF) {
             this.avery = false;
+            this.texture = new Texture("shelf_closeup.png");
         }
 
     }

@@ -2,6 +2,7 @@ package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,6 +17,7 @@ import com.mystudio.gamename.items.InventoryItem;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.TriggerItem;
 import com.mystudio.gamename.views.View;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionCircle;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
@@ -85,15 +87,20 @@ public class Convalescent extends BasicGame {
     // Items to be used
     private TriggerItem windupToy;
     private InventoryItem gears;
+    private TriggerItem shelf;
 
     /**
      * Game inventory
      */
     private Inventory inventory;
 
+    Music music;
+
     BitmapFont font;
     public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 
+    private int xCoord = 0;
+    private int yCoord = 0;
     @Override
     public void initialise() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("High Performance Demo.otf"));
@@ -101,6 +108,10 @@ public class Convalescent extends BasicGame {
         parameter.size = 40;
         parameter.characters = FONT_CHARACTERS;
         font = generator.generateFont(parameter);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("secure.mp3"));
+        music.setLooping(true);
+        music.play();
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -118,10 +129,10 @@ public class Convalescent extends BasicGame {
         inventory = new Inventory();
 
         // Set up the assets
-        windupToy = new TriggerItem("windup_toy.png", 650, 250, 50, 50,
-                new CollisionCircle(650, 250, 50), 0);
-        gears = new InventoryItem("gearstack.png", 800, 200, 50, 50,
-                new CollisionCircle(800, 200, 50), 0);
+        windupToy = new TriggerItem("windup_toy.png", 320, 384, 100, 200,
+                new CollisionBox(320, 384, 100, 200), 0);
+        gears = new InventoryItem("gearstack.png", 839, 383, 100, 150,
+                new CollisionBox(839, 383, 100, 150), 0);
         items.add(windupToy);
         items.add(gears);
 
@@ -132,18 +143,52 @@ public class Convalescent extends BasicGame {
     @Override
     public void update(float delta) {
         camera.update();
-        gearPuzzleGame.update(delta);
+        if (gearPuzzleGame.hasStarted()) {
+            gearPuzzleGame.update(delta);
+        }
 
         // User used a left mouse click
-        if (Gdx.input.isTouched(Input.Buttons.LEFT)) {
-            int xCoord = Gdx.input.getX();
-            int yCoord = 720 - Gdx.input.getY(); // because the origin is bottom not top left
+        if (Gdx.input.isTouched(Input.Buttons.LEFT) && (xCoord != Gdx.input.getX()) && (yCoord != 720 - Gdx.input.getY())) {
+            xCoord = Gdx.input.getX();
+            yCoord = 720 - Gdx.input.getY(); // because the origin is bottom not top left
             System.out.println("Coords: " + xCoord + ", " + yCoord);
 
             // Start game button
             if (state == GameState.MENU) {
-                if (550 <= xCoord && xCoord <= 750 && yCoord <= 200 && 150 <= yCoord) {
+                if (550 <= xCoord && xCoord <= 750 && 150 <= yCoord && yCoord <= 200) {
                     state = GameState.DARK_ATTIC;
+                    view.update(state);
+                }
+            }
+
+            if (state == GameState.ATTIC_SHELF) {
+
+                if (!inventory.isOpen() && 1080 <= xCoord && yCoord <= 200) {
+                    System.out.println("Inventory Opened");
+                    inventory.open();
+                }
+
+                if (1080 > xCoord && yCoord > 200 && inventory.isOpen()) {
+                    System.out.println("Inventory Closed");
+                    inventory.close();
+                }
+
+                // User clicked on the gear stack (839, 383)
+                else if (839 <= xCoord && xCoord <= 940 && 383 <= yCoord && yCoord <= 540) {
+                    System.out.println("Picked up gears");
+                    inventory.addItem(gears);
+                    gears.markInInventory();
+                    items.remove(gears);
+                }
+
+                // User clicked to start the mini game (320, 384)
+                else if (320 <= xCoord && xCoord <= 470 && 384 <= yCoord && yCoord <= 540) {
+                    System.out.println("Game Started");
+                    gearPuzzleGame.start();
+                }
+
+                if (255 >= xCoord && !gearPuzzleGame.hasStarted()) {
+                    state = GameState.ATTIC;
                     view.update(state);
                 }
             }
@@ -167,18 +212,10 @@ public class Convalescent extends BasicGame {
                     view.update(state);
                 }
 
-                // User clicked on the gear stack (800, 200)
-                else if (750 <= xCoord && xCoord <= 850 && 150 <= yCoord && yCoord <= 250) {
-                    System.out.println("Picked up gears");
-                    inventory.addItem(gears);
-                    gears.markInInventory();
-                    items.remove(gears);
-                }
-
-                // User clicked to start the mini game (650, 250)
-                else if (650 <= xCoord && xCoord <= 700 && 250 <= yCoord && yCoord <= 300) {
-                    System.out.println("Game Started");
-                    gearPuzzleGame.start();
+                // User clicked on the shelf (1110, 420)
+                else if (1050 <= xCoord && xCoord <= 1200 && 300 <= yCoord && yCoord <= 600) {
+                    state = GameState.ATTIC_SHELF;
+                    view.update(state);
                 }
 
                 // User clicked to move Avery
@@ -208,30 +245,23 @@ public class Convalescent extends BasicGame {
 
         batch.begin();
 
-        // Outlining the floorspace of the attic
-//        shapeRenderer.polygon(new float[] {
-//            88,8,
-//            616,274,
-//            1247,271,
-//            1270,247,
-//            1280,201,
-//            1079,199,
-//            1079,0,
-//            104,4
-//        });
-
         // Background
         view.render(batch);
 
         // Player Character
         if (view.isAvery()) {
+
+            avery.render(batch, state);
+            // Inventory
+            inventory.render(batch);
+
+        }
+
+        if (state == GameState.ATTIC_SHELF) {
             // Items
             for (Item item : items) {
                 item.render(batch);
             }
-
-            avery.render(batch, state);
-
             // Inventory
             inventory.render(batch);
 

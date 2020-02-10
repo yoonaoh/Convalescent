@@ -45,7 +45,7 @@ public class Avery extends Actor {
         y_update = y - 50;
         x_update = x - (sprite.getWidth() / 2);
 
-        System.out.println("Update to: " + x_update + ", " + y_update);
+//        System.out.println("Update to: " + x_update + ", " + y_update);
 
         if (box.getX() < x && !sprite.isFlipX()) {
             sprite.flip(true, false);
@@ -60,12 +60,22 @@ public class Avery extends Actor {
             float y_old = box.getY();
 
             box.moveTowards(x_update, y_update, 4f);
-            System.out.println("Move to: " + box.getX() + ", " + box.getY());
+//            System.out.println("Move to: " + box.getX() + ", " + box.getY());
             if (!floorspace.contains(box)) {
-                System.out.println("Outside floor");
-                y_update = y_old;
-                x_update = x_old;
+//                System.out.println("Outside floor");
                 box.forceTo(x_old, y_old);
+
+                box.moveTowards(x_update, y_old, 4f);
+                if (!floorspace.contains(box)) {
+                    box.forceTo(x_old, y_old);
+                    box.moveTowards(x_old, y_update, 4f);
+                    if (!floorspace.contains(box)) {
+                        box.forceTo(x_old, y_old);
+                        x_update = x_old;
+                        y_update = y_old;
+                    }
+
+                }
             }
             for (Item deadzone : assets) {
                 if (deadzone.isCollision(box)) {
@@ -76,9 +86,9 @@ public class Avery extends Actor {
                 }
             }
 
-            System.out.println("Finish at: " + box.getX() + ", " + box.getY());
+//            System.out.println("Finish at: " + box.getX() + ", " + box.getY());
 
-            scale = (float) (-(0.3 * box.getY() / 275) + (0.7 - sprite.getScaleX()));
+            scale = (float) (-(0.4 * box.getY() / 275) + (0.7 - sprite.getScaleX()));
 
             box.setHeight((float) (75 * (0.7 - (0.3 * box.getY() / 275))));
             box.setWidth((float) (180 * (0.7 - (0.3 * box.getY() / 275))));
