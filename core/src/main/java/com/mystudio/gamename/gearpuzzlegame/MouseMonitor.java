@@ -33,7 +33,7 @@ public class MouseMonitor {
                     if (interactable.collideWith(dragStartPos)) {
                         if (interactable instanceof Gear && ((Gear) interactable).chain != null) {
                             caught = ((Gear) interactable).chain;
-                        } else {
+                        } else if (!interactable.fixed){
                             caught = interactable;
                         }
                         break;

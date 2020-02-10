@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
+import java.awt.geom.Point2D;
+
 /**
  * An interactable item within the game
  */
@@ -129,7 +131,8 @@ public abstract class Item {
     }
 
     public float distance(Item other) {
-        return collisionShape.getDistanceTo(other.collisionShape);
+        return (float) Point2D.distance(collisionShape.getX(), collisionShape.getY(), other.collisionShape.getX(), other.collisionShape.getY());
+//        return collisionShape.getDistanceTo(other.collisionShape);
     }
 
     public void setPos(Vector2 pos) {

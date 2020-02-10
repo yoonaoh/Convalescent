@@ -28,7 +28,7 @@ public class GearPuzzleGame extends MiniGame  {
 
 //    private DraggableItem test;
 
-    int gameOverPause = 120;
+    int gameOverPause = 180;
 
     public GearPuzzleGame() {
         background = new Texture("robotgame_btemp.png");
@@ -36,22 +36,33 @@ public class GearPuzzleGame extends MiniGame  {
     }
 
     public void setUp() {
-        bigGear1 = new Gear(1000, 550, 150, true, false, true, 0);
-        bigGear1.velocity = 10;
-        bigGear2 = new Gear(470, 440, 120, true, false, false, 0);
-        corGear1 = new Gear(250, 200, 50, true, true, false, 0);
-        corGear2 = new Gear(1050, 200, 50, true, true, false, 0);
+//        bigGear1 = new Gear(1000, 550, 150, true, false, true, 0);
+//        bigGear1.velocity = 10;
+//        bigGear2 = new Gear(470, 440, 120, true, false, false, 0);
+//        corGear1 = new Gear(250, 200, 50, true, true, false, 0);
+//        corGear2 = new Gear(1050, 200, 50, true, true, false, 0);
+//
+//        smallGear1 = new Gear(150, 650, 50, false, true, false, 1);
+//        smallGear2 = new Gear(150, 540, 50, false, true, false, 1);
+//        midGear = new Gear(150, 415, 65, false, true, false, 1);
 
-        smallGear1 = new Gear(150, 650, 50, false, true, false, 1);
-        smallGear2 = new Gear(150, 540, 50, false, true, false, 1);
-        midGear = new Gear(150, 415, 65, false, true, false, 1);
+        bigGear1 = new Gear(1000, 550, 160, true, false, true, 0);
+        bigGear1.velocity = 10;
+        bigGear2 = new Gear(470, 440, 130, true, false, false, 0);
+        corGear1 = new Gear(250, 180, 60, true, true, false, 0);
+        corGear2 = new Gear(1050, 180, 60, true, true, false, 0);
+
+        smallGear1 = new Gear(150, 650, 60, false, true, false, 1);
+        smallGear2 = new Gear(150, 540, 60, false, true, false, 1);
+        midGear = new Gear(150, 415, 80, false, true, false, 1);
+
 
         gears.add(bigGear1); gears.add(bigGear2); gears.add(corGear1); gears.add(corGear2);
         gears.add(smallGear1); gears.add(smallGear2); gears.add(midGear);
 
         mount1 = new Mount(840, 440);
         mount2 = new Mount(470, 440);
-        mount3 = new Mount(580, 295);
+        mount3 = new Mount(580, 280);
         mounts.add(mount1); mounts.add(mount2); mounts.add(mount3);
 
         chain1 = new Chain(120, 280);
@@ -80,7 +91,7 @@ public class GearPuzzleGame extends MiniGame  {
         }
         Collections.reverse(interactables);
 
-        if (gameOverPause == 120) {
+        if (gameOverPause == 180) {
             mouse.update();
             mouse.updateInteractables(interactables);
         }

@@ -18,11 +18,11 @@ public class Gear extends DraggableCircle {
     boolean passed = false;
     boolean stuck;
 
-
-
-
     public Gear(float x, float y, int radius, boolean fixed, boolean mountable, boolean alwayshaspower, int renderLevel) {
-        super("ctest.png", x, y,  radius, renderLevel);
+        super("small_gear.png", x, y,  radius, renderLevel);
+        if (radius > 50) {
+            setImage("big_gear.png");
+        }
         this.radius = radius;
         this.fixed = fixed;
         this.mountable = mountable;
@@ -51,7 +51,7 @@ public class Gear extends DraggableCircle {
                 mnt = ((Mount) inter1);
                 for (DraggableItem gear: interactables) {
                     if (gear instanceof Gear && collideWith(gear) && distance(gear) > 0
-                            && distance(gear) < radius + ((Gear) gear).radius - 80) {
+                            && distance(gear) < radius + ((Gear) gear).radius - 40) {
                         mnt = null;
                     }
                 }
