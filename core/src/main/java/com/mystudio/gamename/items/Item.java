@@ -27,21 +27,15 @@ public abstract class Item {
      */
     boolean isInteractable;
     /**
-     * Polygon region that defines the asset
-     */
-    protected Polygon region;
-    /**
-     * Texture region that defines the asset
-     */
-    protected TextureRegion tex;
-    /**
      * Boolean to determine whether item is being hovered over
      */
     protected Boolean hovered = false;
-    /**
-     * Difference between collision shape and sprite
-     */
-    public int offset;
+//    /**
+//     * Angle of the sprite
+//     */
+//    protected float rotation = 0;
+
+    int renderLevel;
 
 
     /**
@@ -53,12 +47,18 @@ public abstract class Item {
      * @param width  - width of the item
      * @param height - height of the item
      */
-    public Item(String image, float x, float y, int width, int height, CollisionShape collisionShape, int offset) {
+    public Item(String image, float x, float y, int width, int height, CollisionShape collisionShape, int renderLevel) {
+        // collisionShape defaults to a box
+        reset(image, x, y, width, height, collisionShape);
+        this.renderLevel = renderLevel;
+    }
+
+    public void reset(String image, float x, float y, int width, int height, CollisionShape collisionShape) {
         this.collisionShape = collisionShape == null
-                                  ? new CollisionBox(x, y, width, height)
-                                  : collisionShape;
-        this.offset = offset;
+                ? new CollisionBox(x, y, width, height)
+                : collisionShape;
         setSprite(image, x, y, width, height);
+        setPos(new Vector2(x, y));
         isInteractable = false;
     }
 
@@ -68,20 +68,25 @@ public abstract class Item {
      * @param delta - delta
      */
     public void update(float delta) {
-        updateCollisionShape();
     }
-
-    /**
-     * Abstract method that updates the collision shape of the item
-     */
-    public abstract void updateCollisionShape();
 
     /**
      * Renders the asset by drawing the asset's avery
      * @param batch - SpriteBatch that contains the asset's avery
      */
+
     public void render(SpriteBatch batch) {
-        sprite.draw(batch);
+//        sprite.draw(batch);
+//        batch.draw(sprite,
+//                collisionShape.getX() - sprite.getOriginX(),
+//                collisionShape.getY() - sprite.getOriginY(),
+//                sprite.getOriginX(),
+//                sprite.getOriginY(),
+//                collisionShape.getWidth(),
+//                collisionShape.getHeight(),
+//                1,
+//                1,
+//                rotation);
     }
 
     /**
@@ -95,9 +100,13 @@ public abstract class Item {
     public void setSprite(String image, float x, float y, float width, float height) {
         Sprite newSprite = new Sprite(new Texture(image));
         newSprite.flip(false, true);
-        newSprite.setPosition(x, y);
         newSprite.setSize(width, height);
+        newSprite.setOrigin(0, 0);
         sprite = newSprite;
+    }
+
+    public void setImage(String image) {
+        sprite.setTexture(new Texture(image));
     }
 
     /**
@@ -121,5 +130,18 @@ public abstract class Item {
 
     public float distance(Item other) {
         return collisionShape.getDistanceTo(other.collisionShape);
+    }
+
+    public void setPos(Vector2 pos) {
+        collisionShape.setX(pos.x);
+        collisionShape.setY(pos.y);
+    }
+
+    public Vector2 getPos() {
+        return new Vector2(collisionShape.getX(), collisionShape.getY());
+    }
+
+    public int getRenderLevel() {
+        return this.renderLevel;
     }
 }

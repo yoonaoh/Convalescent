@@ -15,16 +15,14 @@ public class MiniGameItem extends Item {
    * @param width  - width of the item
    * @param height - height of the item
    * @param collisionShape - collisionShape of item
-   * @param offset - offset of item
    */
   public MiniGameItem(String image, float x, float y, int width, int height,
-                      CollisionShape collisionShape, int offset) {
-    super(image, x, y, width, height, collisionShape, offset);
+                      CollisionShape collisionShape, int renderLevel) {
+    super(image, x, y, width, height, collisionShape, renderLevel);
   }
 
 
-  @Override
-  public void updateCollisionShape() {
-
-  }
+//  @Override
+//  public void updateCollisionShape() {
+//  }
 }

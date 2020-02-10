@@ -93,7 +93,9 @@ public class Convalescent extends BasicGame {
     @Override
     public void update(float delta) {
         camera.update();
-        gearPuzzleGame.update(delta);
+        if (gearPuzzleGame.hasStarted()) {
+            gearPuzzleGame.update(delta);
+        }
 
         // User used a left mouse click
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
