@@ -78,6 +78,7 @@ public class View {
 
         } else if (gameState == GameState.ATTIC_SHELF) {
             this.avery = false;
+            this.texture = new Texture("shelf_closeup.png");
         }
 
     }
