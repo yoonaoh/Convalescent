@@ -4,8 +4,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.GameState;
+import com.mystudio.gamename.items.Item;
 import org.mini2Dx.core.geom.Polygon;
+
+import java.util.ArrayList;
 
 /**
  * Defines view throughout the game
@@ -36,17 +43,73 @@ public class View {
 
     protected boolean avery;
 
+    GameState gameState;
+
+    ArrayList<Actor> scene_triggers;
 
     /**
      * Constructs a view
+     * @param stage
      */
-    public View() {
+    public View(Stage stage, GameState state) {
         this.width = 1280;
         this.height = 720;
         this.x_render = 0;
         this.y_render = 0;
         this.floorspace = new Polygon(new float[] {});
         this.avery = false;
+        this.gameState = state;
+        scene_triggers = new ArrayList<Actor>();
+
+        scene_triggers.add(new Actor());
+        scene_triggers.add(new Actor());
+        scene_triggers.add(new Actor());
+
+        scene_triggers.get(0).setBounds(1035, 250, 150, 270);
+        scene_triggers.get(1).setBounds(840, 380, 150, 160);
+        scene_triggers.get(2).setBounds(0, 0, 250, 720);
+
+        scene_triggers.get(0).addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (gameState == GameState.ATTIC) {
+                    gameState = GameState.ATTIC_SHELF;
+                    update(gameState);
+                    return true;
+                }
+                return false;
+            }
+        }
+        );
+        scene_triggers.get(1).addListener(new ClickListener(){
+                                      @Override
+                                      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                          if (gameState == GameState.DARK_ATTIC) {
+                                              gameState = GameState.ATTIC;
+                                              update(gameState);
+                                              return true;
+                                          }
+                                          return false;
+                                      }
+                                  }
+        );
+
+        scene_triggers.get(2).addListener(new ClickListener(){
+                                    @Override
+                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                        if (gameState == GameState.ATTIC_SHELF) {
+                                            gameState = GameState.ATTIC;
+                                            update(gameState);
+                                            return true;
+                                        }
+                                        return false;
+                                    }
+                                }
+        );
+
+        for (Actor i : scene_triggers) {
+            stage.addActor(i);
+        }
     }
 
     public void update(GameState gameState) {
@@ -134,5 +197,10 @@ public class View {
      */
     public Polygon getFloorspace() {
         return floorspace;
+    }
+
+
+    public GameState getGameState() {
+        return gameState;
     }
 }

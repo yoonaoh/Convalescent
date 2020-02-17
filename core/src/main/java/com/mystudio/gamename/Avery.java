@@ -40,7 +40,7 @@ public class Avery extends Actor {
         box.forceTo(x_update, y_update);
     }
 
-    public void update(int x, int y, ArrayList<Item> assets, Polygon floorspace) {
+    public void update(float x, float y, ArrayList<Actor> assets, Polygon floorspace) {
         box.preUpdate();
         y_update = y - 50;
         x_update = x - (sprite.getWidth() / 2);
