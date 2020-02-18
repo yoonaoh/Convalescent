@@ -1,6 +1,9 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -40,5 +43,9 @@ public class ViewTwo {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void render(SpriteBatch batch) {
+        batch.draw(this.background, 0, 0, stage.getWidth(), stage.getHeight());
     }
 }

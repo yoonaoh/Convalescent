@@ -2,6 +2,7 @@ package com.mystudio.gamename;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mystudio.gamename.views.*;
@@ -9,6 +10,7 @@ import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class Main extends BasicGame {
 
@@ -48,9 +50,17 @@ public class Main extends BasicGame {
         camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
 
+        Consumer<GameState> consumer = new Consumer<GameState>() {
+            @Override
+            public void accept(GameState gameState) {
+                state = gameState;
+            }
+        };
+
+        view = new HashMap<GameState, ViewTwo>();
         view.put(GameState.MENU, new Menu(camera, batch));
         view.put(GameState.ATTIC, new LightAttic(camera, batch));
-        view.put(GameState.DARK_ATTIC, new DarkAttic(camera, batch));
+        view.put(GameState.DARK_ATTIC, new DarkAttic(camera, batch, consumer));
         view.put(GameState.ATTIC_SHELF, new AtticShelf(camera, batch));
 
         currentBackground = view.get(GameState.DARK_ATTIC);
@@ -70,7 +80,16 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
+        float delta = Gdx.graphics.getDeltaTime();
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        view.get(state).getStage().act(delta);
+        view.get(state).getStage().draw();
 
+        batch.setProjectionMatrix(camera.combined);
+
+        batch.begin();
+        view.get(state).render(batch);
+        batch.end();
     }
 
     @Override

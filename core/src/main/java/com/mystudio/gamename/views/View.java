@@ -79,8 +79,7 @@ public class View {
                 }
                 return false;
             }
-        }
-        );
+        });
         scene_triggers.get(1).addListener(new ClickListener(){
                                       @Override
                                       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
