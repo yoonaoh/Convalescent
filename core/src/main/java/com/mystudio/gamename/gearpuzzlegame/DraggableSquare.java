@@ -20,9 +20,9 @@ public class DraggableSquare extends DraggableItem {
      * @param height         - height of the item
      */
     public DraggableSquare(String image, float x, float y, int width, int height, int renderLevel) {
-        super(image, x, y, width, height, new CollisionBox(x, y, width, height), renderLevel);
-        this.sprite.setOrigin((float) width / 2, (float) height / 2);
-        posBeforeDrag = new Vector2(x, y);
+//        super(image, x, y, width, height, new CollisionBox(x, y, width, height), renderLevel);
+//        this.sprite.setOrigin((float) width / 2, (float) height / 2);
+//        posBeforeDrag = new Vector2(x, y);
     }
 
     public void render(SpriteBatch batch) {

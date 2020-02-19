@@ -78,12 +78,12 @@ public class Avery extends Actor {
                 }
             }
             for (Item deadzone : assets) {
-                if (deadzone.isCollision(box)) {
-                    System.out.println("COLLIDED WITH!");
-                    y_update = y_old;
-                    x_update = x_old;
-                    box.forceTo(x_old, y_old);
-                }
+//                if (deadzone.isCollision(box)) {
+//                    System.out.println("COLLIDED WITH!");
+//                    y_update = y_old;
+//                    x_update = x_old;
+//                    box.forceTo(x_old, y_old);
+//                }
             }
 
 //            System.out.println("Finish at: " + box.getX() + ", " + box.getY());

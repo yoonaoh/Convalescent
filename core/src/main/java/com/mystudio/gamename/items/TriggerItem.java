@@ -1,13 +1,10 @@
 package com.mystudio.gamename.items;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import org.mini2Dx.core.engine.geom.CollisionBox;
-import org.mini2Dx.core.engine.geom.CollisionShape;
-import org.mini2Dx.core.geom.Polygon;
-import org.mini2Dx.core.graphics.Sprite;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.GameState;
+
+import java.util.function.Consumer;
 
 /**
  * Items that take you to new views
@@ -16,20 +13,25 @@ public class TriggerItem extends Item {
 
   /**
    * Constructs an trigger item
-   * @param image  - String path of image file that represents the item
-   * @param x      - x position of the item
-   * @param y      - y position of the item
-   * @param width  - width of the item
-   * @param height - height of the item
-   * @param collisionShape - collisionShape of item
    */
-  public TriggerItem(String image, float x, float y, int width, int height,
-                     CollisionShape collisionShape, int renderLevel) {
-    super(image, x, y, width, height, collisionShape, renderLevel);
+  public TriggerItem(final GameState nextState, final Consumer<GameState> stateUpdater) {
+    addListener(new ClickListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        stateUpdater.accept(nextState);
+        return true;
+      }
+    });
   }
 
-//  @Override
-//  public void updateCollisionShape() {
-//
-//  }
+  public TriggerItem(String image, final GameState nextState, final Consumer<GameState> stateUpdater) {
+    super(image);
+    addListener(new ClickListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        stateUpdater.accept(nextState);
+        return true;
+      }
+    });
+  }
 }

@@ -34,14 +34,9 @@ public class Main extends BasicGame {
      */
     private SpriteBatch batch;
 
-    HashMap<GameState, ViewTwo> view;
+    private HashMap<GameState, ViewTwo> views;
 
-    LightAttic lightAttic;
-    DarkAttic darkAttic;
-    AtticShelf atticShelf;
-    Menu menu;
-
-    ViewTwo currentBackground;
+//    ViewTwo currentBackground;
 
     @Override
     public void initialise() {
@@ -57,20 +52,21 @@ public class Main extends BasicGame {
             }
         };
 
-        view = new HashMap<GameState, ViewTwo>();
-        view.put(GameState.MENU, new Menu(camera, batch));
-        view.put(GameState.ATTIC, new LightAttic(camera, batch));
-        view.put(GameState.DARK_ATTIC, new DarkAttic(camera, batch, consumer));
-        view.put(GameState.ATTIC_SHELF, new AtticShelf(camera, batch));
+        views = new HashMap<GameState, ViewTwo>();
+        views.put(GameState.MENU, new Menu(camera, batch, consumer));
+        views.put(GameState.ATTIC, new LightAttic(camera, batch, consumer));
+        views.put(GameState.DARK_ATTIC, new DarkAttic(camera, batch, consumer));
+        views.put(GameState.ATTIC_SHELF, new AtticShelf(camera, batch, consumer));
 
-        currentBackground = view.get(GameState.DARK_ATTIC);
+        state = GameState.DARK_ATTIC;
 
     }
 
     @Override
     public void update(float delta) {
-        currentBackground = view.get(state);
-        Gdx.input.setInputProcessor(currentBackground.getStage());
+        Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        currentBackground().getStage().act(delta);
     }
 
     @Override
@@ -80,21 +76,19 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
-        float delta = Gdx.graphics.getDeltaTime();
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        view.get(state).getStage().act(delta);
-        view.get(state).getStage().draw();
-
         batch.setProjectionMatrix(camera.combined);
-
         batch.begin();
-        view.get(state).render(batch);
+        currentBackground().render(batch);
         batch.end();
+        currentBackground().getStage().setDebugAll(true);
+        currentBackground().getStage().draw();
     }
 
     @Override
     public void dispose() {
-
     }
 
+    private ViewTwo currentBackground() {
+        return views.get(state);
+    }
 }

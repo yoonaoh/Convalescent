@@ -119,25 +119,25 @@ public class Inventory {
     public void render(SpriteBatch batch) {
         if (isOpen()) {
 
-          int offset = 620;
-            for (Item item: items) {
-              batch.draw(item.sprite, 1080, 600, 100, 100);
-              offset -= 20;
-            }
-        } else {
-            batch.draw(sprite, 1080, 0, 200, 200);
-        }
+//          int offset = 620;
+//            for (Item item: items) {
+//              batch.draw(item.sprite, 1080, 600, 100, 100);
+//              offset -= 20;
+//            }
+//        } else {
+//            batch.draw(sprite, 1080, 0, 200, 200);
+//        }
 
     }
 
-    /**
-     * Renders the background of the inventory
-     * @param shapeRenderer - ShapeRenderer to display shapes
-     */
-    public void render(ShapeRenderer shapeRenderer) {
-        if (isOpen()) {
-            shapeRenderer.setColor(Color.BROWN);
-            shapeRenderer.rect(1080, 0, 200, 720, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
-        }
+//    /**
+//     * Renders the background of the inventory
+//     * @param shapeRenderer - ShapeRenderer to display shapes
+//     */
+//    public void render(ShapeRenderer shapeRenderer) {
+//        if (isOpen()) {
+//            shapeRenderer.setColor(Color.BROWN);
+//            shapeRenderer.rect(1080, 0, 200, 720, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY);
+//        }
     }
 }
