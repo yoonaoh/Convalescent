@@ -14,10 +14,10 @@ import java.util.function.Consumer;
 
 public class LightAttic extends ViewTwo {
     public LightAttic(Camera camera, SpriteBatch batch, final Consumer<GameState> stateUpdater) {
-        Stage stage = new Stage(new FitViewport(1280, 720, camera), batch);
-        Group actors = new Group();
-        Texture background = new Texture("attic_bg_light.png");
-        Polygon floorspace = new Polygon(new float[]{
+        stage = new Stage(new FitViewport(1280, 720, camera), batch);
+        actors = new Group();
+        background = new Texture("attic_bg_light.png");
+        floorspace = new Polygon(new float[]{
                 80,0,
                 616, 277,
                 1035, 277,
@@ -28,7 +28,7 @@ public class LightAttic extends ViewTwo {
                 1280, 250,
                 1280, 0
         });
-        Boolean avery = true;
+        avery = true;
 
         TriggerItem window = new TriggerItem(GameState.DARK_ATTIC, stateUpdater);
         window.setBounds(840, 380, 150, 160);
@@ -38,6 +38,6 @@ public class LightAttic extends ViewTwo {
         shelf.setBounds(1035, 250, 150, 270);
         actors.addActor(shelf);
 
-        super.initialise(stage, actors, background, floorspace, avery);
+        stage.addActor(actors);
     }
 }

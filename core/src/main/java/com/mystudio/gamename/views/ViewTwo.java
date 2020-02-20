@@ -19,14 +19,7 @@ public class ViewTwo {
     Polygon floorspace;
     Boolean avery;
 
-    public void initialise(Stage stage, Group actors, Texture background, Polygon floorspace, Boolean avery) {
-        this.stage = stage;
-        this.actors = actors;
-        this.avery = avery;
-        this.background = background;
-        this.floorspace = floorspace;
-
-        stage.addActor(actors);
+    public void initialise() {
     }
 
     public Polygon getFloorspace() {
