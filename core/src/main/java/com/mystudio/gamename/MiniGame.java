@@ -16,12 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public abstract class MiniGame extends Window {
 
-    private MainAdapter mainAdapter;
-
     public MiniGame(String image, final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
                 new TextureRegionDrawable(new TextureRegion(new Texture(image)))));
-        this.mainAdapter = mainAdapter;
         setPosition(200, 100);
         setSize(800, 500);
 

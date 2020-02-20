@@ -2,7 +2,9 @@ package com.mystudio.gamename.items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
 
@@ -52,9 +54,16 @@ public class Item extends Actor {
         }
     }
 
+    @Override
+    public Actor hit (float x, float y, boolean touchable) {
+        if (touchable && getTouchable() != Touchable.enabled) return null;
+        return shape.contains(new Vector2(x + shape.getX(), y + shape.getY())) ? this : null;
+    }
+
 //    public void reset(String image, float x, float y, int width, int height, CollisionShape collisionShape) {
 //        // collisionShape defaults to a box
-//        this.collisionShape = collisionShape == null ? new CollisionBox(x, y, width, height) : collisionShape;
+//        this.collisionShape = collisi
+//        onShape == null ? new CollisionBox(x, y, width, height) : collisionShape;
 //        setSprite(image, width, height);
 //        setPos(new Vector2(x, y));
 //    }
