@@ -1,19 +1,12 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mystudio.gamename.MainAdapter;
 import com.mystudio.gamename.MiniGame;
-import com.mystudio.gamename.views.View2MiniGameAdapter;
 
 public class GearPuzzleGame extends MiniGame {
 
-    public GearPuzzleGame(View2MiniGameAdapter view2MiniGameAdapter) {
-        super("robotgame_btemp.png", view2MiniGameAdapter);
+    public GearPuzzleGame(MainAdapter mainAdapter) {
+        super("robotgame_btemp.png", mainAdapter);
     }
 }
 //

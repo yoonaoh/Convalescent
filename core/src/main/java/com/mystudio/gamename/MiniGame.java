@@ -6,28 +6,23 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mystudio.gamename.items.MinigameTrigger;
-import com.mystudio.gamename.views.View2MiniGameAdapter;
-import org.mini2Dx.core.graphics.Graphics;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Abstract class for all MiniGames
  */
 public abstract class MiniGame extends Window {
 
-    private View2MiniGameAdapter view2MiniGameAdapter;
+    private MainAdapter mainAdapter;
 
-    public MiniGame(String image, View2MiniGameAdapter view2MiniGameAdapter) {
+    public MiniGame(String image, MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
                 new TextureRegionDrawable(new TextureRegion(new Texture(image)))));
-        this.view2MiniGameAdapter = view2MiniGameAdapter;
+        this.mainAdapter = mainAdapter;
         setPosition(400, 200);
         setSize(600, 400);
-        Actor closeButton = new Button();
+//        Actor closeButton = new Button();
     }
 //    /**
 //     * Boolean to determine whether MiniGame has started

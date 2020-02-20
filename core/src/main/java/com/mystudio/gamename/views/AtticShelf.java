@@ -3,6 +3,9 @@ package com.mystudio.gamename.views;
 import com.badlogic.gdx.graphics.Texture;
 import com.mystudio.gamename.GameState;
 import com.mystudio.gamename.MainAdapter;
+import com.mystudio.gamename.MiniGame;
+import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
+import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -25,10 +28,10 @@ public class AtticShelf extends ViewTwo {
         actors.addActor(shelfEdge2);
 
 
-//        gearGame = new GearPuzzleGame(mainAdapter);
-//        MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", mainAdapter);
-//        rabbit.setBounds(300, 300, 100, 100);
-//        actors.addActor(rabbit);
+        MiniGame gearGame = new GearPuzzleGame(mainAdapter);
+        MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", gearGame, mainAdapter);
+        rabbit.setBounds(320, 400, 100, 150);
+        actors.addActor(rabbit);
 
     }
 }
