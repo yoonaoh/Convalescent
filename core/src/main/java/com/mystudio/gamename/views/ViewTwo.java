@@ -47,7 +47,9 @@ public class ViewTwo {
     }
 
     public void drawBackground() {
+        stage.getBatch().begin();
         stage.getBatch().draw(this.background, 0, 0, stage.getWidth(), stage.getHeight());
+        stage.getBatch().end();
     }
 
     public void drawStage() {

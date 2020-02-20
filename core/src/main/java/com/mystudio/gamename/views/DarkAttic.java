@@ -1,18 +1,11 @@
 package com.mystudio.gamename.views;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mystudio.gamename.GameState;
 import com.mystudio.gamename.MainAdapter;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.SceneTrigger;
 import org.mini2Dx.core.geom.Polygon;
-
-import java.util.function.Consumer;
 
 public class DarkAttic extends ViewTwo {
     public DarkAttic(MainAdapter mainAdapter) {

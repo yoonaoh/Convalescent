@@ -14,7 +14,6 @@ import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.HashMap;
-import java.util.function.Consumer;
 
 public class Main extends BasicGame {
 
@@ -26,7 +25,7 @@ public class Main extends BasicGame {
     /**
      * Current game state
      */
-    private GameState state = GameState.DARK_ATTIC;
+    private GameState state;
 
     /**
      * Orthographic camera for perspective
@@ -38,14 +37,14 @@ public class Main extends BasicGame {
      */
     private SpriteBatch batch;
 
-    private HashMap<GameState, ViewTwo> views;
-
     private Viewport viewport;
+
+    private HashMap<GameState, ViewTwo> views;
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
         public void updateState(GameState gameState) {
-            state = gameState;
+            changeState(gameState);
         }
 
         @Override
@@ -76,6 +75,7 @@ public class Main extends BasicGame {
         camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
+        batch.setProjectionMatrix(camera.combined);
 
         views = new HashMap<GameState, ViewTwo>();
         views.put(GameState.MENU, new Menu(mainAdapter));
@@ -83,14 +83,12 @@ public class Main extends BasicGame {
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        state = GameState.DARK_ATTIC;
+        changeState(GameState.DARK_ATTIC);
 
     }
 
     @Override
     public void update(float delta) {
-        Gdx.input.setInputProcessor(currentBackground().getStage());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         currentBackground().getStage().act(delta);
     }
 
@@ -101,16 +99,19 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
         currentBackground().drawBackground();
-        batch.end();
         currentBackground().getStage().setDebugAll(true);
         currentBackground().drawStage();
     }
 
     @Override
     public void dispose() {
+    }
+
+    public void changeState(GameState gameState) {
+        state = gameState;
+        Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     private ViewTwo currentBackground() {
