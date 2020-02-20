@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -28,11 +29,6 @@ public class Main extends BasicGame {
     private GameState state;
 
     /**
-     * Orthographic camera for perspective
-     */
-    private Camera camera;
-
-    /**
      * SpriteBatch containing all the sprites
      */
     private SpriteBatch batch;
@@ -40,6 +36,8 @@ public class Main extends BasicGame {
     private Viewport viewport;
 
     private HashMap<GameState, ViewTwo> views;
+
+    private Window window;
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -49,12 +47,12 @@ public class Main extends BasicGame {
 
         @Override
         public void openWindow(Window window) {
-
+            setWindow(window);
         }
 
         @Override
         public void closeWindow() {
-
+            removeWindow();
         }
 
         @Override
@@ -72,7 +70,10 @@ public class Main extends BasicGame {
     public void initialise() {
         batch = new SpriteBatch();
         // Set screen size
-        camera = new OrthographicCamera();
+        /**
+         * Orthographic camera for perspective
+         */
+        Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
@@ -116,5 +117,16 @@ public class Main extends BasicGame {
 
     private ViewTwo currentBackground() {
         return views.get(state);
+    }
+
+    private void setWindow(Window window) {
+        this.window = window;
+        currentBackground().getActors().setTouchable(Touchable.disabled);
+        currentBackground().getStage().addActor(window);
+    }
+
+    private void removeWindow() {
+        window.remove();
+        currentBackground().getActors().setTouchable(Touchable.enabled);
     }
 }
