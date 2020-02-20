@@ -27,11 +27,9 @@ public class AtticShelf extends ViewTwo {
         shelfEdge2.setBounds(1110, 0, 170, 720);
         actors.addActor(shelfEdge2);
 
-
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
         MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", gearGame, mainAdapter);
         rabbit.setBounds(320, 400, 100, 150);
         actors.addActor(rabbit);
-
     }
 }

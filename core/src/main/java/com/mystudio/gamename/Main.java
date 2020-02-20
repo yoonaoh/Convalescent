@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.views.*;
@@ -85,7 +87,6 @@ public class Main extends BasicGame {
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
         changeState(GameState.DARK_ATTIC);
-
     }
 
     @Override
@@ -123,6 +124,7 @@ public class Main extends BasicGame {
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
+        window.setModal(true);
     }
 
     private void removeWindow() {
