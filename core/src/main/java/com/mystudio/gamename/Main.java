@@ -4,7 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
@@ -36,7 +40,34 @@ public class Main extends BasicGame {
 
     private HashMap<GameState, ViewTwo> views;
 
-//    ViewTwo currentBackground;
+    private Viewport viewport;
+
+    private MainAdapter mainAdapter = new MainAdapter() {
+        @Override
+        public void updateState(GameState gameState) {
+            state = gameState;
+        }
+
+        @Override
+        public void openWindow(Window window) {
+
+        }
+
+        @Override
+        public void closeWindow() {
+
+        }
+
+        @Override
+        public Viewport getViewPort() {
+            return viewport;
+        }
+
+        @Override
+        public Batch getBatch() {
+            return batch;
+        }
+    };
 
     @Override
     public void initialise() {
@@ -44,19 +75,13 @@ public class Main extends BasicGame {
         // Set screen size
         camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
-
-        Consumer<GameState> consumer = new Consumer<GameState>() {
-            @Override
-            public void accept(GameState gameState) {
-                state = gameState;
-            }
-        };
+        viewport = new FitViewport(1280, 720, camera);
 
         views = new HashMap<GameState, ViewTwo>();
-        views.put(GameState.MENU, new Menu(camera, batch, consumer));
-        views.put(GameState.ATTIC, new LightAttic(camera, batch, consumer));
-        views.put(GameState.DARK_ATTIC, new DarkAttic(camera, batch, consumer));
-        views.put(GameState.ATTIC_SHELF, new AtticShelf(camera, batch, consumer));
+        views.put(GameState.MENU, new Menu(mainAdapter));
+        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
+        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
+        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
         state = GameState.DARK_ATTIC;
 
@@ -78,10 +103,10 @@ public class Main extends BasicGame {
     public void render(Graphics g) {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        currentBackground().render(batch);
+        currentBackground().drawBackground();
         batch.end();
         currentBackground().getStage().setDebugAll(true);
-        currentBackground().getStage().draw();
+        currentBackground().drawStage();
     }
 
     @Override

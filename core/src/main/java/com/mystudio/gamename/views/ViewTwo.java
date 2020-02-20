@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mystudio.gamename.MainAdapter;
 import org.mini2Dx.core.geom.Polygon;
 
 import java.util.ArrayList;
@@ -18,9 +19,16 @@ public class ViewTwo {
     Texture background;
     Polygon floorspace;
     Boolean avery;
+    MainAdapter mainAdapter;
 
-    public void initialise() {
+    public ViewTwo(MainAdapter mainAdapter) {
+        this.mainAdapter = mainAdapter;
+        stage = new Stage(mainAdapter.getViewPort(), mainAdapter.getBatch());
+        actors = new Group();
+        stage.addActor(actors);
     }
+
+    public void initialise() {}
 
     public Polygon getFloorspace() {
         return floorspace;
@@ -38,7 +46,11 @@ public class ViewTwo {
         return stage;
     }
 
-    public void render(SpriteBatch batch) {
-        batch.draw(this.background, 0, 0, stage.getWidth(), stage.getHeight());
+    public void drawBackground() {
+        stage.getBatch().draw(this.background, 0, 0, stage.getWidth(), stage.getHeight());
+    }
+
+    public void drawStage() {
+        stage.draw();
     }
 }

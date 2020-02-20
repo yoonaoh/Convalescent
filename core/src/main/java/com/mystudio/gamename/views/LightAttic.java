@@ -7,15 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mystudio.gamename.GameState;
-import com.mystudio.gamename.items.TriggerItem;
+import com.mystudio.gamename.MainAdapter;
+import com.mystudio.gamename.items.SceneTrigger;
 import org.mini2Dx.core.geom.Polygon;
 
 import java.util.function.Consumer;
 
 public class LightAttic extends ViewTwo {
-    public LightAttic(Camera camera, SpriteBatch batch, final Consumer<GameState> stateUpdater) {
-        stage = new Stage(new FitViewport(1280, 720, camera), batch);
-        actors = new Group();
+    public LightAttic(MainAdapter mainAdapter) {
+        super(mainAdapter);
         background = new Texture("attic_bg_light.png");
         floorspace = new Polygon(new float[]{
                 80,0,
@@ -30,14 +30,14 @@ public class LightAttic extends ViewTwo {
         });
         avery = true;
 
-        TriggerItem window = new TriggerItem(GameState.DARK_ATTIC, stateUpdater);
+        SceneTrigger window = new SceneTrigger(GameState.DARK_ATTIC, mainAdapter);
         window.setBounds(840, 380, 150, 160);
         actors.addActor(window);
 
-        TriggerItem shelf = new TriggerItem("shelf_light.png", GameState.ATTIC_SHELF, stateUpdater);
+        SceneTrigger shelf = new SceneTrigger("shelf_light.png", GameState.ATTIC_SHELF, mainAdapter);
         shelf.setBounds(1035, 250, 150, 270);
         actors.addActor(shelf);
 
-        stage.addActor(actors);
+//        stage.addActor(actors);
     }
 }

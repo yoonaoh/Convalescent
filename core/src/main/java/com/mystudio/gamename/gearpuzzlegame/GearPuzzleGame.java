@@ -1,16 +1,21 @@
-//package com.mystudio.gamename.gearpuzzlegame;
-//
-//import com.badlogic.gdx.graphics.Texture;
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.mystudio.gamename.MiniGame;
-//import com.mystudio.gamename.items.Item;
-//import org.mini2Dx.core.graphics.Graphics;
-//
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.Comparator;
-//
-//public class GearPuzzleGame extends MiniGame  {
+package com.mystudio.gamename.gearpuzzlegame;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mystudio.gamename.MiniGame;
+import com.mystudio.gamename.views.View2MiniGameAdapter;
+
+public class GearPuzzleGame extends MiniGame {
+
+    public GearPuzzleGame(View2MiniGameAdapter view2MiniGameAdapter) {
+        super("robotgame_btemp.png", view2MiniGameAdapter);
+    }
+}
 //
 //    private Texture background;
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
@@ -134,5 +139,5 @@
 //    @Override
 //    protected void dispose() {
 //
-//    }
+
 //}
