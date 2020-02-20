@@ -8,43 +8,37 @@ public class GearPuzzleGame extends MiniGame {
     public GearPuzzleGame(MainAdapter mainAdapter) {
         super("robotgame_btemp.png", mainAdapter);
     }
-}
 //
-//    private Texture background;
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
 //    private Mount mount1, mount2, mount3;
+//    int gameOverPause = 120;
+
 //    private Chain chain1, chain2;
 //    private DraggableCircle cross;
-//
+
 //    private ArrayList<Gear> gears = new ArrayList<Gear>();
 //    private ArrayList<Mount> mounts = new ArrayList<Mount>();
 //    private ArrayList<Chain> chains = new ArrayList<Chain>();
 //
 //    private MouseMonitor mouse = new MouseMonitor();
 //    private ArrayList<DraggableItem> interactables = new ArrayList<DraggableItem>();
-////    private ArrayList<DraggableItem> renders = new ArrayList<DraggableItem>();
-////    private ArrayList<Gear> gearsReversed = new ArrayList<Gear>();
+//    private ArrayList<DraggableItem> renders = new ArrayList<DraggableItem>();
+//    private ArrayList<Gear> gearsReversed = new ArrayList<Gear>();
+
+//    private DraggableItem test;
+
+
+    public void setUp() {
+//        bigGear1 = new Gear(1000, 550, 150, true, false, true, 0);
+//        bigGear1.velocity = 10;
+//        bigGear2 = new Gear(470, 440, 120, true, false, false, 0);
+//        corGear1 = new Gear(250, 200, 50, true, true, false, 0);
+//        corGear2 = new Gear(1050, 200, 50, true, true, false, 0);
 //
-////    private DraggableItem test;
-//
-//    int gameOverPause = 120;
-//
-//    public GearPuzzleGame() {
-//        background = new Texture("robotgame_btemp.png");
-//        setUp();
-//    }
-//
-//    public void setUp() {
-////        bigGear1 = new Gear(1000, 550, 150, true, false, true, 0);
-////        bigGear1.velocity = 10;
-////        bigGear2 = new Gear(470, 440, 120, true, false, false, 0);
-////        corGear1 = new Gear(250, 200, 50, true, true, false, 0);
-////        corGear2 = new Gear(1050, 200, 50, true, true, false, 0);
-////
-////        smallGear1 = new Gear(150, 650, 50, false, true, false, 1);
-////        smallGear2 = new Gear(150, 540, 50, false, true, false, 1);
-////        midGear = new Gear(150, 415, 65, false, true, false, 1);
-//
+//        smallGear1 = new Gear(150, 650, 50, false, true, false, 1);
+//        smallGear2 = new Gear(150, 540, 50, false, true, false, 1);
+//        midGear = new Gear(150, 415, 65, false, true, false, 1);
+
 //        bigGear1 = new Gear(1000, 550, 160, true, false, true, 0);
 //        bigGear1.velocity = 10;
 //        bigGear2 = new Gear(470, 440, 130, true, false, false, 0);
@@ -54,7 +48,7 @@ public class GearPuzzleGame extends MiniGame {
 //        smallGear1 = new Gear(150, 650, 60, false, true, false, 1);
 //        smallGear2 = new Gear(150, 540, 60, false, true, false, 1);
 //        midGear = new Gear(150, 415, 80, false, true, false, 1);
-//
+
 //        cross = new DraggableCircle("cross.png", 100, 650, 20, 0);
 //
 //        gears.add(bigGear1); gears.add(bigGear2); gears.add(corGear1); gears.add(corGear2);
@@ -132,5 +126,5 @@ public class GearPuzzleGame extends MiniGame {
 //    @Override
 //    protected void dispose() {
 //
-
-//}
+    }
+}

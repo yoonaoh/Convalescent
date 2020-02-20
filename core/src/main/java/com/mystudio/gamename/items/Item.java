@@ -3,6 +3,7 @@ package com.mystudio.gamename.items;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
 
 /**
@@ -12,16 +13,24 @@ public class Item extends Actor {
 
     public TextureRegion textureRegion = null;
 
-    /**
-     * Constructs an item
-     *
-     * @param image  - String path of image file that represents the item
-     */
+    public CollisionShape shape = null;
+
     public Item(String image) {
-        setSprite(image);
+        this(image, null);
     }
 
-    public Item() {}
+    public Item(CollisionShape shape) {
+        this(null, shape);
+    }
+
+    public Item(String image, CollisionShape shape) {
+        if (image != null) setSprite(image);
+        if (shape != null) {
+            this.shape = shape;
+            setBounds(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+        }
+
+    }
 
     /**
      * Sets the sprite for the item

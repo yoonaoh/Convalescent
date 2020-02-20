@@ -5,6 +5,7 @@ import com.mystudio.gamename.GameState;
 import com.mystudio.gamename.MainAdapter;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.SceneTrigger;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 public class DarkAttic extends ViewTwo {
@@ -24,13 +25,12 @@ public class DarkAttic extends ViewTwo {
         });
         avery = true;
 
-        SceneTrigger window = new SceneTrigger(GameState.ATTIC, mainAdapter);
-        window.setBounds(840, 380, 150, 160);
+        SceneTrigger window = new SceneTrigger(null, new CollisionBox(840, 380, 150, 160), GameState.ATTIC, mainAdapter);
         actors.addActor(window);
 
-        Item shelf = new Item("shelf_dark.png");
-        shelf.setBounds(1035, 250, 150, 270);
+        Item shelf = new Item("shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
         actors.addActor(shelf);
+
 
 //        stage.addActor(actors);
 //        Actor window = new Actor();

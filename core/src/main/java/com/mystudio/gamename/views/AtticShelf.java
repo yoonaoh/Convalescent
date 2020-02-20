@@ -7,6 +7,7 @@ import com.mystudio.gamename.MiniGame;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 
@@ -19,17 +20,14 @@ public class AtticShelf extends ViewTwo {
         floorspace = new Polygon(new float[]{});
         avery = false;
 
-        SceneTrigger shelfEdge1 = new SceneTrigger(GameState.ATTIC, mainAdapter);
-        shelfEdge1.setBounds(0, 0, 250, 720);
+        SceneTrigger shelfEdge1 = new SceneTrigger(null, new CollisionBox(0, 0, 250, 720), GameState.ATTIC, mainAdapter);
         actors.addActor(shelfEdge1);
 
-        SceneTrigger shelfEdge2 = new SceneTrigger(GameState.ATTIC, mainAdapter);
-        shelfEdge2.setBounds(1110, 0, 170, 720);
+        SceneTrigger shelfEdge2 = new SceneTrigger(null, new CollisionBox(1110, 0, 170, 720), GameState.ATTIC, mainAdapter);
         actors.addActor(shelfEdge2);
 
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
-        MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", gearGame, mainAdapter);
-        rabbit.setBounds(320, 400, 100, 150);
+        MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", new CollisionBox(320, 400, 100, 150), gearGame, mainAdapter);
         actors.addActor(rabbit);
     }
 }

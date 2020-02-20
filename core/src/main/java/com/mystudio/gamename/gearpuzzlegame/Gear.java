@@ -1,12 +1,12 @@
-//package com.mystudio.gamename.gearpuzzlegame;
-//
-//
-//import com.badlogic.gdx.math.Vector2;
-//
-//import java.util.ArrayList;
-//
-//public class Gear extends DraggableCircle {
-//
+package com.mystudio.gamename.gearpuzzlegame;
+
+
+import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
+
+public class Gear {
+
 //    int radius;
 //    float velocity = 0;
 //    boolean mountable;
@@ -91,17 +91,17 @@
 //                chain.updateRotation(gears, chains);
 //            }
 //        }
-////        for (Chain chain: chains) {
-////            if (collideWith(chain) || chain == this.chain) {
-////                if (!chain.passed) {
-////                    chain.velocity = velocity;
-////                    chain.updateRotation(gears, chains);
-////                } else if (chain.velocity * velocity < 0) {
-////                    chain.velocity = 0;
-////                    velocity = 0;
-////                }
-////            }
-////        }
+//        for (Chain chain: chains) {
+//            if (collideWith(chain) || chain == this.chain) {
+//                if (!chain.passed) {
+//                    chain.velocity = velocity;
+//                    chain.updateRotation(gears, chains);
+//                } else if (chain.velocity * velocity < 0) {
+//                    chain.velocity = 0;
+//                    velocity = 0;
+//                }
+//            }
+//        }
 //    }
 //
 //    @Override
@@ -118,5 +118,5 @@
 //            }
 //        }
 //    }
-//
-//}
+
+}

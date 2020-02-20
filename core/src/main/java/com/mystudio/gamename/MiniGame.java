@@ -22,8 +22,8 @@ public abstract class MiniGame extends Window {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
                 new TextureRegionDrawable(new TextureRegion(new Texture(image)))));
         this.mainAdapter = mainAdapter;
-        setPosition(400, 200);
-        setSize(600, 400);
+        setPosition(200, 100);
+        setSize(800, 500);
 
         addListener(new InputListener() {
             @Override
@@ -36,6 +36,13 @@ public abstract class MiniGame extends Window {
             }
         });
     }
+//        addListener(new InputListener() {
+//            @Override
+//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.println("clicked!");
+//                return true;
+//            }
+//        });
 //    /**
 //     * Boolean to determine whether MiniGame has started
 //     */

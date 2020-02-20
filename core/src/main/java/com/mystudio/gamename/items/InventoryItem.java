@@ -14,7 +14,11 @@ public class InventoryItem extends Item {
    */
   protected boolean inInventory;
 
-  /**
+    public InventoryItem(String image, CollisionShape shape) {
+        super(image, shape);
+    }
+
+    /**
    * Constructs an inventory item
    * @param image  - String path of image file that represents the item
    * @param x      - x position of the item

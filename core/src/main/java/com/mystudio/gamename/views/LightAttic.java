@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mystudio.gamename.GameState;
 import com.mystudio.gamename.MainAdapter;
 import com.mystudio.gamename.items.SceneTrigger;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 import java.util.function.Consumer;
@@ -30,12 +31,10 @@ public class LightAttic extends ViewTwo {
         });
         avery = true;
 
-        SceneTrigger window = new SceneTrigger(GameState.DARK_ATTIC, mainAdapter);
-        window.setBounds(840, 380, 150, 160);
+        SceneTrigger window = new SceneTrigger(null, new CollisionBox(840, 380, 150, 160), GameState.DARK_ATTIC, mainAdapter);
         actors.addActor(window);
 
-        SceneTrigger shelf = new SceneTrigger("shelf_light.png", GameState.ATTIC_SHELF, mainAdapter);
-        shelf.setBounds(1035, 250, 150, 270);
+        SceneTrigger shelf = new SceneTrigger("shelf_light.png", new CollisionBox(1035, 250, 150, 270), GameState.ATTIC_SHELF, mainAdapter);
         actors.addActor(shelf);
 
 //        stage.addActor(actors);
