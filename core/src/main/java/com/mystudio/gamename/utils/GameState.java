@@ -1,4 +1,4 @@
-package com.mystudio.gamename;
+package com.mystudio.gamename.utils;
 
 /**
  * Stores the game's state

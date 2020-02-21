@@ -1,7 +1,6 @@
 package com.mystudio.gamename.items;
 
 import org.mini2Dx.core.engine.geom.CollisionCircle;
-import org.mini2Dx.core.geom.Polygon;
 
 public class CollisionCircleModified extends CollisionCircle {
     public CollisionCircleModified(float centerX, float centerY, float radius) {

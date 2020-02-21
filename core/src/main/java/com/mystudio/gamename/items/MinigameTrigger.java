@@ -2,13 +2,13 @@ package com.mystudio.gamename.items;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mystudio.gamename.MainAdapter;
-import com.mystudio.gamename.MiniGame;
+import com.mystudio.gamename.utils.MainAdapter;
+import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
 public class MinigameTrigger extends Item {
 
-    MiniGame miniGame;
+    private MiniGame miniGame;
     /**
      * Constructs an trigger item
      */

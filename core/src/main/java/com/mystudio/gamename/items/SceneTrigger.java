@@ -2,8 +2,8 @@ package com.mystudio.gamename.items;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mystudio.gamename.GameState;
-import com.mystudio.gamename.MainAdapter;
+import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
 /**

@@ -2,7 +2,7 @@ package com.mystudio.gamename.items;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.mystudio.gamename.MainAdapter;
+import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
 public class InteractableItem extends Item {

@@ -1,4 +1,4 @@
-package com.mystudio.gamename;
+package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
@@ -96,7 +98,7 @@ public class Main extends BasicGame {
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        changeState(GameState.DARK_ATTIC);
+        changeState(GameState.MENU);
     }
 
     @Override

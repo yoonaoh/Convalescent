@@ -1,6 +1,6 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.mystudio.gamename.MainAdapter;
+import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.items.CollisionCircleModified;
 import com.mystudio.gamename.items.InteractableItem;
 

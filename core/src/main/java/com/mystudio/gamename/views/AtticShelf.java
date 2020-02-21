@@ -1,9 +1,9 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mystudio.gamename.GameState;
-import com.mystudio.gamename.MainAdapter;
-import com.mystudio.gamename.MiniGame;
+import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.MainAdapter;
+import com.mystudio.gamename.windows.MiniGame;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;

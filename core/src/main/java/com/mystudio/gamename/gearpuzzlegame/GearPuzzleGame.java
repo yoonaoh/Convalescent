@@ -1,8 +1,7 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.mystudio.gamename.MainAdapter;
-import com.mystudio.gamename.MiniGame;
+import com.mystudio.gamename.utils.MainAdapter;
+import com.mystudio.gamename.windows.MiniGame;
 
 public class GearPuzzleGame extends MiniGame {
 

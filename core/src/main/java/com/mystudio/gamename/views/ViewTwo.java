@@ -1,16 +1,10 @@
 package com.mystudio.gamename.views;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mystudio.gamename.MainAdapter;
+import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.geom.Polygon;
-
-import java.util.ArrayList;
 
 public class ViewTwo {
 
