@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
 
+
 /**
  * An interactable item within the game
  */
@@ -31,7 +32,6 @@ public class Item extends Actor {
             this.shape = shape;
             setBounds(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
         }
-
     }
 
     /**
@@ -41,9 +41,6 @@ public class Item extends Actor {
     public void setSprite(String image) {
         textureRegion = new TextureRegion(new Texture(image));
         textureRegion.flip(false, true);
-//        newSprite.setSize(getWidth(), getHeight());
-//        newSprite.setOrigin(getOriginX(), getOriginY());
-//        newSprite.setRotation(getRotation());
     }
 
     @Override
@@ -59,6 +56,8 @@ public class Item extends Actor {
         if (touchable && getTouchable() != Touchable.enabled) return null;
         return shape.contains(new Vector2(x + shape.getX(), y + shape.getY())) ? this : null;
     }
+}
+
 
 //    public void reset(String image, float x, float y, int width, int height, CollisionShape collisionShape) {
 //        // collisionShape defaults to a box
@@ -147,4 +146,3 @@ public class Item extends Actor {
 //        return new Vector2(collisionShape.getX(), collisionShape.getY());
 //    }
 
-}

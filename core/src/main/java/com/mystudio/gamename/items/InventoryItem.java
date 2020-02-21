@@ -1,7 +1,5 @@
 package com.mystudio.gamename.items;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
 /**

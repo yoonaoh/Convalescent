@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,6 +41,10 @@ public class Main extends BasicGame {
 
     private Window window;
 
+    private Window inventory;
+
+    private Group activeGroup = new Group();
+
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
         public void updateState(GameState gameState) {
@@ -63,6 +69,12 @@ public class Main extends BasicGame {
         @Override
         public Batch getBatch() {
             return batch;
+        }
+
+        @Override
+        public void setAsGlobalActive(Actor actor) {
+            currentBackground().getStage().addActor(actor);
+            actor.setTouchable(Touchable.enabled);
         }
     };
 
@@ -90,11 +102,11 @@ public class Main extends BasicGame {
     @Override
     public void update(float delta) {
         currentBackground().getStage().act(delta);
+        activeGroup.act(delta);
     }
 
     @Override
     public void interpolate(float alpha) {
-
     }
 
     @Override
@@ -122,7 +134,6 @@ public class Main extends BasicGame {
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
-        window.setModal(true);
     }
 
     private void removeWindow() {

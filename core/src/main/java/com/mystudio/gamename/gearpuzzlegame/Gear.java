@@ -1,11 +1,14 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
+import com.mystudio.gamename.items.CollisionCircleModified;
+import com.mystudio.gamename.items.InteractableItem;
 
-import com.badlogic.gdx.math.Vector2;
+public class Gear extends InteractableItem {
 
-import java.util.ArrayList;
-
-public class Gear {
+    public Gear (float x, float y, int radius) {
+        super("big_gear2.png", new CollisionCircleModified(x, y, radius));
+    }
+}
 
 //    int radius;
 //    float velocity = 0;
@@ -119,4 +122,4 @@ public class Gear {
 //        }
 //    }
 
-}
+

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
@@ -16,12 +17,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public abstract class MiniGame extends Window {
 
+    MainAdapter mainAdapter;
+
     public MiniGame(String image, final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
                 new TextureRegionDrawable(new TextureRegion(new Texture(image)))));
         setPosition(200, 100);
         setSize(800, 500);
 
+        this.mainAdapter = mainAdapter;
+
+        // Set to close when clicked outside of window area
+        setModal(true);
         addListener(new InputListener() {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -33,7 +40,8 @@ public abstract class MiniGame extends Window {
             }
         });
     }
-//        addListener(new InputListener() {
+
+    //        addListener(new InputListener() {
 //            @Override
 //            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 //                System.out.println("clicked!");

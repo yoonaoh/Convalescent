@@ -1,5 +1,6 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mystudio.gamename.MainAdapter;
 import com.mystudio.gamename.MiniGame;
 
@@ -7,8 +8,12 @@ public class GearPuzzleGame extends MiniGame {
 
     public GearPuzzleGame(MainAdapter mainAdapter) {
         super("robotgame_btemp.png", mainAdapter);
+
+        Gear gear1 = new Gear(100, 100, 100);
+        gear1.setDraggable(mainAdapter);
+        addActor(gear1);
     }
-//
+
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
 //    private Mount mount1, mount2, mount3;
 //    int gameOverPause = 120;
@@ -28,7 +33,7 @@ public class GearPuzzleGame extends MiniGame {
 //    private DraggableItem test;
 
 
-    public void setUp() {
+//    public void setUp() {
 //        bigGear1 = new Gear(1000, 550, 150, true, false, true, 0);
 //        bigGear1.velocity = 10;
 //        bigGear2 = new Gear(470, 440, 120, true, false, false, 0);
@@ -126,5 +131,5 @@ public class GearPuzzleGame extends MiniGame {
 //    @Override
 //    protected void dispose() {
 //
-    }
+//    }
 }
