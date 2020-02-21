@@ -9,8 +9,8 @@ public class GearPuzzleGame extends MiniGame {
     public GearPuzzleGame(MainAdapter mainAdapter) {
         super("robotgame_btemp.png", mainAdapter);
 
-        Gear gear1 = new Gear(100, 100, 100);
-        gear1.setDraggable(mainAdapter);
+        Gear gear1 = new Gear(mainAdapter, 100, 100, 100);
+        gear1.setDraggable();
         addActor(gear1);
     }
 

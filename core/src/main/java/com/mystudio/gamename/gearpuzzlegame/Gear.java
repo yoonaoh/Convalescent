@@ -1,12 +1,13 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
+import com.mystudio.gamename.MainAdapter;
 import com.mystudio.gamename.items.CollisionCircleModified;
 import com.mystudio.gamename.items.InteractableItem;
 
 public class Gear extends InteractableItem {
 
-    public Gear (float x, float y, int radius) {
-        super("big_gear2.png", new CollisionCircleModified(x, y, radius));
+    public Gear (MainAdapter mainAdapter, float x, float y, int radius) {
+        super("big_gear2.png", new CollisionCircleModified(x, y, radius), mainAdapter);
     }
 }
 
