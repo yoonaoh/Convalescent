@@ -12,9 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+//import com.mystudio.gamename.DragAndDropTest;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
+import jnr.ffi.annotations.In;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -43,9 +45,11 @@ public class Main extends BasicGame {
 
     private Window window;
 
-    private Window inventory;
+    private Inventory inventory;
 
     private Group activeGroup = new Group();
+
+//    private DragAndDropTest test = new DragAndDropTest();
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -75,22 +79,25 @@ public class Main extends BasicGame {
 
         @Override
         public void setAsGlobalActive(Actor actor) {
-            currentBackground().getStage().addActor(actor);
-            actor.setTouchable(Touchable.enabled);
+//            currentBackground().getStage().addActor(actor);
+//            actor.setTouchable(Touchable.enabled);
         }
+
+//        @Override
+//        public void removeAsGlobalActive(Actor actor) {
+//
+//        }
     };
 
     @Override
     public void initialise() {
+//        test.create();
         batch = new SpriteBatch();
-        // Set screen size
-        /**
-         * Orthographic camera for perspective
-         */
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
+        inventory = new Inventory();
 
         views = new HashMap<GameState, ViewTwo>();
         views.put(GameState.MENU, new Menu(mainAdapter));
@@ -113,6 +120,7 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
+//        test.render();
         currentBackground().drawBackground();
         currentBackground().getStage().setDebugAll(true);
         currentBackground().drawStage();
@@ -126,6 +134,7 @@ public class Main extends BasicGame {
         state = gameState;
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        currentBackground().getStage().addActor(inventory);
     }
 
     private ViewTwo currentBackground() {
@@ -136,6 +145,7 @@ public class Main extends BasicGame {
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
+        inventory.setTouchable(Touchable.enabled);
     }
 
     private void removeWindow() {
