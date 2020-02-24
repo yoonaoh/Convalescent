@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main extends BasicGame {
@@ -43,9 +43,9 @@ public class Main extends BasicGame {
 
     private Window window;
 
-    private Window inventory;
+    private Inventory inventory;
 
-    private Group activeGroup = new Group();
+    private HashMap<String, ArrayList<InteractableItem>> targetRegistry = new HashMap<String, ArrayList<InteractableItem>>();
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -74,19 +74,39 @@ public class Main extends BasicGame {
         }
 
         @Override
-        public void setAsGlobalActive(Actor actor) {
-            currentBackground().getStage().addActor(actor);
-            actor.setTouchable(Touchable.enabled);
+        public void addToInventory(InteractableItem item) {
+            inventory.addItem(item);
+            item.inInventory = true;
+            item.stopPickUpable();
+            item.setDraggable();
+        }
+
+        @Override
+        public ArrayList<InteractableItem> getTargetRegistry(String name) {
+            if (!targetRegistry.containsKey(name)) {
+                targetRegistry.put(name, new ArrayList<InteractableItem>());
+            }
+            return targetRegistry.get(name);
+        }
+
+        @Override
+        public void addToTargetRegistry(String name, InteractableItem item) {
+            if (!targetRegistry.containsKey(name)) {
+                targetRegistry.put(name, new ArrayList<InteractableItem>());
+            }
+            targetRegistry.get(name).add(item);
+        }
+
+        @Override
+        public void removeFromInventory(InteractableItem item) {
+            inventory.removeItem(item);
         }
     };
 
     @Override
     public void initialise() {
+
         batch = new SpriteBatch();
-        // Set screen size
-        /**
-         * Orthographic camera for perspective
-         */
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
@@ -98,13 +118,16 @@ public class Main extends BasicGame {
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        changeState(GameState.MENU);
+        inventory = new Inventory(mainAdapter);
+
+        state = GameState.MENU;
+        Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
     public void update(float delta) {
         currentBackground().getStage().act(delta);
-        activeGroup.act(delta);
     }
 
     @Override
@@ -126,6 +149,8 @@ public class Main extends BasicGame {
         state = gameState;
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        inventory.remove();
+        currentBackground().getStage().addActor(inventory);
     }
 
     private ViewTwo currentBackground() {
@@ -136,6 +161,7 @@ public class Main extends BasicGame {
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
+        inventory.setTouchable(Touchable.enabled);
     }
 
     private void removeWindow() {

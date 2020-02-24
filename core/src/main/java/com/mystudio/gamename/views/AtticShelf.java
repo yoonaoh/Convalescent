@@ -1,6 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
@@ -16,7 +17,7 @@ public class AtticShelf extends ViewTwo {
     public AtticShelf(MainAdapter mainAdapter) {
         super(mainAdapter);
 
-        background = new Texture("shelf_closeup.png");
+        background = new Texture("views/shelf_closeup.png");
         floorspace = new Polygon(new float[]{});
         avery = false;
 
@@ -27,7 +28,18 @@ public class AtticShelf extends ViewTwo {
         actors.addActor(shelfEdge2);
 
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
-        MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", new CollisionBox(320, 400, 100, 150), gearGame, mainAdapter);
+        MinigameTrigger rabbit = new MinigameTrigger("items/windup_toy.png", new CollisionBox(320, 400, 100, 150), gearGame, mainAdapter);
         actors.addActor(rabbit);
+
+        Gear gear = new Gear(mainAdapter, 600, 450, 40);
+        gear.setPickUpable();
+        gear.addTargetName("mount1");
+        actors.addActor(gear);
+
+        Gear gear2 = new Gear(mainAdapter, 700, 450, 40);
+        gear2.setPickUpable();
+        gear2.addTargetName("mount1");
+        actors.addActor(gear2);
+
     }
 }

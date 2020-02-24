@@ -4,11 +4,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.utils.MainAdapter;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 
 /**
  * Abstract class for all MiniGames
@@ -20,24 +24,35 @@ public abstract class MiniGame extends Window {
     public MiniGame(String image, final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
                 new TextureRegionDrawable(new TextureRegion(new Texture(image)))));
+
+        this.mainAdapter = mainAdapter;
         setPosition(200, 100);
         setSize(800, 500);
 
-        this.mainAdapter = mainAdapter;
-
-        // Set to close when clicked outside of window area
-        setModal(true);
-        addListener(new InputListener() {
+        Actor close = new Item("gearpuzzle/close.png", new CollisionBox(30, 450, 30, 30));
+        close.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                if (x < 0 || x > getWidth() || y < 0 || y > getHeight()){
-                    mainAdapter.closeWindow();
-                    return true;
-                }
-                return false;
+                mainAdapter.closeWindow();
+                return true;
             }
         });
+        addActor(close);
     }
+
+// Set to close when clicked outside of window area
+//        setModal(true);
+//        addListener(new InputListener() {
+//            @Override
+//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+////                if (x < 0 || x > getWidth() || y < 0 || y > getHeight()){
+////                    mainAdapter.closeWindow();
+////                    return true;
+////                }
+//                return false;
+//            }
+//        });
+
 
     //        addListener(new InputListener() {
 //            @Override

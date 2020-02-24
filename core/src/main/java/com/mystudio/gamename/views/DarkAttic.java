@@ -11,7 +11,7 @@ import org.mini2Dx.core.geom.Polygon;
 public class DarkAttic extends ViewTwo {
     public DarkAttic(MainAdapter mainAdapter) {
         super(mainAdapter);
-        background = new Texture("attic_bg_dark.png");
+        background = new Texture("views/attic_bg_dark.png");
         floorspace = new Polygon(new float[]{
                 80, 0,
                 616, 277,
@@ -28,7 +28,7 @@ public class DarkAttic extends ViewTwo {
         SceneTrigger window = new SceneTrigger(null, new CollisionBox(840, 380, 150, 160), GameState.ATTIC, mainAdapter);
         actors.addActor(window);
 
-        Item shelf = new Item("shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
+        Item shelf = new Item("views/shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
         actors.addActor(shelf);
 
 

@@ -18,19 +18,15 @@ public class Item extends Actor {
 
     public CollisionShape shape = null;
 
-    public Item(String image) {
-        this(image, null);
-    }
-
-    public Item(CollisionShape shape) {
-        this(null, shape);
-    }
+    public boolean visible = true;
 
     public Item(String image, CollisionShape shape) {
-        if (image != null) setSprite(image);
+        if (image != null)
+            setSprite(image);
         if (shape != null) {
             this.shape = shape;
             setBounds(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+            shape.set(0, 0);
         }
     }
 
@@ -45,7 +41,7 @@ public class Item extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (textureRegion != null) {
+        if (textureRegion != null && visible) {
             batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(),
                     getScaleX(), getScaleY(), getRotation());
         }

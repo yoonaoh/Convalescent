@@ -10,7 +10,6 @@ import org.mini2Dx.core.engine.geom.CollisionShape;
  * Items that take you to new views
  */
 public class SceneTrigger extends Item {
-
   public SceneTrigger(String image, CollisionShape shape, final GameState nextState, final MainAdapter mainAdapter) {
     super(image, shape);
     addListener(new ClickListener() {
