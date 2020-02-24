@@ -6,11 +6,11 @@ import com.mystudio.gamename.windows.MiniGame;
 public class GearPuzzleGame extends MiniGame {
 
     public GearPuzzleGame(MainAdapter mainAdapter) {
-        super("robotgame_btemp.png", mainAdapter);
+        super("gearpuzzle/robotgame_btemp.png", mainAdapter);
 
         Gear gear1 = new Gear(mainAdapter, 100, 100, 100);
         Mount mount1 = new Mount(mainAdapter, 300, 300);
-        gear1.addTragetName("mount1");
+        gear1.addTargetName("mount1");
         mainAdapter.addToTargetRegistry("mount1", mount1);
 
         addActor(gear1);
