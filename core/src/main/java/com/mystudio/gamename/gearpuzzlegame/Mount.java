@@ -17,12 +17,14 @@ public class Mount extends InteractableItem {
     @Override
     public void handleDrop(InteractableItem item) {
         Gear gear = (Gear) item;
-        gear.remove();
-        getParent().addActor(gear);
 
+        mainAdapter.removeFromInventory(gear);
+
+        getParent().addActor(gear);
         gear.setPosition(getX(), getY());
         gear.visible = true;
         gear.setTouchable(Touchable.enabled);
+
     }
 
 }

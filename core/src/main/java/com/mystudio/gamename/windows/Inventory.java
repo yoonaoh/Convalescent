@@ -35,4 +35,13 @@ public class Inventory extends Table {
         table.row();
         table.add(item).height(CELL_SIZE).width(CELL_SIZE).padBottom(20).expandX();
     }
+
+    public void removeItem(InteractableItem item) {
+        Cell<InteractableItem> cell = table.getCell(item);
+        item.remove();
+        table.getCells().removeValue(cell, true);
+        table.invalidate();
+
+//        table.removeActor(item);
+    }
 }

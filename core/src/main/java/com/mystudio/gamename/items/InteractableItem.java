@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
@@ -13,12 +12,12 @@ import java.util.ArrayList;
 
 public abstract class InteractableItem extends Item {
 
-    private ClickListener pickUpListener;
+    private ClickListener pickUpListener = null;
     private DragAndDrop dragAndDrop;
     private DragAndDrop.Source dragSource;
-    private MainAdapter mainAdapter;
     private ArrayList<String> targetNames = new ArrayList<String>();
 
+    public MainAdapter mainAdapter;
     public boolean inInventory = false;
 
     public InteractableItem(String image, CollisionShape shape, final MainAdapter mainAdapter) {
@@ -52,6 +51,8 @@ public abstract class InteractableItem extends Item {
 
     public void setDraggable() {
         dragAndDrop.addSource(dragSource);
+    }
+
 //        dragListener = new DragListener() {
 //            private float startX, startY;
 //
@@ -73,22 +74,22 @@ public abstract class InteractableItem extends Item {
 //            }
 //        };
 //        addListener(dragListener);
-    }
 
     public void stopDraggable() {
         dragAndDrop.removeSource(dragSource);
-//        removeListener(dragListener);
     }
 
     public void setPickUpable() {
-        pickUpListener = new ClickListener() {
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                mainAdapter.addToInventory(getItem());
-                return true;
-            }
-        };
-        addListener(pickUpListener);
+        if (pickUpListener == null) {
+            pickUpListener = new ClickListener() {
+                @Override
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    mainAdapter.addToInventory(getItem());
+                    return true;
+                }
+            };
+            addListener(pickUpListener);
+        }
     }
 
     public void stopPickUpable() {

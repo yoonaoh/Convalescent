@@ -49,13 +49,7 @@ public class Main extends BasicGame {
 
     private Inventory inventory;
 
-    private Group activeGroup = new Group();
-
     private HashMap<String, ArrayList<InteractableItem>> targetRegistry = new HashMap<String, ArrayList<InteractableItem>>();
-
-    private ScrollPaneTest test = new ScrollPaneTest();
-
-    private Stage testStage;
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -84,12 +78,6 @@ public class Main extends BasicGame {
         }
 
         @Override
-        public void setAsGlobalActive(Actor actor) {
-//            currentBackground().getStage().addActor(actor);
-//            actor.setTouchable(Touchable.enabled);
-        }
-
-        @Override
         public void addToInventory(InteractableItem item) {
             inventory.addItem(item);
             item.inInventory = true;
@@ -112,6 +100,11 @@ public class Main extends BasicGame {
             }
             targetRegistry.get(name).add(item);
         }
+
+        @Override
+        public void removeFromInventory(InteractableItem item) {
+            inventory.removeItem(item);
+        }
     };
 
     @Override
@@ -130,9 +123,6 @@ public class Main extends BasicGame {
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
         inventory = new Inventory(mainAdapter);
-//        testStage = new Stage();
-//        testStage.addActor(inventory);
-//        test.create();
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
@@ -142,8 +132,6 @@ public class Main extends BasicGame {
     @Override
     public void update(float delta) {
         currentBackground().getStage().act(delta);
-        activeGroup.act(delta);
-//        testStage.act(delta);
     }
 
     @Override
@@ -152,8 +140,6 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
-//        testStage.draw();
-//        test.render();
         currentBackground().drawBackground();
         currentBackground().getStage().setDebugAll(true);
         currentBackground().drawStage();

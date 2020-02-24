@@ -31,9 +31,20 @@ public class AtticShelf extends ViewTwo {
         MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", new CollisionBox(320, 400, 100, 150), gearGame, mainAdapter);
         actors.addActor(rabbit);
 
-        Gear gear = new Gear(mainAdapter, 700, 450, 40);
+        Gear gear = new Gear(mainAdapter, 600, 450, 40);
         gear.setPickUpable();
         gear.addTragetName("mount1");
         actors.addActor(gear);
+
+        Gear gear2 = new Gear(mainAdapter, 700, 450, 40);
+        gear2.setPickUpable();
+        gear2.addTragetName("mount1");
+        actors.addActor(gear2);
+
+//        Gear gear3 = new Gear(mainAdapter, 800, 450, 40);
+//        gear.setPickUpable();
+//        gear.addTragetName("mount1");
+//        actors.addActor(gear3);
+
     }
 }
