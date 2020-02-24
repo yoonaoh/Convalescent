@@ -18,19 +18,13 @@ public class Item extends Actor {
 
     public CollisionShape shape = null;
 
-    public Item(String image) {
-        this(image, null);
-    }
-
-    public Item(CollisionShape shape) {
-        this(null, shape);
-    }
-
     public Item(String image, CollisionShape shape) {
-        if (image != null) setSprite(image);
+        if (image != null)
+            setSprite(image);
         if (shape != null) {
             this.shape = shape;
             setBounds(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+            shape.set(0, 0);
         }
     }
 

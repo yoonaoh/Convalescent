@@ -4,15 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mystudio.gamename.DragAndDropTest;
+import com.mystudio.gamename.ScrollPaneTest;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
@@ -49,7 +52,7 @@ public class Main extends BasicGame {
 
     private Group activeGroup = new Group();
 
-//    private DragAndDropTest test = new DragAndDropTest();
+    private ScrollPaneTest test = new ScrollPaneTest();
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -91,13 +94,14 @@ public class Main extends BasicGame {
 
     @Override
     public void initialise() {
-//        test.create();
+
         batch = new SpriteBatch();
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
         inventory = new Inventory();
+        test.create();
 
         views = new HashMap<GameState, ViewTwo>();
         views.put(GameState.MENU, new Menu(mainAdapter));
@@ -105,13 +109,15 @@ public class Main extends BasicGame {
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        changeState(GameState.MENU);
+        state = GameState.MENU;
+        Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
     public void update(float delta) {
-        currentBackground().getStage().act(delta);
-        activeGroup.act(delta);
+//        currentBackground().getStage().act(delta);
+//        activeGroup.act(delta);
     }
 
     @Override
@@ -120,10 +126,10 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
-//        test.render();
-        currentBackground().drawBackground();
-        currentBackground().getStage().setDebugAll(true);
-        currentBackground().drawStage();
+        test.render();
+//        currentBackground().drawBackground();
+//        currentBackground().getStage().setDebugAll(true);
+//        currentBackground().drawStage();
     }
 
     @Override
@@ -134,6 +140,7 @@ public class Main extends BasicGame {
         state = gameState;
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        inventory.remove();
         currentBackground().getStage().addActor(inventory);
     }
 
