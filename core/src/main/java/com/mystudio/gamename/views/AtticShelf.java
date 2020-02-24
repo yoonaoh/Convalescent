@@ -33,6 +33,7 @@ public class AtticShelf extends ViewTwo {
 
         Gear gear = new Gear(mainAdapter, 700, 450, 40);
         gear.setPickUpable();
+        gear.addTragetName("mount1");
         actors.addActor(gear);
     }
 }

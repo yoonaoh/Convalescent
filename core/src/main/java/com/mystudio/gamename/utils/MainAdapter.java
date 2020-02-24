@@ -6,6 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.items.InteractableItem;
 
+import java.util.ArrayList;
+
 public interface MainAdapter {
 
     void updateState(GameState gameState);
@@ -21,4 +23,8 @@ public interface MainAdapter {
     void setAsGlobalActive(Actor actor);
 
     void addToInventory(InteractableItem item);
+
+    ArrayList<InteractableItem> getTargetRegistry(String name);
+
+    public void addToTargetRegistry(String name, InteractableItem item);
 }

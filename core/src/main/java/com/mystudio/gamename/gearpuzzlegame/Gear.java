@@ -11,13 +11,13 @@ public class Gear extends InteractableItem {
     public Gear (final MainAdapter mainAdapter, float x, float y, int radius) {
         super("big_gear2.png", new CollisionCircleModified(x, y, radius), mainAdapter);
 
-        addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Clicked on gear!");
-                return true;
-            }
-        });
+//        addListener(new ClickListener() {
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.println("Clicked on gear!");
+//                return true;
+//            }
+//        });
     }
 }
 

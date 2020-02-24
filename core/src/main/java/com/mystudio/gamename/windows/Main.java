@@ -21,6 +21,7 @@ import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main extends BasicGame {
@@ -49,6 +50,8 @@ public class Main extends BasicGame {
     private Inventory inventory;
 
     private Group activeGroup = new Group();
+
+    private HashMap<String, ArrayList<InteractableItem>> targetRegistry = new HashMap<String, ArrayList<InteractableItem>>();
 
     private ScrollPaneTest test = new ScrollPaneTest();
 
@@ -89,13 +92,25 @@ public class Main extends BasicGame {
         @Override
         public void addToInventory(InteractableItem item) {
             inventory.addItem(item);
+            item.inInventory = true;
             item.stopPickUpable();
         }
 
-//        @Override
-//        public void removeAsGlobalActive(Actor actor) {
-//
-//        }
+        @Override
+        public ArrayList<InteractableItem> getTargetRegistry(String name) {
+            if (!targetRegistry.containsKey(name)) {
+                targetRegistry.put(name, new ArrayList<InteractableItem>());
+            }
+            return targetRegistry.get(name);
+        }
+
+        @Override
+        public void addToTargetRegistry(String name, InteractableItem item) {
+            if (!targetRegistry.containsKey(name)) {
+                targetRegistry.put(name, new ArrayList<InteractableItem>());
+            }
+            targetRegistry.get(name).add(item);
+        }
     };
 
     @Override

@@ -18,6 +18,8 @@ public class Item extends Actor {
 
     public CollisionShape shape = null;
 
+    public boolean visible = true;
+
     public Item(String image, CollisionShape shape) {
         if (image != null)
             setSprite(image);
@@ -39,7 +41,7 @@ public class Item extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (textureRegion != null) {
+        if (textureRegion != null && visible) {
             batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(),
                     getScaleX(), getScaleY(), getRotation());
         }

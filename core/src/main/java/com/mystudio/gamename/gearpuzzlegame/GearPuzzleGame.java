@@ -9,8 +9,12 @@ public class GearPuzzleGame extends MiniGame {
         super("robotgame_btemp.png", mainAdapter);
 
         Gear gear1 = new Gear(mainAdapter, 100, 100, 100);
-        gear1.setDraggable();
+        Mount mount1 = new Mount(mainAdapter, 300, 300);
+        gear1.addTragetName("mount1");
+        mainAdapter.addToTargetRegistry("mount1", mount1);
+
         addActor(gear1);
+        addActor(mount1);
     }
 
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
