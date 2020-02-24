@@ -1,6 +1,5 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mystudio.gamename.items.CollisionCircleModified;
 import com.mystudio.gamename.items.InteractableItem;

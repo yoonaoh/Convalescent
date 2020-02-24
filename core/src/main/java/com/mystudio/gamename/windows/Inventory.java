@@ -41,7 +41,5 @@ public class Inventory extends Table {
         item.remove();
         table.getCells().removeValue(cell, true);
         table.invalidate();
-
-//        table.removeActor(item);
     }
 }

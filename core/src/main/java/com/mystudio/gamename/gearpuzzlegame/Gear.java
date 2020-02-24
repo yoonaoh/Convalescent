@@ -1,7 +1,5 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.items.CollisionCircleModified;
 import com.mystudio.gamename.items.InteractableItem;
