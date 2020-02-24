@@ -4,22 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-//import com.mystudio.gamename.DragAndDropTest;
-import com.mystudio.gamename.ScrollPaneTest;
+import com.mystudio.gamename.references.ScrollPaneTest;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
-import jnr.ffi.annotations.In;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -53,6 +50,8 @@ public class Main extends BasicGame {
     private Group activeGroup = new Group();
 
     private ScrollPaneTest test = new ScrollPaneTest();
+
+    private Stage testStage;
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -101,24 +100,27 @@ public class Main extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
 
-//        views = new HashMap<GameState, ViewTwo>();
-//        views.put(GameState.MENU, new Menu(mainAdapter));
-//        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
-//        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
-//        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
-//
-//        inventory = new Inventory(mainAdapter);
-//        state = GameState.MENU;
-//        Gdx.input.setInputProcessor(currentBackground().getStage());
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        test.create();
+        views = new HashMap<GameState, ViewTwo>();
+        views.put(GameState.MENU, new Menu(mainAdapter));
+        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
+        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
+        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
+        inventory = new Inventory(mainAdapter);
+//        testStage = new Stage();
+//        testStage.addActor(inventory);
+//        test.create();
+
+        state = GameState.MENU;
+        Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
     public void update(float delta) {
-//        currentBackground().getStage().act(delta);
-//        activeGroup.act(delta);
+        currentBackground().getStage().act(delta);
+        activeGroup.act(delta);
+//        testStage.act(delta);
     }
 
     @Override
@@ -127,10 +129,11 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
-        test.render();
-//        currentBackground().drawBackground();
-//        currentBackground().getStage().setDebugAll(true);
-//        currentBackground().drawStage();
+//        testStage.draw();
+//        test.render();
+        currentBackground().drawBackground();
+        currentBackground().getStage().setDebugAll(true);
+        currentBackground().drawStage();
     }
 
     @Override

@@ -1,39 +1,41 @@
 package com.mystudio.gamename.windows;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.utils.MainAdapter;
 
-public class Inventory extends ScrollPane {
+public class Inventory extends Table {
 
 //    Button.ButtonStyle
     Table table;
+    ScrollPane scrollPane;
     MainAdapter mainAdapter;
 
-    public static int INVENTORY_WIDTH = 150;
+    public static int INVENTORY_WIDTH = 100;
 
     public Inventory(MainAdapter mainAdapter) {
-        super(new Table(), new ScrollPaneStyle());
         this.mainAdapter = mainAdapter;
-        table = (Table) getActor();
-        getStyle().background = new TextureRegionDrawable(new TextureRegion(new Texture("robotgame_btemp.png")));
         setBounds(1280 - INVENTORY_WIDTH, 0, INVENTORY_WIDTH, 720);
-        table.pad(10).defaults().expandX().space(4);
-        table.add(new Gear(mainAdapter, 100, 100, 100)).expandX().fillX();
 
+        Table table = new Table();
+        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        final ScrollPane scroll = new ScrollPane(table, skin);
 
-//        addListener(new InputListener() {
-//            @Override
-//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                System.out.println("Clicked on Inventory");
-//                event.stop();
-//                return true;
-//            }
-//        });
+        table.top().pad(10);
+        for (int i = 0; i < 10; i++) {
+            table.row();
+            table.add(new TextButton("Hello", skin)).padBottom(20).expandX().height(80);
+
+        }
+        add(scroll).expand().fill();
     }
 }

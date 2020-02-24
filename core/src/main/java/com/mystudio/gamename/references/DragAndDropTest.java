@@ -1,6 +1,6 @@
 // TODO: TO BE DELETED (just here for reference)
 
-package com.mystudio.gamename;
+package com.mystudio.gamename.references;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
