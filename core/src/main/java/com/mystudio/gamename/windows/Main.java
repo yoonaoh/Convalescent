@@ -100,18 +100,19 @@ public class Main extends BasicGame {
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
-        inventory = new Inventory();
+
+//        views = new HashMap<GameState, ViewTwo>();
+//        views.put(GameState.MENU, new Menu(mainAdapter));
+//        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
+//        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
+//        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
+//
+//        inventory = new Inventory(mainAdapter);
+//        state = GameState.MENU;
+//        Gdx.input.setInputProcessor(currentBackground().getStage());
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         test.create();
 
-        views = new HashMap<GameState, ViewTwo>();
-        views.put(GameState.MENU, new Menu(mainAdapter));
-        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
-        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
-        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
-
-        state = GameState.MENU;
-        Gdx.input.setInputProcessor(currentBackground().getStage());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
