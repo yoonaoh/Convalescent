@@ -17,7 +17,6 @@ public class Mount extends InteractableItem {
     @Override
     public void handleDrop(InteractableItem item) {
         Gear gear = (Gear) item;
-//        item.setValidPos(new Vector2(getX(), getY()));
         gear.remove();
         getParent().addActor(gear);
 

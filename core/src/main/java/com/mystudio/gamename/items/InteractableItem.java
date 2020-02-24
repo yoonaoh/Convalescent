@@ -1,15 +1,8 @@
 package com.mystudio.gamename.items;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -20,9 +13,9 @@ import java.util.ArrayList;
 
 public abstract class InteractableItem extends Item {
 
-    private DragListener dragListener;
     private ClickListener pickUpListener;
     private DragAndDrop dragAndDrop;
+    private DragAndDrop.Source dragSource;
     private MainAdapter mainAdapter;
     private ArrayList<String> targetNames = new ArrayList<String>();
 
@@ -33,7 +26,7 @@ public abstract class InteractableItem extends Item {
         this.mainAdapter = mainAdapter;
 
         dragAndDrop = new DragAndDrop();
-        dragAndDrop.addSource(new DragAndDrop.Source(getItem()) {
+        dragSource = new DragAndDrop.Source(getItem()) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 InteractableItem item = (InteractableItem) getActor();
                 item.visible = false;
@@ -54,36 +47,37 @@ public abstract class InteractableItem extends Item {
                     item.setTouchable(Touchable.enabled);
                 }
             }
-        });
+        };
     }
 
     public void setDraggable() {
-        dragListener = new DragListener() {
-            private float startX, startY;
-
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                startX = x;
-                startY = y;
-                return true;
-            }
-
-            @Override
-            public void touchDragged (InputEvent event, float x, float y, int pointer) {
-                setPosition(getX() + (x - startX), getY() + (y - startY));
-                mainAdapter.setAsGlobalActive(getItem());
-            }
-
-            @Override
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                //TODO: reset position and parent group
-            }
-        };
-        addListener(dragListener);
+        dragAndDrop.addSource(dragSource);
+//        dragListener = new DragListener() {
+//            private float startX, startY;
+//
+//            @Override
+//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+//                startX = x;
+//                startY = y;
+//                return true;
+//            }
+//
+//            @Override
+//            public void touchDragged (InputEvent event, float x, float y, int pointer) {
+//                setPosition(getX() + (x - startX), getY() + (y - startY));
+//                mainAdapter.setAsGlobalActive(getItem());
+//            }
+//
+//            @Override
+//            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+//            }
+//        };
+//        addListener(dragListener);
     }
 
     public void stopDraggable() {
-        removeListener(dragListener);
+        dragAndDrop.removeSource(dragSource);
+//        removeListener(dragListener);
     }
 
     public void setPickUpable() {
@@ -119,7 +113,14 @@ public abstract class InteractableItem extends Item {
         targetNames.add(name);
     }
 
-    public void handleDrop(InteractableItem item) {}
+    public void handleDrop(InteractableItem item) {
+        item.remove();
+        getParent().addActor(item);
+
+        item.setPosition(getX(), getY());
+        item.visible = true;
+        item.setTouchable(Touchable.enabled);
+    }
 
     private InteractableItem getItem() {
         return this;

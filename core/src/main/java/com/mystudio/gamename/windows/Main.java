@@ -94,6 +94,7 @@ public class Main extends BasicGame {
             inventory.addItem(item);
             item.inInventory = true;
             item.stopPickUpable();
+            item.setDraggable();
         }
 
         @Override
