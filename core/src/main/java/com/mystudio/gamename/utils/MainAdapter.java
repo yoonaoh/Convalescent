@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mystudio.gamename.items.InteractableItem;
 
 public interface MainAdapter {
 
@@ -18,4 +19,6 @@ public interface MainAdapter {
     Batch getBatch();
 
     void setAsGlobalActive(Actor actor);
+
+    void addToInventory(InteractableItem item);
 }

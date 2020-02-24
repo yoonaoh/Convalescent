@@ -1,6 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
@@ -29,5 +30,9 @@ public class AtticShelf extends ViewTwo {
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
         MinigameTrigger rabbit = new MinigameTrigger("windup_toy.png", new CollisionBox(320, 400, 100, 150), gearGame, mainAdapter);
         actors.addActor(rabbit);
+
+        Gear gear = new Gear(mainAdapter, 700, 450, 40);
+        gear.setPickUpable();
+        actors.addActor(gear);
     }
 }

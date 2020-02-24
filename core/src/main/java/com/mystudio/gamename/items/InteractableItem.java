@@ -1,6 +1,7 @@
 package com.mystudio.gamename.items;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
@@ -8,6 +9,7 @@ import org.mini2Dx.core.engine.geom.CollisionShape;
 public class InteractableItem extends Item {
 
     private DragListener dragListener;
+    private ClickListener pickUpListener;
     private MainAdapter mainAdapter;
 
     public InteractableItem(String image, CollisionShape shape, final MainAdapter mainAdapter) {
@@ -44,7 +46,22 @@ public class InteractableItem extends Item {
         removeListener(dragListener);
     }
 
-    private Item getItem() {
+    public void setPickUpable() {
+        pickUpListener = new ClickListener() {
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                mainAdapter.addToInventory(getItem());
+                return true;
+            }
+        };
+        addListener(pickUpListener);
+    }
+
+    public void stopPickUpable() {
+        removeListener(pickUpListener);
+    }
+
+    private InteractableItem getItem() {
         return this;
     }
 

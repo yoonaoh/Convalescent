@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.references.ScrollPaneTest;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -83,6 +84,12 @@ public class Main extends BasicGame {
         public void setAsGlobalActive(Actor actor) {
 //            currentBackground().getStage().addActor(actor);
 //            actor.setTouchable(Touchable.enabled);
+        }
+
+        @Override
+        public void addToInventory(InteractableItem item) {
+            inventory.addItem(item);
+            item.stopPickUpable();
         }
 
 //        @Override
