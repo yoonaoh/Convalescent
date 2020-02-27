@@ -25,15 +25,16 @@ public class GearPuzzleGame extends MiniGame {
         Gear gear1 = new Gear(mainAdapter, 560, 355, 120, 25, 1);
         Gear gear2 = new Gear(mainAdapter, 428, 310, 48, 0, -1);
         Gear gear3 = new Gear(mainAdapter, 340, 350, 72, 20, 1);
-        Gear gear4 = new Gear(mainAdapter, 210, 250, 120, 10, -1);
-        Gear gear5 = new Gear(mainAdapter, 482, 152, 72, 20, 1);
-        Gear gear6 = new Gear(mainAdapter, 392, 190, 48, 0, -1);
-        Gear gear7 = new Gear(mainAdapter, 322, 170, 48, 30, 1);
-        Gear gear8 = new Gear(mainAdapter, 557, 212, 48, 65, -1);
+        Gear gear4 = new Gear(mainAdapter, 215, 245, 120, 15, -1);
+        Gear gear5 = new Gear(mainAdapter, 430, 187, 72, 50, 1);
+//        Gear gear6 = new Gear(mainAdapter, 392, 190, 48, 0, -1);
+        Gear gear7 = new Gear(mainAdapter, 330, 175, 48, 30, -1);
+        Gear gear8 = new Gear(mainAdapter, 550, 188, 72, 68, -1);
 
 
         gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
-        gears.add(gear5); gears.add(gear6); gears.add(gear7); gears.add(gear8);
+        gears.add(gear5);  gears.add(gear7); gears.add(gear8);
+        // gears.add(gear6);
         for (Gear gear: gears) addActor(gear);
 
         setGearAngles();
