@@ -1,20 +1,51 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 
+import java.util.ArrayList;
+
 public class GearPuzzleGame extends MiniGame {
 
+    ArrayList<Gear> gears = new ArrayList<Gear>();
+
     public GearPuzzleGame(MainAdapter mainAdapter) {
-        super("gearpuzzle/robotgame_btemp.png", mainAdapter);
+        super("gearpuzzle/bunny_background.png", mainAdapter);
 
-        Gear gear1 = new Gear(mainAdapter, 100, 100, 100);
-        Mount mount1 = new Mount(mainAdapter, 300, 300);
-        gear1.addTargetName("mount1");
-        mainAdapter.addToTargetRegistry("mount1", mount1);
+        addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.printf("%s %s\n", x, y);
+                return true;
+            }
+        });
 
-        addActor(gear1);
-        addActor(mount1);
+        Gear gear1 = new Gear(mainAdapter, 560, 355, 120, 25);
+        Gear gear2 = new Gear(mainAdapter, 430, 310, 48, 0);
+        Gear gear3 = new Gear(mainAdapter, 340, 350, 72, 20);
+        Gear gear4 = new Gear(mainAdapter, 210, 250, 120, 10);
+        Gear gear5 = new Gear(mainAdapter, 482, 152, 72, 20);
+        Gear gear6 = new Gear(mainAdapter, 392, 190, 48, 0);
+        Gear gear7 = new Gear(mainAdapter, 322, 170, 48, 30);
+        Gear gear8 = new Gear(mainAdapter, 557, 212, 48, 65);
+
+
+        gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
+        gears.add(gear5); gears.add(gear6); gears.add(gear7); gears.add(gear8);
+        for (Gear gear: gears) addActor(gear);
+
+        setGearAngles();
+
+//        Mount mount1 = new Mount(mainAdapter, 300, 300);
+//        gear1.addTargetName("mount1");
+//        mainAdapter.addToTargetRegistry("mount1", mount1);
+//        addActor(mount1);
+    }
+
+    public void setGearAngles() {
+
     }
 
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;

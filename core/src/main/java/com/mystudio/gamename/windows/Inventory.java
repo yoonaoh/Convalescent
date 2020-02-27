@@ -23,11 +23,11 @@ public class Inventory extends Table {
         final ScrollPane scroll = new ScrollPane(table, skin);
 
         table.top().pad(10);
-        for (int i = 0; i < 3; i++) {
-            table.row();
-            Gear gear = new Gear(mainAdapter, 0, 0, 35);
-            table.add(gear).height(CELL_SIZE).width(CELL_SIZE).padBottom(20).expandX();
-        }
+//        for (int i = 0; i < 3; i++) {
+//            table.row();
+//            Gear gear = new Gear(mainAdapter, 0, 0, 35);
+//            table.add(gear).height(CELL_SIZE).width(CELL_SIZE).padBottom(20).expandX();
+//        }
         add(scroll).expand().fill();
     }
 

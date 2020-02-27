@@ -35,8 +35,8 @@ public class Menu extends ViewTwo {
         skin.addRegions(assets.get("tilepuzzle/uiskin.atlas", TextureAtlas.class));
         skin.add("default-font", generator.generateFont(params));
         skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
-        TextButton startButton = new TextButton("START", skin);
 
-        stage.addActor(startButton);
+//        TextButton startButton = new TextButton("START", skin);
+//        stage.addActor(startButton);
     }
 }

@@ -6,8 +6,13 @@ import com.mystudio.gamename.items.InteractableItem;
 
 public class Gear extends InteractableItem {
 
-    public Gear (final MainAdapter mainAdapter, float x, float y, int radius) {
-        super("gearpuzzle/big_gear2.png", new CollisionCircleModified(x, y, radius), mainAdapter);
+    float originalAngle;
+
+    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle) {
+        super(String.format("gearpuzzle/gear_%s.png", radius/12), new CollisionCircleModified(x, y, radius), mainAdapter);
+        this.originalAngle = originalAngle;
+        setOrigin(getWidth()/2, getHeight()/2);
+        rotateBy(originalAngle);
 
 //        addListener(new ClickListener() {
 //            @Override
