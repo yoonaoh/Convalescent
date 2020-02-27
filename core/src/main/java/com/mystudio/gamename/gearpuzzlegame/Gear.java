@@ -7,12 +7,15 @@ import com.mystudio.gamename.items.InteractableItem;
 public class Gear extends InteractableItem {
 
     float originalAngle;
+    float speed = 1000;
 
-    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle) {
+    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle, int direction) {
         super(String.format("gearpuzzle/gear_%s.png", radius/12), new CollisionCircleModified(x, y, radius), mainAdapter);
         this.originalAngle = originalAngle;
         setOrigin(getWidth()/2, getHeight()/2);
-        rotateBy(originalAngle);
+        speed = speed * direction;
+        speed = speed / radius;
+//        rotateBy(originalAngle);
 
 //        addListener(new ClickListener() {
 //            @Override
@@ -22,6 +25,12 @@ public class Gear extends InteractableItem {
 //            }
 //        });
     }
+
+    @Override
+    public void act(float delta) {
+        rotateBy(delta * speed);
+    }
+
 }
 
 //    int radius;
