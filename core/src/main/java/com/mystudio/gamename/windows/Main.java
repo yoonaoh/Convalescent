@@ -39,7 +39,7 @@ public class Main extends BasicGame {
 
     private Viewport viewport;
 
-    private HashMap<GameState, ViewTwo> views;
+    private HashMap<GameState, View> views;
 
     private Window window;
 
@@ -112,7 +112,7 @@ public class Main extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
 
-        views = new HashMap<GameState, ViewTwo>();
+        views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
@@ -153,7 +153,7 @@ public class Main extends BasicGame {
         currentBackground().getStage().addActor(inventory);
     }
 
-    private ViewTwo currentBackground() {
+    private View currentBackground() {
         return views.get(state);
     }
 

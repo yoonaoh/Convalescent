@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.geom.Polygon;
 
-public class ViewTwo {
+public class View {
 
     Stage stage;
     Group actors;
@@ -15,7 +15,7 @@ public class ViewTwo {
     Boolean avery;
     MainAdapter mainAdapter;
 
-    public ViewTwo(MainAdapter mainAdapter) {
+    public View(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
         stage = new Stage(mainAdapter.getViewPort(), mainAdapter.getBatch());
         actors = new Group();

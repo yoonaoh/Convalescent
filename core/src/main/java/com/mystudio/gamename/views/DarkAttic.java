@@ -8,7 +8,7 @@ import com.mystudio.gamename.items.SceneTrigger;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
-public class DarkAttic extends ViewTwo {
+public class DarkAttic extends View {
     public DarkAttic(MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture("views/attic_bg_dark.png");
