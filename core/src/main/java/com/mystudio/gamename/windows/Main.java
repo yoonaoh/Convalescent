@@ -76,9 +76,7 @@ public class Main extends BasicGame {
         @Override
         public void addToInventory(InteractableItem item) {
             inventory.addItem(item);
-            item.inInventory = true;
-            item.stopPickUpable();
-            item.setDraggable();
+            item.setInventory();
         }
 
         @Override
@@ -112,13 +110,12 @@ public class Main extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
 
+        inventory = new Inventory(mainAdapter);
         views = new HashMap<GameState, ViewTwo>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
-
-        inventory = new Inventory(mainAdapter);
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());

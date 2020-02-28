@@ -10,6 +10,13 @@ import java.util.ArrayList;
 public class GearPuzzleGame extends MiniGame {
 
     ArrayList<Gear> gears = new ArrayList<Gear>();
+    ArrayList<Mount> mounts = new ArrayList<Mount>();
+    GearAdapter gearAdapter = new GearAdapter() {
+        @Override
+        public void addGear(Gear gear) {
+            updateGear(gear);
+        }
+    };
 
     public GearPuzzleGame(MainAdapter mainAdapter) {
         super("gearpuzzle/bunny_background.png", mainAdapter);
@@ -22,22 +29,33 @@ public class GearPuzzleGame extends MiniGame {
             }
         });
 
-        Gear gear1 = new Gear(mainAdapter, 560, 355, 120, 25, 1);
-        Gear gear2 = new Gear(mainAdapter, 428, 310, 48, 0, -1);
-        Gear gear3 = new Gear(mainAdapter, 340, 350, 72, 20, 1);
-        Gear gear4 = new Gear(mainAdapter, 215, 245, 120, 15, -1);
-        Gear gear5 = new Gear(mainAdapter, 430, 187, 72, 50, 1);
-//        Gear gear6 = new Gear(mainAdapter, 392, 190, 48, 0, -1);
-        Gear gear7 = new Gear(mainAdapter, 330, 175, 48, 30, -1);
-        Gear gear8 = new Gear(mainAdapter, 550, 188, 72, 68, -1);
+        Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25, 1);
+        Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0, -1);
+        Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20, 1);
+        Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15, -1);
+        Gear gear5 = new Gear(mainAdapter, 330, 145, 48, 30, -1);
+        Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50, 1);
+        Gear gear7 = new Gear(mainAdapter, 550, 158, 72, 68, -1);
 
+//        gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
+//        gears.add(gear5);  gears.add(gear6); gears.add(gear7);
+//        for (Gear gear: gears) addActor(gear);
+        addActor(gear1); addActor(gear4);
+        gears.add(gear1); gears.add(gear4);
+        gear1.spinning = true; gear4.spinning = true;
 
-        gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
-        gears.add(gear5);  gears.add(gear7); gears.add(gear8);
-        // gears.add(gear6);
-        for (Gear gear: gears) addActor(gear);
+        mainAdapter.addToInventory(gear2); mainAdapter.addToInventory(gear5);
+        mainAdapter.addToInventory(gear6); mainAdapter.addToInventory(gear7); mainAdapter.addToInventory(gear3);
+//        setGearAngles();
 
-        setGearAngles();
+        Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 48);
+        Mount mount2 = new Mount(mainAdapter, gearAdapter,428, 280, 48);
+        Mount mount3 = new Mount(mainAdapter, gearAdapter,330, 145, 48);
+        Mount mount4 = new Mount(mainAdapter, gearAdapter,430, 157, 48);
+        Mount mount5 = new Mount(mainAdapter, gearAdapter,550, 158, 48);
+        mounts.add(mount1); mounts.add(mount2); mounts.add(mount3);
+        mounts.add(mount4); mounts.add(mount5);
+        for (Mount mount: mounts) addActor(mount);
 
 //        Mount mount1 = new Mount(mainAdapter, 300, 300);
 //        gear1.addTargetName("mount1");
@@ -45,8 +63,15 @@ public class GearPuzzleGame extends MiniGame {
 //        addActor(mount1);
     }
 
-    public void setGearAngles() {
-        for (Gear gear: gears) gear.setRotation(gear.originalAngle);
+    public void setRotation() {
+        for (Gear gear: gears) {
+            gear.setRotation(gear.originalAngle);
+        }
+    }
+
+    public void updateGear(Gear gear) {
+        gears.add(gear);
+        setRotation();
     }
 
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
