@@ -112,6 +112,7 @@ public class Main extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
 
+        inventory = new Inventory(mainAdapter);
         views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));

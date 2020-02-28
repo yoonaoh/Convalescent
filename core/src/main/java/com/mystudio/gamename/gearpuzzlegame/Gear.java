@@ -6,9 +6,17 @@ import com.mystudio.gamename.items.InteractableItem;
 
 public class Gear extends InteractableItem {
 
-    public Gear (final MainAdapter mainAdapter, float x, float y, int radius) {
-        super("gearpuzzle/big_gear2.png", new CollisionCircleModified(x, y, radius), mainAdapter);
+    float originalAngle;
+    float speed = 1000;
+    boolean spinning = false;
+    int radius;
 
+    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle) {
+        super(String.format("gearpuzzle/gear_%s.png", radius/12), new CollisionCircleModified(x, y, radius), mainAdapter);
+        this.originalAngle = originalAngle;
+        this.radius = radius;
+        speed = speed / radius;
+        addTargetName("mount");
 //        addListener(new ClickListener() {
 //            @Override
 //            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -17,6 +25,13 @@ public class Gear extends InteractableItem {
 //            }
 //        });
     }
+
+    @Override
+    public void act(float delta) {
+        if (spinning)
+            rotateBy(delta * speed);
+    }
+
 }
 
 //    int radius;

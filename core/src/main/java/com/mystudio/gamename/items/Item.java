@@ -50,7 +50,7 @@ public class Item extends Actor {
     @Override
     public Actor hit (float x, float y, boolean touchable) {
         if (touchable && getTouchable() != Touchable.enabled) return null;
-        return shape.contains(new Vector2(x + shape.getX(), y + shape.getY())) ? this : null;
+        return (x >= 0 && x < getWidth() && y >= 0 && y < getHeight() && shape.contains(new Vector2(x + shape.getX(), y + shape.getY()))) ? this : null;
     }
 }
 

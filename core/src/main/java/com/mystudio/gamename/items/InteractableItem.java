@@ -7,14 +7,37 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
+import org.python.bouncycastle.math.ec.ScaleYPointMap;
 
 import java.util.ArrayList;
 
 public abstract class InteractableItem extends Item {
 
+    private final int INVENTORY_SIZE = 70;
     private ClickListener pickUpListener = null;
     private DragAndDrop dragAndDrop;
-    private DragAndDrop.Source dragSource;
+    private DragAndDrop.Source dragSource = new DragAndDrop.Source(getItem()) {
+        public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+            InteractableItem item = (InteractableItem) getActor();
+            item.visible = false;
+            item.setTouchable(Touchable.disabled);
+
+            for (String name: item.targetNames) {
+                item.addDragAndDropTargets(mainAdapter.getTargetRegistry(name));
+            }
+
+            DragAndDrop.Payload payload = new DragAndDrop.Payload();
+            payload.setDragActor(new Image(item.textureRegion));
+            payload.getDragActor().setBounds(item.getX(), item.getY(), item.shape.getWidth(), item.shape.getHeight());
+            return payload;
+        }
+        public void dragStop (InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
+            if (target == null) {
+                InteractableItem item = (InteractableItem) getActor();
+                handleDropFail(item);
+            }
+        }
+    };
     private ArrayList<String> targetNames = new ArrayList<String>();
 
     public MainAdapter mainAdapter;
@@ -23,30 +46,8 @@ public abstract class InteractableItem extends Item {
     public InteractableItem(String image, CollisionShape shape, final MainAdapter mainAdapter) {
         super(image, shape);
         this.mainAdapter = mainAdapter;
-
+        setOrigin(getWidth()/2, getHeight()/2);
         dragAndDrop = new DragAndDrop();
-        dragSource = new DragAndDrop.Source(getItem()) {
-            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
-                InteractableItem item = (InteractableItem) getActor();
-                item.visible = false;
-                item.setTouchable(Touchable.disabled);
-
-                for (String name: item.targetNames) {
-                    item.addDragAndDropTargets(mainAdapter.getTargetRegistry(name));
-                }
-
-                DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setDragActor(new Image(item.textureRegion));
-                return payload;
-            }
-            public void dragStop (InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
-                if (target == null) {
-                    InteractableItem item = (InteractableItem) getActor();
-                    item.visible = true;
-                    item.setTouchable(Touchable.enabled);
-                }
-            }
-        };
     }
 
     public void setDraggable() {
@@ -93,7 +94,8 @@ public abstract class InteractableItem extends Item {
     }
 
     public void stopPickUpable() {
-        removeListener(pickUpListener);
+        if (pickUpListener != null)
+            removeListener(pickUpListener);
     }
 
     public void addDragAndDropTargets(final ArrayList<InteractableItem> targets) {
@@ -115,10 +117,20 @@ public abstract class InteractableItem extends Item {
     }
 
     public void handleDrop(InteractableItem item) {
-        item.remove();
-        getParent().addActor(item);
+        handleDropFail(item);
+    }
 
-        item.setPosition(getX(), getY());
+    public void handleDropFail(InteractableItem item) {
+        item.visible = true;
+        item.setTouchable(Touchable.enabled);
+    }
+
+    public void handleDropSuccess(InteractableItem item) {
+        System.out.println("success!");
+        mainAdapter.removeFromInventory(item);
+        getParent().addActor(item);
+//        item.setPosition(0, 0);
+        item.setBounds(getX()-item.getOriginX()+getOriginX(), getY()-item.getOriginY()+getOriginY(), item.shape.getWidth(), item.shape.getHeight());
         item.visible = true;
         item.setTouchable(Touchable.enabled);
     }
@@ -127,4 +139,10 @@ public abstract class InteractableItem extends Item {
         return this;
     }
 
+    public void setInventory() {
+        inInventory = true;
+        stopPickUpable();
+        setDraggable();
+        setBounds(0, 0, INVENTORY_SIZE, INVENTORY_SIZE);
+    };
 }
