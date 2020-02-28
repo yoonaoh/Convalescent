@@ -27,7 +27,6 @@ public class Mount extends InteractableItem {
             super.handleDropSuccess(item);
         } else {
             mounted = true;
-            gear.spinning = true;
             gearAdapter.addGear(gear);
             super.handleDropSuccess(item);
         }

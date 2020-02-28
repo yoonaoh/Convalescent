@@ -11,12 +11,11 @@ public class Gear extends InteractableItem {
     boolean spinning = false;
     int radius;
 
-    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle, int direction) {
+    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle) {
         super(String.format("gearpuzzle/gear_%s.png", radius/12), new CollisionCircleModified(x, y, radius), mainAdapter);
         this.originalAngle = originalAngle;
-        speed = speed * direction;
-        speed = speed / radius;
         this.radius = radius;
+        speed = speed / radius;
         addTargetName("mount");
 //        addListener(new ClickListener() {
 //            @Override
