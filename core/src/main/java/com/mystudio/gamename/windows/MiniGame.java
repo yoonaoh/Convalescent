@@ -20,6 +20,7 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 public abstract class MiniGame extends Window {
 
     private MainAdapter mainAdapter;
+    public boolean success = false;
 
     public MiniGame(String image, final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,

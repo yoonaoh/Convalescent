@@ -3,6 +3,7 @@ package com.mystudio.gamename.gearpuzzlegame;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -72,11 +73,11 @@ public class GearPuzzleGame extends MiniGame {
                         gear4.spinning = false;
                         updateVelocity();
                     }
-                }, 3);
+                }, 5);
                 return true;
             }
         });
-        gear4.setCursorImage("gearpuzzle/righterror.png");
+        gear4.setCursorImage("gearpuzzle/rightarrow.png");
 
         finalGear = gear1;
 
@@ -89,7 +90,15 @@ public class GearPuzzleGame extends MiniGame {
         key = new InteractableItem("gearpuzzle/key_part.png",
                 new CollisionBox(590, 305, 60, 160), mainAdapter);
         addActor(key);
-        key.setDebugDraggable();
+//        key.setDebugDraggable();
+        key.setCursorImage("gearpuzzle/uparrow.png");
+        key.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                if (!success) keySignal();
+                return true;
+            }
+        });
     }
 
     public void updateGear(Gear gear) {
@@ -116,6 +125,7 @@ public class GearPuzzleGame extends MiniGame {
                         queue.add(other);
                     } else if (!other.equals(gear) && other.speed * gear.speed > 0) {
                         lockGears();
+                        updateAngles();
                         break;
                     }
                 }
@@ -125,7 +135,6 @@ public class GearPuzzleGame extends MiniGame {
 
     private void lockGears() {
         for (Gear gear: gears) gear.spinning = false;
-        updateAngles();
     }
 
     private void updateAngles() {
@@ -135,12 +144,12 @@ public class GearPuzzleGame extends MiniGame {
     private void keySignal() {
         Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
             public void run() {
-                key.setPosition(key.getX()-2, key.getY());
+                key.setPosition(key.getX()-5, key.getY());
             }
         }, (float) 0.01, (float) 0.02, 3);
         Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
             public void run() {
-                key.setPosition(key.getX()+2, key.getY());
+                key.setPosition(key.getX()+5, key.getY());
             }
         }, (float) 0.02, (float) 0.02, 3);
     }
@@ -148,12 +157,22 @@ public class GearPuzzleGame extends MiniGame {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (finalGear.spinning) {
-            if (finalGear.speed > 0) {
-                System.out.println("Congrats");
-            } else {
-                lockGears();
-                keySignal();
+        if (!success) {
+            if (finalGear.spinning) {
+                if (finalGear.speed > 0) {
+                    System.out.println("Congrats");
+                    Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                        public void run() {
+                            key.setPosition(key.getX(), key.getY()+1);
+                        }
+                    }, 0, (float) 0.15, 50);
+                    key.setPickUpable();
+                    success = true;
+                } else {
+                    lockGears();
+                    updateAngles();
+                    keySignal();
+                }
             }
         }
     }
