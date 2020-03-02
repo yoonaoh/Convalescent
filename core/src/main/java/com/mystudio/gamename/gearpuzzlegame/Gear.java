@@ -12,18 +12,15 @@ public class Gear extends InteractableItem {
     int radius;
 
     public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle) {
-        super(String.format("gearpuzzle/gear_%s.png", radius/12), new CollisionCircleModified(x, y, radius), mainAdapter);
+        this(mainAdapter, x, y, radius, originalAngle, String.format("gearpuzzle/gear_%s.png", radius/12));
+    }
+
+    public Gear (final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle, String name) {
+        super(name, new CollisionCircleModified(x, y, radius), mainAdapter);
         this.originalAngle = originalAngle;
         this.radius = radius;
         speed = speed / radius;
         addTargetName("mount");
-//        addListener(new ClickListener() {
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                System.out.println("Clicked on gear!");
-//                return true;
-//            }
-//        });
     }
 
     @Override

@@ -5,12 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
 import java.util.ArrayList;
 
-public abstract class InteractableItem extends Item {
+public class InteractableItem extends Item {
 
     private final int INVENTORY_SIZE = 70;
     private ClickListener pickUpListener = null;
@@ -53,27 +54,32 @@ public abstract class InteractableItem extends Item {
         dragAndDrop.addSource(dragSource);
     }
 
-//        dragListener = new DragListener() {
-//            private float startX, startY;
-//
-//            @Override
-//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                startX = x;
-//                startY = y;
-//                return true;
-//            }
-//
-//            @Override
-//            public void touchDragged (InputEvent event, float x, float y, int pointer) {
-//                setPosition(getX() + (x - startX), getY() + (y - startY));
-//                mainAdapter.setAsGlobalActive(getItem());
-//            }
-//
-//            @Override
-//            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//            }
-//        };
-//        addListener(dragListener);
+    public void setDebugDraggable() {
+        DragListener dragListener = new DragListener() {
+            private float startX, startY;
+
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                startX = x;
+                startY = y;
+                return true;
+            }
+
+            @Override
+            public void touchDragged (InputEvent event, float x, float y, int pointer) {
+                setPosition(getX() + (x - startX), getY() + (y - startY));
+                System.out.printf("Coords: %s %s", x, y);
+            }
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                System.out.printf("Coords: %s %s", x, y);
+            }
+        };
+        addListener(dragListener);
+    }
+
+
 
     public void stopDraggable() {
         dragAndDrop.removeSource(dragSource);

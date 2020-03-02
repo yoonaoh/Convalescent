@@ -1,10 +1,16 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.Timer;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
 
@@ -56,6 +62,31 @@ public class Item extends Actor {
     public Actor hit (float x, float y, boolean touchable) {
         if (touchable && getTouchable() != Touchable.enabled) return null;
         return (x >= 0 && x < getWidth() && y >= 0 && y < getHeight() && shape.contains(new Vector2(x + shape.getX(), y + shape.getY()))) ? this : null;
+    }
+
+    public void setCursorImage(String filename) {
+        Pixmap pm = new Pixmap(Gdx.files.internal(filename));
+        setCursorImage(Gdx.graphics.newCursor(pm, pm.getWidth() / 2, pm.getHeight() / 2));
+    }
+
+    public void setCursorImage(final Cursor cursor) {
+        addListener(new InputListener() {
+            @Override
+            public boolean mouseMoved (InputEvent event, float x, float y) {
+                Gdx.graphics.setCursor(cursor);
+                return false;
+            }
+
+            @Override
+            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setCursor(cursor);
+            }
+
+            @Override
+            public void exit (InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
     }
 }
 
