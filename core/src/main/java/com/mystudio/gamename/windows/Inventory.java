@@ -28,10 +28,14 @@ public class Inventory extends Table {
         verticalGroup.top().pad(10);
         add(scroll).expand().fill();
 //        for (int i = 0; i < 3; i++) {
+//            Gear gear = new Gear(mainAdapter, 0, 0, 72, 0);
+//            verticalGroup.addActor(gear);
+//            gear.setDraggable();
+//        }
 //            table.row();
 //            Gear gear = new Gear(mainAdapter, 0, 0, 35);
 //            table.add(gear).height(CELL_SIZE).width(CELL_SIZE).padBottom(20).expandX();
-//        }
+//        addActor(scroll);
     }
 
     public void addItem(InteractableItem item) {
@@ -42,7 +46,8 @@ public class Inventory extends Table {
 
     public void removeItem(InteractableItem item) {
         verticalGroup.removeActor(item);
-
+    }
+}
 //        SnapshotArray<Actor> children = table.getChildren();
 //        children.ordered = false;
 //
@@ -60,5 +65,4 @@ public class Inventory extends Table {
 //        item.remove();
 //        table.getCells().removeValue(cell, true);
 //        table.invalidate();
-    }
-}
+

@@ -126,7 +126,6 @@ public abstract class InteractableItem extends Item {
     }
 
     public void handleDropSuccess(InteractableItem item) {
-        System.out.println("success!");
         mainAdapter.removeFromInventory(item);
         getParent().addActor(item);
 //        item.setPosition(0, 0);
