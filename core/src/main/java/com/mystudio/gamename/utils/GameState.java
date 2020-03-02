@@ -11,5 +11,6 @@ public enum GameState {
     AVERY_ROOM,
     DISTURBED_AVERY_ROOM,
     CORRIDOR,
+    BATHROOM,
     END
 }

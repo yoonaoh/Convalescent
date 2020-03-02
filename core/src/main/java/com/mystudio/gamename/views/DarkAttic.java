@@ -23,25 +23,12 @@ public class DarkAttic extends View {
                 1280, 250,
                 1280, 0
         });
-        avery = true;
+        includesAvery = true;
 
         SceneTrigger window = new SceneTrigger(null, new CollisionBox(840, 380, 150, 160), GameState.ATTIC, mainAdapter);
         actors.addActor(window);
 
         Item shelf = new Item("views/shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
         actors.addActor(shelf);
-
-
-//        stage.addActor(actors);
-//        Actor window = new Actor();
-//        window.addListener(new ClickListener() {
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                System.out.println("Dark Attic Event!!!");
-//                consumer.accept(GameState.ATTIC);
-//                return true;
-//            }
-//        });
-
     }
 }

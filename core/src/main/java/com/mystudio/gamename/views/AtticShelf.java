@@ -1,7 +1,6 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
@@ -19,7 +18,7 @@ public class AtticShelf extends View {
 
         background = new Texture("views/shelf_closeup.png");
         floorspace = new Polygon(new float[]{});
-        avery = false;
+        includesAvery = false;
 
         SceneTrigger shelfEdge1 = new SceneTrigger(null, new CollisionBox(0, 0, 250, 720), GameState.ATTIC, mainAdapter);
         actors.addActor(shelfEdge1);

@@ -116,6 +116,9 @@ public class Main extends BasicGame {
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
+        views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
+        views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
+        views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
