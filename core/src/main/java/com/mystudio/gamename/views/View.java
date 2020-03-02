@@ -12,7 +12,7 @@ public class View {
     Group actors;
     Texture background;
     Polygon floorspace;
-    Boolean avery;
+    Boolean includesAvery;
     MainAdapter mainAdapter;
 
     public View(MainAdapter mainAdapter) {
@@ -28,8 +28,8 @@ public class View {
         return floorspace;
     }
 
-    public Boolean getAvery() {
-        return avery;
+    public Boolean includesAvery() {
+        return includesAvery;
     }
 
     public Group getActors() {

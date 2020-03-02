@@ -21,6 +21,7 @@ import org.fusesource.jansi.Ansi;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.ui.element.Button;
 
 import java.util.ArrayList;
 
@@ -92,16 +93,11 @@ public class MazePuzzleGame extends BasicGame {
                 add(new Wall("mazepuzzle/wall.jpg", new CollisionBox(80 * 11, 80 * 4, 80 * 4, 80 * 3)));
             }
         };
-
-
-
         for (Wall wall : walls) {
             stage.addActor(wall);
         }
 
-
-
-        // Set up reset button
+        // Reset button
         Texture resetTexture = new Texture(Gdx.files.internal("mazepuzzle/reset.png"));
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(resetTexture));
         ImageButton resetBtn = new ImageButton(drawable);
@@ -115,11 +111,11 @@ public class MazePuzzleGame extends BasicGame {
         resetBtn.setBounds(80 * 15, 80 * 8, 80, 80);
         stage.addActor(resetBtn);
 
-        // Set up image of bug count
+        // Bug count
         numBugs = 6;
         Texture bugTexture = new Texture(Gdx.files.internal("mazepuzzle/bug.png"));
 
-        // Set up goal square
+        // Goal square
         goalSq = new Item("mazepuzzle/wall.png", new CollisionBox(0, 0, 80, 80));
         goalSq.addListener(new ClickListener(){
 
@@ -148,11 +144,6 @@ public class MazePuzzleGame extends BasicGame {
 
     @Override
     public void update(float delta) {
-        // Check to see if a wall was hit
-        // Compare i and j with the gecko's current location
-        // If the gecko can move there, place a bug there and update bugCount
-        // Gecko will move there
-        // Else alert the user "Invalid move"
 
         if (numBugs > 0) {
             stage.act(delta);
@@ -181,7 +172,6 @@ public class MazePuzzleGame extends BasicGame {
 
     @Override
     public void interpolate(float alpha) {
-
     }
 
     @Override
@@ -190,7 +180,6 @@ public class MazePuzzleGame extends BasicGame {
     }
 
     public boolean isSuccess() {
-        // gecko's position is at the goal position
         return success;
     }
 
