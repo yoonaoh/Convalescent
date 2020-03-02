@@ -9,11 +9,13 @@ public class Mount extends InteractableItem {
     boolean mounted = false;
     int expectedRadius;
     GearAdapter gearAdapter;
+    int angle;
 
-    public Mount(final MainAdapter mainAdapter, GearAdapter gearAdapter, float x, float y, int expectedRadius) {
+    public Mount(final MainAdapter mainAdapter, GearAdapter gearAdapter, float x, float y, int expectedRadius, int angle) {
         super("gearpuzzle/mount.png", new CollisionCircleModified(x, y, 10), mainAdapter);
         this.expectedRadius = expectedRadius;
         this.gearAdapter = gearAdapter;
+        this.angle = angle;
         mainAdapter.addToTargetRegistry("mount", this);
     }
 
@@ -23,12 +25,13 @@ public class Mount extends InteractableItem {
         if (gear.radius > expectedRadius) {
             super.handleDrop(item);
         } else if (gear.radius < expectedRadius) {
-            mounted = true;
             super.handleDropSuccess(item);
+            mounted = true;
         } else {
-            mounted = true;
-            gearAdapter.addGear(gear);
             super.handleDropSuccess(item);
+            mounted = true;
+            gear.originalAngle = this.angle;
+            gearAdapter.addGear(gear);
         }
     }
 

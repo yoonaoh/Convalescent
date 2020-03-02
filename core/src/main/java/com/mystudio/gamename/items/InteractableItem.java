@@ -144,5 +144,5 @@ public abstract class InteractableItem extends Item {
         stopPickUpable();
         setDraggable();
         setBounds(0, 0, INVENTORY_SIZE, INVENTORY_SIZE);
-    };
+    }
 }

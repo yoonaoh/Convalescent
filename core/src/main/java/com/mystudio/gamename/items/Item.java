@@ -39,6 +39,11 @@ public class Item extends Actor {
         textureRegion.flip(false, true);
     }
 
+    public double distance(Item other) {
+        return new Vector2(getX()+getOriginX(), getY()+getOriginY())
+                .dst(new Vector2(other.getX()+other.getOriginX(), other.getY()+other.getOriginY()));
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (textureRegion != null && visible) {

@@ -31,7 +31,6 @@ public class Gear extends InteractableItem {
         if (spinning)
             rotateBy(delta * speed);
     }
-
 }
 
 //    int radius;

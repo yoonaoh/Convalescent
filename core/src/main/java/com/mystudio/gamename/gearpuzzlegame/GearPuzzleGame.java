@@ -49,11 +49,11 @@ public class GearPuzzleGame extends MiniGame {
         mainAdapter.addToInventory(gear6); mainAdapter.addToInventory(gear7); mainAdapter.addToInventory(gear3);
 //        setGearAngles();
 
-        Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 72);
-        Mount mount2 = new Mount(mainAdapter, gearAdapter,428, 280, 48);
-        Mount mount3 = new Mount(mainAdapter, gearAdapter,330, 145, 48);
-        Mount mount4 = new Mount(mainAdapter, gearAdapter,430, 157, 72);
-        Mount mount5 = new Mount(mainAdapter, gearAdapter,550, 158, 72);
+        Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 72, 20);
+        Mount mount2 = new Mount(mainAdapter, gearAdapter,428, 280, 48, 0);
+        Mount mount3 = new Mount(mainAdapter, gearAdapter,330, 145, 48, 30);
+        Mount mount4 = new Mount(mainAdapter, gearAdapter,430, 157, 72, 50);
+        Mount mount5 = new Mount(mainAdapter, gearAdapter,550, 158, 72, 68);
         mounts.add(mount1); mounts.add(mount2); mounts.add(mount3);
         mounts.add(mount4); mounts.add(mount5);
         for (Mount mount: mounts) addActor(mount);
@@ -64,15 +64,8 @@ public class GearPuzzleGame extends MiniGame {
 //        addActor(mount1);
     }
 
-    public void setRotation() {
-        for (Gear gear: gears) {
-            gear.setRotation(gear.originalAngle);
-        }
-    }
-
     public void updateGear(Gear gear) {
         gears.add(gear);
-        setRotation();
         updateVelocity();
     }
 
@@ -82,18 +75,27 @@ public class GearPuzzleGame extends MiniGame {
         queue.add(gears.get(0));
         while (!queue.isEmpty()) {
             Gear gear = queue.pollFirst();
+            gear.spinning = true;
             seen.add(gear);
-            Vector2 pos = new Vector2(gear.getX()+gear.getOriginX(), gear.getY()+gear.getOriginY());
+            gear.setRotation(gear.originalAngle);
             for (Gear other: gears) {
-                Vector2 otherPos = new Vector2(other.getX()+other.getOriginX(), other.getY()+other.getOriginY());
-                if (pos.dst(otherPos) < 180 && !seen.contains(other)) {
-                    other.spinning = true;
-                    if (other.speed * gear.speed > 0)
-                        other.speed *= -1;
-                    queue.add(other);
+                double dist = gear.distance(other);
+                if (dist < gear.radius + other.radius) {
+                    if (!seen.contains(other)) {
+                        if (other.speed * gear.speed > 0)
+                            other.speed *= -1;
+                        queue.add(other);
+                    } else if (!other.equals(gear) && other.speed * gear.speed > 0) {
+                        lockGears();
+                        break;
+                    }
                 }
             }
         }
+    }
+
+    private void lockGears() {
+        for (Gear gear: gears) gear.spinning = false;
     }
 
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
