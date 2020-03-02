@@ -1,14 +1,11 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
-import org.mini2Dx.core.engine.geom.CollisionBox;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -47,7 +44,7 @@ public class GearPuzzleGame extends MiniGame {
         mounts.add(mount4); mounts.add(mount5);
         for (Mount mount: mounts) addActor(mount);
 
-        Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25, "gearpuzzle/gear_10_2.png");
+        Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25);
         Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
         final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
@@ -87,18 +84,18 @@ public class GearPuzzleGame extends MiniGame {
         mainAdapter.addToInventory(gear2);
         mainAdapter.addToInventory(gear6);
 
-        key = new InteractableItem("gearpuzzle/key_part.png",
-                new CollisionBox(590, 305, 60, 160), mainAdapter);
-        addActor(key);
+//        key = new InteractableItem("gearpuzzle/key_part.png",
+//                new CollisionBox(590, 305, 60, 160), mainAdapter);
+//        addActor(key);
 //        key.setDebugDraggable();
-        key.setCursorImage("gearpuzzle/uparrow.png");
-        key.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                if (!success) keySignal();
-                return true;
-            }
-        });
+//        key.setCursorImage("gearpuzzle/uparrow.png");
+//        key.addListener(new ClickListener() {
+//            @Override
+//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+//                if (!success) keySignal();
+//                return true;
+//            }
+//        });
     }
 
     public void updateGear(Gear gear) {
@@ -160,18 +157,19 @@ public class GearPuzzleGame extends MiniGame {
         if (!success) {
             if (finalGear.spinning) {
                 if (finalGear.speed > 0) {
-                    System.out.println("Congrats");
-                    Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                        public void run() {
-                            key.setPosition(key.getX(), key.getY()+1);
-                        }
-                    }, 0, (float) 0.15, 50);
-                    key.setPickUpable();
+//                    System.out.println("Congrats");
+//                    Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+//                        public void run() {
+//                            key.setPosition(key.getX(), key.getY()+1);
+//                        }
+//                    }, 0, (float) 0.18, 30);
+//                    key.setPickUpable(new InteractableItem("gearpuzzle/attickey.png",
+//                            new CollisionBox(0, 0, 80, 80), getMainAdapter()));
                     success = true;
                 } else {
-                    lockGears();
-                    updateAngles();
-                    keySignal();
+//                    lockGears();
+//                    updateAngles();
+//                    keySignal();
                 }
             }
         }
