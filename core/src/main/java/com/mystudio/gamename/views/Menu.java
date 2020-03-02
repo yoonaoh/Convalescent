@@ -14,7 +14,7 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 
-public class Menu extends ViewTwo {
+public class Menu extends View {
     public Menu(MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture("views/Title.jpeg");

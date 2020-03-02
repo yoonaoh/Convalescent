@@ -12,7 +12,7 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 
-public class AtticShelf extends ViewTwo {
+public class AtticShelf extends View {
 
     public AtticShelf(MainAdapter mainAdapter) {
         super(mainAdapter);
