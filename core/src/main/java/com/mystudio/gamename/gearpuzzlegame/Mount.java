@@ -24,9 +24,6 @@ public class Mount extends InteractableItem {
         Gear gear = (Gear) item;
         if (gear.radius > expectedRadius) {
             super.handleDrop(item);
-        } else if (gear.radius < expectedRadius) {
-            super.handleDropSuccess(item);
-            mounted = true;
         } else {
             super.handleDropSuccess(item);
             mounted = true;

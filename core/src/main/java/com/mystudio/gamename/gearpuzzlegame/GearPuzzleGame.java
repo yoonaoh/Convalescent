@@ -1,6 +1,5 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -34,19 +33,28 @@ public class GearPuzzleGame extends MiniGame {
         Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
         Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
-        Gear gear5 = new Gear(mainAdapter, 330, 145, 48, 30);
         Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
-        Gear gear7 = new Gear(mainAdapter, 550, 158, 72, 68);
+//        Gear gear5 = new Gear(mainAdapter, 330, 145, 48, 30);
+//        Gear gear7 = new Gear(mainAdapter, 550, 158, 72, 68);
 
 //        gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
 //        gears.add(gear5);  gears.add(gear6); gears.add(gear7);
 //        for (Gear gear: gears) addActor(gear);
-        addActor(gear1); addActor(gear4);
-        gears.add(gear4); gears.add(gear1);
-        gear4.spinning = true;
 
-        mainAdapter.addToInventory(gear2); mainAdapter.addToInventory(gear5);
-        mainAdapter.addToInventory(gear6); mainAdapter.addToInventory(gear7); mainAdapter.addToInventory(gear3);
+        gears.add(gear4);
+        gears.add(gear1);
+        gears.add(gear3);
+        gear3.setDraggable();
+        for (Gear gear: gears) addActor(gear);
+
+        updateVelocity();
+
+        mainAdapter.addToInventory(gear2);
+        mainAdapter.addToInventory(gear6);
+
+//        mainAdapter.addToInventory(gear5);
+//        mainAdapter.addToInventory(gear7);
+//        mainAdapter.addToInventory(gear7);
 //        setGearAngles();
 
         Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 72, 20);
@@ -65,11 +73,13 @@ public class GearPuzzleGame extends MiniGame {
     }
 
     public void updateGear(Gear gear) {
-        gears.add(gear);
+        if (!gears.contains(gear)) gears.add(gear);
         updateVelocity();
+        updateAngles();
     }
 
     public void updateVelocity() {
+        lockGears();
         LinkedList<Gear> queue = new LinkedList<Gear>();
         HashSet<Gear> seen = new HashSet<Gear>();
         queue.add(gears.get(0));
@@ -80,7 +90,7 @@ public class GearPuzzleGame extends MiniGame {
             gear.setRotation(gear.originalAngle);
             for (Gear other: gears) {
                 double dist = gear.distance(other);
-                if (dist < gear.radius + other.radius) {
+                if (dist < gear.radius + other.radius - 10) {
                     if (!seen.contains(other)) {
                         if (other.speed * gear.speed > 0)
                             other.speed *= -1;
@@ -96,6 +106,10 @@ public class GearPuzzleGame extends MiniGame {
 
     private void lockGears() {
         for (Gear gear: gears) gear.spinning = false;
+    }
+
+    private void updateAngles() {
+        for (Gear g: gears) g.setRotation(g.originalAngle);
     }
 
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;
