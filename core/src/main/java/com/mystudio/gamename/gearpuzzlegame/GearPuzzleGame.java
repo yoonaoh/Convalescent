@@ -1,11 +1,16 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 public class GearPuzzleGame extends MiniGame {
 
@@ -21,18 +26,18 @@ public class GearPuzzleGame extends MiniGame {
     public GearPuzzleGame(MainAdapter mainAdapter) {
         super("gearpuzzle/bunny_background.png", mainAdapter);
 
-        addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.printf("%s %s\n", x, y);
-                return true;
-            }
-        });
+//        addListener(new ClickListener() {
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.printf("%s %s\n", x, y);
+//                return true;
+//            }
+//        });
 
         Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25);
         Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
-        Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
+        final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
         Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
 //        Gear gear5 = new Gear(mainAdapter, 330, 145, 48, 30);
 //        Gear gear7 = new Gear(mainAdapter, 550, 158, 72, 68);
@@ -48,14 +53,26 @@ public class GearPuzzleGame extends MiniGame {
         for (Gear gear: gears) addActor(gear);
 
         updateVelocity();
+        updateAngles();
 
         mainAdapter.addToInventory(gear2);
         mainAdapter.addToInventory(gear6);
 
-//        mainAdapter.addToInventory(gear5);
-//        mainAdapter.addToInventory(gear7);
-//        mainAdapter.addToInventory(gear7);
-//        setGearAngles();
+        gear4.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gear4.spinning = true;
+                updateVelocity();
+                Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                    public void run() {
+                        gear4.spinning = false;
+                        updateVelocity();
+                    }
+                }, 3);
+                return true;
+            }
+        });
 
         Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 72, 20);
         Mount mount2 = new Mount(mainAdapter, gearAdapter,428, 280, 48, 0);
@@ -65,11 +82,6 @@ public class GearPuzzleGame extends MiniGame {
         mounts.add(mount1); mounts.add(mount2); mounts.add(mount3);
         mounts.add(mount4); mounts.add(mount5);
         for (Mount mount: mounts) addActor(mount);
-
-//        Mount mount1 = new Mount(mainAdapter, 300, 300);
-//        gear1.addTargetName("mount1");
-//        mainAdapter.addToTargetRegistry("mount1", mount1);
-//        addActor(mount1);
     }
 
     public void updateGear(Gear gear) {
@@ -79,15 +91,15 @@ public class GearPuzzleGame extends MiniGame {
     }
 
     public void updateVelocity() {
-        lockGears();
         LinkedList<Gear> queue = new LinkedList<Gear>();
         HashSet<Gear> seen = new HashSet<Gear>();
-        queue.add(gears.get(0));
+        if (gears.get(0).spinning) queue.add(gears.get(0));
+        lockGears();
         while (!queue.isEmpty()) {
             Gear gear = queue.pollFirst();
             gear.spinning = true;
             seen.add(gear);
-            gear.setRotation(gear.originalAngle);
+//            gear.setRotation(gear.originalAngle);
             for (Gear other: gears) {
                 double dist = gear.distance(other);
                 if (dist < gear.radius + other.radius - 10) {
