@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.mystudio.gamename.utils.DragAndDropModified;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
@@ -15,23 +15,23 @@ public class InteractableItem extends Item {
 
     private final int INVENTORY_SIZE = 70;
     private ClickListener pickUpListener = null;
-    private DragAndDrop dragAndDrop;
-    private DragAndDrop.Source dragSource = new DragAndDrop.Source(getItem()) {
-        public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+    private DragAndDropModified DragAndDropModified;
+    private DragAndDropModified.Source dragSource = new DragAndDropModified.Source(getItem()) {
+        public DragAndDropModified.Payload dragStart (InputEvent event, float x, float y, int pointer) {
             InteractableItem item = (InteractableItem) getActor();
             item.visible = false;
             item.setTouchable(Touchable.disabled);
 
             for (String name: item.targetNames) {
-                item.addDragAndDropTargets(mainAdapter.getTargetRegistry(name));
+                item.addDragAndDropModifiedTargets(mainAdapter.getTargetRegistry(name));
             }
 
-            DragAndDrop.Payload payload = new DragAndDrop.Payload();
+            DragAndDropModified.Payload payload = new DragAndDropModified.Payload();
             payload.setDragActor(new Image(item.textureRegion));
             payload.getDragActor().setBounds(item.getX(), item.getY(), item.shape.getWidth(), item.shape.getHeight());
             return payload;
         }
-        public void dragStop (InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
+        public void dragStop (InputEvent event, float x, float y, int pointer, DragAndDropModified.Payload payload, DragAndDropModified.Target target) {
             if (target == null) {
                 InteractableItem item = (InteractableItem) getActor();
                 handleDropFail(item);
@@ -47,11 +47,11 @@ public class InteractableItem extends Item {
         super(image, shape);
         this.mainAdapter = mainAdapter;
         setOrigin(getWidth()/2, getHeight()/2);
-        dragAndDrop = new DragAndDrop();
+        DragAndDropModified = new DragAndDropModified();
     }
 
     public void setDraggable() {
-        dragAndDrop.addSource(dragSource);
+        DragAndDropModified.addSource(dragSource);
     }
 
     public void setDebugDraggable() {
@@ -80,7 +80,7 @@ public class InteractableItem extends Item {
     }
 
     public void stopDraggable() {
-        dragAndDrop.removeSource(dragSource);
+        DragAndDropModified.removeSource(dragSource);
     }
 
     public void setPickUpable() {
@@ -96,19 +96,33 @@ public class InteractableItem extends Item {
         }
     }
 
+    public void setPickUpable(final InteractableItem newItem) {
+        if (pickUpListener == null) {
+            pickUpListener = new ClickListener() {
+                @Override
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    mainAdapter.addToInventory(newItem);
+                    getItem().remove();
+                    return true;
+                }
+            };
+            addListener(pickUpListener);
+        }
+    }
+
     public void stopPickUpable() {
         if (pickUpListener != null)
             removeListener(pickUpListener);
     }
 
-    public void addDragAndDropTargets(final ArrayList<InteractableItem> targets) {
+    public void addDragAndDropModifiedTargets(final ArrayList<InteractableItem> targets) {
         for (final InteractableItem target: targets) {
-            dragAndDrop.addTarget(new DragAndDrop.Target(target) {
+            DragAndDropModified.addTarget(new DragAndDropModified.Target(target) {
 
-                public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                public boolean drag (DragAndDropModified.Source source, DragAndDropModified.Payload payload, float x, float y, int pointer) {
                     return true;
                 }
-                public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                public void drop (DragAndDropModified.Source source, DragAndDropModified.Payload payload, float x, float y, int pointer) {
                     target.handleDrop(getItem());
                 }
             });
