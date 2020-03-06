@@ -1,6 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
@@ -26,19 +27,10 @@ public class AtticShelf extends View {
         SceneTrigger shelfEdge2 = new SceneTrigger(null, new CollisionBox(1110, 0, 170, 720), GameState.ATTIC, mainAdapter);
         actors.addActor(shelfEdge2);
 
-        MiniGame gearGame = new GearPuzzleGame(mainAdapter);
-        MinigameTrigger rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(300, 380, 150, 150), gearGame, mainAdapter);
-        actors.addActor(rabbit);
 
-//        Gear gear = new Gear(mainAdapter, 600, 450, 40);
-//        gear.setPickUpable();
-//        gear.addTargetName("mount1");
-//        actors.addActor(gear);
-//
-//        Gear gear2 = new Gear(mainAdapter, 700, 450, 40);
-//        gear2.setPickUpable();
-//        gear2.addTargetName("mount1");
-//        actors.addActor(gear2);
 
+        InteractableItem screwdriver = new InteractableItem("items/screwdriver.png", new CollisionBox(500, 380, 182, 50), mainAdapter);
+        screwdriver.setPickUpable();
+        actors.addActor(screwdriver);
     }
 }
