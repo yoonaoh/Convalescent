@@ -7,15 +7,18 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mystudio.gamename.animations.Avery;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.game.BasicGame;
+import org.mini2Dx.core.geom.Polygon;
 import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public class Main extends BasicGame {
      */
     private SpriteBatch batch;
 
+    private ShapeRenderer shapeRenderer;
+
     private Viewport viewport;
 
     private HashMap<GameState, View> views;
@@ -47,6 +52,8 @@ public class Main extends BasicGame {
     private Inventory inventory;
 
     private HashMap<String, ArrayList<InteractableItem>> targetRegistry = new HashMap<String, ArrayList<InteractableItem>>();
+
+    private Avery avery;
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -100,17 +107,26 @@ public class Main extends BasicGame {
         public void removeFromInventory(InteractableItem item) {
             inventory.removeItem(item);
         }
+
+        @Override
+        public Polygon getFloorspace() {
+            return currentBackground().getFloorspace();
+        }
+
     };
 
     @Override
     public void initialise() {
 
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
         inventory = new Inventory(mainAdapter);
+        avery = new Avery(mainAdapter);
 
         views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
@@ -129,8 +145,9 @@ public class Main extends BasicGame {
     @Override
     public void update(float delta) {
         currentBackground().getStage().act(delta);
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        avery.update();
     }
 
     @Override
@@ -142,6 +159,9 @@ public class Main extends BasicGame {
         currentBackground().drawBackground();
         currentBackground().getStage().setDebugAll(true);
         currentBackground().drawStage();
+        if (currentBackground().includesAvery()) {
+            avery.render(batch);
+        }
     }
 
     @Override
@@ -153,7 +173,9 @@ public class Main extends BasicGame {
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         inventory.remove();
+        avery.remove();
         currentBackground().getStage().addActor(inventory);
+        currentBackground().getBackground().addActor(avery);
     }
 
     private View currentBackground() {
