@@ -1,7 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mystudio.gamename.gearpuzzlegame.Gear;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
@@ -12,14 +12,14 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 
-public class AtticShelf extends ViewTwo {
+public class AtticShelf extends View {
 
     public AtticShelf(MainAdapter mainAdapter) {
         super(mainAdapter);
 
         background = new Texture("views/shelf_closeup.png");
         floorspace = new Polygon(new float[]{});
-        avery = false;
+        includesAvery = false;
 
         SceneTrigger shelfEdge1 = new SceneTrigger(null, new CollisionBox(0, 0, 250, 720), GameState.ATTIC, mainAdapter);
         actors.addActor(shelfEdge1);
@@ -27,19 +27,10 @@ public class AtticShelf extends ViewTwo {
         SceneTrigger shelfEdge2 = new SceneTrigger(null, new CollisionBox(1110, 0, 170, 720), GameState.ATTIC, mainAdapter);
         actors.addActor(shelfEdge2);
 
-        MiniGame gearGame = new GearPuzzleGame(mainAdapter);
-        MinigameTrigger rabbit = new MinigameTrigger("items/windup_toy.png", new CollisionBox(320, 400, 100, 150), gearGame, mainAdapter);
-        actors.addActor(rabbit);
 
-        Gear gear = new Gear(mainAdapter, 600, 450, 40);
-        gear.setPickUpable();
-        gear.addTargetName("mount1");
-        actors.addActor(gear);
 
-        Gear gear2 = new Gear(mainAdapter, 700, 450, 40);
-        gear2.setPickUpable();
-        gear2.addTargetName("mount1");
-        actors.addActor(gear2);
-
+        InteractableItem screwdriver = new InteractableItem("items/screwdriver.png", new CollisionBox(500, 380, 182, 50), mainAdapter);
+        screwdriver.setPickUpable();
+        actors.addActor(screwdriver);
     }
 }

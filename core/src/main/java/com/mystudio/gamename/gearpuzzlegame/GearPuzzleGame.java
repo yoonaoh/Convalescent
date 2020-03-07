@@ -1,20 +1,178 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.utils.Timer;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+
 public class GearPuzzleGame extends MiniGame {
 
+    ArrayList<Gear> gears = new ArrayList<Gear>();
+    ArrayList<Mount> mounts = new ArrayList<Mount>();
+    GearAdapter gearAdapter = new GearAdapter() {
+        @Override
+        public void addGear(Gear gear) {
+            updateGear(gear);
+        }
+    };
+    Gear finalGear;
+    InteractableItem key;
+
     public GearPuzzleGame(MainAdapter mainAdapter) {
-        super("gearpuzzle/robotgame_btemp.png", mainAdapter);
+        super("gearpuzzle/bunny_background.png", mainAdapter);
 
-        Gear gear1 = new Gear(mainAdapter, 100, 100, 100);
-        Mount mount1 = new Mount(mainAdapter, 300, 300);
-        gear1.addTargetName("mount1");
-        mainAdapter.addToTargetRegistry("mount1", mount1);
+//        addListener(new ClickListener() {
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.printf("%s %s\n", x, y);
+//                return true;
+//            }
+//        });
 
-        addActor(gear1);
-        addActor(mount1);
+        Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 72, 20);
+        Mount mount2 = new Mount(mainAdapter, gearAdapter,428, 280, 48, 0);
+        Mount mount3 = new Mount(mainAdapter, gearAdapter,330, 145, 48, 30);
+        Mount mount4 = new Mount(mainAdapter, gearAdapter,430, 157, 72, 50);
+        Mount mount5 = new Mount(mainAdapter, gearAdapter,550, 158, 72, 68);
+        mounts.add(mount1); mounts.add(mount2); mounts.add(mount3);
+        mounts.add(mount4); mounts.add(mount5);
+        for (Mount mount: mounts) addActor(mount);
+
+        Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25);
+        Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
+        Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
+        final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
+        Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
+//        Gear gear5 = new Gear(mainAdapter, 330, 145, 48, 30);
+//        Gear gear7 = new Gear(mainAdapter, 550, 158, 72, 68);
+
+//        gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
+//        gears.add(gear5);  gears.add(gear6); gears.add(gear7);
+//        for (Gear gear: gears) addActor(gear);
+
+        gears.add(gear4); gears.add(gear1); gears.add(gear3);
+        gear3.setDraggable();
+        for (Gear gear: gears) addActor(gear);
+
+        gear4.addListener(new InputListener() {
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gear4.spinning = true;
+                updateVelocity();
+                Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                    public void run() {
+                        gear4.spinning = false;
+                        updateVelocity();
+                    }
+                }, 5);
+                return true;
+            }
+        });
+        gear4.setCursorImage("gearpuzzle/rightarrow.png");
+
+        finalGear = gear1;
+
+        updateVelocity();
+        updateAngles();
+
+        mainAdapter.addToInventory(gear2);
+        mainAdapter.addToInventory(gear6);
+
+//        key = new InteractableItem("gearpuzzle/key_part.png",
+//                new CollisionBox(590, 305, 60, 160), mainAdapter);
+//        addActor(key);
+//        key.setDebugDraggable();
+//        key.setCursorImage("gearpuzzle/uparrow.png");
+//        key.addListener(new ClickListener() {
+//            @Override
+//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+//                if (!success) keySignal();
+//                return true;
+//            }
+//        });
+    }
+
+    public void updateGear(Gear gear) {
+        if (!gears.contains(gear)) gears.add(gear);
+        updateVelocity();
+        updateAngles();
+    }
+
+    public void updateVelocity() {
+        LinkedList<Gear> queue = new LinkedList<Gear>();
+        HashSet<Gear> seen = new HashSet<Gear>();
+        if (gears.get(0).spinning) queue.add(gears.get(0));
+        lockGears();
+        while (!queue.isEmpty()) {
+            Gear gear = queue.pollFirst();
+            gear.spinning = true;
+            seen.add(gear);
+            for (Gear other: gears) {
+                double dist = gear.distance(other);
+                if (dist < gear.radius + other.radius - 10) {
+                    if (!seen.contains(other)) {
+                        if (other.speed * gear.speed > 0)
+                            other.speed *= -1;
+                        queue.add(other);
+                    } else if (!other.equals(gear) && other.speed * gear.speed > 0) {
+                        lockGears();
+                        updateAngles();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void lockGears() {
+        for (Gear gear: gears) gear.spinning = false;
+    }
+
+    private void updateAngles() {
+        for (Gear g: gears) g.setRotation(g.originalAngle);
+    }
+
+    private void keySignal() {
+        Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+            public void run() {
+                key.setPosition(key.getX()-5, key.getY());
+            }
+        }, (float) 0.01, (float) 0.02, 3);
+        Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+            public void run() {
+                key.setPosition(key.getX()+5, key.getY());
+            }
+        }, (float) 0.02, (float) 0.02, 3);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        if (!success) {
+            if (finalGear.spinning) {
+                if (finalGear.speed > 0) {
+//                    System.out.println("Congrats");
+//                    Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+//                        public void run() {
+//                            key.setPosition(key.getX(), key.getY()+1);
+//                        }
+//                    }, 0, (float) 0.18, 30);
+//                    key.setPickUpable(new InteractableItem("gearpuzzle/attickey.png",
+//                            new CollisionBox(0, 0, 80, 80), getMainAdapter()));
+                    success = true;
+                } else {
+//                    lockGears();
+//                    updateAngles();
+//                    keySignal();
+                }
+            }
+        }
     }
 
 //    private Gear bigGear1, bigGear2, corGear1, corGear2, smallGear1, smallGear2, midGear;

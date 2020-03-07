@@ -20,6 +20,7 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 public abstract class MiniGame extends Window {
 
     private MainAdapter mainAdapter;
+    public boolean success = false;
 
     public MiniGame(String image, final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
@@ -30,9 +31,9 @@ public abstract class MiniGame extends Window {
         setSize(800, 500);
 
         Actor close = new Item("gearpuzzle/close.png", new CollisionBox(30, 450, 30, 30));
-        close.addListener(new InputListener(){
+        close.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 mainAdapter.closeWindow();
                 return true;
             }
@@ -40,6 +41,10 @@ public abstract class MiniGame extends Window {
         addActor(close);
     }
 
+    public MainAdapter getMainAdapter() {
+        return mainAdapter;
+    }
+}
 // Set to close when clicked outside of window area
 //        setModal(true);
 //        addListener(new InputListener() {
@@ -106,4 +111,4 @@ public abstract class MiniGame extends Window {
 //     * Used to dispose objects used to reduce time.
 //     */
 //    protected abstract void dispose();
-}
+

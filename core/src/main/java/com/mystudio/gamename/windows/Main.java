@@ -1,6 +1,7 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -39,7 +40,7 @@ public class Main extends BasicGame {
 
     private Viewport viewport;
 
-    private HashMap<GameState, ViewTwo> views;
+    private HashMap<GameState, View> views;
 
     private Window window;
 
@@ -76,9 +77,7 @@ public class Main extends BasicGame {
         @Override
         public void addToInventory(InteractableItem item) {
             inventory.addItem(item);
-            item.inInventory = true;
-            item.stopPickUpable();
-            item.setDraggable();
+            item.setInventory();
         }
 
         @Override
@@ -111,14 +110,16 @@ public class Main extends BasicGame {
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
+        inventory = new Inventory(mainAdapter);
 
-        views = new HashMap<GameState, ViewTwo>();
+        views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
-
-        inventory = new Inventory(mainAdapter);
+        views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
+        views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
+        views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
@@ -128,6 +129,8 @@ public class Main extends BasicGame {
     @Override
     public void update(float delta) {
         currentBackground().getStage().act(delta);
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
     }
 
     @Override
@@ -153,7 +156,7 @@ public class Main extends BasicGame {
         currentBackground().getStage().addActor(inventory);
     }
 
-    private ViewTwo currentBackground() {
+    private View currentBackground() {
         return views.get(state);
     }
 

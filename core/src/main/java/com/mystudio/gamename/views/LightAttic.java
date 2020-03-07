@@ -1,13 +1,22 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
+import com.mystudio.gamename.items.InteractableItem;
+import com.mystudio.gamename.items.Item;
+import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.items.SceneTrigger;
+import com.mystudio.gamename.windows.Inventory;
+import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
+import org.mini2Dx.core.engine.geom.CollisionPolygon;
 import org.mini2Dx.core.geom.Polygon;
 
-public class LightAttic extends ViewTwo {
+public class LightAttic extends View {
     public LightAttic(MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture("views/attic_bg_light.png");
@@ -22,16 +31,55 @@ public class LightAttic extends ViewTwo {
                 1280, 250,
                 1280, 0
         });
-        avery = true;
+        includesAvery = true;
 
+        // Add window
         SceneTrigger window = new SceneTrigger(null,
                 new CollisionBox(840, 380, 150, 160), GameState.DARK_ATTIC, mainAdapter);
         actors.addActor(window);
 
+        // Add shelf
         SceneTrigger shelf = new SceneTrigger("views/shelf_light.png",
                 new CollisionBox(1035, 250, 150, 270), GameState.ATTIC_SHELF, mainAdapter);
         actors.addActor(shelf);
 
-//        stage.addActor(actors);
+        // Add backpack
+//        final Item backpack = new Item("items/baggo.png", new CollisionBox(972, 720 - 576, 150, 150));
+//        final MainAdapter mainAdapterFinal = mainAdapter;
+//        backpack.addListener(new ClickListener() {
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                actors.removeActor(backpack);
+//                Inventory inventory = new Inventory(mainAdapterFinal);
+//                inventory.remove();
+//                actors.addActor(inventory);
+//            }
+//
+//        });
+//        actors.addActor(backpack);
+
+        // Add attic table
+        Item table = new Item("items/attic_table.png", new CollisionBox(625, 177, 240, 160));
+        actors.addActor(table);
+
+        MiniGame gearGame = new GearPuzzleGame(mainAdapter);
+        MinigameTrigger
+            rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(744, 317, 50, 50), gearGame, mainAdapter);
+        actors.addActor(rabbit);
+
+        // Add fan
+        InteractableItem fan = new InteractableItem("items/fan.png", new CollisionBox(941, 226, 75, 75), mainAdapter);
+        actors.addActor(fan);
+
+        // Add attic door
+        SceneTrigger door = new SceneTrigger("items/attic_door.png", new CollisionPolygon(new float[] {
+            338, 76,
+            488, 161,
+            638, 132,
+            625, 75
+        }), GameState.CORRIDOR, mainAdapter);
+        actors.addActor(door);
+
     }
 }

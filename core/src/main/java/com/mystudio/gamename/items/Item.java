@@ -1,9 +1,14 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
@@ -39,6 +44,11 @@ public class Item extends Actor {
         textureRegion.flip(false, true);
     }
 
+    public double distance(Item other) {
+        return new Vector2(getX()+getOriginX(), getY()+getOriginY())
+                .dst(new Vector2(other.getX()+other.getOriginX(), other.getY()+other.getOriginY()));
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (textureRegion != null && visible) {
@@ -50,95 +60,31 @@ public class Item extends Actor {
     @Override
     public Actor hit (float x, float y, boolean touchable) {
         if (touchable && getTouchable() != Touchable.enabled) return null;
-        return shape.contains(new Vector2(x + shape.getX(), y + shape.getY())) ? this : null;
+        return (x >= 0 && x < getWidth() && y >= 0 && y < getHeight() && shape.contains(new Vector2(x + shape.getX(), y + shape.getY()))) ? this : null;
+    }
+
+    public void setCursorImage(String filename) {
+        Pixmap pm = new Pixmap(Gdx.files.internal(filename));
+        setCursorImage(Gdx.graphics.newCursor(pm, pm.getWidth() / 2, pm.getHeight() / 2));
+    }
+
+    public void setCursorImage(final Cursor cursor) {
+        addListener(new InputListener() {
+            @Override
+            public boolean mouseMoved (InputEvent event, float x, float y) {
+                Gdx.graphics.setCursor(cursor);
+                return false;
+            }
+
+            @Override
+            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setCursor(cursor);
+            }
+
+            @Override
+            public void exit (InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
     }
 }
-
-
-//    public void reset(String image, float x, float y, int width, int height, CollisionShape collisionShape) {
-//        // collisionShape defaults to a box
-//        this.collisionShape = collisi
-//        onShape == null ? new CollisionBox(x, y, width, height) : collisionShape;
-//        setSprite(image, width, height);
-//        setPos(new Vector2(x, y));
-//    }
-
-//    /**
-//     * Updates the item
-//     * @param delta - delta
-//     */
-//    public void update(float delta) {
-//        act(delta);
-//    }
-
-//    public void render(SpriteBatch batch) {
-////        sprite.draw(batch);
-//        batch.draw(sprite,
-//                collisionShape.getX() - sprite.getOriginX(),
-//                collisionShape.getY() - sprite.getOriginY(),
-//                sprite.getOriginX(),
-//                sprite.getOriginY(),
-//                collisionShape.getWidth(),
-//                collisionShape.getHeight(),
-//                1,
-//                1,
-//                0);
-//    }
-
-//    public void render(ShapeRenderer shapeRenderer) {
-//        shapeRenderer.setColor(Color.CYAN);
-//        shapeRenderer.circle(collisionShape.getX(), collisionShape.getY(), collisionShape.getHeight()/2);
-//
-//    }
-
-//    public void setImage(String image) {
-//        sprite.setTexture(new Texture(image));
-//    }
-
-//    /**
-//     * Determines if the resulting movement produces a collision with the item
-//     *
-//     * @param s - the shape to which check collision against.
-//     * @return boolean determining whether the movement produces a collision
-//     */
-//    public boolean isCollision(Shape s) {
-//        return collisionShape.intersects(s);
-//    }
-
-//    /**
-//     * Determines if the resulting movement produces a collision with the item
-//     * @param other - other item
-//     * @return boolean determining whether the movement produces a collision
-//     */
-//    public boolean collideWith(Item other) {
-//        return collisionShape.intersects(other.collisionShape.getShape());
-//    }
-//
-//    /**
-//     * Determines if the resulting movement produces a collision with the item
-//     * @param pos - position of other item
-//     * @return boolean determining whether the movement produces a collision
-//     */
-//    public boolean collideWith(Vector2 pos) {
-//        return collisionShape.contains(pos);
-//    }
-//
-//    /**
-//     * Finds the distance from current item to the other item
-//     * @param other - item that we want to find the distance to
-//     * @return float - representing the distance
-//     */
-//    public float distance(Item other) {
-//        return (float) Point2D.distance(collisionShape.getX(), collisionShape.getY(),
-//                other.collisionShape.getX(), other.collisionShape.getY());
-//    }
-//
-//    public void setPos(Vector2 pos) {
-//        collisionShape.setX(pos.x);
-//        collisionShape.setY(pos.y);
-//    }
-//
-//    public Vector2 getPos() {
-//        return new Vector2(collisionShape.getX(), collisionShape.getY());
-//    }
-
