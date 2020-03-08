@@ -11,9 +11,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -21,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mystudio.gamename.utils.MainAdapter;
+import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -28,12 +32,8 @@ import java.util.Random;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
-public class TilePuzzle extends BasicGame {
+public class TilePuzzleGame extends MiniGame {
 
-    public static final String GAME_IDENTIFIER = "org.mini2Dx.tiles";
-    private Stage stage;
-    private ShapeRenderer shapeRenderer;
-    private SpriteBatch batch;
     Camera camera;
 
     public BitmapFont font24;
@@ -55,31 +55,19 @@ public class TilePuzzle extends BasicGame {
     // Info label
     private Label labelInfo;
 
-    private boolean hintFlag = false;
+    public TilePuzzleGame(MainAdapter mainAdapter) {
+        super("gearpuzzle/bunny_background.png", mainAdapter);
 
-    @Override
-    public void initialise() {
-        batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
-
-        // Set screen size
-        camera = new OrthographicCamera();
-        camera.position.set(640, 360, 0);
-        stage = new Stage(new FitViewport(1280, 720, camera), batch);
-
+        camera = mainAdapter.getViewPort().getCamera();
         assets = new AssetManager();
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/High Performance Demo.otf"));
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
         params.size = 24;
-        params.color = Color.BLACK;
+        params.color = Color.WHITE;
         font24 = generator.generateFont(params);
 
-        Gdx.input.setInputProcessor(stage);
-        stage.clear();
-
-        shapeRenderer.setProjectionMatrix(camera.combined);
         this.progress = 0f;
         assets.load("tilepuzzle/uiskin.atlas", TextureAtlas.class);
         assets.finishLoading();
@@ -94,23 +82,6 @@ public class TilePuzzle extends BasicGame {
         initInfoLabel();
         initGrid();
         shuffle();
-    }
-
-    @Override
-    public void update(float delta) {
-        stage.act(delta);
-    }
-
-    @Override
-    public void interpolate(float alpha) {
-    }
-
-    @Override
-    public void render(Graphics g) {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.draw();
     }
 
     private void shuffle() {
@@ -133,10 +104,10 @@ public class TilePuzzle extends BasicGame {
     // Initialize the info label
     private void initInfoLabel() {
         labelInfo = new Label("Welcome! Click any tile to begin!", skin, "default");
-        labelInfo.setPosition(400, 650);
+        labelInfo.setPosition(200, 50);
         labelInfo.setAlignment(Align.center);
         labelInfo.addAction(sequence(alpha(0f), delay(.5f), fadeIn(.5f)));
-        stage.addActor(labelInfo);
+        addActor(labelInfo);
     }
 
     // Initialize the game grid
@@ -165,11 +136,11 @@ public class TilePuzzle extends BasicGame {
                 if (i != holeY || j != holeX) {
                     int id = nums.removeIndex(0);
                     buttonGrid[i][j] = new Tile(skin, id, new TextureRegion(image, (image.getHeight() / boardSize) * j, (image.getWidth() / boardSize) * i, image.getWidth() / boardSize, image.getHeight() / boardSize));
-                    buttonGrid[i][j].setPosition((camera.viewportWidth / 2) - 200 + (101 * j),
-                            (camera.viewportHeight / 2) + 100 - (101 * i));
+                    buttonGrid[i][j].setPosition((camera.viewportWidth / 3) - 200 + (101 * j),
+                            (camera.viewportHeight / 3) + 100 - (101 * i));
                     buttonGrid[i][j].setSize(100, 100);
                     buttonGrid[i][j].addAction(sequence(alpha(0), delay((j + 1 + (i * boardSize)) / 60f),
-                            parallel(fadeIn(.5f), moveBy(0, -10, .25f, Interpolation.pow5Out))));
+                            parallel(fadeIn(.5f), Actions.moveBy(0, -10, .25f, Interpolation.pow5Out))));
 
                     // Slide/Move Button
                     buttonGrid[i][j].addListener(new ClickListener() {
@@ -204,7 +175,7 @@ public class TilePuzzle extends BasicGame {
                             }
                         }
                     });
-                    stage.addActor(buttonGrid[i][j]);
+                    addActor(buttonGrid[i][j]);
                 }
             }
         }
@@ -215,14 +186,14 @@ public class TilePuzzle extends BasicGame {
         if (x < holeX) {
             for (; holeX > x; holeX--) {
                 button = buttonGrid[holeY][holeX - 1];
-                button.addAction(moveBy(101, 0, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(101, 0, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY][holeX - 1] = null;
             }
         } else {
             for (; holeX < x; holeX++) {
                 button = buttonGrid[holeY][holeX + 1];
-                button.addAction(moveBy(-101, 0, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(-101, 0, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY][holeX + 1] = null;
             }
@@ -231,14 +202,14 @@ public class TilePuzzle extends BasicGame {
         if (y < holeY) {
             for (; holeY > y; holeY--) {
                 button = buttonGrid[holeY - 1][holeX];
-                button.addAction(moveBy(0, -101, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(0, -101, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY - 1][holeX] = null;
             }
         } else {
             for (; holeY < y; holeY++) {
                 button = buttonGrid[holeY + 1][holeX];
-                button.addAction(moveBy(0, 101, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(0, 101, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY + 1][holeX] = null;
             }
@@ -264,11 +235,7 @@ public class TilePuzzle extends BasicGame {
         return true;
     }
 
-    private void switchHints() {
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                buttonGrid[i][j].hints(hintFlag);
-            }
-        }
-    }
+
+
+
 }
