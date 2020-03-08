@@ -31,5 +31,4 @@ public class Mount extends InteractableItem {
             gearAdapter.addGear(gear);
         }
     }
-
 }

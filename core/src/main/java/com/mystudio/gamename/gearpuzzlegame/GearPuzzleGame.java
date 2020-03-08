@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -157,6 +158,9 @@ public class GearPuzzleGame extends MiniGame {
         if (!success) {
             if (finalGear.spinning) {
                 if (finalGear.speed > 0) {
+                    InteractableItem key = new InteractableItem("gearpuzzle/attickey.png", new CollisionBox(0, 0, 80, 80), getMainAdapter());
+                    key.addTargetName("attic_door");
+                    getMainAdapter().addToInventory(key);
 //                    System.out.println("Congrats");
 //                    Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
 //                        public void run() {

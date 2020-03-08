@@ -3,6 +3,8 @@ package com.mystudio.gamename.views;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.items.DropTargetHanlder;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -13,7 +15,7 @@ import org.mini2Dx.core.engine.geom.CollisionPolygon;
 import org.mini2Dx.core.geom.Polygon;
 
 public class LightAttic extends View {
-    public LightAttic(MainAdapter mainAdapter) {
+    public LightAttic(final MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture("views/attic_bg_light.png");
         floorspace = new Polygon(new float[]{
@@ -56,12 +58,19 @@ public class LightAttic extends View {
         actors.addActor(backpack);
 
         // Add attic door
-        SceneTrigger door = new SceneTrigger(null, new CollisionPolygon(new float[] {
+        InteractableItem door = new InteractableItem(null, new CollisionPolygon(new float[] {
             338, 76,
             488, 161,
             638, 132,
             625, 75
-        }), GameState.CORRIDOR, mainAdapter);
+        }), mainAdapter);
+        door.addDropHandler(new DropTargetHanlder() {
+            @Override
+            public void handleDrop(final InteractableItem item) {
+                mainAdapter.updateState(GameState.CORRIDOR);
+            }
+        });
+        mainAdapter.addToTargetRegistry("attic_door", door);
         actors.addActor(door);
 
     }
