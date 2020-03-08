@@ -17,11 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mystudio.gamename.items.Item;
-import org.fusesource.jansi.Ansi;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
-import org.mini2Dx.ui.element.Button;
 
 import java.util.ArrayList;
 
@@ -121,9 +119,8 @@ public class MazePuzzleGame extends BasicGame {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                success = true;
                 moveGecko(x, y);
-                System.exit(0);
+                success = true;
             }
 
         });
@@ -145,23 +142,22 @@ public class MazePuzzleGame extends BasicGame {
     @Override
     public void update(float delta) {
 
-        if (numBugs > 0) {
-            stage.act(delta);
-            numBugs--;
-            System.out.println("Current numBugs: " + numBugs);
-        }
+        stage.act(delta);
 
         if (isSuccess()) {
             System.out.println("Congrats you won!");
+            System.exit(0);
         }
 
     }
 
     public void moveGecko(float x, float y) {
 
+        // Tile-based movement
         int newX = ((int) x / 80) * 80;
         int newY = ((int) y / 80) * 80;
 
+        // The gecko has to move either left-right or up-down
         if (newX != gecko.getX() && newY == gecko.getY()) {
             gecko.getCollisionShape().moveTowards(new CollisionBox(newX, newY, 80, 80), 10);
             gecko.setBounds(newX, newY, gecko.getWidth(), gecko.getHeight());

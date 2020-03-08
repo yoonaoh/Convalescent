@@ -24,6 +24,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.graphics.Graphics;
 
+import java.util.Random;
+
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 public class TilePuzzle extends BasicGame {
@@ -42,8 +44,9 @@ public class TilePuzzle extends BasicGame {
     private float progress;
 
     // Game Grid
-    private int boardSize = 4;
+    private int boardSize = 3;
     private int holeX, holeY;
+    private int checkX, checkY;
     private Tile[][] buttonGrid;
 
     // Nav-Buttons
@@ -73,11 +76,9 @@ public class TilePuzzle extends BasicGame {
         params.color = Color.BLACK;
         font24 = generator.generateFont(params);
 
-        System.out.println("PLAY");
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
-        System.out.println("LOADING");
         shapeRenderer.setProjectionMatrix(camera.combined);
         this.progress = 0f;
         assets.load("tilepuzzle/uiskin.atlas", TextureAtlas.class);
@@ -102,7 +103,6 @@ public class TilePuzzle extends BasicGame {
 
     @Override
     public void interpolate(float alpha) {
-
     }
 
     @Override
@@ -116,6 +116,7 @@ public class TilePuzzle extends BasicGame {
     private void shuffle() {
         int swaps = 0; // debug variable
         int shuffles;
+
         // 99 is arbitrary
         for (shuffles = 0; shuffles < 99; shuffles++) {
             // Choose a random spot in the grid and check if a valid move can be made
@@ -132,7 +133,7 @@ public class TilePuzzle extends BasicGame {
     // Initialize the info label
     private void initInfoLabel() {
         labelInfo = new Label("Welcome! Click any tile to begin!", skin, "default");
-        labelInfo.setPosition(380, 650);
+        labelInfo.setPosition(400, 650);
         labelInfo.setAlignment(Align.center);
         labelInfo.addAction(sequence(alpha(0f), delay(.5f), fadeIn(.5f)));
         stage.addActor(labelInfo);
@@ -149,18 +150,23 @@ public class TilePuzzle extends BasicGame {
         }
 
         // Set the hole at the bottom right so the sequence is 1,2,3...,15,hole (solved state) from which to start shuffling.
-        holeX = boardSize - 1;
-        holeY = boardSize - 1;
+//        holeX = boardSize - 1;
+//        holeY = boardSize - 1;
+        Random r = new Random();
+        holeX = r.nextInt(boardSize);
+        checkX = holeX;
+        holeY = r.nextInt(boardSize);
+        checkY = holeY;
 
-        Texture image = new Texture(Gdx.files.internal("tilepuzzle/psych.jpg"));
+        Texture image = new Texture(Gdx.files.internal("tilepuzzle/backyard.png"));
 
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 if (i != holeY || j != holeX) {
                     int id = nums.removeIndex(0);
                     buttonGrid[i][j] = new Tile(skin, id, new TextureRegion(image, (image.getHeight() / boardSize) * j, (image.getWidth() / boardSize) * i, image.getWidth() / boardSize, image.getHeight() / boardSize));
-                    buttonGrid[i][j].setPosition((camera.viewportWidth / 2) - 200 + (100 * j),
-                            (camera.viewportHeight / 2) + 100 - (100 * i));
+                    buttonGrid[i][j].setPosition((camera.viewportWidth / 2) - 200 + (101 * j),
+                            (camera.viewportHeight / 2) + 100 - (101 * i));
                     buttonGrid[i][j].setSize(100, 100);
                     buttonGrid[i][j].addAction(sequence(alpha(0), delay((j + 1 + (i * boardSize)) / 60f),
                             parallel(fadeIn(.5f), moveBy(0, -10, .25f, Interpolation.pow5Out))));
@@ -209,14 +215,14 @@ public class TilePuzzle extends BasicGame {
         if (x < holeX) {
             for (; holeX > x; holeX--) {
                 button = buttonGrid[holeY][holeX - 1];
-                button.addAction(moveBy(100, 0, .5f, Interpolation.pow5Out));
+                button.addAction(moveBy(101, 0, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY][holeX - 1] = null;
             }
         } else {
             for (; holeX < x; holeX++) {
                 button = buttonGrid[holeY][holeX + 1];
-                button.addAction(moveBy(-100, 0, .5f, Interpolation.pow5Out));
+                button.addAction(moveBy(-101, 0, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY][holeX + 1] = null;
             }
@@ -225,14 +231,14 @@ public class TilePuzzle extends BasicGame {
         if (y < holeY) {
             for (; holeY > y; holeY--) {
                 button = buttonGrid[holeY - 1][holeX];
-                button.addAction(moveBy(0, -100, .5f, Interpolation.pow5Out));
+                button.addAction(moveBy(0, -101, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY - 1][holeX] = null;
             }
         } else {
             for (; holeY < y; holeY++) {
                 button = buttonGrid[holeY + 1][holeX];
-                button.addAction(moveBy(0, 100, .5f, Interpolation.pow5Out));
+                button.addAction(moveBy(0, 101, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY + 1][holeX] = null;
             }
@@ -244,19 +250,18 @@ public class TilePuzzle extends BasicGame {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 if (buttonGrid[i][j] != null) {
-                    if (buttonGrid[i][j].getId() == idCheck++) {
-                        if (idCheck == 16) {
-                            return true;
-                        }
-                    } else {
+                    if (buttonGrid[i][j].getId() < idCheck++) {
                         return false;
                     }
                 } else {
-                    return false;
+                    System.out.println("Hole at " + i + ", " + j + " compare to " + holeX + ", " + holeY);
+                    if (i != checkX || j != checkY) {
+                        return false;
+                    }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private void switchHints() {

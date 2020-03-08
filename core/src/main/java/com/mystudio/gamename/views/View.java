@@ -1,6 +1,8 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -10,6 +12,7 @@ public class View {
 
     Stage stage;
     Group actors;
+    Group bg_actors;
     Texture background;
     Polygon floorspace;
     Boolean includesAvery;
@@ -18,11 +21,11 @@ public class View {
     public View(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
         stage = new Stage(mainAdapter.getViewPort(), mainAdapter.getBatch());
+        bg_actors = new Group();
+        stage.addActor(bg_actors);
         actors = new Group();
         stage.addActor(actors);
     }
-
-    public void initialise() {}
 
     public Polygon getFloorspace() {
         return floorspace;
@@ -44,9 +47,20 @@ public class View {
         stage.getBatch().begin();
         stage.getBatch().draw(this.background, 0, 0, stage.getWidth(), stage.getHeight());
         stage.getBatch().end();
+
+//        ShapeRenderer sr = new ShapeRenderer();
+//        sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
+//        sr.begin(ShapeRenderer.ShapeType.Line);
+//        sr.setColor(Color.CYAN);
+//        if (floorspace.getNumberOfSides() > 0) {sr.polygon(floorspace.getVertices());}
+//        sr.end();
     }
 
     public void drawStage() {
         stage.draw();
+    }
+
+    public Group getBackground() {
+        return bg_actors;
     }
 }

@@ -1,9 +1,11 @@
 package com.mystudio.gamename.utils;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.items.InteractableItem;
+import org.mini2Dx.core.geom.Polygon;
 
 import java.util.ArrayList;
 
@@ -26,4 +28,7 @@ public interface MainAdapter {
     void addToTargetRegistry(String name, InteractableItem item);
 
     void removeFromInventory(InteractableItem item);
+
+    Polygon getFloorspace();
+
 }

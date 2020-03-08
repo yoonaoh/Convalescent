@@ -156,7 +156,6 @@ public class InteractableItem extends Item {
     public void handleDropSuccess(InteractableItem item) {
         mainAdapter.removeFromInventory(item);
         getParent().addActor(item);
-//        item.setPosition(0, 0);
         item.setBounds(getX()-item.getOriginX()+getOriginX(), getY()-item.getOriginY()+getOriginY(), item.shape.getWidth(), item.shape.getHeight());
         item.visible = true;
         item.setTouchable(Touchable.enabled);
