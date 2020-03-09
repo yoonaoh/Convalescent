@@ -4,20 +4,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
+import com.mystudio.gamename.items.*;
+import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.windows.Inventory;
+import com.mystudio.gamename.windows.MiniGame;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionPolygon;
 import org.mini2Dx.core.geom.Polygon;
 
 public class LightAttic extends View {
-    public LightAttic(MainAdapter mainAdapter) {
+    public LightAttic(final MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture("views/attic_bg_light.png");
         floorspace = new Polygon(new float[]{
@@ -58,11 +59,11 @@ public class LightAttic extends View {
 //
 //        });
 //        actors.addActor(backpack);
-
+//
         // Add attic table
         Item table = new Item("items/attic_table.png", new CollisionBox(625, 177, 240, 160));
         actors.addActor(table);
-
+//
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
         MinigameTrigger
             rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(744, 317, 50, 50), gearGame, mainAdapter);
@@ -73,12 +74,19 @@ public class LightAttic extends View {
         actors.addActor(fan);
 
         // Add attic door
-        SceneTrigger door = new SceneTrigger("items/attic_door.png", new CollisionPolygon(new float[] {
+        InteractableItem door = new InteractableItem(null, new CollisionPolygon(new float[] {
             338, 76,
             488, 161,
             638, 132,
             625, 75
-        }), GameState.CORRIDOR, mainAdapter);
+        }), mainAdapter);
+        door.addDropHandler(new DropTargetHanlder() {
+            @Override
+            public void handleDrop(final InteractableItem item) {
+                mainAdapter.updateState(GameState.CORRIDOR);
+            }
+        });
+        mainAdapter.addToTargetRegistry("attic_door", door);
         actors.addActor(door);
 
     }
