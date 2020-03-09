@@ -2,6 +2,7 @@ package com.mystudio.gamename.items;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -39,6 +40,12 @@ public class InteractableItem extends Item {
         }
     };
     private ArrayList<String> targetNames = new ArrayList<String>();
+    private DropTargetHanlder dropHandler = new DropTargetHanlder() {
+        @Override
+        public void handleDrop(InteractableItem item) {
+            handleDropFail(item);
+        }
+    };
 
     public MainAdapter mainAdapter;
     public boolean inInventory = false;
@@ -88,6 +95,10 @@ public class InteractableItem extends Item {
             pickUpListener = new ClickListener() {
                 @Override
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    MoveToAction moveToAction = new MoveToAction();
+                    moveToAction.setPosition(1200, 20);
+                    moveToAction.setDuration(1f);
+                    addAction(moveToAction);
                     mainAdapter.addToInventory(getItem());
                     return true;
                 }
@@ -134,7 +145,7 @@ public class InteractableItem extends Item {
     }
 
     public void handleDrop(InteractableItem item) {
-        handleDropFail(item);
+        dropHandler.handleDrop(item);
     }
 
     public void handleDropFail(InteractableItem item) {
@@ -159,5 +170,9 @@ public class InteractableItem extends Item {
         stopPickUpable();
         setDraggable();
         setBounds(0, 0, INVENTORY_SIZE, INVENTORY_SIZE);
+    }
+
+    public void addDropHandler(DropTargetHanlder handler) {
+        dropHandler = handler;
     }
 }

@@ -9,10 +9,10 @@ import org.mini2Dx.core.engine.geom.CollisionShape;
 /**
  * Items that take you to new views
  */
-public class SceneTrigger extends Item {
+public class SceneTrigger extends InteractableItem {
   public SceneTrigger(String image, CollisionShape shape, final GameState nextState, final MainAdapter mainAdapter) {
-    super(image, shape);
-    addCaptureListener(new ClickListener() {
+    super(image, shape, mainAdapter);
+    addListener(new ClickListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         mainAdapter.updateState(nextState);
