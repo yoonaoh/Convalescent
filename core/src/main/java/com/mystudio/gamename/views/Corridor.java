@@ -13,15 +13,11 @@ public class Corridor extends View {
 
         background = new Texture("views/hallway_sketch.png");
         floorspace = new Polygon(new float[]{
-            80,0,
-            616, 277,
-            1035, 277,
-            1035, 250,
-            1185, 250,
-            1185, 277,
-            1250, 277,
-            1280, 250,
-            1280, 0
+                0, 0,
+                0, 150,
+                60, 310,
+                332, 310,
+                1280, 0
         });
         includesAvery = true;
 

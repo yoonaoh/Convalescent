@@ -55,6 +55,8 @@ public class Main extends BasicGame {
 
     private Avery avery;
 
+    private boolean game_in_progress = false;
+
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
         public void updateState(GameState gameState) {
@@ -157,9 +159,9 @@ public class Main extends BasicGame {
     @Override
     public void render(Graphics g) {
         currentBackground().drawBackground();
-        currentBackground().getStage().setDebugAll(true);
+//        currentBackground().getStage().setDebugAll(true);
         currentBackground().drawStage();
-        if (currentBackground().includesAvery()) {
+        if (currentBackground().includesAvery() && !game_in_progress) {
             avery.render(batch);
         }
     }
@@ -183,6 +185,7 @@ public class Main extends BasicGame {
     }
 
     private void setWindow(Window window) {
+        game_in_progress = true;
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
@@ -190,6 +193,7 @@ public class Main extends BasicGame {
     }
 
     private void removeWindow() {
+        game_in_progress = false;
         window.remove();
         currentBackground().getActors().setTouchable(Touchable.enabled);
     }

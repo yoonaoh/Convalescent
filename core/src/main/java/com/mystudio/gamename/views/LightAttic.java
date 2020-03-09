@@ -74,7 +74,7 @@ public class LightAttic extends View {
         actors.addActor(fan);
 
         // Add attic door
-        InteractableItem door = new InteractableItem(null, new CollisionPolygon(new float[] {
+        InteractableItem door = new InteractableItem("items/attic_door.png", new CollisionPolygon(new float[] {
             338, 76,
             488, 161,
             638, 132,

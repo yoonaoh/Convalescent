@@ -44,8 +44,8 @@ public class Avery extends Actor {
 
         // Create movement variables
         box = new CollisionBox();
-        box.setWidth(180);
-        box.setHeight(75);
+        box.setWidth(100);
+        box.setHeight(0);
 
         y_update = 0;
         x_update = 640;
@@ -54,7 +54,7 @@ public class Avery extends Actor {
         setBounds(0, 0, 1280, 720);
 
         // Walk Animation
-        init_walk_animation(15, 47);
+        init_walk_animation(0, 56);
 
         // Stand Animation
         init_stand_animation();
@@ -108,6 +108,8 @@ public class Avery extends Actor {
 
         scale = (float) (1 - (0.4 * box.getY() / 275));
 
+        box.setWidth(scale(100));
+
 
     }
 
@@ -150,10 +152,14 @@ public class Avery extends Actor {
         float w = scale(sprite_width);
         float h = scale(sprite_height);
         if (status == AveryStates.LEFT_WALKING || status == AveryStates.RIGHT_WALKING) {
-            batch.draw(avery_walks.getKeyFrame(walk_elapsed, true), box.getX(), box.getY(), w, h);
+            batch.draw(avery_walks.getKeyFrame(walk_elapsed, true),
+                    box.getX() - scale(50), box.getY() - scale(35),
+                    w, h);
 
         } else if (status == AveryStates.LEFT_STANDING || status == AveryStates.RIGHT_STANDING) {
-            batch.draw(avery_stands.getKeyFrame(walk_elapsed, true), box.getX(), box.getY(), w, h);
+            batch.draw(avery_stands.getKeyFrame(walk_elapsed, true),
+                    box.getX() - scale(50), box.getY() - scale(35),
+                    w, h);
         }
 
         batch.end();
@@ -162,7 +168,7 @@ public class Avery extends Actor {
         sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(Color.CYAN);
-        sr.rect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
+        sr.rect(box.getX(), box.getY() , scale(100), 0);
         sr.end();
 
 
@@ -196,8 +202,7 @@ public class Avery extends Actor {
         return (scale * var);
     }
 
-    static TextureRegion[] reverse(TextureRegion[] a, int n)
-    {
+    static TextureRegion[] reverse(TextureRegion[] a, int n) {
         TextureRegion[] b = new TextureRegion[n];
         int j = n;
         for (int i = 0; i < n; i++) {

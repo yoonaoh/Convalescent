@@ -49,9 +49,6 @@ public class TilePuzzleGame extends MiniGame {
     private int checkX, checkY;
     private Tile[][] buttonGrid;
 
-    // Nav-Buttons
-    private TextButton buttonBack;
-
     // Info label
     private Label labelInfo;
 
@@ -76,8 +73,6 @@ public class TilePuzzleGame extends MiniGame {
         this.skin.addRegions(assets.get("tilepuzzle/uiskin.atlas", TextureAtlas.class));
         this.skin.add("default-font", font24);
         this.skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
-
-        Actor hintButton = new Actor();
 
         initInfoLabel();
         initGrid();
@@ -121,12 +116,12 @@ public class TilePuzzleGame extends MiniGame {
         }
 
         // Set the hole at the bottom right so the sequence is 1,2,3...,15,hole (solved state) from which to start shuffling.
-//        holeX = boardSize - 1;
-//        holeY = boardSize - 1;
-        Random r = new Random();
-        holeX = r.nextInt(boardSize);
+        holeX = boardSize - 1;
+        holeY = boardSize - 1;
+//        Random r = new Random();
+//        holeX = r.nextInt(boardSize);
         checkX = holeX;
-        holeY = r.nextInt(boardSize);
+//        holeY = r.nextInt(boardSize);
         checkY = holeY;
 
         Texture image = new Texture(Gdx.files.internal("tilepuzzle/backyard.png"));
