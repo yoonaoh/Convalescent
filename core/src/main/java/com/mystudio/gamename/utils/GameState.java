@@ -5,6 +5,8 @@ package com.mystudio.gamename.utils;
  */
 public enum GameState {
     MENU,
+    ABOUT,
+    INTRO,
     DARK_ATTIC,
     ATTIC,
     ATTIC_SHELF,

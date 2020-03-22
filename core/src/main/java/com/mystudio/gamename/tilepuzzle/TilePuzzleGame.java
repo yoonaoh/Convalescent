@@ -38,8 +38,6 @@ public class TilePuzzleGame extends MiniGame {
 
     public BitmapFont font24;
 
-    public AssetManager assets;
-
     Skin skin;
     private float progress;
 
@@ -52,27 +50,17 @@ public class TilePuzzleGame extends MiniGame {
     // Info label
     private Label labelInfo;
 
+    Texture image;
+
     public TilePuzzleGame(MainAdapter mainAdapter) {
         super("gearpuzzle/bunny_background.png", mainAdapter);
 
         camera = mainAdapter.getViewPort().getCamera();
-        assets = new AssetManager();
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/High Performance Demo.otf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-        params.size = 24;
-        params.color = Color.WHITE;
-        font24 = generator.generateFont(params);
+        font24 = mainAdapter.getManager().getFont();
 
         this.progress = 0f;
-        assets.load("tilepuzzle/uiskin.atlas", TextureAtlas.class);
-        assets.finishLoading();
-
-        this.skin = new Skin();
-        this.skin.addRegions(assets.get("tilepuzzle/uiskin.atlas", TextureAtlas.class));
-        this.skin.add("default-font", font24);
-        this.skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
+        this.skin = mainAdapter.getManager().getSkin();
+        image = mainAdapter.getManager().getTexture("tilepuzzle/backyard.png");
 
         initInfoLabel();
         initGrid();
@@ -118,13 +106,12 @@ public class TilePuzzleGame extends MiniGame {
         // Set the hole at the bottom right so the sequence is 1,2,3...,15,hole (solved state) from which to start shuffling.
         holeX = boardSize - 1;
         holeY = boardSize - 1;
+
 //        Random r = new Random();
 //        holeX = r.nextInt(boardSize);
         checkX = holeX;
 //        holeY = r.nextInt(boardSize);
         checkY = holeY;
-
-        Texture image = new Texture(Gdx.files.internal("tilepuzzle/backyard.png"));
 
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {

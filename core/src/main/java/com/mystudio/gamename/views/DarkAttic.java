@@ -34,9 +34,5 @@ public class DarkAttic extends View {
 
         Item shelf = new Item("views/shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
         actors.addActor(shelf);
-
-        MiniGame gearGame = new MatchPuzzle(mainAdapter);
-        MinigameTrigger rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(300, 100, 100, 100), gearGame, mainAdapter);
-        actors.addActor(rabbit);
     }
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
@@ -113,7 +114,7 @@ public class Avery extends Actor {
 
     }
 
-    private void move(float x, float y) {
+    public void move(float x, float y) {
         box.preUpdate();
         y_update = y - 50;
         x_update = x - (scale(sprite_width) / 2);
@@ -200,6 +201,14 @@ public class Avery extends Actor {
 
     private float scale(int var) {
         return (scale * var);
+    }
+
+    public void force(GameState gameState) {
+        if (gameState == GameState.CORRIDOR) {
+            box.forceTo(800, 40);
+        } else {
+            box.forceTo(640, 40);
+        }
     }
 
     static TextureRegion[] reverse(TextureRegion[] a, int n) {

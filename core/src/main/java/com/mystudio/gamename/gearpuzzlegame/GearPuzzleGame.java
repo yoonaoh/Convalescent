@@ -28,42 +28,31 @@ public class GearPuzzleGame extends MiniGame {
     public GearPuzzleGame(MainAdapter mainAdapter) {
         super("gearpuzzle/bunny_background.png", mainAdapter);
 
-//        addListener(new ClickListener() {
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                System.out.printf("%s %s\n", x, y);
-//                return true;
-//            }
-//        });
-
-        Mount mount1 = new Mount(mainAdapter, gearAdapter,340, 320, 72, 20);
-        Mount mount2 = new Mount(mainAdapter, gearAdapter,428, 280, 48, 0);
-        Mount mount3 = new Mount(mainAdapter, gearAdapter,330, 145, 48, 30);
-        Mount mount4 = new Mount(mainAdapter, gearAdapter,430, 157, 72, 50);
-        Mount mount5 = new Mount(mainAdapter, gearAdapter,550, 158, 72, 68);
-        mounts.add(mount1); mounts.add(mount2); mounts.add(mount3);
-        mounts.add(mount4); mounts.add(mount5);
-        for (Mount mount: mounts) addActor(mount);
+        Mount mount1 = new Mount(mainAdapter, gearAdapter, 340, 320, 72, 20);
+        Mount mount2 = new Mount(mainAdapter, gearAdapter, 428, 280, 48, 0);
+        Mount mount3 = new Mount(mainAdapter, gearAdapter, 330, 145, 48, 30);
+        Mount mount4 = new Mount(mainAdapter, gearAdapter, 430, 157, 72, 50);
+        Mount mount5 = new Mount(mainAdapter, gearAdapter, 550, 158, 72, 68);
+        mounts.add(mount1);
+        mounts.add(mount2);
+        mounts.add(mount3);
+        mounts.add(mount4);
+        mounts.add(mount5);
+        for (Mount mount : mounts) addActor(mount);
 
         Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25);
-        Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
         final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
-        Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
-//        Gear gear5 = new Gear(mainAdapter, 330, 145, 48, 30);
-//        Gear gear7 = new Gear(mainAdapter, 550, 158, 72, 68);
 
-//        gears.add(gear1); gears.add(gear2); gears.add(gear3); gears.add(gear4);
-//        gears.add(gear5);  gears.add(gear6); gears.add(gear7);
-//        for (Gear gear: gears) addActor(gear);
-
-        gears.add(gear4); gears.add(gear1); gears.add(gear3);
+        gears.add(gear4);
+        gears.add(gear1);
+        gears.add(gear3);
         gear3.setDraggable();
-        for (Gear gear: gears) addActor(gear);
+        for (Gear gear : gears) addActor(gear);
 
         gear4.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gear4.spinning = true;
                 updateVelocity();
                 Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
@@ -82,8 +71,8 @@ public class GearPuzzleGame extends MiniGame {
         updateVelocity();
         updateAngles();
 
-        mainAdapter.addToInventory(gear2);
-        mainAdapter.addToInventory(gear6);
+//        mainAdapter.addToInventory(gear2);
+//        mainAdapter.addToInventory(gear6);
 
 //        key = new InteractableItem("gearpuzzle/key_part.png",
 //                new CollisionBox(590, 305, 60, 160), mainAdapter);
@@ -114,7 +103,7 @@ public class GearPuzzleGame extends MiniGame {
             Gear gear = queue.pollFirst();
             gear.spinning = true;
             seen.add(gear);
-            for (Gear other: gears) {
+            for (Gear other : gears) {
                 double dist = gear.distance(other);
                 if (dist < gear.radius + other.radius - 10) {
                     if (!seen.contains(other)) {
@@ -132,22 +121,22 @@ public class GearPuzzleGame extends MiniGame {
     }
 
     private void lockGears() {
-        for (Gear gear: gears) gear.spinning = false;
+        for (Gear gear : gears) gear.spinning = false;
     }
 
     private void updateAngles() {
-        for (Gear g: gears) g.setRotation(g.originalAngle);
+        for (Gear g : gears) g.setRotation(g.originalAngle);
     }
 
     private void keySignal() {
         Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
             public void run() {
-                key.setPosition(key.getX()-5, key.getY());
+                key.setPosition(key.getX() - 5, key.getY());
             }
         }, (float) 0.01, (float) 0.02, 3);
         Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
             public void run() {
-                key.setPosition(key.getX()+5, key.getY());
+                key.setPosition(key.getX() + 5, key.getY());
             }
         }, (float) 0.02, (float) 0.02, 3);
     }

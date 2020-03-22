@@ -57,17 +57,6 @@ public class Manager {
         assetManager.load("sounds/slider_knob.png", Texture.class);
         assetManager.load("tilepuzzle/backyard.png", Texture.class);
 
-        assetManager.load("matchpuzzle/Bamboo-2.png", Texture.class);
-        assetManager.load("matchpuzzle/Bamboo-3.png", Texture.class);
-        assetManager.load("matchpuzzle/Bamboo-4.png", Texture.class);
-        assetManager.load("matchpuzzle/Bamboo-5.png", Texture.class);
-        assetManager.load("matchpuzzle/Bamboo-6.png", Texture.class);
-        assetManager.load("matchpuzzle/Bamboo-6.png", Texture.class);
-
-        assetManager.load("matchpuzzle/TileSelected.png", Texture.class);
-        assetManager.load("matchpuzzle/TileShadow.png", Texture.class);
-
-
         assetManager.finishLoading();
     }
 

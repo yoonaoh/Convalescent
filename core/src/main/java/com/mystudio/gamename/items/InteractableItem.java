@@ -40,7 +40,7 @@ public class InteractableItem extends Item {
         }
     };
     private ArrayList<String> targetNames = new ArrayList<String>();
-    private DropTargetHanlder dropHandler = new DropTargetHanlder() {
+    private DropTargetHandler dropHandler = new DropTargetHandler() {
         @Override
         public void handleDrop(InteractableItem item) {
             handleDropFail(item);
@@ -95,10 +95,10 @@ public class InteractableItem extends Item {
             pickUpListener = new ClickListener() {
                 @Override
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                    MoveToAction moveToAction = new MoveToAction();
-                    moveToAction.setPosition(1200, 20);
-                    moveToAction.setDuration(1f);
-                    addAction(moveToAction);
+//                    MoveToAction moveToAction = new MoveToAction();
+//                    moveToAction.setPosition(1200, 20);
+//                    moveToAction.setDuration(1f);
+//                    addAction(moveToAction);
                     mainAdapter.addToInventory(getItem());
                     return true;
                 }
@@ -170,9 +170,10 @@ public class InteractableItem extends Item {
         stopPickUpable();
         setDraggable();
         setBounds(0, 0, INVENTORY_SIZE, INVENTORY_SIZE);
+
     }
 
-    public void addDropHandler(DropTargetHanlder handler) {
+    public void addDropHandler(DropTargetHandler handler) {
         dropHandler = handler;
     }
 }

@@ -2,24 +2,20 @@ package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mystudio.gamename.animations.Avery;
-import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.utils.GameState;
-import com.mystudio.gamename.utils.MainAdapter;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.*;
+import com.mystudio.gamename.animations.*;
+import com.mystudio.gamename.items.*;
+import com.mystudio.gamename.utils.*;
 import com.mystudio.gamename.views.*;
-import org.mini2Dx.core.game.BasicGame;
-import org.mini2Dx.core.geom.Polygon;
-import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.core.engine.geom.*;
+import org.mini2Dx.core.game.*;
+import org.mini2Dx.core.geom.*;
+import org.mini2Dx.core.graphics.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,8 +37,6 @@ public class Main extends BasicGame {
      */
     private SpriteBatch batch;
 
-    private ShapeRenderer shapeRenderer;
-
     private Viewport viewport;
 
     private HashMap<GameState, View> views;
@@ -51,11 +45,15 @@ public class Main extends BasicGame {
 
     private Inventory inventory;
 
+    private MinigameTrigger settings;
+
     private HashMap<String, ArrayList<InteractableItem>> targetRegistry = new HashMap<String, ArrayList<InteractableItem>>();
 
     private Avery avery;
 
     private boolean game_in_progress = false;
+
+    private Manager manager;
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -115,23 +113,28 @@ public class Main extends BasicGame {
             return currentBackground().getFloorspace();
         }
 
+        @Override
+        public Manager getManager() {
+            return manager;
+        }
+
     };
 
     @Override
     public void initialise() {
 
         batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
-        shapeRenderer.setProjectionMatrix(camera.combined);
         inventory = new Inventory(mainAdapter);
         avery = new Avery(mainAdapter);
+        manager = new Manager();
 
         views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
+        views.put(GameState.INTRO, new Intro(mainAdapter));
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));
         views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
         views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
@@ -142,14 +145,19 @@ public class Main extends BasicGame {
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Settings setting = new Settings(mainAdapter);
+        settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 680, 30, 30), setting, mainAdapter);
+        currentBackground().getStage().addActor(settings);
     }
 
     @Override
     public void update(float delta) {
+        avery.update();
         currentBackground().getStage().act(delta);
 //        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 //            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
-        avery.update();
+
     }
 
     @Override
@@ -159,7 +167,7 @@ public class Main extends BasicGame {
     @Override
     public void render(Graphics g) {
         currentBackground().drawBackground();
-//        currentBackground().getStage().setDebugAll(true);
+        currentBackground().getStage().setDebugAll(true);
         currentBackground().drawStage();
         if (currentBackground().includesAvery() && !game_in_progress) {
             avery.render(batch);
@@ -168,6 +176,7 @@ public class Main extends BasicGame {
 
     @Override
     public void dispose() {
+        manager.dispose();
     }
 
     public void changeState(GameState gameState) {
@@ -176,8 +185,13 @@ public class Main extends BasicGame {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         inventory.remove();
         avery.remove();
-        currentBackground().getStage().addActor(inventory);
-        currentBackground().getBackground().addActor(avery);
+        settings.remove();
+        if (gameState != GameState.INTRO) {
+            currentBackground().getStage().addActor(inventory);
+//            avery.force(gameState);
+            currentBackground().getBackground().addActor(avery);
+        }
+        currentBackground().getBackground().addActor(settings);
     }
 
     private View currentBackground() {

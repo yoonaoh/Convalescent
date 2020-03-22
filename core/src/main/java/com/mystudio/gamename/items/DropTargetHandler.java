@@ -1,5 +1,5 @@
 package com.mystudio.gamename.items;
 
-public interface DropTargetHanlder {
+public interface DropTargetHandler {
     void handleDrop(InteractableItem item);
 }

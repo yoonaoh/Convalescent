@@ -1,17 +1,13 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.*;
-import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import com.mystudio.gamename.windows.Inventory;
-import com.mystudio.gamename.windows.MiniGame;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionPolygon;
@@ -24,6 +20,14 @@ public class LightAttic extends View {
         floorspace = new Polygon(new float[]{
                 80,0,
                 616, 277,
+                749, 277,
+                670, 210,
+                831, 210,
+                873, 277,
+                938, 277,
+                938, 222,
+                1018, 222,
+                1018, 277,
                 1035, 277,
                 1035, 250,
                 1185, 250,
@@ -71,6 +75,16 @@ public class LightAttic extends View {
 
         // Add fan
         InteractableItem fan = new InteractableItem("items/fan.png", new CollisionBox(941, 226, 75, 75), mainAdapter);
+        fan.addDropHandler(new DropTargetHandler() {
+            @Override
+            public void handleDrop(final InteractableItem item) {
+                Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
+                Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
+                mainAdapter.addToInventory(gear2);
+                mainAdapter.addToInventory(gear6);
+            }
+        });
+        mainAdapter.addToTargetRegistry("fan", fan);
         actors.addActor(fan);
 
         // Add attic door
@@ -80,7 +94,7 @@ public class LightAttic extends View {
             638, 132,
             625, 75
         }), mainAdapter);
-        door.addDropHandler(new DropTargetHanlder() {
+        door.addDropHandler(new DropTargetHandler() {
             @Override
             public void handleDrop(final InteractableItem item) {
                 mainAdapter.updateState(GameState.CORRIDOR);
