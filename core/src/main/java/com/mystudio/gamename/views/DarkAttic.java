@@ -1,14 +1,10 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mystudio.gamename.items.MinigameTrigger;
-import com.mystudio.gamename.matchpuzzle.MatchPuzzle;
-import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
-import com.mystudio.gamename.utils.GameState;
-import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.SceneTrigger;
-import com.mystudio.gamename.windows.MiniGame;
+import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 

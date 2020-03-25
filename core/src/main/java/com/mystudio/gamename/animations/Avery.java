@@ -116,7 +116,7 @@ public class Avery extends Actor {
 
     public void move(float x, float y) {
         box.preUpdate();
-        y_update = y - 50;
+        y_update = y;
         x_update = x - (scale(sprite_width) / 2);
 
         if (box.getX() < x) {
@@ -139,10 +139,10 @@ public class Avery extends Actor {
     }
 
     private void flip() {
-        for (TextureRegion frame: avery_walks.getKeyFrames()) {
+        for (TextureRegion frame : avery_walks.getKeyFrames()) {
             frame.flip(true, false);
         }
-        for (TextureRegion frame: avery_stands.getKeyFrames()) {
+        for (TextureRegion frame : avery_stands.getKeyFrames()) {
             frame.flip(true, false);
         }
     }
@@ -165,12 +165,12 @@ public class Avery extends Actor {
 
         batch.end();
 
-        ShapeRenderer sr = new ShapeRenderer();
-        sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
-        sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.setColor(Color.CYAN);
-        sr.rect(box.getX(), box.getY() , scale(100), 0);
-        sr.end();
+//        ShapeRenderer sr = new ShapeRenderer();
+//        sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
+//        sr.begin(ShapeRenderer.ShapeType.Line);
+//        sr.setColor(Color.CYAN);
+//        sr.rect(box.getX(), box.getY(), scale(100), 0);
+//        sr.end();
 
 
     }
@@ -181,7 +181,7 @@ public class Avery extends Actor {
         String name_end = "_frame-";
         for (int i = start; i < end; i++) {
             if (i < 10) {
-                walks[i - start] = new TextureRegion(new Texture(Gdx.files.internal(name_start + "0" + i + name_end + (56-i) + ".png")));
+                walks[i - start] = new TextureRegion(new Texture(Gdx.files.internal(name_start + "0" + i + name_end + (56 - i) + ".png")));
 
             } else {
                 walks[i - start] = new TextureRegion(new Texture(Gdx.files.internal(name_start + i + name_end + (56 - i) + ".png")));

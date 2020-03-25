@@ -2,19 +2,25 @@ package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.viewport.*;
-import com.mystudio.gamename.animations.*;
-import com.mystudio.gamename.items.*;
-import com.mystudio.gamename.utils.*;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mystudio.gamename.animations.Avery;
+import com.mystudio.gamename.items.InteractableItem;
+import com.mystudio.gamename.items.MinigameTrigger;
+import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
-import org.mini2Dx.core.engine.geom.*;
-import org.mini2Dx.core.game.*;
-import org.mini2Dx.core.geom.*;
-import org.mini2Dx.core.graphics.*;
+import org.mini2Dx.core.engine.geom.CollisionBox;
+import org.mini2Dx.core.game.BasicGame;
+import org.mini2Dx.core.geom.Polygon;
+import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -160,8 +166,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 

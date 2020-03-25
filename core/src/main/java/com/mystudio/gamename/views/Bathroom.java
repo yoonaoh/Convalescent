@@ -1,6 +1,5 @@
 package com.mystudio.gamename.views;
 
-import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.MainAdapter;
 
 public class Bathroom extends View {

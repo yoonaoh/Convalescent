@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 public class DragAndDropTest {
     Stage stage;
 
-    public void create () {
+    public void create() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -43,7 +43,7 @@ public class DragAndDropTest {
 
         DragAndDrop dragAndDrop = new DragAndDrop();
         dragAndDrop.addSource(new Source(sourceImage) {
-            public Payload dragStart (InputEvent event, float x, float y, int pointer) {
+            public Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 Payload payload = new Payload();
                 payload.setObject("Some payload!");
 
@@ -61,45 +61,45 @@ public class DragAndDropTest {
             }
         });
         dragAndDrop.addTarget(new Target(validTargetImage) {
-            public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+            public boolean drag(Source source, Payload payload, float x, float y, int pointer) {
                 getActor().setColor(Color.GREEN);
                 return true;
             }
 
-            public void reset (Source source, Payload payload) {
+            public void reset(Source source, Payload payload) {
                 getActor().setColor(Color.WHITE);
             }
 
-            public void drop (Source source, Payload payload, float x, float y, int pointer) {
+            public void drop(Source source, Payload payload, float x, float y, int pointer) {
                 System.out.println("Accepted: " + payload.getObject() + " " + x + ", " + y);
             }
         });
         dragAndDrop.addTarget(new Target(invalidTargetImage) {
-            public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+            public boolean drag(Source source, Payload payload, float x, float y, int pointer) {
                 getActor().setColor(Color.RED);
                 return false;
             }
 
-            public void reset (Source source, Payload payload) {
+            public void reset(Source source, Payload payload) {
                 getActor().setColor(Color.WHITE);
             }
 
-            public void drop (Source source, Payload payload, float x, float y, int pointer) {
+            public void drop(Source source, Payload payload, float x, float y, int pointer) {
             }
         });
     }
 
-    public void render () {
+    public void render() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
-    public void resize (int width, int height) {
+    public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
-    public void dispose () {
+    public void dispose() {
         stage.dispose();
     }
 }

@@ -1,11 +1,11 @@
 package com.mystudio.gamename.desktop;
 
+import com.badlogic.gdx.backends.lwjgl.DesktopMini2DxGame;
 import com.mystudio.gamename.windows.Main;
 import org.mini2Dx.desktop.DesktopMini2DxConfig;
-import com.badlogic.gdx.backends.lwjgl.DesktopMini2DxGame;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main(String[] arg) {
 		DesktopMini2DxConfig cfg = new DesktopMini2DxConfig(Main.GAME_IDENTIFIER);
 		cfg.forceExit = false;
 		cfg.title = "Convalescent";

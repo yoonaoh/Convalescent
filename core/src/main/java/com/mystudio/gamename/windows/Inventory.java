@@ -1,12 +1,11 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.SnapshotArray;
-import com.mystudio.gamename.gearpuzzlegame.Gear;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.utils.MainAdapter;
 
 public class Inventory extends Table {

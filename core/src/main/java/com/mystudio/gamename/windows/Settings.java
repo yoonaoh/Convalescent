@@ -38,8 +38,9 @@ public class Settings extends MiniGame {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 setVolume(slider.getValue());
             }
+
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
@@ -53,8 +54,9 @@ public class Settings extends MiniGame {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 setVolume(effects_slider.getValue());
             }
+
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });

@@ -34,5 +34,4 @@ public interface MainAdapter {
     Manager getManager();
 
 
-
 }

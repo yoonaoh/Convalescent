@@ -6,6 +6,7 @@ public class CollisionCircleModified extends CollisionCircle {
     public CollisionCircleModified(float centerX, float centerY, float radius) {
         super(centerX, centerY, radius);
     }
+
     @Override
     public float getX() {
         return super.getX() - getRadius();

@@ -1,17 +1,13 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mystudio.gamename.items.SceneTrigger;
+import com.badlogic.gdx.utils.Align;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
 public class Intro extends View {
@@ -25,20 +21,25 @@ public class Intro extends View {
         includesAvery = false;
 
         state = 1;
+        int screenWidth = 1280;
 
         final Label part1 = new Label("I always seem to find myself back at that place.", mainAdapter.getManager().getSkin());
-        int screenWidth = 1280;
-        int xPos1 = ((int) part1.getWidth() - screenWidth) / 2;
-        part1.setPosition(10, 330);
+        part1.setWrap(true);
+        part1.setAlignment(Align.center);
+        part1.setWidth(500);
+        part1.setPosition(390, 360);
 
-        final Label part2 = new Label("Though it's been over 20 years since I left, I'm reminded of it, \n like it never wants to leave me", mainAdapter.getManager().getSkin());
-        int xPos2 = ((int) part2.getWidth() - screenWidth) / 2;
+        final Label part2 = new Label("Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me", mainAdapter.getManager().getSkin());
         part2.setWrap(true);
-        part2.setPosition(10, 330);
+        part2.setAlignment(Align.center);
+        part2.setWidth(500);
+        part2.setPosition(390, 360);
 
         final Label part3 = new Label("My only hope is that I'll have the strength to leave again...", mainAdapter.getManager().getSkin());
-        int xPos3 = ((int) part3.getWidth() - screenWidth) / 2;
-        part3.setPosition(10, 330);
+        part3.setWrap(true);
+        part3.setAlignment(Align.center);
+        part3.setWidth(500);
+        part3.setPosition(390, 360);
 
         actors.addActor(part1);
         stage.addListener(new InputListener() {
@@ -63,7 +64,7 @@ public class Intro extends View {
             }
 
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });

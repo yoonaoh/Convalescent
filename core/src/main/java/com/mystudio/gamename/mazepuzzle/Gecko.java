@@ -1,8 +1,5 @@
 package com.mystudio.gamename.mazepuzzle;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mystudio.gamename.items.Item;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 

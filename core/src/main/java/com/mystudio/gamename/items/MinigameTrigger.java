@@ -9,6 +9,7 @@ import org.mini2Dx.core.engine.geom.CollisionShape;
 public class MinigameTrigger extends Item {
 
     private MiniGame miniGame;
+
     /**
      * Constructs an trigger item
      */

@@ -6,8 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.*;
-import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.Inventory;
@@ -73,7 +71,7 @@ public class LightAttic extends View {
 //
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
         MinigameTrigger
-            rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(744, 317, 50, 50), gearGame, mainAdapter);
+                rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(744, 317, 50, 50), gearGame, mainAdapter);
         actors.addActor(rabbit);
 
         // Add fan
@@ -91,16 +89,26 @@ public class LightAttic extends View {
         actors.addActor(fan);
 
         // Add attic door
-        InteractableItem door = new InteractableItem("items/attic_door.png", new CollisionPolygon(new float[] {
+        final InteractableItem door = new InteractableItem("items/attic_door.png", new CollisionPolygon(new float[] {
             338, 76,
             488, 161,
             638, 132,
             625, 75
         }), mainAdapter);
+
+        final SceneTrigger door_replacement = new SceneTrigger("items/attic_door.png", new CollisionPolygon(new float[] {
+                338, 76,
+                488, 161,
+                638, 132,
+                625, 75
+        }), GameState.CORRIDOR, mainAdapter);
+
         door.addDropHandler(new DropTargetHandler() {
             @Override
             public void handleDrop(final InteractableItem item) {
                 mainAdapter.updateState(GameState.CORRIDOR);
+                door.remove();
+                actors.addActor(door_replacement);
             }
         });
         mainAdapter.addToTargetRegistry("attic_door", door);

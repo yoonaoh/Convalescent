@@ -37,6 +37,7 @@ public class Item extends Actor {
 
     /**
      * Sets the sprite for the item
+     *
      * @param image - filepath for the image representing the item
      */
     public void setSprite(String image) {
@@ -45,8 +46,8 @@ public class Item extends Actor {
     }
 
     public double distance(Item other) {
-        return new Vector2(getX()+getOriginX(), getY()+getOriginY())
-                .dst(new Vector2(other.getX()+other.getOriginX(), other.getY()+other.getOriginY()));
+        return new Vector2(getX() + getOriginX(), getY() + getOriginY())
+                .dst(new Vector2(other.getX() + other.getOriginX(), other.getY() + other.getOriginY()));
     }
 
     @Override
@@ -58,7 +59,7 @@ public class Item extends Actor {
     }
 
     @Override
-    public Actor hit (float x, float y, boolean touchable) {
+    public Actor hit(float x, float y, boolean touchable) {
         if (touchable && getTouchable() != Touchable.enabled) return null;
         return (x >= 0 && x < getWidth() && y >= 0 && y < getHeight() && shape.contains(new Vector2(x + shape.getX(), y + shape.getY()))) ? this : null;
     }
@@ -71,18 +72,18 @@ public class Item extends Actor {
     public void setCursorImage(final Cursor cursor) {
         addListener(new InputListener() {
             @Override
-            public boolean mouseMoved (InputEvent event, float x, float y) {
+            public boolean mouseMoved(InputEvent event, float x, float y) {
                 Gdx.graphics.setCursor(cursor);
                 return false;
             }
 
             @Override
-            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 Gdx.graphics.setCursor(cursor);
             }
 
             @Override
-            public void exit (InputEvent event, float x, float y, int pointer, Actor toActor) {
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });

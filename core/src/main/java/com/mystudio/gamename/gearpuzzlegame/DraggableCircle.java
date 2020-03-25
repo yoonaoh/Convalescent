@@ -2,10 +2,6 @@ package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.mystudio.gamename.items.Item;
-import org.mini2Dx.core.engine.geom.CollisionCircle;
-
-import java.util.ArrayList;
 
 public class DraggableCircle extends DraggableItem {
 

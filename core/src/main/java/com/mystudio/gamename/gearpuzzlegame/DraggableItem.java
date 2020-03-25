@@ -1,12 +1,10 @@
 package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mystudio.gamename.items.Item;
-import org.mini2Dx.core.engine.geom.CollisionShape;
 
 import java.util.ArrayList;
 
-public abstract class DraggableItem  {
+public abstract class DraggableItem {
 
     boolean fixed;
     Vector2 posBeforeDrag;
@@ -22,5 +20,6 @@ public abstract class DraggableItem  {
 //        }
 //    }
 
-    public void stopDrag(ArrayList<DraggableItem> interactables) {}
+    public void stopDrag(ArrayList<DraggableItem> interactables) {
+    }
 }

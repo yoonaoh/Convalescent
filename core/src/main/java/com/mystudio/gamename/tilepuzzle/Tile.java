@@ -17,12 +17,4 @@ public class Tile extends ImageTextButton {
     public int getId() {
         return id;
     }
-
-    public void hints(boolean number) {
-        if (number) {
-            this.setText(String.valueOf(id));
-        } else {
-            this.setText("");
-        }
-    }
 }

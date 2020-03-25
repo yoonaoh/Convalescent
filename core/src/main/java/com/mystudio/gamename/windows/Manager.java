@@ -54,7 +54,7 @@ public class Manager {
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
         assetManager.load("sounds/slider_knob.png", Texture.class);
-        assetManager.load("tilepuzzle/firstpic.png", Texture.class);
+        assetManager.load("tilepuzzle/TileLevel1.png", Texture.class);
 
         assetManager.finishLoading();
     }

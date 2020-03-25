@@ -1,18 +1,12 @@
 package com.mystudio.gamename.references;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -21,7 +15,7 @@ public class ScrollPaneTest {
     public Stage stage;
     private Table container;
 
-    public void create () {
+    public void create() {
         stage = new Stage();
         Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         Gdx.input.setInputProcessor(stage);
@@ -40,7 +34,7 @@ public class ScrollPaneTest {
         final ScrollPane scroll = new ScrollPane(table, skin);
 
         InputListener stopTouchDown = new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 event.stop();
                 return false;
             }
@@ -54,7 +48,7 @@ public class ScrollPaneTest {
             TextButton button = new TextButton(i + "dos", skin);
             table.add(button);
             button.addListener(new ClickListener() {
-                public void clicked (InputEvent event, float x, float y) {
+                public void clicked(InputEvent event, float x, float y) {
                     System.out.println("click " + x + ", " + y);
                 }
             });
@@ -69,7 +63,7 @@ public class ScrollPaneTest {
         final TextButton flickButton = new TextButton("Flick Scroll", skin.get("toggle", TextButtonStyle.class));
         flickButton.setChecked(true);
         flickButton.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 scroll.setFlickScroll(flickButton.isChecked());
             }
         });
@@ -77,7 +71,7 @@ public class ScrollPaneTest {
         final TextButton fadeButton = new TextButton("Fade Scrollbars", skin.get("toggle", TextButtonStyle.class));
         fadeButton.setChecked(true);
         fadeButton.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 scroll.setFadeScrollBars(fadeButton.isChecked());
             }
         });
@@ -85,14 +79,14 @@ public class ScrollPaneTest {
         final TextButton smoothButton = new TextButton("Smooth Scrolling", skin.get("toggle", TextButtonStyle.class));
         smoothButton.setChecked(true);
         smoothButton.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 scroll.setSmoothScrolling(smoothButton.isChecked());
             }
         });
 
         final TextButton onTopButton = new TextButton("Scrollbars On Top", skin.get("toggle", TextButtonStyle.class));
         onTopButton.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 scroll.setScrollbarsOnTop(onTopButton.isChecked());
             }
         });
@@ -105,24 +99,24 @@ public class ScrollPaneTest {
         container.add(fadeButton).left().expandX();
     }
 
-    public void render () {
+    public void render() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
-    public void resize (int width, int height) {
+    public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
 
         // Gdx.gl.glViewport(100, 100, width - 200, height - 200);
         // stage.setViewport(800, 600, false, 100, 100, width - 200, height - 200);
     }
 
-    public void dispose () {
+    public void dispose() {
         stage.dispose();
     }
 
-    public boolean needsGL20 () {
+    public boolean needsGL20() {
         return false;
     }
 }

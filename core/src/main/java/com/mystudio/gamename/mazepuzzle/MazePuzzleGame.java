@@ -1,9 +1,7 @@
 package com.mystudio.gamename.mazepuzzle;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -115,7 +113,7 @@ public class MazePuzzleGame extends BasicGame {
 
         // Goal square
         goalSq = new Item("mazepuzzle/wall.png", new CollisionBox(0, 0, 80, 80));
-        goalSq.addListener(new ClickListener(){
+        goalSq.addListener(new ClickListener() {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {

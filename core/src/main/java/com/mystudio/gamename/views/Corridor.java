@@ -24,22 +24,22 @@ public class Corridor extends View {
         // Add pictures
 
         // Add attic door
-        SceneTrigger atticDoor = new SceneTrigger(null, new CollisionPolygon(new float[] {
-            111, 597,
-            79, 699,
-            414, 702,
-            286, 595
+        SceneTrigger atticDoor = new SceneTrigger(null, new CollisionPolygon(new float[]{
+                111, 597,
+                79, 699,
+                414, 702,
+                286, 595
         }), GameState.ATTIC, mainAdapter);
         actors.addActor(atticDoor);
 
         // Add bathroom door
 
         // Add bedroom door
-        SceneTrigger bedroomDoor = new SceneTrigger("items/hall_door.png", new CollisionPolygon(new float[] {
-            354, 270,
-            354, 512,
-            449, 512,
-            449, 274,
+        SceneTrigger bedroomDoor = new SceneTrigger("items/hall_door.png", new CollisionPolygon(new float[]{
+                354, 270,
+                354, 512,
+                449, 512,
+                449, 274,
         }), GameState.AVERY_ROOM, mainAdapter);
         bedroomDoor.setHeight(250);
         actors.addActor(bedroomDoor);
