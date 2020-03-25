@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.*;
 import com.mystudio.gamename.animations.*;
 import com.mystudio.gamename.items.*;
@@ -155,8 +154,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 
@@ -188,7 +187,6 @@ public class Main extends BasicGame {
         settings.remove();
         if (gameState != GameState.INTRO) {
             currentBackground().getStage().addActor(inventory);
-//            avery.force(gameState);
             currentBackground().getBackground().addActor(avery);
         }
         currentBackground().getBackground().addActor(settings);

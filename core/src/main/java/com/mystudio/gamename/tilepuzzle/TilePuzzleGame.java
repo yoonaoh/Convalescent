@@ -53,7 +53,7 @@ public class TilePuzzleGame extends MiniGame {
     Texture image;
 
     public TilePuzzleGame(MainAdapter mainAdapter) {
-        super("gearpuzzle/bunny_background.png", mainAdapter);
+        super("tilepuzzle/minigame_bg.png", mainAdapter);
 
         camera = mainAdapter.getViewPort().getCamera();
         font24 = mainAdapter.getManager().getFont();
@@ -86,11 +86,11 @@ public class TilePuzzleGame extends MiniGame {
 
     // Initialize the info label
     private void initInfoLabel() {
-        labelInfo = new Label("Welcome! Click any tile to begin!", skin, "default");
-        labelInfo.setPosition(200, 50);
-        labelInfo.setAlignment(Align.center);
-        labelInfo.addAction(sequence(alpha(0f), delay(.5f), fadeIn(.5f)));
-        addActor(labelInfo);
+//        labelInfo = new Label("Welcome! Click any tile to begin!", skin, "default");
+//        labelInfo.setPosition(200, 50);
+//        labelInfo.setAlignment(Align.center);
+//        labelInfo.addAction(sequence(alpha(0f), delay(.5f), fadeIn(.5f)));
+//        addActor(labelInfo);
     }
 
     // Initialize the game grid
@@ -146,14 +146,14 @@ public class TilePuzzleGame extends MiniGame {
                                 moveButtons(buttonX, buttonY);
 
                                 if (solutionFound()) {
-                                    labelInfo.clearActions();
-                                    labelInfo.setText("Solution Found!");
-                                    labelInfo.addAction(sequence(alpha(1f), delay(3f), fadeOut(2f, Interpolation.pow5Out)));
+//                                    labelInfo.clearActions();
+//                                    labelInfo.setText("Solution Found!");
+//                                    labelInfo.addAction(sequence(alpha(1f), delay(3f), fadeOut(2f, Interpolation.pow5Out)));
                                 }
                             } else {
-                                labelInfo.clearActions();
-                                labelInfo.setText("Invalid Move!");
-                                labelInfo.addAction(sequence(alpha(1f), delay(1f), fadeOut(1f, Interpolation.pow5Out)));
+//                                labelInfo.clearActions();
+//                                labelInfo.setText("Invalid Move!");
+//                                labelInfo.addAction(sequence(alpha(1f), delay(1f), fadeOut(1f, Interpolation.pow5Out)));
                             }
                         }
                     });

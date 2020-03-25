@@ -12,7 +12,7 @@ public class Mount extends InteractableItem {
     int angle;
 
     public Mount(final MainAdapter mainAdapter, GearAdapter gearAdapter, float x, float y, int expectedRadius, int angle) {
-        super("gearpuzzle/mount.png", new CollisionCircleModified(x, y, 10), mainAdapter);
+        super("gearpuzzle/mount_small.png", new CollisionCircleModified(x, y, 30), mainAdapter);
         this.expectedRadius = expectedRadius;
         this.gearAdapter = gearAdapter;
         this.angle = angle;

@@ -26,14 +26,18 @@ public class Intro extends View {
 
         state = 1;
 
-        final Label part1 = new Label("I have always struggled with memories...", mainAdapter.getManager().getSkin());
-        part1.setPosition(100, 600);
+        final Label part1 = new Label("I always seem to find myself back at that place.", mainAdapter.getManager().getSkin());
+        int screenWidth = 1280;
+        int xPos1 = ((int) part1.getWidth() - screenWidth) / 2;
+        part1.setPosition(xPos1, 330);
 
-        final Label part2 = new Label("So today I'm going to a hypnotist...", mainAdapter.getManager().getSkin());
-        part2.setPosition(400, 350);
+        final Label part2 = new Label("Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me", mainAdapter.getManager().getSkin());
+        int xPos2 = ((int) part2.getWidth() - screenWidth) / 2;
+        part2.setPosition(xPos2, 330);
 
-        final Label part3 = new Label("To find what is hidden in my mind.", mainAdapter.getManager().getSkin());
-        part3.setPosition(800, 100);
+        final Label part3 = new Label("My only hope is that I'll have the strength to leave again...", mainAdapter.getManager().getSkin());
+        int xPos3 = ((int) part3.getWidth() - screenWidth) / 2;
+        part3.setPosition(xPos3, 330);
 
         actors.addActor(part1);
         stage.addListener(new InputListener() {
@@ -44,7 +48,6 @@ public class Intro extends View {
                     actors.addActor(part2);
                     part2.addAction(Actions.fadeOut(0f));
                     part2.addAction(Actions.fadeIn(3.0f));
-//
                     state = 2;
                 } else if (state == 2) {
                     part2.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
@@ -54,7 +57,6 @@ public class Intro extends View {
                     state = 3;
                 } else if (state == 3) {
                     part3.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
-
                     mainAdapter.updateState(GameState.DARK_ATTIC);
                 }
             }

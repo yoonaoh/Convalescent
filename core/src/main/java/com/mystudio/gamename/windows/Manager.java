@@ -31,21 +31,20 @@ public class Manager {
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolverttf));
 
         // Parameters
-
         FreetypeFontLoader.FreeTypeFontLoaderParameter params4 = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        params4.fontFileName = "fonts/font5.ttf";
-        params4.fontParameters.size = 28;
+        params4.fontFileName = "fonts/default.ttf";
+        params4.fontParameters.size = 26;
         params4.fontParameters.color = Color.WHITE;
 
         // Fonts
-        assetManager.load("fonts/font5.ttf", BitmapFont.class, params4);
+        assetManager.load("fonts/default.ttf", BitmapFont.class, params4);
         assetManager.load("tilepuzzle/uiskin.atlas", TextureAtlas.class);
         assetManager.finishLoading();
 
         // Skins
         skin = new Skin();
         skin.addRegions(assetManager.get("tilepuzzle/uiskin.atlas", TextureAtlas.class));
-        skin.add("default-font", assetManager.get("fonts/font5.ttf"));
+        skin.add("default-font", assetManager.get("fonts/default.ttf"));
         skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
 
         // Sounds
@@ -83,7 +82,7 @@ public class Manager {
     }
 
     public BitmapFont getFont() {
-        return assetManager.get("fonts/font5.ttf");
+        return assetManager.get("fonts/default.ttf");
     }
 
     public Texture getTexture(String image) {

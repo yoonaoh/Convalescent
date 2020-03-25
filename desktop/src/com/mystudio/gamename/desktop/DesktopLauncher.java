@@ -1,6 +1,5 @@
 package com.mystudio.gamename.desktop;
 
-import com.mystudio.gamename.tilepuzzle.TilePuzzle;
 import com.mystudio.gamename.windows.Main;
 import org.mini2Dx.desktop.DesktopMini2DxConfig;
 import com.badlogic.gdx.backends.lwjgl.DesktopMini2DxGame;
