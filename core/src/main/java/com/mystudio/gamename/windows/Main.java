@@ -26,6 +26,8 @@ public class Main extends BasicGame {
      */
     public static final String GAME_IDENTIFIER = "org.mini2Dx.convalescent";
 
+    private boolean debug;
+
     /**
      * Current game state
      */
@@ -53,6 +55,10 @@ public class Main extends BasicGame {
     private boolean game_in_progress = false;
 
     private Manager manager;
+
+    public Main(boolean debug) {
+        this.debug = debug;
+    }
 
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
@@ -166,7 +172,7 @@ public class Main extends BasicGame {
     @Override
     public void render(Graphics g) {
         currentBackground().drawBackground();
-        currentBackground().getStage().setDebugAll(true);
+        currentBackground().getStage().setDebugAll(debug);
         currentBackground().drawStage();
         if (currentBackground().includesAvery() && !game_in_progress) {
             avery.render(batch);

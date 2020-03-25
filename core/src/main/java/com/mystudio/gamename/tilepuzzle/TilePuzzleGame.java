@@ -60,7 +60,7 @@ public class TilePuzzleGame extends MiniGame {
 
         this.progress = 0f;
         this.skin = mainAdapter.getManager().getSkin();
-        image = mainAdapter.getManager().getTexture("tilepuzzle/backyard.png");
+        image = mainAdapter.getManager().getTexture("tilepuzzle/firstpic.png");
 
         initInfoLabel();
         initGrid();

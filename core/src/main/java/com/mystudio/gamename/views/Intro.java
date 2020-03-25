@@ -29,15 +29,16 @@ public class Intro extends View {
         final Label part1 = new Label("I always seem to find myself back at that place.", mainAdapter.getManager().getSkin());
         int screenWidth = 1280;
         int xPos1 = ((int) part1.getWidth() - screenWidth) / 2;
-        part1.setPosition(xPos1, 330);
+        part1.setPosition(10, 330);
 
-        final Label part2 = new Label("Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me", mainAdapter.getManager().getSkin());
+        final Label part2 = new Label("Though it's been over 20 years since I left, I'm reminded of it, \n like it never wants to leave me", mainAdapter.getManager().getSkin());
         int xPos2 = ((int) part2.getWidth() - screenWidth) / 2;
-        part2.setPosition(xPos2, 330);
+        part2.setWrap(true);
+        part2.setPosition(10, 330);
 
         final Label part3 = new Label("My only hope is that I'll have the strength to leave again...", mainAdapter.getManager().getSkin());
         int xPos3 = ((int) part3.getWidth() - screenWidth) / 2;
-        part3.setPosition(xPos3, 330);
+        part3.setPosition(10, 330);
 
         actors.addActor(part1);
         stage.addListener(new InputListener() {
