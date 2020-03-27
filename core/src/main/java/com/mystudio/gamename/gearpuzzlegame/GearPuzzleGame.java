@@ -41,10 +41,9 @@ public class GearPuzzleGame extends MiniGame {
         mounts.add(mount5);
         for (Mount mount : mounts) addActor(mount);
 
-        Gear gear1 = new Gear(mainAdapter, 560, 325, 25);
+        Gear gear1 = new Gear(mainAdapter, 560, 325, 25, "key");
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
-        final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
-        gear4.setSprite("gearpuzzle/gear_10.png");
+        final Gear gear4 = new Gear(mainAdapter, 215, 215, 15, "rotate");
 
         gears.add(gear4);
         gears.add(gear1);
@@ -66,7 +65,6 @@ public class GearPuzzleGame extends MiniGame {
                 return true;
             }
         });
-        gear4.setCursorImage("gearpuzzle/rightarrow.png");
 
         finalGear = gear1;
 

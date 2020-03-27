@@ -2,6 +2,7 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
@@ -68,25 +69,35 @@ public class LightAttic extends View {
         // Add attic table
         Item table = new Item("items/attic_table.png", new CollisionBox(625, 177, 240, 160));
         actors.addActor(table);
-//
         MiniGame gearGame = new GearPuzzleGame(mainAdapter);
         MinigameTrigger
                 rabbit = new MinigameTrigger("gearpuzzle/Windup_Bunny.png", new CollisionBox(744, 317, 50, 50), gearGame, mainAdapter);
+//        rabbit.addListener(new ClickListener() {
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                Label lightPrompt = new Label("Looks like it's missing a few gears.", mainAdapter.getManager().getSkin());
+//                lightPrompt.setWrap(true);
+//                lightPrompt.setWidth(1180);
+//                lightPrompt.setPosition(50, 600);
+//            }
+//
+//        });
         actors.addActor(rabbit);
 
         // Add fan
-        InteractableItem fan = new InteractableItem("items/fan.png", new CollisionBox(941, 226, 75, 75), mainAdapter);
-        fan.addDropHandler(new DropTargetHandler() {
-            @Override
-            public void handleDrop(final InteractableItem item) {
-                Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
-                Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
-                mainAdapter.addToInventory(gear2);
-                mainAdapter.addToInventory(gear6);
-            }
-        });
-        mainAdapter.addToTargetRegistry("fan", fan);
-        actors.addActor(fan);
+//        InteractableItem fan = new InteractableItem("items/fan.png", new CollisionBox(941, 226, 160, 220), mainAdapter);
+//        fan.addDropHandler(new DropTargetHandler() {
+//            @Override
+//            public void handleDrop(final InteractableItem item) {
+//                Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
+//                Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
+//                mainAdapter.addToInventory(gear2);
+//                mainAdapter.addToInventory(gear6);
+//            }
+//        });
+//        mainAdapter.addToTargetRegistry("fan", fan);
+//        actors.addActor(fan);
 
         // Add attic door
         final InteractableItem door = new InteractableItem("items/attic_door.png", new CollisionPolygon(new float[] {
@@ -96,6 +107,7 @@ public class LightAttic extends View {
             625, 75
         }), mainAdapter);
 
+        // Replaces attic door with new one that doesn't need a key
         final SceneTrigger door_replacement = new SceneTrigger("items/attic_door.png", new CollisionPolygon(new float[] {
                 338, 76,
                 488, 161,
@@ -103,6 +115,8 @@ public class LightAttic extends View {
                 625, 75
         }), GameState.CORRIDOR, mainAdapter);
 
+
+        // What happens when the key is dragged onto the door
         door.addDropHandler(new DropTargetHandler() {
             @Override
             public void handleDrop(final InteractableItem item) {
@@ -112,6 +126,8 @@ public class LightAttic extends View {
             }
         });
         mainAdapter.addToTargetRegistry("attic_door", door);
+
+
         actors.addActor(door);
 
     }

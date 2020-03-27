@@ -158,7 +158,7 @@ public class Main extends BasicGame {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Settings setting = new Settings(mainAdapter);
-        settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 680, 30, 30), setting, mainAdapter);
+        settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 670, 50, 50), setting, mainAdapter);
         currentBackground().getStage().addActor(settings);
     }
 
@@ -166,8 +166,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 

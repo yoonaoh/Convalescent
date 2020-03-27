@@ -3,7 +3,9 @@ package com.mystudio.gamename.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mystudio.gamename.items.MinigameTrigger;
+import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
+import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
@@ -41,6 +43,8 @@ public class AveryRoom extends View {
         actors.addActor(frame);
 
         // Add door to hallway
+        SceneTrigger door = new SceneTrigger(null, new CollisionBox(672, 190, 172, 336), GameState.CORRIDOR, mainAdapter);
+        actors.addActor(door);
 
     }
 }

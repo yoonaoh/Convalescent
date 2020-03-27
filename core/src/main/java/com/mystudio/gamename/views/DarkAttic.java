@@ -1,6 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.utils.GameState;
@@ -25,9 +26,19 @@ public class DarkAttic extends View {
         });
         includesAvery = true;
 
+        // Add label
+        Label lightPrompt = new Label("It's dark..", mainAdapter.getManager().getSkin());
+        lightPrompt.setWrap(true);
+        lightPrompt.setWidth(1180);
+        lightPrompt.setPosition(50, 600);
+        actors.addActor(lightPrompt);
+
+
+        // Add window
         SceneTrigger window = new SceneTrigger(null, new CollisionBox(840, 380, 150, 160), GameState.ATTIC, mainAdapter);
         actors.addActor(window);
 
+        // Add shelf
         Item shelf = new Item("views/shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
         actors.addActor(shelf);
     }

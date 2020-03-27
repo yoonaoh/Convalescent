@@ -11,7 +11,7 @@ public class Corridor extends View {
     public Corridor(MainAdapter mainAdapter) {
         super(mainAdapter);
 
-        background = new Texture("views/hallway_sketch.png");
+        background = new Texture("views/hallway_colored_sketch.png");
         floorspace = new Polygon(new float[]{
                 0, 0,
                 0, 150,
@@ -35,7 +35,7 @@ public class Corridor extends View {
         // Add bathroom door
 
         // Add bedroom door
-        SceneTrigger bedroomDoor = new SceneTrigger("items/hall_door.png", new CollisionPolygon(new float[]{
+        SceneTrigger bedroomDoor = new SceneTrigger(null, new CollisionPolygon(new float[]{
                 354, 270,
                 354, 512,
                 449, 512,

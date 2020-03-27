@@ -71,11 +71,6 @@ public class TilePuzzleGame extends MiniGame {
 
     // Initialize the info label
     private void initInfoLabel() {
-//        labelInfo = new Label("Welcome! Click any tile to begin!", skin, "default");
-//        labelInfo.setPosition(200, 50);
-//        labelInfo.setAlignment(Align.center);
-//        labelInfo.addAction(sequence(alpha(0f), delay(.5f), fadeIn(.5f)));
-//        addActor(labelInfo);
     }
 
     // Initialize the game grid
