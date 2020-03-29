@@ -12,8 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -38,7 +42,7 @@ public class TilePuzzleGame extends MiniGame {
     Texture image;
 
     public TilePuzzleGame(MainAdapter mainAdapter) {
-        super("tilepuzzle/minigame_bg.png", mainAdapter);
+        super("tilepuzzle/frame4.png", mainAdapter);
 
         camera = mainAdapter.getViewPort().getCamera();
         font24 = mainAdapter.getManager().getFont();
@@ -71,11 +75,6 @@ public class TilePuzzleGame extends MiniGame {
 
     // Initialize the info label
     private void initInfoLabel() {
-//        labelInfo = new Label("Welcome! Click any tile to begin!", skin, "default");
-//        labelInfo.setPosition(200, 50);
-//        labelInfo.setAlignment(Align.center);
-//        labelInfo.addAction(sequence(alpha(0f), delay(.5f), fadeIn(.5f)));
-//        addActor(labelInfo);
     }
 
     // Initialize the game grid
@@ -199,6 +198,16 @@ public class TilePuzzleGame extends MiniGame {
                 }
             }
         }
+        final Timer timer = new Timer();  //At this line a new Thread will be created
+        TimerTask task1 = new TimerTask() {
+            @Override
+            public void run() {
+                close();
+                getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
+                timer.cancel();
+            }
+        };
+        timer.schedule(task1, 1000); //delay in milliseconds
         return true;
     }
 

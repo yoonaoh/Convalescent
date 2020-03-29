@@ -1,5 +1,7 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -9,6 +11,7 @@ import com.mystudio.gamename.utils.DragAndDropModified;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class InteractableItem extends Item {

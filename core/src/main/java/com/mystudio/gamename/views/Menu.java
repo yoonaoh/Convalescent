@@ -19,8 +19,9 @@ public class Menu extends View {
 
         Skin skin = mainAdapter.getManager().getSkin();
 
+        // Start button
         TextButton startButton = new TextButton("START", skin);
-        startButton.setBounds(590, 150, 100, 50);
+        startButton.setBounds(500, 150, 100, 50);
         startButton.addListener(new ClickListener() {
 
             @Override
@@ -29,6 +30,21 @@ public class Menu extends View {
             }
 
         });
+
+        // Quit button
+        TextButton quitButton = new TextButton("QUIT", skin);
+        quitButton.setBounds(680, 150, 100, 50);
+        quitButton.addListener(new ClickListener() {
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.getManager().dispose();
+                System.exit(0);
+            }
+
+        });
+
         actors.addActor(startButton);
+        actors.addActor(quitButton);
     }
 }

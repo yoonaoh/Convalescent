@@ -40,6 +40,10 @@ public abstract class MiniGame extends Window {
         addActor(close);
     }
 
+    public void close() {
+        mainAdapter.closeWindow();
+    }
+
     public MainAdapter getMainAdapter() {
         return mainAdapter;
     }

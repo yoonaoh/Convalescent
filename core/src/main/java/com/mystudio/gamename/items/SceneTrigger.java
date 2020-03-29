@@ -15,7 +15,19 @@ public class SceneTrigger extends InteractableItem {
         addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                final Timer timer = new Timer();  //At this line a new Thread will be created
+//                TimerTask task = new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        mainAdapter.updateState(nextState);
+//                        timer.cancel();
+//                    }
+//                };
+//                timer.schedule(task, 5*1000); //delay in milliseconds
+
                 mainAdapter.updateState(nextState);
+
+
                 return true;
             }
         });

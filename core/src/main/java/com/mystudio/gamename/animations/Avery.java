@@ -34,6 +34,7 @@ public class Avery extends Actor {
     Animation<TextureRegion> avery_walks;
     Animation<TextureRegion> avery_stands;
     MainAdapter mainAdapter;
+    GameState state = GameState.MENU;
 
     public Avery(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -55,7 +56,7 @@ public class Avery extends Actor {
         setBounds(0, 0, 1280, 720);
 
         // Walk Animation
-        init_walk_animation(0, 56);
+        init_walk_animation(20, 40);
 
         // Stand Animation
         init_stand_animation();
@@ -203,12 +204,17 @@ public class Avery extends Actor {
         return (scale * var);
     }
 
-    public void force(GameState gameState) {
-        if (gameState == GameState.CORRIDOR) {
-            box.forceTo(800, 40);
+    public void force(GameState to) {
+        if (state == GameState.ATTIC && to == GameState.ATTIC_SHELF) {
+        } else if (state == GameState.ATTIC_SHELF && to == GameState.ATTIC) {
+        } else if (state == GameState.DARK_ATTIC && to == GameState.ATTIC) {
+        } else if (state == GameState.ATTIC && to == GameState.DARK_ATTIC) {
         } else {
-            box.forceTo(640, 40);
+            x_update = 640;
+            y_update = 0;
+            box.forceTo(640, 0);
         }
+        state = to;
     }
 
     static TextureRegion[] reverse(TextureRegion[] a, int n) {

@@ -15,8 +15,8 @@ public class Gear extends InteractableItem {
         this(mainAdapter, x, y, radius, originalAngle, String.format("gearpuzzle/gear_%s.png", radius / 12));
     }
 
-    public Gear(final MainAdapter mainAdapter, float x, float y, float originalAngle) {
-        this(mainAdapter, x, y, 120, originalAngle, "gearpuzzle/gear_10_key.png");
+    public Gear(final MainAdapter mainAdapter, float x, float y, float originalAngle, String special) {
+        this(mainAdapter, x, y, 120, originalAngle, String.format("gearpuzzle/gear_10_%s.png", special));
     }
 
     public Gear(final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle, String name) {

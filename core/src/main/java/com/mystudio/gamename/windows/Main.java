@@ -129,6 +129,11 @@ public class Main extends BasicGame {
             return manager;
         }
 
+        @Override
+        public void forceAveryTo(GameState to) {
+            avery.force(to);
+        }
+
     };
 
     @Override
@@ -152,13 +157,15 @@ public class Main extends BasicGame {
         views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
         views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
         views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
+        views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
+        views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Settings setting = new Settings(mainAdapter);
-        settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 680, 30, 30), setting, mainAdapter);
+        settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 670, 50, 50), setting, mainAdapter);
         currentBackground().getStage().addActor(settings);
     }
 
@@ -192,6 +199,7 @@ public class Main extends BasicGame {
 
     public void changeState(GameState gameState) {
         state = gameState;
+        avery.force(gameState);
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         inventory.remove();

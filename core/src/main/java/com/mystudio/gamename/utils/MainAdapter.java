@@ -33,5 +33,7 @@ public interface MainAdapter {
 
     Manager getManager();
 
+    void forceAveryTo(GameState to);
+
 
 }
