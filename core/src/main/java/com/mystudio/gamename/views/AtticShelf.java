@@ -30,8 +30,9 @@ public class AtticShelf extends View {
 
         // Add screwdriver
         InteractableItem screwdriver = new InteractableItem("items/screwdriver.png", new CollisionBox(500, 380, 182, 50), mainAdapter);
-        screwdriver.setPickUpable();
-        screwdriver.addTargetName("fan");
+        InteractableItem inventory_sd = new InteractableItem("items/screwdriver_inv.png", new CollisionBox(500, 380, 100, 100), mainAdapter);
+        screwdriver.setPickUpable(inventory_sd);
+        inventory_sd.addTargetName("fan");
         actors.addActor(screwdriver);
 
         // Add fan
