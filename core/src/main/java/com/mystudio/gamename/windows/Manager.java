@@ -72,9 +72,8 @@ public class Manager {
         cur_bg.loop(cur_bg_id);
     }
 
-    public void playSound(String music) {
-        cur_bg = assetManager.get(music);
-        cur_bg_id = cur_bg.play(mastervol);
+    public void stopBackgroundMusic() {
+        cur_bg.stop(cur_bg_id);
     }
 
     public Skin getSkin() {

@@ -1,15 +1,10 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.*;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import com.mystudio.gamename.windows.Inventory;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionPolygon;
@@ -20,7 +15,7 @@ public class LightAttic extends View {
         super(mainAdapter);
         background = new Texture("views/attic_bg_light.png");
         floorspace = new Polygon(new float[]{
-                80,0,
+                80, 0,
                 616, 277,
                 749, 277,
                 670, 210,
@@ -100,15 +95,15 @@ public class LightAttic extends View {
 //        actors.addActor(fan);
 
         // Add attic door
-        final InteractableItem door = new InteractableItem("items/attic_door.png", new CollisionPolygon(new float[] {
-            338, 76,
-            488, 161,
-            638, 132,
-            625, 75
+        final InteractableItem door = new InteractableItem("items/attic_door.png", new CollisionPolygon(new float[]{
+                338, 76,
+                488, 161,
+                638, 132,
+                625, 75
         }), mainAdapter);
 
         // Replaces attic door with new one that doesn't need a key
-        final SceneTrigger door_replacement = new SceneTrigger("items/attic_door.png", new CollisionPolygon(new float[] {
+        final SceneTrigger door_replacement = new SceneTrigger("items/attic_door.png", new CollisionPolygon(new float[]{
                 338, 76,
                 488, 161,
                 638, 132,

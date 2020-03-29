@@ -67,7 +67,6 @@ public class Settings extends MiniGame {
         addActor(effects_slider);
 
 
-
     }
 
     private void setVolume(float i) {

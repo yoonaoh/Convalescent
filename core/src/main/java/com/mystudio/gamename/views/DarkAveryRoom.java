@@ -2,12 +2,9 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
-import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -15,8 +12,8 @@ public class DarkAveryRoom extends View {
     public DarkAveryRoom(MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture(Gdx.files.internal("views/room_disturbed_concept.png"));
-        floorspace = new Polygon(new float[] {
-                80,0,
+        floorspace = new Polygon(new float[]{
+                80, 0,
                 616, 277,
                 749, 277,
                 670, 210,
@@ -37,7 +34,7 @@ public class DarkAveryRoom extends View {
         includesAvery = true;
 
         // Add door to hallway
-        SceneTrigger door = new SceneTrigger(null, new CollisionBox(672, 190, 172, 336), GameState.CORRIDOR, mainAdapter);
+        SceneTrigger door = new SceneTrigger(null, new CollisionBox(672, 190, 172, 336), GameState.DISTURBED_CORRIDOR, mainAdapter);
         actors.addActor(door);
     }
 }

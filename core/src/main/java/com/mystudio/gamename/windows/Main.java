@@ -1,7 +1,6 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -173,8 +172,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 
