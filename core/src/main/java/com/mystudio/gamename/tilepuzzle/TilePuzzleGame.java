@@ -38,7 +38,7 @@ public class TilePuzzleGame extends MiniGame {
     Texture image;
 
     public TilePuzzleGame(MainAdapter mainAdapter) {
-        super("tilepuzzle/minigame_bg.png", mainAdapter);
+        super("tilepuzzle/frame4.png", mainAdapter);
 
         camera = mainAdapter.getViewPort().getCamera();
         font24 = mainAdapter.getManager().getFont();
