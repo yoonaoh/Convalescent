@@ -173,8 +173,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 

@@ -30,8 +30,9 @@ public class AtticShelf extends View {
 
         // Add screwdriver
         InteractableItem screwdriver = new InteractableItem("items/screwdriver.png", new CollisionBox(500, 380, 182, 50), mainAdapter);
-        screwdriver.setPickUpable();
-        screwdriver.addTargetName("fan");
+        InteractableItem inventory_sd = new InteractableItem("items/screwdriver_inv.png", new CollisionBox(500, 380, 100, 100), mainAdapter);
+        screwdriver.setPickUpable(inventory_sd);
+        inventory_sd.addTargetName("fan");
         actors.addActor(screwdriver);
 
         // Add fan
@@ -39,11 +40,11 @@ public class AtticShelf extends View {
         fan.addDropHandler(new DropTargetHandler() {
             @Override
             public void handleDrop(final InteractableItem item) {
-                mainAdapter.removeFromInventory(item);
                 Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
                 Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
                 mainAdapter.addToInventory(gear2);
                 mainAdapter.addToInventory(gear6);
+                mainAdapter.removeFromInventory(item);
             }
         });
         mainAdapter.addToTargetRegistry("fan", fan);
