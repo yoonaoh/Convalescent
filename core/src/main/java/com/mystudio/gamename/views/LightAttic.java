@@ -123,6 +123,7 @@ public class LightAttic extends View {
                 mainAdapter.updateState(GameState.CORRIDOR);
                 door.remove();
                 actors.addActor(door_replacement);
+                mainAdapter.removeFromInventory(item);
             }
         });
         mainAdapter.addToTargetRegistry("attic_door", door);

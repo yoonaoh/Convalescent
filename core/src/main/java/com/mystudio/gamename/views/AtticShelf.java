@@ -13,10 +13,8 @@ import org.mini2Dx.core.geom.Polygon;
 
 public class AtticShelf extends View {
 
-    public AtticShelf(MainAdapter mainAdapter) {
+    public AtticShelf(final MainAdapter mainAdapter) {
         super(mainAdapter);
-
-        final MainAdapter mainAdapterFin = mainAdapter;
 
         background = new Texture("views/shelf_closeup.png");
         floorspace = new Polygon(new float[]{});
@@ -41,10 +39,11 @@ public class AtticShelf extends View {
         fan.addDropHandler(new DropTargetHandler() {
             @Override
             public void handleDrop(final InteractableItem item) {
-                Gear gear2 = new Gear(mainAdapterFin, 428, 280, 48, 0);
-                Gear gear6 = new Gear(mainAdapterFin, 430, 157, 72, 50);
-                mainAdapterFin.addToInventory(gear2);
-                mainAdapterFin.addToInventory(gear6);
+                Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
+                Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
+                mainAdapter.addToInventory(gear2);
+                mainAdapter.addToInventory(gear6);
+                mainAdapter.removeFromInventory(item);
             }
         });
         mainAdapter.addToTargetRegistry("fan", fan);

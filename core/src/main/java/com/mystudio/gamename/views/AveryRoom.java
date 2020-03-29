@@ -39,7 +39,7 @@ public class AveryRoom extends View {
 
         // Add tile puzzle frame trigger
         MiniGame tileGame = new TilePuzzleGame(mainAdapter);
-        MinigameTrigger frame = new MinigameTrigger("items/frame.png", new CollisionBox(300, 100, 100, 100), tileGame, mainAdapter);
+        MinigameTrigger frame = new MinigameTrigger("items/frame2.png", new CollisionBox(260, 400, 114, 96), tileGame, mainAdapter);
         actors.addActor(frame);
 
         // Add door to hallway
