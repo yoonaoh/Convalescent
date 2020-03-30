@@ -40,7 +40,7 @@ public class LightAttic extends View {
                 1280, 0
         });
         includesAvery = true;
-        includesInventory = false;
+        includesInventory = true;
 
         // Add window
         SceneTrigger window = new SceneTrigger(null,
@@ -60,17 +60,16 @@ public class LightAttic extends View {
 
 
         // Add backpack
-        final Item backpack = new Item("items/baggo.png", new CollisionBox(946, 256, 75, 75));
-        backpack.addListener(new ClickListener() {
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                actors.removeActor(backpack);
-                includesInventory = true;
-            }
-
-        });
-        actors.addActor(backpack);
+//        final Item backpack = new Item("items/baggo.png", new CollisionBox(946, 256, 75, 75));
+//        backpack.addListener(new ClickListener() {
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                actors.removeActor(backpack);
+//            }
+//
+//        });
+//        actors.addActor(backpack);
 
 
         // Add attic table
@@ -102,6 +101,7 @@ public class LightAttic extends View {
                 638, 132,
                 625, 75
         }), GameState.CORRIDOR, mainAdapter);
+        door_replacement.setSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/wood_door_close.mp3")));
         // What happens when the key is dragged onto the door
         door.addDropHandler(new DropTargetHandler() {
             @Override
@@ -116,6 +116,5 @@ public class LightAttic extends View {
         actors.addActor(door);
 
         bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
-        bgm.setVolume(0.75f);
     }
 }

@@ -1,5 +1,6 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.items.DropTargetHandler;
@@ -50,5 +51,7 @@ public class AtticShelf extends View {
         });
         mainAdapter.addToTargetRegistry("fan", fan);
         actors.addActor(fan);
+
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
     }
 }

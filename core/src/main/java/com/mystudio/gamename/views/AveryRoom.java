@@ -39,5 +39,7 @@ public class AveryRoom extends View {
         SceneTrigger door = new SceneTrigger(null, new CollisionBox(672, 190, 172, 336), GameState.CORRIDOR, mainAdapter);
         actors.addActor(door);
 
+        // Add BGM
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
     }
 }

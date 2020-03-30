@@ -42,7 +42,7 @@ public class DarkAttic extends View {
 
         // Add window
         SceneTrigger window = new SceneTrigger(null, new CollisionBox(840, 380, 150, 160), GameState.ATTIC, mainAdapter);
-        window.soundEffect = Gdx.audio.newSound(Gdx.files.internal("sounds/blinds_open.mp3"));
+        window.setSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/blinds_open.mp3")));
         actors.addActor(window);
 
         // Add shelf

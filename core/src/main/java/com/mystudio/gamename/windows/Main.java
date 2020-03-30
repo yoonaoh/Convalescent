@@ -184,9 +184,6 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
-
     }
 
     @Override
@@ -215,8 +212,6 @@ public class Main extends BasicGame {
         avery.force(gameState);
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
         // Change out assets
         inventory.remove();
@@ -226,19 +221,22 @@ public class Main extends BasicGame {
         if (currentBackground().includesAvery())
             currentBackground().getBackground().addActor(avery);
         if (currentBackground().includesInventory())
-            currentBackground().getBackground().addActor(inventory);
+            currentBackground().getStage().addActor(inventory);
 
         currentBackground().getBackground().addActor(settings);
 
-        // Change out music
-        if (bgm != null) {
-            bgm.pause();
-        }
+        Music oldBGM = bgm;
+        Music newBGM = currentBackground().getBGM();
 
-        bgm = currentBackground().getBGM();
-        if (bgm != null) {
-            bgm.setLooping(true);
-            bgm.play();
+        if (newBGM == null)
+            bgm.pause();
+        else {
+            if (!oldBGM.equals(newBGM)) {
+                bgm.pause();
+                bgm = newBGM;
+                bgm.setLooping(true);
+                bgm.play();
+            }
         }
     }
 
