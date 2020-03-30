@@ -1,5 +1,6 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.utils.GameState;
@@ -20,6 +21,7 @@ public class Corridor extends View {
                 1280, 0
         });
         includesAvery = true;
+        includesInventory = true;
 
         // Add pictures
 
@@ -44,6 +46,6 @@ public class Corridor extends View {
         bedroomDoor.setHeight(250);
         actors.addActor(bedroomDoor);
 
-
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
     }
 }

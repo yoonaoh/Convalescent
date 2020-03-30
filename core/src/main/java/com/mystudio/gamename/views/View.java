@@ -1,5 +1,6 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,7 +15,9 @@ public class View {
     Texture background;
     Polygon floorspace;
     Boolean includesAvery;
+    Boolean includesInventory;
     MainAdapter mainAdapter;
+    Music bgm;
 
     public View(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -32,6 +35,8 @@ public class View {
     public Boolean includesAvery() {
         return includesAvery;
     }
+
+    public Boolean includesInventory() { return includesInventory; }
 
     public Group getActors() {
         return actors;
@@ -54,4 +59,6 @@ public class View {
     public Group getBackground() {
         return bg_actors;
     }
+
+    public Music getBGM() { return bgm; };
 }

@@ -6,7 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 
 public class Settings extends MiniGame {
@@ -16,7 +19,7 @@ public class Settings extends MiniGame {
     Slider slider;
     Slider effects_slider;
 
-    public Settings(MainAdapter mainAdapter) {
+    public Settings(final MainAdapter mainAdapter) {
         super("gearpuzzle/minigame_bg.png", mainAdapter);
 
         Label sound_label = new Label("Music: ", mainAdapter.getManager().getSkin());
@@ -65,6 +68,16 @@ public class Settings extends MiniGame {
         addActor(slider);
         addActor(effects_label);
         addActor(effects_slider);
+
+        TextButton mainMenuBtn = new TextButton("MAIN MENU", mainAdapter.getManager().getSkin());
+        mainMenuBtn.setPosition(100, 140);
+        mainMenuBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.updateState(GameState.MENU);
+            }
+         });
+        addActor(mainMenuBtn);
 
 
     }

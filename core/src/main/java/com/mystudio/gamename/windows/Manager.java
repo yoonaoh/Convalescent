@@ -48,8 +48,8 @@ public class Manager {
         skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
 
         // Sounds
-        assetManager.load("sounds/secure.mp3", Sound.class);
-        assetManager.load("sounds/Disturbed.mp3", Sound.class);
+//        assetManager.load("sounds/secure.mp3", Sound.class);
+//        assetManager.load("sounds/Disturbed.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);

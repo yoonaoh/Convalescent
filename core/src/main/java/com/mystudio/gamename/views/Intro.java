@@ -1,5 +1,7 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -19,9 +21,9 @@ public class Intro extends View {
         background = new Texture("skin/Black.jpg");
         floorspace = new Polygon(new float[]{});
         includesAvery = false;
+        includesInventory = false;
 
         state = 1;
-        int screenWidth = 1280;
 
         final Label part1 = new Label("I always seem to find myself back at that place.", mainAdapter.getManager().getSkin());
         part1.setWrap(true);
@@ -68,5 +70,8 @@ public class Intro extends View {
                 return true;
             }
         });
+
+        // Add music
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.mp3"));
     }
 }

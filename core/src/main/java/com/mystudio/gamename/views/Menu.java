@@ -1,5 +1,7 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +18,7 @@ public class Menu extends View {
         background = new Texture("views/Title.jpeg");
         floorspace = new Polygon(new float[]{});
         includesAvery = false;
+        includesInventory = false;
 
         Skin skin = mainAdapter.getManager().getSkin();
 
@@ -46,5 +49,8 @@ public class Menu extends View {
 
         actors.addActor(startButton);
         actors.addActor(quitButton);
+
+        // Play music
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/menu.mp3"));
     }
 }

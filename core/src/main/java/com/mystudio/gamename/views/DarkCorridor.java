@@ -20,6 +20,7 @@ public class DarkCorridor extends View {
                 1280, 0
         });
         includesAvery = true;
+        includesInventory = true;
 
         // Add bathroom door
 

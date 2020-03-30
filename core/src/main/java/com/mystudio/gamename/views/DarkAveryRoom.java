@@ -32,6 +32,7 @@ public class DarkAveryRoom extends View {
                 1280, 0
         });
         includesAvery = true;
+        includesInventory = true;
 
         // Add door to hallway
         SceneTrigger door = new SceneTrigger(null, new CollisionBox(672, 190, 172, 336), GameState.DISTURBED_CORRIDOR, mainAdapter);

@@ -1,12 +1,16 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -23,6 +27,8 @@ import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main extends BasicGame {
 
@@ -33,14 +39,8 @@ public class Main extends BasicGame {
 
     private boolean debug;
 
-    /**
-     * Current game state
-     */
     private GameState state;
 
-    /**
-     * SpriteBatch containing all the sprites
-     */
     private SpriteBatch batch;
 
     private Viewport viewport;
@@ -48,6 +48,8 @@ public class Main extends BasicGame {
     private HashMap<GameState, View> views;
 
     private Window window;
+
+    private Music music;
 
     private Inventory inventory;
 
@@ -60,6 +62,8 @@ public class Main extends BasicGame {
     private boolean game_in_progress = false;
 
     private Manager manager;
+
+    private Music bgm;
 
     public Main(boolean debug) {
         this.debug = debug;
@@ -133,6 +137,11 @@ public class Main extends BasicGame {
             avery.force(to);
         }
 
+        @Override
+        public void playSoundEffect(Sound sound) {
+            sound.play(1.0f);
+        }
+
     };
 
     @Override
@@ -143,8 +152,11 @@ public class Main extends BasicGame {
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
-        inventory = new Inventory(mainAdapter);
         avery = new Avery(mainAdapter);
+        inventory = new Inventory(mainAdapter);
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/menu.mp3"));
+        bgm.setLooping(true);
+        bgm.play();
         manager = new Manager();
 
         views = new HashMap<GameState, View>();
@@ -172,8 +184,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 
@@ -183,12 +195,14 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
+
         currentBackground().drawBackground();
         currentBackground().getStage().setDebugAll(debug);
         currentBackground().drawStage();
-        if (currentBackground().includesAvery() && !game_in_progress) {
+
+        if (currentBackground().includesAvery() && !game_in_progress)
             avery.render(batch);
-        }
+
     }
 
     @Override
@@ -199,16 +213,33 @@ public class Main extends BasicGame {
     public void changeState(GameState gameState) {
         state = gameState;
         avery.force(gameState);
+
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+        // Change out assets
         inventory.remove();
         avery.remove();
         settings.remove();
-        if (gameState != GameState.INTRO) {
-            currentBackground().getStage().addActor(inventory);
+
+        if (currentBackground().includesAvery())
             currentBackground().getBackground().addActor(avery);
-        }
+        if (currentBackground().includesInventory())
+            currentBackground().getBackground().addActor(inventory);
+
         currentBackground().getBackground().addActor(settings);
+
+        // Change out music
+        if (bgm != null) {
+            bgm.pause();
+        }
+
+        bgm = currentBackground().getBGM();
+        if (bgm != null) {
+            bgm.setLooping(true);
+            bgm.play();
+        }
     }
 
     private View currentBackground() {
@@ -228,4 +259,5 @@ public class Main extends BasicGame {
         window.remove();
         currentBackground().getActors().setTouchable(Touchable.enabled);
     }
+
 }

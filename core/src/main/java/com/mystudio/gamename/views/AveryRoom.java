@@ -17,25 +17,18 @@ public class AveryRoom extends View {
         super(mainAdapter);
         background = new Texture(Gdx.files.internal("views/avery_bedroom_sketch.png"));
         floorspace = new Polygon(new float[] {
-            80,0,
-            616, 277,
-            749, 277,
-            670, 210,
-            831, 210,
-            873, 277,
-            938, 277,
-            938, 222,
-            1018, 222,
-            1018, 277,
-            1035, 277,
-            1035, 250,
-            1185, 250,
-            1185, 277,
-            1250, 277,
-            1280, 250,
-            1280, 0
+            0,0,
+            46,37,
+            289,34,
+            371,70,
+            634,172,
+            634,192,
+            956,192,
+            956,114,
+            1102,0
         });
         includesAvery = true;
+        includesInventory = true;
 
         // Add tile puzzle frame trigger
         MiniGame tileGame = new TilePuzzleGame(mainAdapter);

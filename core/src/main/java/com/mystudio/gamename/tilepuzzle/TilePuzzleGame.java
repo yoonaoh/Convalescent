@@ -24,9 +24,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class TilePuzzleGame extends MiniGame {
 
     Camera camera;
-
     public BitmapFont font24;
-
     Skin skin;
     private float progress;
 
@@ -35,10 +33,6 @@ public class TilePuzzleGame extends MiniGame {
     private int holeX, holeY;
     private int checkX, checkY;
     private Tile[][] buttonGrid;
-
-    // Info label
-    private Label labelInfo;
-
     Texture image;
 
     public TilePuzzleGame(MainAdapter mainAdapter) {
@@ -51,11 +45,11 @@ public class TilePuzzleGame extends MiniGame {
         this.skin = mainAdapter.getManager().getSkin();
         image = mainAdapter.getManager().getTexture("tilepuzzle/TileLevel1.png");
 
-        initInfoLabel();
         initGrid();
         shuffle();
     }
 
+    // Shuffles the tiles
     private void shuffle() {
         int swaps = 0; // debug variable
         int shuffles;
@@ -70,11 +64,6 @@ public class TilePuzzleGame extends MiniGame {
                 swaps++;
             }
         }
-        System.out.println("Tried: " + shuffles + ", actual moves made: " + swaps); // Debug logging
-    }
-
-    // Initialize the info label
-    private void initInfoLabel() {
     }
 
     // Initialize the game grid
@@ -90,11 +79,7 @@ public class TilePuzzleGame extends MiniGame {
         // Set the hole at the bottom right so the sequence is 1,2,3...,15,hole (solved state) from which to start shuffling.
         holeX = boardSize - 1;
         holeY = boardSize - 1;
-
-//        Random r = new Random();
-//        holeX = r.nextInt(boardSize);
         checkX = holeX;
-//        holeY = r.nextInt(boardSize);
         checkY = holeY;
 
         for (int i = 0; i < boardSize; i++) {
@@ -130,14 +115,18 @@ public class TilePuzzleGame extends MiniGame {
                                 moveButtons(buttonX, buttonY);
 
                                 if (solutionFound()) {
-//                                    labelInfo.clearActions();
-//                                    labelInfo.setText("Solution Found!");
-//                                    labelInfo.addAction(sequence(alpha(1f), delay(3f), fadeOut(2f, Interpolation.pow5Out)));
+                                    // Thread to trigger disturbed world scene
+                                    final Timer timer = new Timer();  //At this line a new Thread will be created
+                                    TimerTask task1 = new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            close();
+                                            getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
+                                            timer.cancel();
+                                        }
+                                    };
+                                    timer.schedule(task1, 1000); //delay in milliseconds
                                 }
-                            } else {
-//                                labelInfo.clearActions();
-//                                labelInfo.setText("Invalid Move!");
-//                                labelInfo.addAction(sequence(alpha(1f), delay(1f), fadeOut(1f, Interpolation.pow5Out)));
                             }
                         }
                     });
@@ -147,6 +136,7 @@ public class TilePuzzleGame extends MiniGame {
         }
     }
 
+    // Moves the tiles
     private void moveButtons(int x, int y) {
         Tile button;
         if (x < holeX) {
@@ -182,8 +172,11 @@ public class TilePuzzleGame extends MiniGame {
         }
     }
 
+    // Checks to see if the solution has been found
     private boolean solutionFound() {
         int idCheck = 1;
+
+        // Checks the position of the tiles
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 if (buttonGrid[i][j] != null) {
@@ -191,23 +184,13 @@ public class TilePuzzleGame extends MiniGame {
                         return false;
                     }
                 } else {
-                    System.out.println("Hole at " + i + ", " + j + " compare to " + holeX + ", " + holeY);
                     if (i != checkX || j != checkY) {
                         return false;
                     }
                 }
             }
         }
-        final Timer timer = new Timer();  //At this line a new Thread will be created
-        TimerTask task1 = new TimerTask() {
-            @Override
-            public void run() {
-                close();
-                getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
-                timer.cancel();
-            }
-        };
-        timer.schedule(task1, 1000); //delay in milliseconds
+
         return true;
     }
 

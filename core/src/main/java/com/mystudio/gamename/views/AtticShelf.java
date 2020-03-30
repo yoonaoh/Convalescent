@@ -19,6 +19,7 @@ public class AtticShelf extends View {
         background = new Texture("views/shelf_closeup.png");
         floorspace = new Polygon(new float[]{});
         includesAvery = false;
+        includesInventory = true;
 
         // Add left shelf edge
         SceneTrigger shelfEdge1 = new SceneTrigger(null, new CollisionBox(0, 0, 250, 720), GameState.ATTIC, mainAdapter);

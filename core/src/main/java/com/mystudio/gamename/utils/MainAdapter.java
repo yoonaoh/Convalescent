@@ -1,6 +1,9 @@
 package com.mystudio.gamename.utils;
 
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.items.InteractableItem;
@@ -35,5 +38,5 @@ public interface MainAdapter {
 
     void forceAveryTo(GameState to);
 
-
+    void playSoundEffect(Sound sound);
 }
