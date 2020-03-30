@@ -37,5 +37,8 @@ public class DarkAveryRoom extends View {
         // Add door to hallway
         SceneTrigger door = new SceneTrigger(null, new CollisionBox(672, 190, 172, 336), GameState.DISTURBED_CORRIDOR, mainAdapter);
         actors.addActor(door);
+
+        // Play music
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/second_part_disturbed.mp3"));
     }
 }

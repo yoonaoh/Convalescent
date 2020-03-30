@@ -184,8 +184,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 
@@ -215,7 +215,7 @@ public class Main extends BasicGame {
         avery.force(gameState);
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
         // Change out assets

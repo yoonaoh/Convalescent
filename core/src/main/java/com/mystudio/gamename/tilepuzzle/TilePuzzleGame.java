@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -18,6 +17,7 @@ import com.mystudio.gamename.windows.MiniGame;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -121,6 +121,14 @@ public class TilePuzzleGame extends MiniGame {
                                         @Override
                                         public void run() {
                                             close();
+                                            for (int i = 0; i < 3; i++) {
+                                                flicker();
+                                            }
+                                            try {
+                                                Thread.sleep(50);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
                                             getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
                                             timer.cancel();
                                         }
@@ -192,6 +200,21 @@ public class TilePuzzleGame extends MiniGame {
         }
 
         return true;
+    }
+
+    private void flicker() {
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        getMainAdapter().updateState(GameState.AVERY_ROOM);
     }
 
 
