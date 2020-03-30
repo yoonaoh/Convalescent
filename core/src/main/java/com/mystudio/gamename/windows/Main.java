@@ -59,7 +59,9 @@ public class Main extends BasicGame {
 
     private Manager manager;
 
-    private Music bgm;
+    private Sound bgm = null;
+
+    private long bgm_id = 0;
 
     public Main(boolean debug) {
         this.debug = debug;
@@ -135,7 +137,7 @@ public class Main extends BasicGame {
 
         @Override
         public void playSoundEffect(Sound sound) {
-            sound.play(1.0f);
+            sound.play(0.1f);
         }
 
     };
@@ -150,9 +152,6 @@ public class Main extends BasicGame {
         batch.setProjectionMatrix(camera.combined);
         avery = new Avery(mainAdapter);
         inventory = new Inventory(mainAdapter);
-        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/menu.mp3"));
-        bgm.setLooping(true);
-        bgm.play();
         manager = new Manager();
 
         views = new HashMap<GameState, View>();
@@ -169,11 +168,12 @@ public class Main extends BasicGame {
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Settings setting = new Settings(mainAdapter);
         settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 670, 50, 50), setting, mainAdapter);
         currentBackground().getStage().addActor(settings);
+
+        mainAdapter.updateState(GameState.MENU);
     }
 
     @Override
@@ -227,12 +227,15 @@ public class Main extends BasicGame {
         currentBackground().getBackground().addActor(settings);
 
         // Change out music
-
-        if (currentBackground().getBGM() != null) {
+        if (bgm != null) {
             bgm.pause();
+        }
+        if (currentBackground().getBGM() != null) {
             bgm = currentBackground().getBGM();
-            bgm.setLooping(true);
-            bgm.play();
+        }
+        if (state != GameState.DARK_ATTIC) {
+            bgm_id = bgm.play(1f);
+            bgm.loop(bgm_id);
         }
     }
 

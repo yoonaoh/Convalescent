@@ -51,6 +51,6 @@ public class Menu extends View {
         actors.addActor(quitButton);
 
         // Play music
-        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/menu.mp3"));
+        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/menu.mp3"));
     }
 }
