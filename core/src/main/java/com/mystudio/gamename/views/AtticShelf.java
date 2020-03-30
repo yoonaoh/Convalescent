@@ -51,5 +51,7 @@ public class AtticShelf extends View {
         });
         mainAdapter.addToTargetRegistry("fan", fan);
         actors.addActor(fan);
+
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
     }
 }
