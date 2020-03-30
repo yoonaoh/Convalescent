@@ -26,6 +26,7 @@ public class View {
         stage.addActor(bg_actors);
         actors = new Group();
         stage.addActor(actors);
+        bgm = null;
     }
 
     public Polygon getFloorspace() {
@@ -60,5 +61,5 @@ public class View {
         return bg_actors;
     }
 
-    public Music getBGM() { return bgm; };
+    public Music getBGM() { return bgm; }
 }

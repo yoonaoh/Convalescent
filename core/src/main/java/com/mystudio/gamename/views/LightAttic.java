@@ -67,6 +67,7 @@ public class LightAttic extends View {
             public void clicked(InputEvent event, float x, float y) {
                 actors.removeActor(backpack);
                 includesInventory = true;
+                mainAdapter.updateState(GameState.ATTIC);
             }
 
         });
@@ -102,6 +103,7 @@ public class LightAttic extends View {
                 638, 132,
                 625, 75
         }), GameState.CORRIDOR, mainAdapter);
+        door_replacement.setSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/wood_door_close.mp3")));
         // What happens when the key is dragged onto the door
         door.addDropHandler(new DropTargetHandler() {
             @Override
@@ -116,6 +118,5 @@ public class LightAttic extends View {
         actors.addActor(door);
 
         bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
-        bgm.setVolume(0.75f);
     }
 }

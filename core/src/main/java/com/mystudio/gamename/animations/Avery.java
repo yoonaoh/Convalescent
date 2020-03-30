@@ -203,10 +203,12 @@ public class Avery extends Actor {
     }
 
     public void force(GameState to) {
-        if (state == GameState.ATTIC && to == GameState.ATTIC_SHELF) {
+        if (state == to) {
+        } else if (state == GameState.ATTIC && to == GameState.ATTIC_SHELF) {
         } else if (state == GameState.ATTIC_SHELF && to == GameState.ATTIC) {
         } else if (state == GameState.DARK_ATTIC && to == GameState.ATTIC) {
         } else if (state == GameState.ATTIC && to == GameState.DARK_ATTIC) {
+        } else if (state == GameState.AVERY_ROOM && to == GameState.DISTURBED_AVERY_ROOM) {
         } else {
             x_update = 640;
             y_update = 0;

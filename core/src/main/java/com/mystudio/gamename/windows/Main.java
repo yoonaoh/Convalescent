@@ -1,7 +1,6 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -27,8 +25,6 @@ import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Main extends BasicGame {
 
@@ -226,17 +222,15 @@ public class Main extends BasicGame {
         if (currentBackground().includesAvery())
             currentBackground().getBackground().addActor(avery);
         if (currentBackground().includesInventory())
-            currentBackground().getBackground().addActor(inventory);
+            currentBackground().getStage().addActor(inventory);
 
         currentBackground().getBackground().addActor(settings);
 
         // Change out music
-        if (bgm != null) {
-            bgm.pause();
-        }
 
-        bgm = currentBackground().getBGM();
-        if (bgm != null) {
+        if (currentBackground().getBGM() != null) {
+            bgm.pause();
+            bgm = currentBackground().getBGM();
             bgm.setLooping(true);
             bgm.play();
         }

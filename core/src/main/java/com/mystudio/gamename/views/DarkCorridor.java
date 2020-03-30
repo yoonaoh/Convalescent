@@ -1,5 +1,6 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.utils.GameState;
@@ -34,6 +35,6 @@ public class DarkCorridor extends View {
         bedroomDoor.setHeight(250);
         actors.addActor(bedroomDoor);
 
-
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/disturbed_transition.mp3"));
     }
 }

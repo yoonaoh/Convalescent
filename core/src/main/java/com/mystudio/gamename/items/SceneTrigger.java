@@ -12,17 +12,22 @@ import org.mini2Dx.core.engine.geom.CollisionShape;
  */
 public class SceneTrigger extends InteractableItem {
 
-    public Sound soundEffect;
+    Sound soundEffect;
 
     public SceneTrigger(String image, CollisionShape shape, final GameState nextState, final MainAdapter mainAdapter) {
         super(image, shape, mainAdapter);
         addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mainAdapter.playSoundEffect(soundEffect);
+                if (soundEffect != null)
+                    mainAdapter.playSoundEffect(soundEffect);
                 mainAdapter.updateState(nextState);
                 return true;
             }
         });
+    }
+
+    public void setSoundEffect(Sound sound) {
+        this.soundEffect = sound;
     }
 }
