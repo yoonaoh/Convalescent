@@ -133,7 +133,7 @@ public class TilePuzzleGame extends MiniGame {
                                             timer.cancel();
                                         }
                                     };
-                                    timer.schedule(task1, 1000); //delay in milliseconds
+                                    timer.schedule(task1, 3*1000); //delay in milliseconds
                                 }
                             }
                         }

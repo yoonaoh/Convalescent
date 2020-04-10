@@ -117,6 +117,6 @@ public class LightAttic extends View {
         mainAdapter.addToTargetRegistry("attic_door", door);
         actors.addActor(door);
 
-        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/secure_world.mp3"));
+        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/secure_world.mp3"));
     }
 }

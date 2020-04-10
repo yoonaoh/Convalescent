@@ -7,6 +7,9 @@ import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Items that take you to new views
  */

@@ -1,7 +1,6 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -60,7 +59,9 @@ public class Main extends BasicGame {
 
     private Manager manager;
 
-    private Music bgm;
+    private Sound bgm = null;
+
+    private long bgm_id = 0;
 
     public Main(boolean debug) {
         this.debug = debug;
@@ -136,7 +137,7 @@ public class Main extends BasicGame {
 
         @Override
         public void playSoundEffect(Sound sound) {
-            sound.play(1.0f);
+            sound.play(0.1f);
         }
 
     };
@@ -151,9 +152,6 @@ public class Main extends BasicGame {
         batch.setProjectionMatrix(camera.combined);
         avery = new Avery(mainAdapter);
         inventory = new Inventory(mainAdapter);
-        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/menu.mp3"));
-        bgm.setLooping(true);
-        bgm.play();
         manager = new Manager();
 
         views = new HashMap<GameState, View>();
@@ -170,22 +168,20 @@ public class Main extends BasicGame {
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Settings setting = new Settings(mainAdapter);
         settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 670, 50, 50), setting, mainAdapter);
         currentBackground().getStage().addActor(settings);
+
+        mainAdapter.updateState(GameState.MENU);
     }
 
     @Override
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-
-        if (debug) {
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-                System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
-        }
+//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 
@@ -215,23 +211,31 @@ public class Main extends BasicGame {
         avery.force(gameState);
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
         // Change out assets
         inventory.remove();
         avery.remove();
         settings.remove();
+
         if (currentBackground().includesAvery())
             currentBackground().getBackground().addActor(avery);
         if (currentBackground().includesInventory())
             currentBackground().getStage().addActor(inventory);
+
         currentBackground().getBackground().addActor(settings);
 
         // Change out music
-        if (currentBackground().getBGM() != null) {
+        if (bgm != null) {
             bgm.pause();
+        }
+        if (currentBackground().getBGM() != null) {
             bgm = currentBackground().getBGM();
-            bgm.setLooping(true);
-            bgm.play();
+        }
+        if (state != GameState.DARK_ATTIC) {
+            bgm_id = bgm.play(1f);
+            bgm.loop(bgm_id);
         }
     }
 

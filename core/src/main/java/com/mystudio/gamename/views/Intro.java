@@ -72,6 +72,6 @@ public class Intro extends View {
         });
 
         // Add music
-        bgm = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.mp3"));
+        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/intro.mp3"));
     }
 }

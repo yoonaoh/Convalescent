@@ -1,6 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,7 +18,7 @@ public class View {
     Boolean includesAvery;
     Boolean includesInventory;
     MainAdapter mainAdapter;
-    Music bgm;
+    Sound bgm;
 
     public View(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -61,5 +62,5 @@ public class View {
         return bg_actors;
     }
 
-    public Music getBGM() { return bgm; }
+    public Sound getBGM() { return bgm; }
 }
