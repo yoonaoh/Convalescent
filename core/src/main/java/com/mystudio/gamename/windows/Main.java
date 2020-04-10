@@ -1,6 +1,7 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -180,8 +181,11 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+
+        if (debug) {
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+                System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        }
 
     }
 
@@ -211,23 +215,18 @@ public class Main extends BasicGame {
         avery.force(gameState);
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
         // Change out assets
         inventory.remove();
         avery.remove();
         settings.remove();
-
         if (currentBackground().includesAvery())
             currentBackground().getBackground().addActor(avery);
         if (currentBackground().includesInventory())
             currentBackground().getStage().addActor(inventory);
-
         currentBackground().getBackground().addActor(settings);
 
         // Change out music
-
         if (currentBackground().getBGM() != null) {
             bgm.pause();
             bgm = currentBackground().getBGM();

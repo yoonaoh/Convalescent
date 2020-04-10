@@ -20,6 +20,7 @@ public class MinigameTrigger extends Item {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 mainAdapter.openWindow(miniGame);
+                miniGame.start();
                 return true;
             }
         });
