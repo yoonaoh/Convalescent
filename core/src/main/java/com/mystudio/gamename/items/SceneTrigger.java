@@ -1,16 +1,10 @@
 package com.mystudio.gamename.items;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import org.mini2Dx.core.engine.geom.CollisionShape;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Items that take you to new views
  */

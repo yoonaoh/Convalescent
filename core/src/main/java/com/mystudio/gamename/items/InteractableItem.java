@@ -49,14 +49,6 @@ public class InteractableItem extends Item {
     public MainAdapter mainAdapter;
     public boolean inInventory = false;
 
-//    public InteractableItem(String image, CollisionShape shape, final MainAdapter mainAdapter) {
-//        super(image, shape);
-//        this.mainAdapter = mainAdapter;
-//        this.image = image;
-//        this.selected_image = image;
-//        this.dragNdrop = new DragAndDropModified();
-//        mainAdapter.addToTargetRegistry(sceneName, getItem());
-//    }
 
     public InteractableItem(String sceneName, String name, CollisionShape shape, final MainAdapter mainAdapter) {
         super(shape);

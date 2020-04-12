@@ -148,7 +148,6 @@ public class Main extends BasicGame {
 
     @Override
     public void initialise() {
-
         batch = new SpriteBatch();
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
