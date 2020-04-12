@@ -21,6 +21,7 @@ public class MiniGame extends Window {
 
     private MainAdapter mainAdapter;
     public boolean success = false;
+    public boolean started = false;
 
     public MiniGame(String image, final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
@@ -43,6 +44,10 @@ public class MiniGame extends Window {
 
     public void close() {
         mainAdapter.closeWindow();
+    }
+
+    public void start() {
+        started = true;
     }
 
     public MainAdapter getMainAdapter() {
