@@ -10,6 +10,7 @@ import org.mini2Dx.core.geom.Polygon;
 
 public class View {
 
+    String sceneName;
     Stage stage;
     Group actors;
     Group bg_actors;

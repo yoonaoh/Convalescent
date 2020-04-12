@@ -1,5 +1,6 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -13,24 +14,25 @@ import java.util.TimerTask;
 /**
  * Items that take you to new views
  */
-public class SceneTrigger extends InteractableItem {
+public class SceneTrigger extends ClickListener {
 
     Sound soundEffect;
+    MainAdapter mainAdapter;
+    GameState nextState;
 
-    public SceneTrigger(String image, CollisionShape shape, final GameState nextState, final MainAdapter mainAdapter) {
-        super(image, shape, mainAdapter);
-        addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (soundEffect != null)
-                    mainAdapter.playSoundEffect(soundEffect);
-                mainAdapter.updateState(nextState);
-                return true;
-            }
-        });
+    public SceneTrigger(final GameState nextState, final MainAdapter mainAdapter) {
+        this.mainAdapter = mainAdapter;
+        this.nextState = nextState;
     }
 
-    public void setSoundEffect(Sound sound) {
-        this.soundEffect = sound;
+    @Override
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (soundEffect != null)
+            mainAdapter.playSoundEffect(soundEffect);
+        mainAdapter.updateState(nextState);
+        return true;
     }
+//    public void setSoundEffect(Sound sound) {
+//        this.soundEffect = sound;
+//    }
 }

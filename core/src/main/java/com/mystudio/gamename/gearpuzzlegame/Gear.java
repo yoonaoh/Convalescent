@@ -12,19 +12,15 @@ public class Gear extends InteractableItem {
     int radius;
 
     public Gear(final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle) {
-        this(mainAdapter, x, y, radius, originalAngle, String.format("gearpuzzle/gear_%s.png", radius / 12));
-    }
-
-    public Gear(final MainAdapter mainAdapter, float x, float y, float originalAngle, String special) {
-        this(mainAdapter, x, y, 120, originalAngle, String.format("gearpuzzle/gear_10_%s.png", special));
+        this(mainAdapter, x, y, radius, originalAngle, String.format("gear_%s", radius / 12));
     }
 
     public Gear(final MainAdapter mainAdapter, float x, float y, int radius, float originalAngle, String name) {
-        super(name, new CollisionCircleModified(x, y, radius), mainAdapter);
+        super("gearpuzzle", name, new CollisionCircleModified(x, y, radius), mainAdapter);
         this.originalAngle = originalAngle;
         this.radius = radius;
         speed = speed / radius;
-        addTargetName("mount");
+//        addTargetName("mount");
     }
 
     @Override

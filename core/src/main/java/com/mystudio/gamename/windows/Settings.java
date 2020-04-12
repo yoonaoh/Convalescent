@@ -20,7 +20,7 @@ public class Settings extends MiniGame {
     Slider effects_slider;
 
     public Settings(final MainAdapter mainAdapter) {
-        super("gearpuzzle/minigame_bg.png", mainAdapter);
+        super("UI/game_bg.png", mainAdapter);
 
         Label sound_label = new Label("Music: ", mainAdapter.getManager().getSkin());
         sound_label.setPosition(100, 350);

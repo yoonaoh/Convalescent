@@ -18,6 +18,10 @@ public class Intro extends View {
     public Intro(final MainAdapter mainAdapter) {
         super(mainAdapter);
 
+        String line1 = "I always seem to find myself back at that place.";
+        String line2 = "Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me";
+        String line3 = "My only hope is that I'll have the strength to leave again...";
+
         background = new Texture("skin/Black.jpg");
         floorspace = new Polygon(new float[]{});
         includesAvery = false;
@@ -25,19 +29,19 @@ public class Intro extends View {
 
         state = 1;
 
-        final Label part1 = new Label("I always seem to find myself back at that place.", mainAdapter.getManager().getSkin());
+        final Label part1 = new Label(line1, mainAdapter.getManager().getSkin());
         part1.setWrap(true);
         part1.setAlignment(Align.center);
         part1.setWidth(500);
         part1.setPosition(390, 360);
 
-        final Label part2 = new Label("Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me", mainAdapter.getManager().getSkin());
+        final Label part2 = new Label(line2, mainAdapter.getManager().getSkin());
         part2.setWrap(true);
         part2.setAlignment(Align.center);
         part2.setWidth(500);
         part2.setPosition(390, 360);
 
-        final Label part3 = new Label("My only hope is that I'll have the strength to leave again...", mainAdapter.getManager().getSkin());
+        final Label part3 = new Label(line3, mainAdapter.getManager().getSkin());
         part3.setWrap(true);
         part3.setAlignment(Align.center);
         part3.setWidth(500);
@@ -61,7 +65,8 @@ public class Intro extends View {
                     state = 3;
                 } else if (state == 3) {
                     part3.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
-                    mainAdapter.updateState(GameState.DARK_ATTIC);
+                    mainAdapter.addView(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
+                    mainAdapter.updateState(GameState.DISTURBED_AVERY_ROOM);
                 }
             }
 

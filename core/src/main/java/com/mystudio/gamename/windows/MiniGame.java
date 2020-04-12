@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionBox;
@@ -16,7 +17,7 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 /**
  * Abstract class for all MiniGames
  */
-public abstract class MiniGame extends Window {
+public class MiniGame extends Window {
 
     private MainAdapter mainAdapter;
     public boolean success = false;
@@ -29,7 +30,7 @@ public abstract class MiniGame extends Window {
         setPosition(200, 100);
         setSize(800, 500);
 
-        Actor close = new Item("gearpuzzle/close.png", new CollisionBox(30, 450, 30, 30));
+        Actor close = new Item("UI/game_close.png", new CollisionBox(30, 450, 30, 30));
         close.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -47,6 +48,7 @@ public abstract class MiniGame extends Window {
     public MainAdapter getMainAdapter() {
         return mainAdapter;
     }
+
 }
 
 

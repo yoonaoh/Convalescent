@@ -15,7 +15,7 @@ import java.util.TimerTask;
 
 
 public class GearPuzzleGame extends MiniGame {
-
+    String sceneName = "gearpuzzle";
     ArrayList<Gear> gears = new ArrayList<Gear>();
     ArrayList<Mount> mounts = new ArrayList<Mount>();
     GearAdapter gearAdapter = new GearAdapter() {
@@ -25,10 +25,14 @@ public class GearPuzzleGame extends MiniGame {
         }
     };
     Gear finalGear;
-    InteractableItem key = new InteractableItem("gearpuzzle/attickey.png", new CollisionBox(0, 0, 80, 80), getMainAdapter());
+    InteractableItem key = new InteractableItem(
+            sceneName,
+            "attickey",
+            new CollisionBox(0, 0, 80, 80),
+            getMainAdapter());
 
     public GearPuzzleGame(MainAdapter mainAdapter) {
-        super("gearpuzzle/minigame_bg.png", mainAdapter);
+        super("UI/game_bg.png", mainAdapter);
 
         Mount mount1 = new Mount(mainAdapter, gearAdapter, 340, 320, 72, 20);
         Mount mount2 = new Mount(mainAdapter, gearAdapter, 428, 280, 48, 0);
@@ -42,9 +46,9 @@ public class GearPuzzleGame extends MiniGame {
         mounts.add(mount5);
         for (Mount mount : mounts) addActor(mount);
 
-        Gear gear1 = new Gear(mainAdapter, 560, 325, 25, "key");
+        Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25);
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
-        final Gear gear4 = new Gear(mainAdapter, 215, 215, 15, "rotate");
+        final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
 
         gears.add(gear4);
         gears.add(gear1);
@@ -133,7 +137,7 @@ public class GearPuzzleGame extends MiniGame {
             if (finalGear.spinning) {
                 if (finalGear.speed > 0) {
                     success = true;
-                    key.addTargetName("attic_door");
+//                    key.addTargetName("attic_door");
                     getMainAdapter().addToInventory(key);
                     final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
                     TimerTask task = new TimerTask() {

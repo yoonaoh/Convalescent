@@ -33,6 +33,16 @@ public class Item extends Actor {
             setBounds(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
             shape.set(0, 0);
         }
+        setOrigin(getWidth() / 2, getHeight() / 2);
+    }
+
+    public Item(CollisionShape shape) {
+        if (shape != null) {
+            this.shape = shape;
+            setBounds(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+            shape.set(0, 0);
+        }
+        setOrigin(getWidth() / 2, getHeight() / 2);
     }
 
     /**
@@ -43,6 +53,10 @@ public class Item extends Actor {
     public void setSprite(String image) {
         textureRegion = new TextureRegion(new Texture(image));
         textureRegion.flip(false, true);
+    }
+
+    public void setSprite(TextureRegion texture) {
+        textureRegion = texture;
     }
 
     public double distance(Item other) {

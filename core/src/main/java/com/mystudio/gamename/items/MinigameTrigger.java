@@ -6,22 +6,22 @@ import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 
-public class MinigameTrigger extends Item {
+public class MinigameTrigger extends ClickListener {
 
     private MiniGame miniGame;
+    private MainAdapter mainAdapter;
 
     /**
      * Constructs an trigger item
      */
-    public MinigameTrigger(String image, CollisionShape shape, final MiniGame miniGame, final MainAdapter mainAdapter) {
-        super(image, shape);
+    public MinigameTrigger(final MiniGame miniGame, final MainAdapter mainAdapter) {
         this.miniGame = miniGame;
-        addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mainAdapter.openWindow(miniGame);
-                return true;
-            }
-        });
+        this.mainAdapter = mainAdapter;
+    }
+
+    @Override
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        mainAdapter.openWindow(miniGame);
+        return true;
     }
 }
