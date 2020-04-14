@@ -43,7 +43,7 @@ public class DarkAveryRoom extends View {
 
         InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(672, 183, 174, 351), mainAdapter);
         actors.addActor(door);
-        InteractableItem opened_door = new InteractableItem(sceneName, "door", new CollisionBox(672, 183, 174, 351), mainAdapter);
+        InteractableItem opened_door = new InteractableItem(sceneName, "open_door", new CollisionBox(658, 130, 200, 410), mainAdapter);
         opened_door.addListener(new SceneTrigger(GameState.DISTURBED_CORRIDOR, mainAdapter));
         door.setAsDropTraget("gearpuzzle/key", opened_door);
 

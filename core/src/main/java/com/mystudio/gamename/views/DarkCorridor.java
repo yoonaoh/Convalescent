@@ -36,6 +36,10 @@ public class DarkCorridor extends View {
 
         bgmFile = "sounds/mode_transition.mp3";
 
+        Item bedroomDoor = new Item(null, new CollisionBox(340, 265, 115, 260));
+        bedroomDoor.addListener(new SceneTrigger(GameState.DISTURBED_AVERY_ROOM, mainAdapter));
+        actors.addActor(bedroomDoor);
+
         Item hallway_end = new Item(new CollisionBox(900, 0, 380, 720));
         hallway_end.addListener(new SceneTrigger(GameState.MAZE, mainAdapter));
         hallway_end.setCursorImage("UI/right.png");

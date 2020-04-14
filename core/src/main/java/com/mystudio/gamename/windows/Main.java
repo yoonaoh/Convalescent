@@ -173,7 +173,7 @@ public class Main extends BasicGame {
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
         views.put(GameState.MAZE, new Maze(mainAdapter));
 
-        state = GameState.DISTURBED_CORRIDOR;
+        state = GameState.DISTURBED_AVERY_ROOM;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         bgm = manager.getMusic("sounds/menu.mp3");
@@ -184,6 +184,8 @@ public class Main extends BasicGame {
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
         settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
         currentBackground().getStage().addActor(settings);
+
+        changeState(state);
     }
 
     @Override
@@ -217,43 +219,43 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
-        if (state != gameState) {
-            state = gameState;
-            avery.force(gameState);
+        state = gameState;
+        avery.force(gameState);
 
-            Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.input.setInputProcessor(currentBackground().getStage());
 
-            // Change out assets
-            inventory.remove();
-            avery.remove();
-            settings.remove();
+        // Change out assets
+        inventory.remove();
+        avery.remove();
+        settings.remove();
 
-            if (currentBackground().includesAvery())
-                currentBackground().getBackground().addActor(avery);
-            if (currentBackground().includesInventory())
-                currentBackground().getStage().addActor(inventory);
+        if (currentBackground().includesAvery())
+            currentBackground().getBackground().addActor(avery);
+        if (currentBackground().includesInventory())
+            currentBackground().getStage().addActor(inventory);
 
-            currentBackground().getBackground().addActor(settings);
-            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            currentBackground().onOpen();
+        currentBackground().getBackground().addActor(settings);
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+        currentBackground().onOpen();
 
             // Change out music
-//            Music oldBGM = bgm;
-//            Music newBGM = manager.getMusic(currentBackground().getBGM());
-//
-//            if (oldBGM != null) {
-//                if (newBGM == null)
-//                    bgm.pause();
-//                else {
-//                    if (!oldBGM.equals(newBGM)) {
-//                        bgm.pause();
-//                        bgm = newBGM;
-//                        bgm.setVolume((float) 0.25);
-//                        bgm.play();
-//                        bgm.setLooping(true);
-//                    }
-//                }
-//            }
+        if (state != gameState && manager.getMusic(currentBackground().getBGM()) != null) {
+            Music oldBGM = bgm;
+            Music newBGM = manager.getMusic(currentBackground().getBGM());
+
+            if (oldBGM != null) {
+                if (newBGM == null)
+                    bgm.pause();
+                else {
+                    if (!oldBGM.equals(newBGM)) {
+                        bgm.pause();
+                        bgm = newBGM;
+                        bgm.setVolume((float) 0.25);
+                        bgm.play();
+                        bgm.setLooping(true);
+                    }
+                }
+            }
         }
     }
 
