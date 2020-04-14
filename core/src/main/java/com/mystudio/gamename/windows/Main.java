@@ -164,9 +164,8 @@ public class Main extends BasicGame {
 //        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
-//        views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
-//        views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
-//        views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
+        views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
+        views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
 
@@ -174,11 +173,6 @@ public class Main extends BasicGame {
 
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
         settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
-//                new MinigameTrigger(
-//                "sounds/settings.png",
-//                new CollisionBox(10, 670, 50, 50),
-//                new Settings(mainAdapter),
-//                mainAdapter);
         currentBackground().getStage().addActor(settings);
 
     }

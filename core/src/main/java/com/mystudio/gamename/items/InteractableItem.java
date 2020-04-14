@@ -112,7 +112,7 @@ public class InteractableItem extends Item {
         dropHandler = new DropTargetHandler() {
             @Override
             public void handleDrop(InteractableItem item) {
-                if (dragItemName.equals(item.name)) {
+                if (dragItemName.equals(item.sceneName + "/" + item.name)) {
                     func.accept(item, getItem());
                 } else {
                     handleDropReset();

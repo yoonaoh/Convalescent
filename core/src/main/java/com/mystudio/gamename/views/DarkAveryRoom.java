@@ -41,12 +41,11 @@ public class DarkAveryRoom extends View {
         includesAvery = true;
         includesInventory = true;
 
-
         InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(672, 183, 174, 351), mainAdapter);
         actors.addActor(door);
         InteractableItem opened_door = new InteractableItem(sceneName, "door", new CollisionBox(672, 183, 174, 351), mainAdapter);
         opened_door.addListener(new SceneTrigger(GameState.DISTURBED_CORRIDOR, mainAdapter));
-        door.setAsDropTraget("key", opened_door);
+        door.setAsDropTraget("gearpuzzle/key", opened_door);
 
         InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 238, 125, 45), mainAdapter);
         MiniGame drawer1_closeup = new MiniGame("UI/drawer_dark_bg.png", mainAdapter);
@@ -92,7 +91,7 @@ public class DarkAveryRoom extends View {
 
         InteractableItem fan = new InteractableItem(sceneName, "fan", new CollisionBox(550, 30, 142, 214), mainAdapter);
         shelf_closeup.addActor(fan);
-        fan.setAsDropTraget("screwdriver", new BiConsumer<InteractableItem, InteractableItem>() {
+        fan.setAsDropTraget("dark_bedroom/screwdriver", new BiConsumer<InteractableItem, InteractableItem>() {
                     @Override
                     public void accept(InteractableItem source, InteractableItem target) {
                         Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
