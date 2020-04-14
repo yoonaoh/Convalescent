@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mystudio.gamename.animations.Avery;
+import com.mystudio.gamename.animations.Avery;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.GameState;
@@ -166,12 +167,11 @@ public class Main extends BasicGame {
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
         views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
-        views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
         views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
 
-        changeState(GameState.MENU);
+        state = GameState.MENU;
 
         bgm = manager.getMusic("sounds/menu.mp3");
         bgm.setVolume((float) 0.25);
@@ -181,6 +181,8 @@ public class Main extends BasicGame {
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
         settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
         currentBackground().getStage().addActor(settings);
+
+        changeState(GameState.MENU);
     }
 
     @Override

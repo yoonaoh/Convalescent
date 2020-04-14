@@ -25,14 +25,14 @@ public class DarkCorridor extends View {
         sceneName = "dark_corridor";
 
         // Add bedroom door
-        SceneTrigger bedroomDoor = new SceneTrigger(null, new CollisionPolygon(new float[]{
-                354, 270,
-                354, 512,
-                449, 512,
-                449, 274,
-        }), GameState.DISTURBED_AVERY_ROOM, mainAdapter);
-        bedroomDoor.setHeight(250);
-        actors.addActor(bedroomDoor);
+//        SceneTrigger bedroomDoor = new SceneTrigger(null, new CollisionPolygon(new float[]{
+//                354, 270,
+//                354, 512,
+//                449, 512,
+//                449, 274,
+//        }), GameState.DISTURBED_AVERY_ROOM, mainAdapter);
+//        bedroomDoor.setHeight(250);
+//        actors.addActor(bedroomDoor);
 
         bgmFile = "sounds/mode_transition.mp3";
 
