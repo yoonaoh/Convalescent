@@ -31,26 +31,27 @@ public class Corridor extends View {
         // Add pictures
 
         InteractableItem frame1 = new InteractableItem(sceneName, "frame1", new CollisionBox(450, 420, 80, 70), mainAdapter);
-        frame1.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter,false), mainAdapter));
+//        frame1.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter,false), mainAdapter));
         actors.addActor(frame1);
 
-        InteractableItem frame2 = new InteractableItem(sceneName, "frame2", new CollisionBox(660, 390, 140, 120), mainAdapter);
-        frame2.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, false), mainAdapter));
+        InteractableItem frame2 = new InteractableItem(sceneName, "frame2", new CollisionBox(660, 390, 120, 120), mainAdapter);
+//        frame2.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, false), mainAdapter));
         actors.addActor(frame2);
 
         // Add attic door
-//        InteractableItem atticDoor = new InteractableItem(sceneName, "attic_door", new CollisionPolygon(new float[]{
-//                111, 597,
-//                79, 699,
-//                414, 702,
-//                286, 595
-//        }), mainAdapter);
+//        InteractableItem atticDoor = new InteractableItem(sceneName, "attic_door", new CollisionBox(111, 597, 200, 300), mainAdapter);
 //        actors.addActor(atticDoor);
 //
         // Add bedroom door
         InteractableItem bedroomDoor = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(340, 265, 115, 260), mainAdapter);
         bedroomDoor.addListener(new SceneTrigger(GameState.AVERY_ROOM, mainAdapter));
         actors.addActor(bedroomDoor);
+
+        InteractableItem door1 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(510, 200, 160, 350), mainAdapter);
+        actors.addActor(door1);
+
+        InteractableItem door2 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(760, 80, 240, 500), mainAdapter);
+        actors.addActor(door2);
 //        bedroomDoor.setSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/wood_door_close.mp3")));
 //        bedroomDoor.setHeight(250);
 

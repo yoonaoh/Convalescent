@@ -50,9 +50,9 @@ public class AveryRoom extends View {
 //        actors.addActor(backpack);
 
         MiniGame memory = new MemoryPuzzleGame(mainAdapter);
-        InteractableItem frame1 = new InteractableItem("bedroom", "frame1", new CollisionBox(260, 400, 114, 96), mainAdapter);
-        frame1.addListener(new MinigameTrigger(memory, mainAdapter));
-        actors.addActor(frame1);
+        InteractableItem frame3 = new InteractableItem("bedroom", "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
+        frame3.addListener(new MinigameTrigger(memory, mainAdapter));
+        actors.addActor(frame3);
 
         // Add tile puzzle frame trigger
 //        MiniGame tileGame = new TilePuzzleGame(mainAdapter);
@@ -64,9 +64,9 @@ public class AveryRoom extends View {
         door.addListener(new SceneTrigger(GameState.CORRIDOR, mainAdapter)); // bedroom/door
         actors.addActor(door); // bedroom/normal/door  bedroom/selected/door bedroom/inventory/door
 
-        InteractableItem frame3 = new InteractableItem("bedroom", "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
-        frame3.setDialog("Hey, this is a line");
-        frame3.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, true), mainAdapter));
-        actors.addActor(frame3);
+//        InteractableItem frame3 = new InteractableItem("bedroom", "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
+//        frame3.setDialog("Hey, this is a line");
+//        frame3.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, true), mainAdapter));
+//        actors.addActor(frame3);
     }
 }

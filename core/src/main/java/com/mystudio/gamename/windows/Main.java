@@ -234,22 +234,22 @@ public class Main extends BasicGame {
             currentBackground().getBackground().addActor(settings);
 
             // Change out music
-            Music oldBGM = bgm;
-            Music newBGM = manager.getMusic(currentBackground().getBGM());
-
-            if (oldBGM != null) {
-                if (newBGM == null)
-                    bgm.pause();
-                else {
-                    if (!oldBGM.equals(newBGM)) {
-                        bgm.pause();
-                        bgm = newBGM;
-                        bgm.setVolume((float) 0.25);
-                        bgm.play();
-                        bgm.setLooping(true);
-                    }
-                }
-            }
+//            Music oldBGM = bgm;
+//            Music newBGM = manager.getMusic(currentBackground().getBGM());
+//
+//            if (oldBGM != null) {
+//                if (newBGM == null)
+//                    bgm.pause();
+//                else {
+//                    if (!oldBGM.equals(newBGM)) {
+//                        bgm.pause();
+//                        bgm = newBGM;
+//                        bgm.setVolume((float) 0.25);
+//                        bgm.play();
+//                        bgm.setLooping(true);
+//                    }
+//                }
+//            }
         }
     }
 
