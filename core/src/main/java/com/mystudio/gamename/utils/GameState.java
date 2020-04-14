@@ -15,5 +15,6 @@ public enum GameState {
     CORRIDOR,
     DISTURBED_CORRIDOR,
     BATHROOM,
-    END
+    END,
+    MAZE
 }

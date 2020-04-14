@@ -170,8 +170,9 @@ public class Main extends BasicGame {
         views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
+        views.put(GameState.MAZE, new Maze(mainAdapter));
 
-        state = GameState.MENU;
+        state = GameState.DISTURBED_AVERY_ROOM;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         bgm = manager.getMusic("sounds/menu.mp3");

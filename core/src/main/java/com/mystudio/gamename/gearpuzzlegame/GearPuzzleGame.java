@@ -49,6 +49,7 @@ public class GearPuzzleGame extends MiniGame {
         Gear gear1 = new Gear(mainAdapter, 560, 325, 120, 25);
         Gear gear3 = new Gear(mainAdapter, 340, 320, 72, 20);
         final Gear gear4 = new Gear(mainAdapter, 215, 215, 120, 15);
+        gear4.setCursorImage("UI/circular.png");
 
         gears.add(gear4);
         gears.add(gear1);

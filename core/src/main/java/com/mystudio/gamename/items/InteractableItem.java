@@ -1,5 +1,8 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
