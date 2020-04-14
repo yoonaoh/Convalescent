@@ -1,6 +1,5 @@
 package com.mystudio.gamename.views;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -19,7 +18,7 @@ public class View {
     Boolean includesAvery;
     Boolean includesInventory;
     MainAdapter mainAdapter;
-    Sound bgm;
+    String bgmFile;
 
     public View(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -28,7 +27,7 @@ public class View {
         stage.addActor(bg_actors);
         actors = new Group();
         stage.addActor(actors);
-        bgm = null;
+        bgmFile = null;
     }
 
     public Polygon getFloorspace() {
@@ -63,5 +62,5 @@ public class View {
         return bg_actors;
     }
 
-    public Sound getBGM() { return bgm; }
+    public String getBGM() { return bgmFile; }
 }

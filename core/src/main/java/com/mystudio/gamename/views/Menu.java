@@ -49,7 +49,7 @@ public class Menu extends View {
         actors.addActor(startButton);
         actors.addActor(quitButton);
 
-        // Play music
-        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/menu.mp3"));
+        // Add music
+        bgmFile = "sounds/menu.mp3";
     }
 }

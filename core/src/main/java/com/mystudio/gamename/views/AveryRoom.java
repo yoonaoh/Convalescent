@@ -2,9 +2,12 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mystudio.gamename.items.InteractableItem;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
+import com.mystudio.gamename.memorypuzzle.MemoryPuzzleGame;
 import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -28,7 +31,31 @@ public class AveryRoom extends View {
             1102,0
         });
         includesAvery = true;
-        includesInventory = true;
+        includesInventory = false;
+
+        // TODO: Add backpack
+//        final Item backpack = new Item("items/baggo.png", new CollisionBox(425, 169, 75, 75));
+//        backpack.addListener(new ClickListener() {
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                actors.removeActor(backpack);
+//                includesInventory = true;
+//                mainAdapter.updateState(GameState.AVERY_ROOM);
+//            }
+//
+//        });
+//        actors.addActor(backpack);
+
+        // TODO:
+        MiniGame memory = new MemoryPuzzleGame(mainAdapter);
+        MinigameTrigger frame = new MinigameTrigger("items/frame3.png", new CollisionBox(260, 400, 114, 96), memory, mainAdapter);
+        actors.addActor(frame);
+
+        // Add tile puzzle frame trigger
+//        MiniGame tileGame = new TilePuzzleGame(mainAdapter);
+//        MinigameTrigger frame = new MinigameTrigger("items/frame3.png", new CollisionBox(260, 400, 114, 96), tileGame, mainAdapter);
+//        actors.addActor(frame);
 
         // Add door to hallway
         InteractableItem door = new InteractableItem("bedroom", "door", new CollisionBox(660, 178, 200, 362),  mainAdapter);

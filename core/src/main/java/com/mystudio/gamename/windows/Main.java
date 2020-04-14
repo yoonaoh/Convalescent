@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mystudio.gamename.animations.Avery;
@@ -28,6 +29,9 @@ import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 
 public class Main extends BasicGame {
 
@@ -48,23 +52,19 @@ public class Main extends BasicGame {
 
     private Window window;
 
-    private Music music;
-
     private Inventory inventory;
 
     private InteractableItem settings;
 
     private HashMap<String, ArrayList<InteractableItem>> targetRegistry = new HashMap<String, ArrayList<InteractableItem>>();
 
-//    private Avery avery;
+    private Avery avery;
 
     private boolean game_in_progress = false;
 
     private Manager manager;
 
-    private Sound bgm = null;
-
-    private long bgm_id = 0;
+    private Music bgm = null;
 
     public Main(boolean debug) {
         this.debug = debug;
@@ -134,12 +134,12 @@ public class Main extends BasicGame {
 
         @Override
         public void forceAveryTo(GameState to) {
-//            avery.force(to);
+            avery.force(to);
         }
 
         @Override
         public void playSoundEffect(Sound sound) {
-//            sound.play(0.1f);
+            sound.play(0.1f);
         }
 
         @Override
@@ -155,36 +155,41 @@ public class Main extends BasicGame {
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
-//        avery = new Avery(mainAdapter);
+        avery = new Avery(mainAdapter);
         inventory = new Inventory(mainAdapter);
         manager = new Manager();
 
         views = new HashMap<GameState, View>();
-
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.INTRO, new Intro(mainAdapter));
 //        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
         views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
+        views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
         views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
 
         changeState(GameState.MENU);
 
+        bgm = manager.getMusic("sounds/menu.mp3");
+        bgm.setVolume((float) 0.25);
+        bgm.play();
+        bgm.setLooping(true);
+
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
         settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
         currentBackground().getStage().addActor(settings);
-
     }
 
     @Override
     public void update(float delta) {
-//        avery.update();
+        avery.update();
         currentBackground().getStage().act(delta);
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+
     }
 
     @Override
@@ -198,8 +203,8 @@ public class Main extends BasicGame {
         currentBackground().getStage().setDebugAll(debug);
         currentBackground().drawStage();
 
-//        if (currentBackground().includesAvery() && !game_in_progress)
-//            avery.render(batch);
+        if (currentBackground().includesAvery() && !game_in_progress)
+            avery.render(batch);
 
     }
 
@@ -209,32 +214,42 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
-        state = gameState;
-//        avery.force(gameState);
 
-        Gdx.input.setInputProcessor(currentBackground().getStage());
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (state != gameState) {
+            state = gameState;
+            avery.force(gameState);
 
+            Gdx.input.setInputProcessor(currentBackground().getStage());
 
-        // Change out assets
-        inventory.remove();
-//        avery.remove();
+            // Change out assets
+            inventory.remove();
+            avery.remove();
+            settings.remove();
 
-//        if (currentBackground().includesAvery())
-//            currentBackground().getBackground().addActor(avery);
-        if (currentBackground().includesInventory())
-            currentBackground().getStage().addActor(inventory);
+            if (currentBackground().includesAvery())
+                currentBackground().getBackground().addActor(avery);
+            if (currentBackground().includesInventory())
+                currentBackground().getStage().addActor(inventory);
 
-        // Change out music
-        if (bgm != null) {
-            bgm.pause();
-        }
-        if (currentBackground().getBGM() != null) {
-            bgm = currentBackground().getBGM();
-        }
-        if (state != GameState.DARK_ATTIC) {
-//            bgm_id = bgm.play(1f);
-//            bgm.loop(bgm_id);
+            currentBackground().getBackground().addActor(settings);
+
+            // Change out music
+            Music oldBGM = bgm;
+            Music newBGM = manager.getMusic(currentBackground().getBGM());
+
+            if (oldBGM != null) {
+                if (newBGM == null)
+                    bgm.pause();
+                else {
+                    if (!oldBGM.equals(newBGM)) {
+                        bgm.pause();
+                        bgm = newBGM;
+                        bgm.setVolume((float) 0.25);
+                        bgm.play();
+                        bgm.setLooping(true);
+                    }
+                }
+            }
         }
     }
 

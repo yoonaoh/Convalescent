@@ -3,7 +3,6 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
 import com.mystudio.gamename.utils.GameState;
