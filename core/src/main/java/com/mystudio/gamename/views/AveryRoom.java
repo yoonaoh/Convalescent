@@ -36,6 +36,7 @@ public class AveryRoom extends View {
         actors.addActor(door);
 
         InteractableItem frame3 = new InteractableItem("bedroom", "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
+        frame3.setDialog("Hey, this is a line");
         frame3.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, true), mainAdapter));
         actors.addActor(frame3);
     }

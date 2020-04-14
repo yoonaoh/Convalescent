@@ -28,7 +28,6 @@ public class Menu extends View {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.addView(GameState.INTRO, new Intro(mainAdapter));
                 mainAdapter.updateState(GameState.INTRO);
             }
 

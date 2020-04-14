@@ -4,12 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mystudio.gamename.utils.DragAndDropModified;
-import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
@@ -24,6 +22,7 @@ public class InteractableItem extends Item {
 
     public String sceneName;
     public String name;
+    public String dialog = "";
 
     private TextureRegion image;
     private TextureRegion selected_image;
@@ -52,6 +51,16 @@ public class InteractableItem extends Item {
         }
     };
 
+    private ClickListener dialogListener = new ClickListener() {
+        @Override
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            if (!dialog.equals("")) {
+                mainAdapter.showDialog(dialog);
+            }
+            return super.touchDown(event, x, y, pointer, button);
+        }
+    };
+
     public MainAdapter mainAdapter;
     public boolean inInventory = false;
 
@@ -71,6 +80,11 @@ public class InteractableItem extends Item {
         this.dragNdrop = new DragAndDropModified();
         mainAdapter.addToTargetRegistry("", getItem());
         addListener(hoverListener);
+    }
+
+    public void setDialog(String dialog) {
+        this.dialog = dialog;
+        addListener(dialogListener);
     }
 
     public void setDraggable() {

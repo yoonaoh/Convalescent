@@ -41,5 +41,5 @@ public interface MainAdapter {
 
     void playSoundEffect(Sound sound);
 
-    void addView(GameState state, View view);
+    void showDialog(String dialog);
 }

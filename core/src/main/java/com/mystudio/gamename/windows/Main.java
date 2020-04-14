@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mystudio.gamename.animations.Avery;
@@ -140,10 +143,9 @@ public class Main extends BasicGame {
         }
 
         @Override
-        public void addView(GameState state, View view) {
-            views.put(state, view);
+        public void showDialog(String dialog) {
+            addDialog(dialog);
         }
-
     };
 
     @Override
@@ -252,6 +254,16 @@ public class Main extends BasicGame {
         game_in_progress = false;
         window.remove();
         currentBackground().getActors().setTouchable(Touchable.enabled);
+    }
+
+    private void addDialog(String dialog) {
+        final Label label = new Label(dialog, mainAdapter.getManager().getSkin());
+        label.setWrap(true);
+        label.setAlignment(Align.center);
+        label.setWidth(500);
+        label.setPosition(390, 600);
+        label.addAction(Actions.sequence(Actions.delay(3.0f), Actions.fadeOut(1.0f), Actions.removeActor()));
+        currentBackground().getStage().addActor(label);
     }
 
 }
