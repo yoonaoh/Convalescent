@@ -37,7 +37,7 @@ public class TilePuzzleGame extends MiniGame {
     private boolean shouldFlicker;
 
     public TilePuzzleGame(MainAdapter mainAdapter, boolean shouldFlicker) {
-        super("tilepuzzle/frame4.png", mainAdapter);
+        super("tilepuzzle/empty_bg.png", mainAdapter);
 
         camera = mainAdapter.getViewPort().getCamera();
         font24 = mainAdapter.getManager().getFont();
@@ -46,6 +46,8 @@ public class TilePuzzleGame extends MiniGame {
         this.skin = mainAdapter.getManager().getSkin();
         image = mainAdapter.getManager().getTexture("tilepuzzle/TileLevel1.png");
         this.shouldFlicker = shouldFlicker;
+        setPosition(400, 100);
+        setSize(500, 500);
 
         initGrid();
         shuffle();
@@ -89,7 +91,7 @@ public class TilePuzzleGame extends MiniGame {
                 if (i != holeY || j != holeX) {
                     int id = nums.removeIndex(0);
                     buttonGrid[i][j] = new Tile(skin, id, new TextureRegion(image, (image.getHeight() / boardSize) * j, (image.getWidth() / boardSize) * i, image.getWidth() / boardSize, image.getHeight() / boardSize));
-                    buttonGrid[i][j].setPosition((camera.viewportWidth / 3) - 200 + (101 * j),
+                    buttonGrid[i][j].setPosition((camera.viewportWidth / 3) - 330 + (101 * j),
                             (camera.viewportHeight / 3) + 100 - (101 * i));
                     buttonGrid[i][j].setSize(100, 100);
                     buttonGrid[i][j].addAction(sequence(alpha(0), delay((j + 1 + (i * boardSize)) / 60f),
@@ -123,15 +125,15 @@ public class TilePuzzleGame extends MiniGame {
                                         @Override
                                         public void run() {
                                             close();
-                                            for (int i = 0; i < 3; i++) {
-                                                flicker();
-                                            }
+//                                            for (int i = 0; i < 3; i++) {
+//                                                flicker();
+//                                            }
                                             try {
                                                 Thread.sleep(50);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
-                                            getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
+                                            getMainAdapter().updateState(GameState.ATTIC);
                                             timer.cancel();
                                         }
                                     };

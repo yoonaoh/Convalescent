@@ -1,47 +1,47 @@
-//package com.mystudio.gamename.views;
-//
-//import com.badlogic.gdx.Gdx;
-//import com.badlogic.gdx.Input;
-//import com.badlogic.gdx.graphics.Texture;
-//import com.badlogic.gdx.scenes.scene2d.InputEvent;
-//import com.badlogic.gdx.scenes.scene2d.ui.Label;
-//import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-//import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
-//import com.mystudio.gamename.items.*;
-//import com.mystudio.gamename.utils.GameState;
-//import com.mystudio.gamename.utils.MainAdapter;
-//import com.mystudio.gamename.windows.Inventory;
-//import com.mystudio.gamename.windows.MiniGame;
-//import org.mini2Dx.core.engine.geom.CollisionBox;
-//import org.mini2Dx.core.engine.geom.CollisionPolygon;
-//import org.mini2Dx.core.geom.Polygon;
-//
-//public class LightAttic extends View {
-//    public LightAttic(final MainAdapter mainAdapter) {
-//        super(mainAdapter);
-//        background = new Texture("views/attic_bg_light.png");
-//        floorspace = new Polygon(new float[]{
-//                80, 0,
-//                616, 277,
-//                749, 277,
-//                670, 210,
-//                831, 210,
-//                873, 277,
-//                938, 277,
-//                938, 222,
-//                1018, 222,
-//                1018, 277,
-//                1035, 277,
-//                1035, 250,
-//                1185, 250,
-//                1185, 277,
-//                1250, 277,
-//                1280, 250,
-//                1280, 0
-//        });
-//        includesAvery = true;
-//        includesInventory = false;
-//
+package com.mystudio.gamename.views;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
+import com.mystudio.gamename.items.*;
+import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.MainAdapter;
+import com.mystudio.gamename.windows.Inventory;
+import com.mystudio.gamename.windows.MiniGame;
+import org.mini2Dx.core.engine.geom.CollisionBox;
+import org.mini2Dx.core.engine.geom.CollisionPolygon;
+import org.mini2Dx.core.geom.Polygon;
+
+public class LightAttic extends View {
+    public LightAttic(final MainAdapter mainAdapter) {
+        super(mainAdapter);
+        background = new Texture("views/attic_bg_light.png");
+        floorspace = new Polygon(new float[]{
+                80, 0,
+                616, 277,
+                749, 277,
+                670, 210,
+                831, 210,
+                873, 277,
+                938, 277,
+                938, 222,
+                1018, 222,
+                1018, 277,
+                1035, 277,
+                1035, 250,
+                1185, 250,
+                1185, 277,
+                1250, 277,
+                1280, 250,
+                1280, 0
+        });
+        includesAvery = true;
+        includesInventory = false;
+
 //        // Add window
 //        SceneTrigger window = new SceneTrigger(null,
 //                new CollisionBox(840, 380, 150, 160), GameState.DARK_ATTIC, mainAdapter);
@@ -118,5 +118,5 @@
 //        actors.addActor(door);
 //
 //        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/secure_world.mp3"));
-//    }
-//}
+    }
+}

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -163,7 +164,7 @@ public class Main extends BasicGame {
         views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.INTRO, new Intro(mainAdapter));
-//        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
+        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
         views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
@@ -172,7 +173,7 @@ public class Main extends BasicGame {
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
         views.put(GameState.MAZE, new Maze(mainAdapter));
 
-        state = GameState.DISTURBED_AVERY_ROOM;
+        state = GameState.DISTURBED_CORRIDOR;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         bgm = manager.getMusic("sounds/menu.mp3");
@@ -233,6 +234,8 @@ public class Main extends BasicGame {
                 currentBackground().getStage().addActor(inventory);
 
             currentBackground().getBackground().addActor(settings);
+            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            currentBackground().onOpen();
 
             // Change out music
 //            Music oldBGM = bgm;

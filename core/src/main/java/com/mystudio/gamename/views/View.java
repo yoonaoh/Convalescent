@@ -30,6 +30,8 @@ public class View {
         bgmFile = null;
     }
 
+    public void onOpen() {}
+
     public Polygon getFloorspace() {
         return floorspace;
     }
