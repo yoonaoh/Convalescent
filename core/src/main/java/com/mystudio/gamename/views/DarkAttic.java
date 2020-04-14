@@ -2,21 +2,16 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
-import com.mystudio.gamename.mazepuzzle.MazePuzzleGame;
+import com.mystudio.gamename.memorypuzzle.MemoryPuzzleGame;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DarkAttic extends View {
     public DarkAttic(final MainAdapter mainAdapter) {
@@ -52,11 +47,7 @@ public class DarkAttic extends View {
         Item shelf = new Item("views/shelf_dark.png", new CollisionBox(1035, 250, 150, 270));
         actors.addActor(shelf);
 
+        bgmFile = "sounds/secure_world.mp3";
 
-        // Add trigger for the maze game
-        MiniGame mazeGame = new MazePuzzleGame(mainAdapter);
-        MinigameTrigger
-            mazeGameTrigger = new MinigameTrigger("mazepuzzle/bug.png", new CollisionBox(0, 0, 100, 100), mazeGame, mainAdapter);
-        actors.addActor(mazeGameTrigger);
     }
 }

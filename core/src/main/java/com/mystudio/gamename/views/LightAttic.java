@@ -1,7 +1,6 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,7 +9,6 @@ import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.*;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
-import com.mystudio.gamename.windows.Inventory;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionPolygon;
@@ -40,7 +38,7 @@ public class LightAttic extends View {
                 1280, 0
         });
         includesAvery = true;
-        includesInventory = false;
+        includesInventory = true;
 
         // Add window
         SceneTrigger window = new SceneTrigger(null,
@@ -57,22 +55,6 @@ public class LightAttic extends View {
         Item fan = new Item("items/fan.png", new CollisionBox(1057, 399, 32, 44));
         actors.addActor(screwdriver);
         actors.addActor(fan);
-
-
-        // Add backpack
-        final Item backpack = new Item("items/baggo.png", new CollisionBox(946, 256, 75, 75));
-        backpack.addListener(new ClickListener() {
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                actors.removeActor(backpack);
-                includesInventory = true;
-                mainAdapter.updateState(GameState.ATTIC);
-            }
-
-        });
-        actors.addActor(backpack);
-
 
         // Add attic table
         Item table = new Item("items/attic_table.png", new CollisionBox(625, 177, 240, 160));
@@ -93,6 +75,7 @@ public class LightAttic extends View {
         door.addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
+               mainAdapter.playSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/locked_door.mp3")));
                Label lockedPrompt = new Label("It's locked.", mainAdapter.getManager().getSkin());
            }
         });
@@ -117,6 +100,6 @@ public class LightAttic extends View {
         mainAdapter.addToTargetRegistry("attic_door", door);
         actors.addActor(door);
 
-        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/secure_world.mp3"));
+        bgmFile = "sounds/secure_world.mp3";
     }
 }

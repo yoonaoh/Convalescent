@@ -1,6 +1,7 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.animations.Avery;
@@ -25,6 +27,9 @@ import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 
 public class Main extends BasicGame {
 
@@ -45,8 +50,6 @@ public class Main extends BasicGame {
 
     private Window window;
 
-    private Music music;
-
     private Inventory inventory;
 
     private MinigameTrigger settings;
@@ -59,9 +62,7 @@ public class Main extends BasicGame {
 
     private Manager manager;
 
-    private Sound bgm = null;
-
-    private long bgm_id = 0;
+    private Music bgm = null;
 
     public Main(boolean debug) {
         this.debug = debug;
@@ -169,6 +170,11 @@ public class Main extends BasicGame {
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
+        bgm = manager.getMusic("sounds/menu.mp3");
+        bgm.setVolume((float) 0.25);
+        bgm.play();
+        bgm.setLooping(true);
+
         Settings setting = new Settings(mainAdapter);
         settings = new MinigameTrigger("sounds/settings.png", new CollisionBox(10, 670, 50, 50), setting, mainAdapter);
         currentBackground().getStage().addActor(settings);
@@ -180,8 +186,8 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
     }
 
@@ -207,35 +213,42 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
-        state = gameState;
-        avery.force(gameState);
 
-        Gdx.input.setInputProcessor(currentBackground().getStage());
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (state != gameState) {
+            state = gameState;
+            avery.force(gameState);
 
+            Gdx.input.setInputProcessor(currentBackground().getStage());
 
-        // Change out assets
-        inventory.remove();
-        avery.remove();
-        settings.remove();
+            // Change out assets
+            inventory.remove();
+            avery.remove();
+            settings.remove();
 
-        if (currentBackground().includesAvery())
-            currentBackground().getBackground().addActor(avery);
-        if (currentBackground().includesInventory())
-            currentBackground().getStage().addActor(inventory);
+            if (currentBackground().includesAvery())
+                currentBackground().getBackground().addActor(avery);
+            if (currentBackground().includesInventory())
+                currentBackground().getStage().addActor(inventory);
 
-        currentBackground().getBackground().addActor(settings);
+            currentBackground().getBackground().addActor(settings);
 
-        // Change out music
-        if (bgm != null) {
-            bgm.pause();
-        }
-        if (currentBackground().getBGM() != null) {
-            bgm = currentBackground().getBGM();
-        }
-        if (state != GameState.DARK_ATTIC) {
-            bgm_id = bgm.play(1f);
-            bgm.loop(bgm_id);
+            // Change out music
+            Music oldBGM = bgm;
+            Music newBGM = manager.getMusic(currentBackground().getBGM());
+
+            if (oldBGM != null) {
+                if (newBGM == null)
+                    bgm.pause();
+                else {
+                    if (!oldBGM.equals(newBGM)) {
+                        bgm.pause();
+                        bgm = newBGM;
+                        bgm.setVolume((float) 0.25);
+                        bgm.play();
+                        bgm.setLooping(true);
+                    }
+                }
+            }
         }
     }
 

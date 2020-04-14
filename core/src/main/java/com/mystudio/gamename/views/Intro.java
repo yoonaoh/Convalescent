@@ -1,7 +1,6 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -61,7 +60,7 @@ public class Intro extends View {
                     state = 3;
                 } else if (state == 3) {
                     part3.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
-                    mainAdapter.updateState(GameState.DARK_ATTIC);
+                    mainAdapter.updateState(GameState.AVERY_ROOM);
                 }
             }
 
@@ -72,6 +71,6 @@ public class Intro extends View {
         });
 
         // Add music
-        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/intro.mp3"));
+        bgmFile = "sounds/intro.mp3";
     }
 }

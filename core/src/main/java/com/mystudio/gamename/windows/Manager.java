@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -47,9 +48,15 @@ public class Manager {
         skin.add("default-font", assetManager.get("fonts/default.ttf"));
         skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
 
-        // Sounds
-//        assetManager.load("sounds/secure.mp3", Sound.class);
-//        assetManager.load("sounds/Disturbed.mp3", Sound.class);
+        // Music
+        assetManager.load("sounds/menu.mp3", Music.class);
+        assetManager.load("sounds/intro.mp3", Music.class);
+        assetManager.load("sounds/secure_world.mp3", Music.class);
+        assetManager.load("sounds/mode_transition.mp3", Music.class);
+        assetManager.load("sounds/disturbed.mp3", Music.class);
+
+        // Sound Effects
+        assetManager.load("sounds/wood_door_close.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
@@ -66,16 +73,6 @@ public class Manager {
         }
     }
 
-    public void playBackgroundMusic(String music) {
-        cur_bg = assetManager.get(music);
-        cur_bg_id = cur_bg.play(mastervol);
-        cur_bg.loop(cur_bg_id);
-    }
-
-    public void stopBackgroundMusic() {
-        cur_bg.stop(cur_bg_id);
-    }
-
     public Skin getSkin() {
         return skin;
     }
@@ -86,6 +83,10 @@ public class Manager {
 
     public Texture getTexture(String image) {
         return assetManager.get(image);
+    }
+
+    public Music getMusic (String filename) {
+        return assetManager.get(filename, Music.class);
     }
 
     public void dispose() {

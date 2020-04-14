@@ -1,7 +1,6 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -50,7 +49,7 @@ public class Menu extends View {
         actors.addActor(startButton);
         actors.addActor(quitButton);
 
-        // Play music
-        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/menu.mp3"));
+        // Add music
+        bgmFile = "sounds/menu.mp3";
     }
 }

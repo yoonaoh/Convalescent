@@ -13,9 +13,7 @@ import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 
 public class Settings extends MiniGame {
-    private float mastervol = 1f;
-    private int cur_sound_id = 0;
-    private Sound cur_sound;
+
     Slider slider;
     Slider effects_slider;
 
@@ -70,7 +68,7 @@ public class Settings extends MiniGame {
         addActor(effects_slider);
 
         TextButton mainMenuBtn = new TextButton("MAIN MENU", mainAdapter.getManager().getSkin());
-        mainMenuBtn.setPosition(100, 140);
+        mainMenuBtn.setPosition(100, 130);
         mainMenuBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

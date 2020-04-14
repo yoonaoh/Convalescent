@@ -39,6 +39,6 @@ public class DarkAveryRoom extends View {
         actors.addActor(door);
 
         // Play music
-        bgm = Gdx.audio.newSound(Gdx.files.internal("sounds/disturbed_transition.mp3"));
+        bgmFile = "sounds/mode_transition.mp3";
     }
 }

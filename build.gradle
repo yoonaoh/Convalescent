@@ -70,6 +70,7 @@ project(":desktop") {
         exe {
             vmArgs = ["-Xmx1g"]
             exeName = "Convalescent"
+            // withJre("path/to/jre/EDIT LATER")
         }
         app {
             vmArgs = ["-Xmx1g"]
@@ -79,10 +80,12 @@ project(":desktop") {
             displayName = "Convalescent"
             identifier = "Convalescent"
             copyright = "Copyright 2020 Your Company Name"
+            // withJre("path/to/jre/EDIT LATER")
         }
         linux {
             vmArgs = ["-Xmx1g"]
             binName = "Convalescent"
+            // withJre("path/to/jre/EDIT LATER")
         }
     }
     butler {

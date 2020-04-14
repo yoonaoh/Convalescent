@@ -34,5 +34,7 @@ public class DarkCorridor extends View {
         }), GameState.DISTURBED_AVERY_ROOM, mainAdapter);
         bedroomDoor.setHeight(250);
         actors.addActor(bedroomDoor);
+
+        bgmFile = "sounds/mode_transition.mp3";
     }
 }
