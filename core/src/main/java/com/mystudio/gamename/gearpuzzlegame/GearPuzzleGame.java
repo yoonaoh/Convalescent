@@ -27,7 +27,7 @@ public class GearPuzzleGame extends MiniGame {
     Gear finalGear;
     InteractableItem key = new InteractableItem(
             sceneName,
-            "attickey",
+            "key",
             new CollisionBox(0, 0, 80, 80),
             getMainAdapter());
 
@@ -117,19 +117,6 @@ public class GearPuzzleGame extends MiniGame {
         for (Gear g : gears) g.setRotation(g.originalAngle);
     }
 
-    private void keySignal() {
-        Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-            public void run() {
-                key.setPosition(key.getX() - 5, key.getY());
-            }
-        }, (float) 0.01, (float) 0.02, 3);
-        Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-            public void run() {
-                key.setPosition(key.getX() + 5, key.getY());
-            }
-        }, (float) 0.02, (float) 0.02, 3);
-    }
-
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -137,8 +124,7 @@ public class GearPuzzleGame extends MiniGame {
             if (finalGear.spinning) {
                 if (finalGear.speed > 0) {
                     success = true;
-//                    key.addTargetName("attic_door");
-                    getMainAdapter().addToInventory(key);
+                    key.pickup();
                     final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
                     TimerTask task = new TimerTask() {
                         @Override

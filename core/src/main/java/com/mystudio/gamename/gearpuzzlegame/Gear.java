@@ -19,8 +19,8 @@ public class Gear extends InteractableItem {
         super("gearpuzzle", name, new CollisionCircleModified(x, y, radius), mainAdapter);
         this.originalAngle = originalAngle;
         this.radius = radius;
-        speed = speed / radius;
-//        addTargetName("mount");
+        this.speed = speed / radius;
+        this.changeShape = true;
     }
 
     @Override

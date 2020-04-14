@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mystudio.gamename.utils.DragAndDropModified;
+import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
@@ -19,7 +20,7 @@ import java.util.function.Consumer;
 
 public class InteractableItem extends Item {
 
-    private boolean changeShape = false;
+    public boolean changeShape = false;
 
     public String sceneName;
     public String name;
@@ -31,7 +32,12 @@ public class InteractableItem extends Item {
     private DragAndDropModified dragNdrop;
     private DragAndDropModified.Source dragSource = null;
     private ClickListener pickupListener = null;
-    public DropTargetHandler dropHandler = null;
+    public DropTargetHandler dropHandler = new DropTargetHandler() {
+        @Override
+        public void handleDrop(InteractableItem item) {
+            item.handleDropReset();
+        }
+    };
 
     private ClickListener hoverListener = new ClickListener() {
         @Override
@@ -63,18 +69,18 @@ public class InteractableItem extends Item {
 
         this.mainAdapter = mainAdapter;
         this.dragNdrop = new DragAndDropModified();
-        mainAdapter.addToTargetRegistry(sceneName, getItem());
+        mainAdapter.addToTargetRegistry("", getItem());
         addListener(hoverListener);
     }
 
     public void setDraggable() {
         dragSource = new DragAndDropModified.Source(getItem()) {
             public DragAndDropModified.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                InteractableItem item = (InteractableItem) getActor();
+                InteractableItem item = getItem();
                 item.visible = false;
                 item.setTouchable(Touchable.disabled);
 
-                item.addDragNDropTargets(mainAdapter.getTargetRegistry(sceneName));
+                item.addDragNDropTargets(mainAdapter.getTargetRegistry(""));
 
                 DragAndDropModified.Payload payload = new DragAndDropModified.Payload();
                 payload.setDragActor(new Image(item.textureRegion));
@@ -87,8 +93,7 @@ public class InteractableItem extends Item {
 
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDropModified.Payload payload, DragAndDropModified.Target target) {
                 if (target == null) {
-                    InteractableItem item = (InteractableItem) getActor();
-                    handleDropFail(item);
+                    getItem().handleDropReset();
                 }
             }
         };
@@ -108,10 +113,9 @@ public class InteractableItem extends Item {
             @Override
             public void handleDrop(InteractableItem item) {
                 if (dragItemName.equals(item.name)) {
-                    handleDropSuccess(item);
                     func.accept(item, getItem());
                 } else {
-                    handleDropFail(item);
+                    handleDropReset();
                 }
             }
         };
@@ -120,10 +124,11 @@ public class InteractableItem extends Item {
     public void setAsDropTraget(final String dragItemName, final InteractableItem nextItem) {
         setAsDropTraget(dragItemName, new BiConsumer<InteractableItem, InteractableItem>() {
             @Override
-            public void accept(InteractableItem target, InteractableItem source) {
+            public void accept(InteractableItem source, InteractableItem target) {
                 if (nextItem != null) {
-                    target.remove();
                     target.getStage().addActor(nextItem);
+                    target.remove();
+                    source.handleDropReset();
                 }
             }
         });
@@ -133,14 +138,18 @@ public class InteractableItem extends Item {
         pickupListener = new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                inventory_image = new TextureRegion(new Texture(sceneName+"/inventory/"+name+".png"));
-                inventory_image.flip(false, true);
-                setSprite(inventory_image);
-                mainAdapter.addToInventory(getItem());
+                pickup();
                 return true;
             }
         };
         addListener(pickupListener);
+    }
+
+    public void pickup() {
+        inventory_image = new TextureRegion(new Texture(sceneName + "/inventory/" + name + ".png"));
+        inventory_image.flip(false, true);
+        setSprite(inventory_image);
+        mainAdapter.addToInventory(getItem());
     }
 
     public void stopPickUpable() {
@@ -167,14 +176,15 @@ public class InteractableItem extends Item {
         }
     }
 
-    public void handleDropFail(InteractableItem item) {
-        item.visible = true;
-        item.setTouchable(Touchable.enabled);
+    public void handleDropReset() {
+        System.out.println("Drop Reset");
+        getItem().visible = true;
+        getItem().setTouchable(Touchable.enabled);
     }
 
-    public void handleDropSuccess(InteractableItem item) {
+    public void handleDropReappear(InteractableItem item) {
         mainAdapter.removeFromInventory(item);
-        getParent().addActor(item);
+        getItem().getParent().addActor(item);
         item.setBounds(getX() - item.getOriginX() + getOriginX(), getY() - item.getOriginY() + getOriginY(), item.shape.getWidth(), item.shape.getHeight());
         item.visible = true;
         item.setTouchable(Touchable.enabled);

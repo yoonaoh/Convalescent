@@ -11,18 +11,21 @@ public class Mount extends InteractableItem {
 
     public Mount(final MainAdapter mainAdapter, final GearAdapter gearAdapter, float x, float y, final int expectedRadius, final int angle) {
         super("gearpuzzle", "mount_small", new CollisionCircleModified(x, y, 30), mainAdapter);
-        mainAdapter.addToTargetRegistry("mount", this);
         setAsDropTraget(new DropTargetHandler() {
             @Override
             public void handleDrop(InteractableItem item) {
-                Gear gear = (Gear) item;
-                if (gear.radius > expectedRadius) {
-                    getItem().handleDropFail(item);
+                if (item instanceof Gear) {
+                    Gear gear = (Gear) item;
+                    if (gear.radius > expectedRadius) {
+                        item.handleDropReset();
+                    } else {
+                        getItem().handleDropReappear(item);
+                        mounted = true;
+                        gear.originalAngle = angle;
+                        gearAdapter.addGear(gear);
+                    }
                 } else {
-                    getItem().handleDropSuccess(item);
-                    mounted = true;
-                    gear.originalAngle = angle;
-                    gearAdapter.addGear(gear);
+                    item.handleDropReset();
                 }
             }
         });

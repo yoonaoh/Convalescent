@@ -136,7 +136,7 @@ public class Main extends BasicGame {
 
         @Override
         public void playSoundEffect(Sound sound) {
-            sound.play(0.1f);
+//            sound.play(0.1f);
         }
 
         @Override
@@ -160,15 +160,15 @@ public class Main extends BasicGame {
         views = new HashMap<GameState, View>();
 
         views.put(GameState.MENU, new Menu(mainAdapter));
-//        views.put(GameState.INTRO, new Intro(mainAdapter));
+        views.put(GameState.INTRO, new Intro(mainAdapter));
 //        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 //        views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
 //        views.put(GameState.BATHROOM, new Bathroom(mainAdapter));
 //        views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
-//        views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
-//        views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
+        views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
+        views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
 
         changeState(GameState.MENU);
 
@@ -237,8 +237,8 @@ public class Main extends BasicGame {
             bgm = currentBackground().getBGM();
         }
         if (state != GameState.DARK_ATTIC) {
-            bgm_id = bgm.play(1f);
-            bgm.loop(bgm_id);
+//            bgm_id = bgm.play(1f);
+//            bgm.loop(bgm_id);
         }
     }
 

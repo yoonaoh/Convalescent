@@ -65,7 +65,6 @@ public class Intro extends View {
                     state = 3;
                 } else if (state == 3) {
                     part3.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
-                    mainAdapter.addView(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
                     mainAdapter.updateState(GameState.DISTURBED_AVERY_ROOM);
                 }
             }
