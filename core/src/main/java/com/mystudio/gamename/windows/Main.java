@@ -172,6 +172,7 @@ public class Main extends BasicGame {
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
 
         state = GameState.MENU;
+        Gdx.input.setInputProcessor(currentBackground().getStage());
 
         bgm = manager.getMusic("sounds/menu.mp3");
         bgm.setVolume((float) 0.25);
@@ -181,8 +182,6 @@ public class Main extends BasicGame {
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
         settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
         currentBackground().getStage().addActor(settings);
-
-        changeState(GameState.MENU);
     }
 
     @Override
@@ -216,7 +215,6 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
-
         if (state != gameState) {
             state = gameState;
             avery.force(gameState);
