@@ -176,10 +176,7 @@ public class Main extends BasicGame {
         state = GameState.DISTURBED_AVERY_ROOM;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
-        bgm = manager.getMusic("sounds/menu.mp3");
-        bgm.setVolume((float) 0.25);
-        bgm.play();
-        bgm.setLooping(true);
+        manager.playMusic("sounds/menu.mp3");
 
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
         settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
@@ -219,6 +216,9 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
+        if (gameState == GameState.MENU) {
+            views.get(gameState).setChangeToState(state);
+        }
         state = gameState;
         avery.force(gameState);
 
@@ -241,21 +241,7 @@ public class Main extends BasicGame {
             // Change out music
         if (state != gameState && manager.getMusic(currentBackground().getBGM()) != null) {
             Music oldBGM = bgm;
-            Music newBGM = manager.getMusic(currentBackground().getBGM());
-
-            if (oldBGM != null) {
-                if (newBGM == null)
-                    bgm.pause();
-                else {
-                    if (!oldBGM.equals(newBGM)) {
-                        bgm.pause();
-                        bgm = newBGM;
-                        bgm.setVolume((float) 0.25);
-                        bgm.play();
-                        bgm.setLooping(true);
-                    }
-                }
-            }
+            manager.playMusic(currentBackground().getBGM());
         }
     }
 
@@ -285,6 +271,12 @@ public class Main extends BasicGame {
         label.setPosition(390, 600);
         label.addAction(Actions.sequence(Actions.delay(3.0f), Actions.fadeOut(1.0f), Actions.removeActor()));
         currentBackground().getStage().addActor(label);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.setScreenSize(width, height);
+        currentBackground().getStage().setViewport(viewport);
     }
 
 }

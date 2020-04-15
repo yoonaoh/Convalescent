@@ -19,8 +19,10 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 public class Manager {
     private AssetManager assetManager;
     private float mastervol = 1f;
-    private long cur_bg_id = -1;
-    private Sound cur_bg;
+//    private long cur_bg_id = -1;
+//    private Sound cur_bg;
+    private Music cur_music = null;
+    private String cur_music_file = null;
     private Skin skin;
 
     public Manager() {
@@ -61,15 +63,15 @@ public class Manager {
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
         assetManager.load("sounds/slider_knob.png", Texture.class);
-        assetManager.load("tilepuzzle/TileLevel1.png", Texture.class);
+        assetManager.load("tilepuzzle/TileLevel0.png", Texture.class);
 
         assetManager.finishLoading();
     }
 
     public void setMastervol(float volume) {
         mastervol = volume;
-        if (cur_bg_id != -1) {
-            cur_bg.setVolume(cur_bg_id, mastervol);
+        if (cur_music != null) {
+            cur_music.setVolume(mastervol);
         }
     }
 
@@ -85,8 +87,26 @@ public class Manager {
         return assetManager.get(image);
     }
 
-    public Music getMusic (String filename) {
+    public Music getMusic(String filename) {
         return assetManager.get(filename, Music.class);
+    }
+
+    public void playMusic(String filename) {
+        System.out.println("Called play music with " + filename);
+
+        if (cur_music != null && filename == null) {
+            cur_music.pause();
+        } else if (!filename.equals(cur_music_file)) {
+            if (cur_music != null) {
+                cur_music.pause();
+            }
+            cur_music = assetManager.get(filename, Music.class);
+            cur_music_file = filename;
+            cur_music.setVolume(mastervol);
+            cur_music.play();
+            cur_music.setLooping(true);
+        }
+
     }
 
     public void dispose() {

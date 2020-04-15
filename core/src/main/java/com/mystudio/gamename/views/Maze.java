@@ -11,15 +11,11 @@ public class Maze extends View {
         includesAvery = false;
         includesInventory = true;
         sceneName = "maze";
-//        Item hallway_end = new Item(new CollisionBox(900, 0, 380, 720));
-//        hallway_end.addListener(new SceneTrigger(GameState.ATTIC, mainAdapter));
-//        getStage().addActor(hallway_end);
-//        getStage().addAction();
     }
 
     @Override
     public void onOpen() {
-        TilePuzzleGame tile = new TilePuzzleGame(mainAdapter, false);
+        TilePuzzleGame tile = new TilePuzzleGame(mainAdapter, true);
         mainAdapter.openWindow(tile);
     }
 }

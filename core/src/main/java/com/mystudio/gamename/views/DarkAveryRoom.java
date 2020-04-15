@@ -20,23 +20,12 @@ public class DarkAveryRoom extends View {
         sceneName = "dark_bedroom";
         background = new Texture(Gdx.files.internal("views/room_disturbed_concept.png"));
         floorspace = new Polygon(new float[]{
-                80, 0,
-                616, 277,
-                749, 277,
-                670, 210,
-                831, 210,
-                873, 277,
-                938, 277,
-                938, 222,
-                1018, 222,
-                1018, 277,
-                1035, 277,
-                1035, 250,
-                1185, 250,
-                1185, 277,
-                1250, 277,
-                1280, 250,
-                1280, 0
+                0, 0,
+                30, 30,
+                300, 30,
+                387, 170,
+                887, 170,
+                1095, 0
         });
         includesAvery = true;
         includesInventory = true;
@@ -58,56 +47,45 @@ public class DarkAveryRoom extends View {
 
         actors.addActor(drawer1);
 
-        InteractableItem drawer2 = new InteractableItem(
-                sceneName,
-                "drawer2",
-                new CollisionBox(393, 198, 130, 56),
+        InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(393, 198, 130, 56),
                 mainAdapter);
         drawer2.addListener(new MinigameTrigger(new MiniGame("UI/drawer_dark_bg.png", mainAdapter), mainAdapter));
         actors.addActor(drawer2);
 
-        InteractableItem drawer3 = new InteractableItem(
-                sceneName,
-                "drawer3",
-                new CollisionBox(394, 161, 125, 62),
+        InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62),
                 mainAdapter);
         drawer3.addListener(new MinigameTrigger(new MiniGame("UI/drawer_dark_bg.png", mainAdapter), mainAdapter));
         actors.addActor(drawer3);
 
-        InteractableItem drawer4 = new InteractableItem(
-                sceneName,
-                "drawer4",
-                new CollisionBox(499, 238, 138, 45),
+        InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45),
                 mainAdapter);
         drawer4.addListener(new MinigameTrigger(new MiniGame("UI/drawer_dark_bg.png", mainAdapter), mainAdapter));
         actors.addActor(drawer4);
 
-        InteractableItem shelf = new InteractableItem(
-                sceneName,
-                "shelf",
-                new CollisionBox(409, 393, 216, 125),
+        InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125),
                 mainAdapter);
         MiniGame shelf_closeup = new MiniGame("UI/shelf_dark_bg.png", mainAdapter);
         shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter));
 
+        final boolean[] gears = {false};
         InteractableItem fan = new InteractableItem(sceneName, "fan", new CollisionBox(550, 30, 142, 214), mainAdapter);
         shelf_closeup.addActor(fan);
         fan.setAsDropTraget("dark_bedroom/screwdriver", new BiConsumer<InteractableItem, InteractableItem>() {
                     @Override
                     public void accept(InteractableItem source, InteractableItem target) {
-                        Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
-                        Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
-                        gear2.pickup();
-                        gear6.pickup();
+                        if (!gears[0]) {
+                            Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
+                            Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
+                            gear2.pickup();
+                            gear6.pickup();
+                            gears[0] = true;
+                        }
                         source.handleDropReset();
                     }
                 });
         actors.addActor(shelf);
 
-        InteractableItem bunny = new InteractableItem(
-                sceneName,
-                "bunny_dark",
-                new CollisionBox(1100, 240, 75, 75),
+        InteractableItem bunny = new InteractableItem(sceneName, "bunny_dark", new CollisionBox(1100, 240, 75, 75),
                 mainAdapter);
         bunny.addListener(new MinigameTrigger(new GearPuzzleGame(mainAdapter), mainAdapter));
         actors.addActor(bunny);

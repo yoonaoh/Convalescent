@@ -44,7 +44,8 @@ public class TilePuzzleGame extends MiniGame {
 
         this.progress = 0f;
         this.skin = mainAdapter.getManager().getSkin();
-        image = mainAdapter.getManager().getTexture("tilepuzzle/TileLevel1.png");
+        image = mainAdapter.getManager().getTexture("tilepuzzle/TileLevel0.png");
+
         this.shouldFlicker = shouldFlicker;
         setPosition(400, 100);
         setSize(500, 500);
@@ -125,9 +126,9 @@ public class TilePuzzleGame extends MiniGame {
                                         @Override
                                         public void run() {
                                             close();
-//                                            for (int i = 0; i < 3; i++) {
-//                                                flicker();
-//                                            }
+                                            for (int i = 0; i < 3; i++) {
+                                                flicker();
+                                            }
                                             try {
                                                 Thread.sleep(50);
                                             } catch (InterruptedException e) {

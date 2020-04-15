@@ -2,8 +2,10 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -19,6 +21,7 @@ public class View {
     Boolean includesInventory;
     MainAdapter mainAdapter;
     String bgmFile;
+    GameState changeToState = null;
 
     public View(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -58,6 +61,11 @@ public class View {
 
     public void drawStage() {
         stage.draw();
+        ShapeRenderer sr = new ShapeRenderer();
+        sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.polygon(floorspace.getVertices());
+        sr.end();
     }
 
     public Group getBackground() {
@@ -65,4 +73,8 @@ public class View {
     }
 
     public String getBGM() { return bgmFile; }
+
+    public void setChangeToState(GameState prevState) {
+        this.changeToState = prevState;
+    }
 }
