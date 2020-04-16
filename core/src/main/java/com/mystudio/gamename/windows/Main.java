@@ -3,7 +3,6 @@ package com.mystudio.gamename.windows;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,10 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-//import com.mystudio.gamename.animations.Avery;
 import com.mystudio.gamename.animations.Avery;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.MinigameTrigger;
@@ -32,8 +29,7 @@ import org.mini2Dx.core.graphics.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+//import com.mystudio.gamename.animations.Avery;
 
 public class Main extends BasicGame {
 
@@ -135,13 +131,13 @@ public class Main extends BasicGame {
         }
 
         @Override
-        public void forceAveryTo(GameState to) {
-            avery.force(to);
+        public void moveAveryTo(float x, float y) {
+            avery.move(x, y);
         }
 
         @Override
-        public void playSoundEffect(Sound sound) {
-            sound.play(0.1f);
+        public void playSoundEffect(String sound) {
+            manager.playSound(sound);
         }
 
         @Override
@@ -238,7 +234,7 @@ public class Main extends BasicGame {
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         currentBackground().onOpen();
 
-            // Change out music
+        // Change out music
         if (state != gameState && manager.getMusic(currentBackground().getBGM()) != null) {
             Music oldBGM = bgm;
             manager.playMusic(currentBackground().getBGM());
@@ -276,7 +272,6 @@ public class Main extends BasicGame {
     @Override
     public void resize(int width, int height) {
         viewport.setScreenSize(width, height);
-        currentBackground().getStage().setViewport(viewport);
     }
 
 }

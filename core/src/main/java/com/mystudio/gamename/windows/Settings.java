@@ -37,7 +37,7 @@ public class Settings extends MiniGame {
         slider.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                setVolume(slider.getValue());
+                setMusicVolume(slider.getValue());
             }
 
             @Override
@@ -53,7 +53,7 @@ public class Settings extends MiniGame {
         effects_slider.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                setVolume(effects_slider.getValue());
+                setEffectVolume(effects_slider.getValue());
             }
 
             @Override
@@ -80,8 +80,12 @@ public class Settings extends MiniGame {
 
     }
 
-    private void setVolume(float i) {
+    private void setMusicVolume(float i) {
         getMainAdapter().getManager().setMastervol(i);
+    }
+
+    private void setEffectVolume(float i) {
+        getMainAdapter().getManager().setEffectvol(i);
     }
 
 

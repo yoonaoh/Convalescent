@@ -1,15 +1,11 @@
 package com.mystudio.gamename.items;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mystudio.gamename.utils.DragAndDropModified;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionShape;
@@ -17,7 +13,6 @@ import org.mini2Dx.core.graphics.TextureRegion;
 
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class InteractableItem extends Item {
 
@@ -47,6 +42,7 @@ public class InteractableItem extends Item {
             super.enter(event, x, y, pointer, fromActor);
             getItem().glow();
         }
+
         @Override
         public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
             super.exit(event, x, y, pointer, fromActor);
@@ -65,6 +61,7 @@ public class InteractableItem extends Item {
     };
 
     public MainAdapter mainAdapter;
+
     public boolean inInventory = false;
 
 
@@ -73,10 +70,10 @@ public class InteractableItem extends Item {
         this.sceneName = sceneName;
         this.name = name;
 
-        this.image = new TextureRegion(new Texture(sceneName+"/normal/"+name+".png"));
+        this.image = new TextureRegion(new Texture(sceneName + "/normal/" + name + ".png"));
         this.image.flip(false, true);
         setSprite(image);
-        this.selected_image = new TextureRegion(new Texture(sceneName+"/selected/"+name+".png"));
+        this.selected_image = new TextureRegion(new Texture(sceneName + "/selected/" + name + ".png"));
         this.selected_image.flip(false, true);
 
         this.mainAdapter = mainAdapter;
@@ -145,6 +142,7 @@ public class InteractableItem extends Item {
                 if (nextItem != null) {
                     target.getStage().addActor(nextItem);
                     target.remove();
+                    source.remove();
                     source.handleDropReset();
                 }
             }
@@ -182,9 +180,11 @@ public class InteractableItem extends Item {
                         target.glow();
                         return true;
                     }
+
                     public void reset(DragAndDropModified.Source source, DragAndDropModified.Payload payload) {
                         target.stopGlow();
                     }
+
                     public void drop(DragAndDropModified.Source source, DragAndDropModified.Payload payload, float x, float y, int pointer) {
                         target.dropHandler.handleDrop(getItem());
                     }

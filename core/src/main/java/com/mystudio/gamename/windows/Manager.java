@@ -18,9 +18,8 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class Manager {
     private AssetManager assetManager;
-    private float mastervol = 1f;
-//    private long cur_bg_id = -1;
-//    private Sound cur_bg;
+    private float musicvol = 0f;
+    private float effectvol = 0f;
     private Music cur_music = null;
     private String cur_music_file = null;
     private Skin skin;
@@ -69,10 +68,14 @@ public class Manager {
     }
 
     public void setMastervol(float volume) {
-        mastervol = volume;
+        musicvol = volume;
         if (cur_music != null) {
-            cur_music.setVolume(mastervol);
+            cur_music.setVolume(musicvol);
         }
+    }
+
+    public void setEffectvol(float volume) {
+        effectvol = volume;
     }
 
     public Skin getSkin() {
@@ -102,11 +105,19 @@ public class Manager {
             }
             cur_music = assetManager.get(filename, Music.class);
             cur_music_file = filename;
-            cur_music.setVolume(mastervol);
+            cur_music.setVolume(musicvol);
             cur_music.play();
             cur_music.setLooping(true);
         }
 
+    }
+
+    public void playSound(String filename) {
+        System.out.println("Called play music with " + filename);
+
+        Sound effect = assetManager.get(filename, Sound.class);
+        long effect_id = effect.play();
+        effect.setVolume(effect_id, effectvol);
     }
 
     public void dispose() {

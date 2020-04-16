@@ -9,6 +9,8 @@ import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.geom.Polygon;
 
+import java.util.Arrays;
+
 public class View {
 
     String sceneName;
@@ -61,11 +63,19 @@ public class View {
 
     public void drawStage() {
         stage.draw();
-        ShapeRenderer sr = new ShapeRenderer();
-        sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
-        sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.polygon(floorspace.getVertices());
-        sr.end();
+        try {
+
+            if (!Arrays.equals(floorspace.getVertices(), new float[]{})){
+                ShapeRenderer sr = new ShapeRenderer();
+                sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                sr.polygon(floorspace.getVertices());
+                sr.end();
+            }
+        } catch (Exception e) {
+            System.out.println(floorspace + " is floorspace.");
+            System.out.println(sceneName + " has no floorspace.");
+        }
     }
 
     public Group getBackground() {

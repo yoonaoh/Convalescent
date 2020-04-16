@@ -2,10 +2,12 @@ package com.mystudio.gamename.tilepuzzle;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -45,6 +47,15 @@ public class TilePuzzleGame extends MiniGame {
         this.progress = 0f;
         this.skin = mainAdapter.getManager().getSkin();
         image = mainAdapter.getManager().getTexture("tilepuzzle/TileLevel0.png");
+        addActor(new Actor() {
+            @Override
+            public void draw(Batch batch, float parentAlpha) {
+                batch.setColor(1, 1, 1, 0.5f);
+                batch.draw(image, (camera.viewportWidth / 3) - 330,
+                        (camera.viewportHeight / 3) - 110, 300, 300);
+                batch.setColor(1, 1, 1, 1f);
+            }
+        });
 
         this.shouldFlicker = shouldFlicker;
         setPosition(400, 100);

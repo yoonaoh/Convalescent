@@ -21,9 +21,13 @@ public class Avery extends Actor {
     private int sprite_height;
 
     float scale;
+    int y_length = 275;
+    double percent_change = 0.4;
 
     float x_update;
     float y_update;
+
+    boolean darken = true;
 
     AveryStates status = AveryStates.LEFT_WALKING;
 
@@ -47,8 +51,8 @@ public class Avery extends Actor {
         box.setWidth(100);
         box.setHeight(0);
 
-        y_update = 0;
-        x_update = 640;
+        y_update = 20;
+        x_update = 700;
         box.forceTo(x_update, y_update);
 
         setBounds(0, 0, 1280, 720);
@@ -105,8 +109,9 @@ public class Avery extends Actor {
             }
         }
 
-
-        scale = (float) (1 - (0.4 * box.getY() / 275));
+        if (state == GameState.DISTURBED_CORRIDOR || state == GameState.CORRIDOR)
+            scale = (float) (1 - (percent_change * Math.pow(Math.pow(box.getY(), 2) + Math.pow(box.getX(), 2), 0.5) / y_length));
+        scale = (float) (1 - (percent_change * box.getY() / y_length));
 
         box.setWidth(scale(100));
 
@@ -151,6 +156,8 @@ public class Avery extends Actor {
         batch.begin();
         float w = scale(sprite_width);
         float h = scale(sprite_height);
+        if (darken)
+            batch.setColor(0.5F, 0.5F, 0.5F, 1F);
         if (status == AveryStates.LEFT_WALKING || status == AveryStates.RIGHT_WALKING) {
             batch.draw(avery_walks.getKeyFrame(walk_elapsed, true),
                     box.getX() - scale(50), box.getY() - scale(35),
@@ -161,6 +168,8 @@ public class Avery extends Actor {
                     box.getX() - scale(50), box.getY() - scale(35),
                     w, h);
         }
+        if (darken)
+            batch.setColor(1F, 1F, 1F, 1F);
 
         batch.end();
 
@@ -204,15 +213,18 @@ public class Avery extends Actor {
 
     public void force(GameState to) {
         if (state == to) {
-        } else if (state == GameState.ATTIC && to == GameState.ATTIC_SHELF) {
-        } else if (state == GameState.ATTIC_SHELF && to == GameState.ATTIC) {
-        } else if (state == GameState.DARK_ATTIC && to == GameState.ATTIC) {
-        } else if (state == GameState.ATTIC && to == GameState.DARK_ATTIC) {
-        } else if (state == GameState.AVERY_ROOM && to == GameState.DISTURBED_AVERY_ROOM) {
-        } else {
-            x_update = 640;
-            y_update = 0;
-            box.forceTo(640, 0);
+        } else if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.DISTURBED_CORRIDOR) {
+            x_update = 300;
+            y_update = 270;
+//            percent_change = 0.2;
+//            y_length = 1051;
+            box.forceTo(x_update, y_update);
+        } else if (state == GameState.DISTURBED_CORRIDOR && to == GameState.DISTURBED_AVERY_ROOM) {
+            x_update = 608;
+            y_update = 36;
+//            percent_change = 0.4;
+//            y_length = 275;
+            box.forceTo(670, 170);
         }
         state = to;
     }

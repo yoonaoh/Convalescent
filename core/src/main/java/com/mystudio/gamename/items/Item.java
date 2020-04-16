@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.Array;
 import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
 
@@ -24,6 +25,10 @@ public class Item extends Actor {
     public CollisionShape shape = null;
 
     public boolean visible = true;
+
+    public float delay = 0;
+
+    public int[] moveLocation = new int[]{-1, -1};
 
     public Item(String image, CollisionShape shape) {
         if (image != null)
@@ -101,5 +106,14 @@ public class Item extends Actor {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
+    }
+
+    public void setDelay(float del) {
+        delay = del*1000;
+    }
+
+    public void setMoveTo(int x, int y) {
+        moveLocation[0] = x;
+        moveLocation[1] = y;
     }
 }

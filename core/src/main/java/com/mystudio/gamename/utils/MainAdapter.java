@@ -37,9 +37,9 @@ public interface MainAdapter {
 
     Manager getManager();
 
-    void forceAveryTo(GameState to);
+    void moveAveryTo(float x, float y);
 
-    void playSoundEffect(Sound sound);
+    void playSoundEffect(String sound);
 
     void showDialog(String dialog);
 }

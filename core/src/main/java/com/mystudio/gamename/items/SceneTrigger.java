@@ -10,7 +10,7 @@ import com.mystudio.gamename.utils.MainAdapter;
  */
 public class SceneTrigger extends ClickListener {
 
-    Sound soundEffect;
+    String soundEffect;
     MainAdapter mainAdapter;
     GameState nextState;
 
@@ -26,7 +26,8 @@ public class SceneTrigger extends ClickListener {
         mainAdapter.updateState(nextState);
         return true;
     }
-//    public void setSoundEffect(Sound sound) {
-//        this.soundEffect = sound;
-//    }
+
+    public void setSoundEffect(String filename) {
+        this.soundEffect = filename;
+    }
 }
