@@ -145,7 +145,7 @@ public class TilePuzzleGame extends MiniGame {
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
-                                            getMainAdapter().updateState(GameState.ATTIC);
+                                            getMainAdapter().updateState(GameState.AVERY_ROOM);
                                             timer.cancel();
                                         }
                                     };

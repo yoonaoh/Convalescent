@@ -34,6 +34,7 @@ public class Intro extends View {
         part1.setWrap(true);
         part1.setAlignment(Align.center);
         part1.setWidth(500);
+        part1.setHeight(100);
         part1.setPosition(390, 360);
         part1.addAction(Actions.fadeIn((float) 2.0));
 
@@ -41,12 +42,14 @@ public class Intro extends View {
         part2.setWrap(true);
         part2.setAlignment(Align.center);
         part2.setWidth(500);
-        part2.setPosition(390, 360);
+        part2.setHeight(150);
+        part2.setPosition(390, 335);
 
         final Label part3 = new Label(line3, mainAdapter.getManager().getSkin());
         part3.setWrap(true);
         part3.setAlignment(Align.center);
         part3.setWidth(500);
+        part3.setHeight(100);
         part3.setPosition(390, 360);
 
         actors.addActor(part1);
@@ -71,11 +74,11 @@ public class Intro extends View {
                     Timer.Task task = new Timer.Task() {
                         @Override
                         public void run() {
+                            state = 1;
                             mainAdapter.updateState(GameState.AVERY_ROOM);
                         }
                     };
-                    timer.scheduleTask(task, 5);
-                    state = 1;
+                    timer.scheduleTask(task, 3);
                 }
             }
         });

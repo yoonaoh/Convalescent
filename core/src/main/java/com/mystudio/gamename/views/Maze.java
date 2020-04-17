@@ -7,7 +7,7 @@ import com.mystudio.gamename.utils.MainAdapter;
 public class Maze extends View {
     public Maze(MainAdapter mainAdapter) {
         super(mainAdapter);
-        background = new Texture("views/maze_background.png");
+        background = new Texture("views/blank.jpg");
         includesAvery = false;
         includesInventory = true;
         sceneName = "maze";

@@ -224,6 +224,7 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
+        System.out.println("Changing state from " + state + " to " + gameState);
         if (gameState == GameState.MENU) {
             views.get(gameState).setChangeToState(state);
         }

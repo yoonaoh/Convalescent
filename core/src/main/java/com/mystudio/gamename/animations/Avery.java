@@ -1,10 +1,12 @@
 package com.mystudio.gamename.animations;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -27,7 +29,7 @@ public class Avery extends Actor {
     float x_update;
     float y_update;
 
-    boolean darken = true;
+    boolean darken = false;
 
     AveryStates status = AveryStates.LEFT_WALKING;
 
@@ -36,6 +38,7 @@ public class Avery extends Actor {
     Animation<TextureRegion> avery_stands;
     MainAdapter mainAdapter;
     GameState state = GameState.MENU;
+    boolean debug = false;
 
     public Avery(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -155,8 +158,9 @@ public class Avery extends Actor {
         batch.begin();
         float w = scale(sprite_width);
         float h = scale(sprite_height);
-        if (darken)
+        if (darken) {
             batch.setColor(0.5F, 0.5F, 0.5F, 1F);
+        }
         if (status == AveryStates.LEFT_WALKING || status == AveryStates.RIGHT_WALKING) {
             batch.draw(avery_walks.getKeyFrame(walk_elapsed, true),
                     box.getX() - scale(50), box.getY() - scale(35),
@@ -167,17 +171,18 @@ public class Avery extends Actor {
                     box.getX() - scale(50), box.getY() - scale(35),
                     w, h);
         }
-        if (darken)
-            batch.setColor(1F, 1F, 1F, 1F);
+        batch.setColor(1F, 1F, 1F, 1F);
 
         batch.end();
 
-//        ShapeRenderer sr = new ShapeRenderer();
-//        sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
-//        sr.begin(ShapeRenderer.ShapeType.Line);
-//        sr.setColor(Color.CYAN);
-//        sr.rect(box.getX(), box.getY(), scale(100), 0);
-//        sr.end();
+        if (debug) {
+            ShapeRenderer sr = new ShapeRenderer();
+            sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.setColor(Color.CYAN);
+            sr.rect(box.getX(), box.getY(), scale(100), 0);
+            sr.end();
+        }
 
 
     }
@@ -211,21 +216,36 @@ public class Avery extends Actor {
     }
 
     public void force(GameState to) {
-        if (state == to) {
-        } else if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.DISTURBED_CORRIDOR) {
-            x_update = 300;
-            y_update = 270;
-//            percent_change = 0.2;
-//            y_length = 1051;
-            box.forceTo(x_update, y_update);
-        } else if (state == GameState.DISTURBED_CORRIDOR && to == GameState.DISTURBED_AVERY_ROOM) {
-            x_update = 608;
-            y_update = 36;
-//            percent_change = 0.4;
-//            y_length = 275;
-            box.forceTo(670, 170);
+        if (state != to) {
+            if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.DISTURBED_CORRIDOR) {
+                x_update = 300;
+                y_update = 270;
+                box.forceTo(x_update, y_update);
+            } else if (state == GameState.DISTURBED_CORRIDOR && to == GameState.DISTURBED_AVERY_ROOM) {
+                x_update = 608;
+                y_update = 36;
+                box.forceTo(670, 170);
+            } else if (state == GameState.AVERY_ROOM && to == GameState.CORRIDOR) {
+                x_update = 300;
+                y_update = 270;
+                box.forceTo(x_update, y_update);
+            } else if (state == GameState.CORRIDOR && to == GameState.AVERY_ROOM) {
+                x_update = 608;
+                y_update = 36;
+                box.forceTo(670, 170);
+            } else if (state == GameState.AVERY_ROOM && to == GameState.DISTURBED_AVERY_ROOM) {
+                darken = true;
+            } else if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.AVERY_ROOM) {
+                darken = false;
+            } else if (state == GameState.MAZE && to == GameState.DISTURBED_AVERY_ROOM) {
+                System.out.println("Working!");
+                x_update = 608;
+                y_update = 36;
+                box.forceTo(x_update, y_update);
+                darken = false;
+            }
+            state = to;
         }
-        state = to;
     }
 
     static TextureRegion[] reverse(TextureRegion[] a, int n) {
