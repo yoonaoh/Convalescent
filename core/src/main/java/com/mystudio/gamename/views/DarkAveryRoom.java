@@ -2,12 +2,15 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
 import com.mystudio.gamename.items.*;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
+import javafx.scene.Scene;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -32,10 +35,18 @@ public class DarkAveryRoom extends View {
 
         // Add the bedrooom door
         InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(672, 183, 174, 351), mainAdapter);
+        door.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+            }
+        });
         actors.addActor(door);
         door.setDialog("It's locked...");
         InteractableItem opened_door = new InteractableItem(sceneName, "open_door", new CollisionBox(658, 130, 200, 410), mainAdapter);
-        opened_door.addListener(new SceneTrigger(GameState.DISTURBED_CORRIDOR, mainAdapter));
+        SceneTrigger openedDoorTrigger = new SceneTrigger(GameState.DISTURBED_CORRIDOR, mainAdapter);
+        openedDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        opened_door.addListener(openedDoorTrigger);
         door.setAsDropTraget("gearpuzzle/key", opened_door);
 
         // Add drawer 1

@@ -39,6 +39,7 @@ public class AveryRoom extends View {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/backpack.mp3");
                 actors.removeActor(backpack);
                 mainAdapter.initializeInventory(new Inventory(mainAdapter));
                 includesInventory = true;
@@ -56,8 +57,12 @@ public class AveryRoom extends View {
 
         // Add door to hallway
         InteractableItem door = new InteractableItem("bedroom", "door", new CollisionBox(660, 178, 200, 362),  mainAdapter);
-        door.addListener(new SceneTrigger(GameState.CORRIDOR, mainAdapter)); // bedroom/door
-        actors.addActor(door); // bedroom/normal/door  bedroom/selected/door bedroom/inventory/door
+        SceneTrigger doorTrigger = new SceneTrigger(GameState.CORRIDOR, mainAdapter);
+        doorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        door.addListener(doorTrigger);
+        actors.addActor(door);
 
+        // Add bgm
+        bgmFile = "sounds/secure_world.mp3";
     }
 }

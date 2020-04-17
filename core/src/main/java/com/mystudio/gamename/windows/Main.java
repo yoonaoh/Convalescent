@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -164,14 +166,14 @@ public class Main extends BasicGame {
         views = new HashMap<>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.INTRO, new Intro(mainAdapter));
-        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
-//        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
-//        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
         views.put(GameState.CORRIDOR, new Corridor(mainAdapter));
         views.put(GameState.AVERY_ROOM, new AveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
         views.put(GameState.MAZE, new Maze(mainAdapter));
+//        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
+//        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
+//        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
         state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
@@ -179,7 +181,12 @@ public class Main extends BasicGame {
         manager.playMusic("sounds/menu.mp3");
 
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
-        settings.addListener(new MinigameTrigger(new Settings(mainAdapter), mainAdapter));
+        settings.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.openWindow(new Settings(mainAdapter));
+            }
+        });
         currentBackground().getStage().addActor(settings);
 
         changeState(state);
@@ -240,8 +247,7 @@ public class Main extends BasicGame {
         currentBackground().onOpen();
 
         // Change out music
-        if (state != gameState && manager.getMusic(currentBackground().getBGM()) != null) {
-            Music oldBGM = bgm;
+        if (manager.getMusic(currentBackground().getBGM()) != null) {
             manager.playMusic(currentBackground().getBGM());
         }
     }
@@ -255,7 +261,8 @@ public class Main extends BasicGame {
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
-        inventory.setTouchable(Touchable.enabled);
+        if (inventory != null)
+            inventory.setTouchable(Touchable.enabled);
     }
 
     private void removeWindow() {

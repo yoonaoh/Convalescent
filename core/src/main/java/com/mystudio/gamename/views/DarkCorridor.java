@@ -24,25 +24,17 @@ public class DarkCorridor extends View {
         includesInventory = true;
         sceneName = "dark_corridor";
 
-        // Add bedroom door
-//        SceneTrigger bedroomDoor = new SceneTrigger(null, new CollisionPolygon(new float[]{
-//                354, 270,
-//                354, 512,
-//                449, 512,
-//                449, 274,
-//        }), GameState.DISTURBED_AVERY_ROOM, mainAdapter);
-//        bedroomDoor.setHeight(250);
-//        actors.addActor(bedroomDoor);
-
-        bgmFile = "sounds/mode_transition.mp3";
-
+        // Add the bedroom door
         Item bedroomDoor = new Item(null, new CollisionBox(340, 265, 115, 260));
         bedroomDoor.addListener(new SceneTrigger(GameState.DISTURBED_AVERY_ROOM, mainAdapter));
         actors.addActor(bedroomDoor);
 
+        // Add the end of the hallway that leads to the maze tile puzzle
         Item hallway_end = new Item(new CollisionBox(900, 0, 380, 720));
         hallway_end.addListener(new SceneTrigger(GameState.MAZE, mainAdapter));
         hallway_end.setCursorImage("UI/right.png");
         getStage().addActor(hallway_end);
+
+        bgmFile = "sounds/mode_transition.mp3";
     }
 }

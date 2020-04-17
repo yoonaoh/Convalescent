@@ -1,24 +1,49 @@
 package com.mystudio.gamename.windows;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 
-public class Settings extends MiniGame {
+public class Settings extends Window {
 
     Slider slider;
     Slider effects_slider;
+    MainAdapter mainAdapter;
 
     public Settings(final MainAdapter mainAdapter) {
-        super("UI/game_bg.png", mainAdapter);
+        super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("UI/game_bg.png"))))));
+        this.mainAdapter = mainAdapter;
+
+        setPosition(200, 100);
+        setSize(800, 500);
+
+        // Add close button
+        Actor close = new Item("UI/game_close.png", new CollisionBox(30, 450, 30, 30));
+        close.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                mainAdapter.closeWindow();
+                return true;
+            }
+        });
+        addActor(close);
 
         Label sound_label = new Label("Music: ", mainAdapter.getManager().getSkin());
         sound_label.setPosition(100, 350);
@@ -81,12 +106,14 @@ public class Settings extends MiniGame {
     }
 
     private void setMusicVolume(float i) {
-        getMainAdapter().getManager().setMastervol(i);
+        mainAdapter.getManager().setMastervol(i);
     }
 
     private void setEffectVolume(float i) {
-        getMainAdapter().getManager().setEffectvol(i);
+        mainAdapter.getManager().setEffectvol(i);
     }
+
+
 
 
 }

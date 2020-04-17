@@ -2,6 +2,8 @@ package com.mystudio.gamename.views;
 
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
@@ -28,28 +30,33 @@ public class Corridor extends View {
         includesInventory = true;
         sceneName = "corridor";
 
-        // Add pictures
-//        InteractableItem frame1 = new InteractableItem(sceneName, "frame1", new CollisionBox(450, 420, 80, 70), mainAdapter);
-////        frame1.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter,false), mainAdapter));
-//        actors.addActor(frame1);
-//
-//        InteractableItem frame2 = new InteractableItem(sceneName, "frame2", new CollisionBox(660, 390, 120, 120), mainAdapter);
-////        frame2.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, false), mainAdapter));
-//        actors.addActor(frame2);
-
-        // Add attic door
-//        InteractableItem atticDoor = new InteractableItem(sceneName, "attic_door", new CollisionBox(111, 597, 200, 300), mainAdapter);
-//        actors.addActor(atticDoor);
-//
         // Add bedroom door
         InteractableItem bedroomDoor = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(340, 265, 115, 260), mainAdapter);
-        bedroomDoor.addListener(new SceneTrigger(GameState.AVERY_ROOM, mainAdapter));
+        SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.AVERY_ROOM, mainAdapter);
+        bedroomDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        bedroomDoor.addListener(bedroomDoorTrigger);
         actors.addActor(bedroomDoor);
 
+        // Add other doors
         InteractableItem door1 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(510, 200, 160, 350), mainAdapter);
+        door1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+            }
+        });
         actors.addActor(door1);
 
         InteractableItem door2 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(760, 80, 240, 500), mainAdapter);
+        door2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+            }
+        });
         actors.addActor(door2);
+
+        // Add bgm
+        bgmFile = "sounds/secure_world.mp3";
     }
 }

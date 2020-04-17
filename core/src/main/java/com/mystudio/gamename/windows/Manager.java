@@ -18,8 +18,8 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class Manager {
     private AssetManager assetManager;
-    private float musicvol = 0f;
-    private float effectvol = 0f;
+    private float musicvol = (float) 0.25;
+    private float effectvol = (float) 0.5;
     private Music cur_music = null;
     private String cur_music_file = null;
     private Skin skin;
@@ -58,6 +58,10 @@ public class Manager {
 
         // Sound Effects
         assetManager.load("sounds/wood_door_close.mp3", Sound.class);
+        assetManager.load("sounds/locked_door.mp3", Sound.class);
+        assetManager.load("sounds/backpack.mp3", Sound.class);
+        assetManager.load("sounds/windup_toy.mp3", Sound.class);
+        assetManager.load("sounds/inventory_item.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);

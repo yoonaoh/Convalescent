@@ -11,6 +11,8 @@ public class Maze extends View {
         includesAvery = false;
         includesInventory = true;
         sceneName = "maze";
+
+        bgmFile = "sounds/disturbed.mp3";
     }
 
     @Override

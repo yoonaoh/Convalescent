@@ -29,12 +29,11 @@ public class Menu extends View {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                mainAdapter.updateState(GameState.INTRO);
-//                if (changeToState != null) {
-//                    mainAdapter.updateState(changeToState);
-//                } else {
-//                    mainAdapter.updateState(GameState.INTRO);
-//                }
+                if (changeToState != null && changeToState != GameState.MENU) {
+                    mainAdapter.updateState(changeToState);
+                } else {
+                    mainAdapter.updateState(GameState.INTRO);
+                }
             }
 
         });

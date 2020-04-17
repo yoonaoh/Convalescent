@@ -17,12 +17,17 @@ public class Inventory extends Table {
      * Vertical group that holds all the inventory items
      */
     private VerticalGroup verticalGroup;
+    /**
+     * Main adapter for the game
+     */
+    private MainAdapter mainAdapter;
 
     /**
      * Constructs the Inventory
      * @param mainAdapter
      */
     public Inventory(MainAdapter mainAdapter) {
+        this.mainAdapter = mainAdapter;
         setBounds(1280 - INVENTORY_WIDTH, 0, INVENTORY_WIDTH, 720);
 
         // Initialize the vertical group and scroll pane neede
@@ -34,6 +39,8 @@ public class Inventory extends Table {
     }
 
     public void addItem(InteractableItem item) {
+        mainAdapter.playSoundEffect("sounds/inventory_item.mp3");
+
         verticalGroup.addActor(item);
 
         // Set appropriate item parameters

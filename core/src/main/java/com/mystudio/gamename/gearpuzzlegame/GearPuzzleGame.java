@@ -125,6 +125,7 @@ public class GearPuzzleGame extends MiniGame {
             if (finalGear.spinning) {
                 if (finalGear.speed > 0) {
                     success = true;
+                    getMainAdapter().playSoundEffect("sounds/windup_toy.mp3");
                     key.pickup();
                     final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
                     TimerTask task = new TimerTask() {
@@ -134,7 +135,7 @@ public class GearPuzzleGame extends MiniGame {
                             timer.cancel();
                         }
                     };
-                    timer.schedule(task, 1000); //delay in milliseconds
+                    timer.schedule(task, 3000); //delay in milliseconds
 
                 }
             }

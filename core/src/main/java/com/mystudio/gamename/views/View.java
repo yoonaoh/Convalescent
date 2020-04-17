@@ -63,18 +63,18 @@ public class View {
 
     public void drawStage() {
         stage.draw();
-        try {
-            if (!Arrays.equals(floorspace.getVertices(), new float[]{})){
-                ShapeRenderer sr = new ShapeRenderer();
-                sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
-                sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.polygon(floorspace.getVertices());
-                sr.end();
-            }
-        } catch (Exception e) {
-            System.out.println(floorspace + " is floorspace.");
-            System.out.println(sceneName + " has no floorspace.");
-        }
+//        try {
+//            if (!Arrays.equals(floorspace.getVertices(), new float[]{})){
+//                ShapeRenderer sr = new ShapeRenderer();
+//                sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);
+//                sr.begin(ShapeRenderer.ShapeType.Line);
+//                sr.polygon(floorspace.getVertices());
+//                sr.end();
+//            }
+//        } catch (Exception e) {
+//            System.out.println(floorspace + " is floorspace.");
+//            System.out.println(sceneName + " has no floorspace.");
+//        }
     }
 
     public Group getBackground() {
