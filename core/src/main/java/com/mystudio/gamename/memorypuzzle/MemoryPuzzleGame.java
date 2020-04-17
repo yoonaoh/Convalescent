@@ -42,14 +42,14 @@ public class MemoryPuzzleGame extends MiniGame {
     private Map<Integer, ArrayList<MemoryTile>> solutions = new HashMap<Integer, ArrayList<MemoryTile>>();
 
     public MemoryPuzzleGame(MainAdapter mainAdapter) {
-        super("tilepuzzle/minigame_bg.png", mainAdapter);
+        super("memorypuzzle/game_bg.png", mainAdapter);
 
         this.camera = mainAdapter.getViewPort().getCamera();
         this.font24 = mainAdapter.getManager().getFont();
 
         this.skin = mainAdapter.getManager().getSkin();
-        this.image = new Texture(Gdx.files.internal("mazepuzzle/black.jpg"));
-        this.blurImg = new Texture(Gdx.files.internal("mazepuzzle/averypicblur.png"));
+        this.image = new Texture(Gdx.files.internal("memorypuzzle/black.jpg"));
+        this.blurImg = new Texture(Gdx.files.internal("memorypuzzle/averypicblur.png"));
 
         solutions.put(1, new ArrayList<MemoryTile>());
         solutions.put(2, new ArrayList<MemoryTile>());
@@ -150,8 +150,8 @@ public class MemoryPuzzleGame extends MiniGame {
             // Reveal true picture
             float xPos = (camera.viewportWidth / 3) - 200 + (101 * 0);
             float yPos = (camera.viewportHeight / 3) + 100 - (101 * 3);
-            Item clearPicItem = new Item("mazepuzzle/averypic.png", new CollisionBox(xPos, yPos, 404, 404));
-            clearPicItem.addAction(fadeIn(2.0f));
+            Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 404, 404));
+            clearPicItem.addAction(fadeIn(4));
             addActor(clearPicItem);
 
             // Thread to trigger disturbed world scene

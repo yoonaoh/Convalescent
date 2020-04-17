@@ -64,7 +64,6 @@ public class View {
     public void drawStage() {
         stage.draw();
         try {
-
             if (!Arrays.equals(floorspace.getVertices(), new float[]{})){
                 ShapeRenderer sr = new ShapeRenderer();
                 sr.setProjectionMatrix(mainAdapter.getViewPort().getCamera().combined);

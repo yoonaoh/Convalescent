@@ -29,8 +29,6 @@ import org.mini2Dx.core.graphics.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//import com.mystudio.gamename.animations.Avery;
-
 public class Main extends BasicGame {
 
     /**
@@ -96,7 +94,8 @@ public class Main extends BasicGame {
 
         @Override
         public void addToInventory(InteractableItem item) {
-            inventory.addItem(item);
+            if (inventory != null)
+                inventory.addItem(item);
         }
 
         @Override
@@ -117,7 +116,13 @@ public class Main extends BasicGame {
 
         @Override
         public void removeFromInventory(InteractableItem item) {
-            inventory.removeItem(item);
+            if (inventory != null)
+                inventory.removeItem(item);
+        }
+
+        @Override
+        public void initializeInventory(Inventory inv) {
+            inventory = inv;
         }
 
         @Override
@@ -154,10 +159,9 @@ public class Main extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
         avery = new Avery(mainAdapter);
-        inventory = new Inventory(mainAdapter);
         manager = new Manager();
 
-        views = new HashMap<GameState, View>();
+        views = new HashMap<>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.INTRO, new Intro(mainAdapter));
         views.put(GameState.ATTIC, new LightAttic(mainAdapter));
@@ -169,7 +173,7 @@ public class Main extends BasicGame {
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
         views.put(GameState.MAZE, new Maze(mainAdapter));
 
-        state = GameState.DISTURBED_AVERY_ROOM;
+        state = GameState.MENU;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         manager.playMusic("sounds/menu.mp3");
@@ -185,9 +189,10 @@ public class Main extends BasicGame {
     public void update(float delta) {
         avery.update();
         currentBackground().getStage().act(delta);
-//        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
 
+        // Can get specific coordinates using debug feature
+        if (debug && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            System.out.println(Gdx.input.getX() + "," + (720 - Gdx.input.getY()));
     }
 
     @Override
@@ -221,17 +226,17 @@ public class Main extends BasicGame {
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         // Change out assets
-        inventory.remove();
-        avery.remove();
-        settings.remove();
-
-        if (currentBackground().includesAvery())
+        if (avery != null && currentBackground().includesAvery()) {
+            avery.remove();
             currentBackground().getBackground().addActor(avery);
-        if (currentBackground().includesInventory())
+        }
+        if (inventory != null && currentBackground().includesInventory()) {
+            inventory.remove();
             currentBackground().getStage().addActor(inventory);
-
+        }
+        settings.remove();
         currentBackground().getBackground().addActor(settings);
-        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+
         currentBackground().onOpen();
 
         // Change out music

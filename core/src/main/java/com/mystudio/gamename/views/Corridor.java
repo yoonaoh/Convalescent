@@ -29,14 +29,13 @@ public class Corridor extends View {
         sceneName = "corridor";
 
         // Add pictures
-
-        InteractableItem frame1 = new InteractableItem(sceneName, "frame1", new CollisionBox(450, 420, 80, 70), mainAdapter);
-//        frame1.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter,false), mainAdapter));
-        actors.addActor(frame1);
-
-        InteractableItem frame2 = new InteractableItem(sceneName, "frame2", new CollisionBox(660, 390, 120, 120), mainAdapter);
-//        frame2.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, false), mainAdapter));
-        actors.addActor(frame2);
+//        InteractableItem frame1 = new InteractableItem(sceneName, "frame1", new CollisionBox(450, 420, 80, 70), mainAdapter);
+////        frame1.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter,false), mainAdapter));
+//        actors.addActor(frame1);
+//
+//        InteractableItem frame2 = new InteractableItem(sceneName, "frame2", new CollisionBox(660, 390, 120, 120), mainAdapter);
+////        frame2.addListener(new MinigameTrigger(new TilePuzzleGame(mainAdapter, false), mainAdapter));
+//        actors.addActor(frame2);
 
         // Add attic door
 //        InteractableItem atticDoor = new InteractableItem(sceneName, "attic_door", new CollisionBox(111, 597, 200, 300), mainAdapter);
@@ -52,18 +51,5 @@ public class Corridor extends View {
 
         InteractableItem door2 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(760, 80, 240, 500), mainAdapter);
         actors.addActor(door2);
-//        bedroomDoor.setSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/wood_door_close.mp3")));
-//        bedroomDoor.setHeight(250);
-
-//        final InteractableItem glassBreakRegion = new InteractableItem(null, new CollisionBox(0, 0, 1280, 720), mainAdapter);
-//        glassBreakRegion.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                mainAdapter.playSoundEffect(Gdx.audio.newSound(Gdx.files.internal("sounds/glass_shatter.mp3")));
-//                actors.removeActor(glassBreakRegion);
-//            }
-//        });
-//        actors.addActor(glassBreakRegion);
-
     }
 }

@@ -35,19 +35,19 @@ public class Manager {
         // Parameters
         FreetypeFontLoader.FreeTypeFontLoaderParameter params4 = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         params4.fontFileName = "fonts/default.ttf";
-        params4.fontParameters.size = 26;
+        params4.fontParameters.size = 24;
         params4.fontParameters.color = Color.WHITE;
 
         // Fonts
         assetManager.load("fonts/default.ttf", BitmapFont.class, params4);
-        assetManager.load("tilepuzzle/uiskin.atlas", TextureAtlas.class);
+        assetManager.load("skin/uiskin.atlas", TextureAtlas.class);
         assetManager.finishLoading();
 
         // Skins
         skin = new Skin();
-        skin.addRegions(assetManager.get("tilepuzzle/uiskin.atlas", TextureAtlas.class));
+        skin.addRegions(assetManager.get("skin/uiskin.atlas", TextureAtlas.class));
         skin.add("default-font", assetManager.get("fonts/default.ttf"));
-        skin.load(Gdx.files.internal("tilepuzzle/uiskin.json"));
+        skin.load(Gdx.files.internal("skin/uiskin.json"));
 
         // Music
         assetManager.load("sounds/menu.mp3", Music.class);

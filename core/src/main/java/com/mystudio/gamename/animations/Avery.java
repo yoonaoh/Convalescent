@@ -32,7 +32,6 @@ public class Avery extends Actor {
     AveryStates status = AveryStates.LEFT_WALKING;
 
     float walk_elapsed = 0;
-    float stand_elapsed = 0;
     Animation<TextureRegion> avery_walks;
     Animation<TextureRegion> avery_stands;
     MainAdapter mainAdapter;

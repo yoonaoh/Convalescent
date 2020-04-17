@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.views.View;
+import com.mystudio.gamename.windows.Inventory;
 import com.mystudio.gamename.windows.Manager;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -32,6 +33,8 @@ public interface MainAdapter {
     void addToTargetRegistry(String name, InteractableItem item);
 
     void removeFromInventory(InteractableItem item);
+
+    void initializeInventory(Inventory inventory);
 
     Polygon getFloorspace();
 

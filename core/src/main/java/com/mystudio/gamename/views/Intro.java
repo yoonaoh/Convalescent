@@ -51,7 +51,7 @@ public class Intro extends View {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == 1) {
-                    part1.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
+                    part1.addAction(Actions.sequence(Actions.fadeIn(1.0f), Actions.fadeOut(1.0f), Actions.removeActor()));
                     actors.addActor(part2);
                     part2.addAction(Actions.fadeOut(0f));
                     part2.addAction(Actions.fadeIn(3.0f));
@@ -65,6 +65,7 @@ public class Intro extends View {
                 } else if (state == 3) {
                     part3.addAction(Actions.sequence(Actions.fadeOut(1.0f), Actions.removeActor()));
                     mainAdapter.updateState(GameState.AVERY_ROOM);
+                    state = 1;
                 }
             }
 

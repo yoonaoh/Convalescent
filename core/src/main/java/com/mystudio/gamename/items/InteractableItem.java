@@ -16,8 +16,6 @@ import java.util.function.BiConsumer;
 
 public class InteractableItem extends Item {
 
-    public boolean changeShape = false;
-
     public String sceneName;
     public String name;
     public String dialog = "";
@@ -36,12 +34,17 @@ public class InteractableItem extends Item {
         }
     };
 
+    public MainAdapter mainAdapter;
+
+    public boolean inInventory = false;
+    public boolean changeShape = false;
+
     private ClickListener hoverListener = new ClickListener() {
         @Override
         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
             super.enter(event, x, y, pointer, fromActor);
             getItem().glow();
-        }
+    }
 
         @Override
         public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -59,11 +62,6 @@ public class InteractableItem extends Item {
             return super.touchDown(event, x, y, pointer, button);
         }
     };
-
-    public MainAdapter mainAdapter;
-
-    public boolean inInventory = false;
-
 
     public InteractableItem(String sceneName, String name, CollisionShape shape, final MainAdapter mainAdapter) {
         super(shape);

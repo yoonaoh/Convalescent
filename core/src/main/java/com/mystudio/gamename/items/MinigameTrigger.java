@@ -27,7 +27,7 @@ public class MinigameTrigger extends ClickListener {
     public MinigameTrigger(final MiniGame miniGame, final MainAdapter mainAdapter, long del, int x, int y) {
         this.miniGame = miniGame;
         this.mainAdapter = mainAdapter;
-        this.delay = 0*1000;
+        this.delay = del * 1000;
         this.moveLocation[0] = x;
         this.moveLocation[1] = y;
     }
@@ -42,6 +42,7 @@ public class MinigameTrigger extends ClickListener {
             @Override
             public void run() {
                 mainAdapter.openWindow(miniGame);
+                miniGame.start();
                 timer.cancel();
             }
         };
