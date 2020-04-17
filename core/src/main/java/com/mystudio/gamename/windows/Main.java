@@ -163,7 +163,7 @@ public class Main extends BasicGame {
         avery = new Avery(mainAdapter);
         manager = new Manager();
 
-        views = new HashMap<>();
+        views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));
         views.put(GameState.INTRO, new Intro(mainAdapter));
         views.put(GameState.CORRIDOR, new Corridor(mainAdapter));

@@ -70,7 +70,7 @@ project(":desktop") {
         exe {
             vmArgs = ["-Xmx1g"]
             exeName = "Convalescent"
-            // withJre("path/to/jre/EDIT LATER")
+            withJre("C:\\Program Files\\Java\\jdk1.8.0_181\\jre");
         }
         app {
             vmArgs = ["-Xmx1g"]
@@ -80,12 +80,12 @@ project(":desktop") {
             displayName = "Convalescent"
             identifier = "Convalescent"
             copyright = "Copyright 2020 Your Company Name"
-            // withJre("path/to/jre/EDIT LATER")
+            withJre("C:\\Program Files\\Java\\jdk1.8.0_181\\jre");
         }
         linux {
             vmArgs = ["-Xmx1g"]
             binName = "Convalescent"
-            // withJre("path/to/jre/EDIT LATER")
+            withJre("C:\\Program Files\\Java\\jdk1.8.0_181\\jre");
         }
     }
     butler {
