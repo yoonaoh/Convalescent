@@ -3,6 +3,7 @@ package com.mystudio.gamename.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
@@ -34,6 +35,48 @@ public class AveryRoom extends View {
         includesInventory = false;
         sceneName = "bedroom";
 
+        // Add memory puzzle game frame
+        MiniGame memory = new MemoryPuzzleGame(mainAdapter);
+        final InteractableItem frame3 = new InteractableItem(sceneName, "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
+        frame3.addListener(new MinigameTrigger(memory, mainAdapter));
+        actors.addActor(frame3);
+        frame3.setTouchable(Touchable.disabled);
+
+        // Add door to hallway
+        final InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(660, 178, 200, 362),  mainAdapter);
+        SceneTrigger doorTrigger = new SceneTrigger(GameState.CORRIDOR, mainAdapter);
+        doorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        door.addListener(doorTrigger);
+        actors.addActor(door);
+        door.setTouchable(Touchable.disabled);
+
+        final InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 235, 125, 45), mainAdapter);
+        MiniGame drawer1_closeup = new MiniGame("UI/drawer_bg.png", mainAdapter);
+        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        actors.addActor(drawer1);
+        drawer1.setTouchable(Touchable.disabled);
+
+        final InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(390, 202, 130, 56), mainAdapter);
+        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        actors.addActor(drawer2);
+        drawer2.setTouchable(Touchable.disabled);
+
+        final InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62), mainAdapter);
+        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        actors.addActor(drawer3);
+        drawer3.setTouchable(Touchable.disabled);
+
+        final InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45), mainAdapter);
+        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        actors.addActor(drawer4);
+        drawer4.setTouchable(Touchable.disabled);
+
+        final InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125), mainAdapter);
+        MiniGame shelf_closeup = new MiniGame("UI/shelf_bg.png", mainAdapter);
+        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, (long) 1.5, 628, 154));
+        actors.addActor(shelf);
+        shelf.setTouchable(Touchable.disabled);
+
         // Add backpack
         final InteractableItem backpack = new InteractableItem(sceneName, "bag", new CollisionBox(555, 169, 75, 75), mainAdapter);
         backpack.addListener(new ClickListener() {
@@ -44,44 +87,17 @@ public class AveryRoom extends View {
                 mainAdapter.initializeInventory(new Inventory(mainAdapter));
                 includesInventory = true;
                 mainAdapter.updateState(GameState.AVERY_ROOM);
+                frame3.setTouchable(Touchable.enabled);
+                door.setTouchable(Touchable.enabled);
+                drawer1.setTouchable(Touchable.enabled);
+                drawer2.setTouchable(Touchable.enabled);
+                drawer3.setTouchable(Touchable.enabled);
+                drawer4.setTouchable(Touchable.enabled);
+                shelf.setTouchable(Touchable.enabled);
             }
         });
         actors.addActor(backpack);
 
-        // Add memory puzzle game frame
-        MiniGame memory = new MemoryPuzzleGame(mainAdapter);
-        InteractableItem frame3 = new InteractableItem(sceneName, "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
-        frame3.addListener(new MinigameTrigger(memory, mainAdapter));
-        actors.addActor(frame3);
-
-        // Add door to hallway
-        InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(660, 178, 200, 362),  mainAdapter);
-        SceneTrigger doorTrigger = new SceneTrigger(GameState.CORRIDOR, mainAdapter);
-        doorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
-        door.addListener(doorTrigger);
-        actors.addActor(door);
-
-        InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 235, 125, 45), mainAdapter);
-        MiniGame drawer1_closeup = new MiniGame("UI/drawer_bg.png", mainAdapter);
-        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
-        actors.addActor(drawer1);
-
-        InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(390, 202, 130, 56), mainAdapter);
-        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
-        actors.addActor(drawer2);
-
-        InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62), mainAdapter);
-        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
-        actors.addActor(drawer3);
-
-        InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45), mainAdapter);
-        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
-        actors.addActor(drawer4);
-
-        InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125), mainAdapter);
-        MiniGame shelf_closeup = new MiniGame("UI/shelf_bg.png", mainAdapter);
-        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, (long) 1.5, 628, 154));
-        actors.addActor(shelf);
 
         // Add bgm
         bgmFile = "sounds/secure_world.mp3";
