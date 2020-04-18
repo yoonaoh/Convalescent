@@ -232,6 +232,7 @@ public class Main extends BasicGame {
         avery.force(gameState);
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
         // Change out assets
         if (avery != null && currentBackground().includesAvery()) {
