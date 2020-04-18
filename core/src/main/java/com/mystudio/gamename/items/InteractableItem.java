@@ -192,7 +192,6 @@ public class InteractableItem extends Item {
     }
 
     public void handleDropReset() {
-        System.out.println("Drop Reset");
         getItem().visible = true;
         getItem().setTouchable(Touchable.enabled);
     }

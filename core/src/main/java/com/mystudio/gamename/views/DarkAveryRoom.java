@@ -10,7 +10,6 @@ import com.mystudio.gamename.items.*;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
-import javafx.scene.Scene;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
@@ -63,19 +62,20 @@ public class DarkAveryRoom extends View {
         // Add drawer 2
         InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(393, 198, 130, 56),
                 mainAdapter);
-        drawer2.addListener(new MinigameTrigger(new MiniGame("UI/drawer_dark_bg.png", mainAdapter), mainAdapter, (long) 1.5, 628, 154));
+        MiniGame drawer2_closeup = new MiniGame("UI/drawer_dark_bg.png", mainAdapter);
+        drawer2.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, (long) 1.5, 628, 154));
         actors.addActor(drawer2);
 
         // Add drawer 3
         InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62),
                 mainAdapter);
-        drawer3.addListener(new MinigameTrigger(new MiniGame("UI/drawer_dark_bg.png", mainAdapter), mainAdapter, (long) 1.5, 628, 154));
+        drawer3.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, (long) 1.5, 628, 154));
         actors.addActor(drawer3);
 
         // Add drawer 4
         InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45),
                 mainAdapter);
-        drawer4.addListener(new MinigameTrigger(new MiniGame("UI/drawer_dark_bg.png", mainAdapter), mainAdapter, (long) 1.5, 628, 154));
+        drawer4.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, (long) 1.5, 628, 154));
         actors.addActor(drawer4);
 
         // Add desk shelf
