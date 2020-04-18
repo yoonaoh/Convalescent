@@ -62,7 +62,7 @@ public class AveryRoom extends View {
         actors.addActor(door);
 
         InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 235, 125, 45), mainAdapter);
-        MiniGame drawer1_closeup = new MiniGame("UI/drawer_dark_bg.png", mainAdapter);
+        MiniGame drawer1_closeup = new MiniGame("UI/drawer_bg.png", mainAdapter);
         drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
         actors.addActor(drawer1);
 
@@ -79,7 +79,7 @@ public class AveryRoom extends View {
         actors.addActor(drawer4);
 
         InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125), mainAdapter);
-        MiniGame shelf_closeup = new MiniGame("UI/shelf_dark_bg.png", mainAdapter);
+        MiniGame shelf_closeup = new MiniGame("UI/shelf_bg.png", mainAdapter);
         shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, (long) 1.5, 628, 154));
         actors.addActor(shelf);
 
