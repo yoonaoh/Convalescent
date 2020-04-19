@@ -111,9 +111,11 @@ public class Avery extends Actor {
             }
         }
 
-        if (state == GameState.DISTURBED_CORRIDOR || state == GameState.CORRIDOR)
-            scale = (float) (1 - (percent_change * Math.pow(Math.pow(box.getY(), 2) + Math.pow(box.getX(), 2), 0.5) / y_length));
-        scale = (float) (1 - (percent_change * box.getY() / y_length));
+        if (state == GameState.DISTURBED_CORRIDOR || state == GameState.CORRIDOR) {
+            scale = (float) (1.2 * (1 - (percent_change * box.getY() / y_length)));
+        } else {
+            scale = (float) (1 - (percent_change * box.getY() / y_length));
+        }
 
         box.setWidth(scale(100));
 
@@ -220,6 +222,8 @@ public class Avery extends Actor {
             if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.DISTURBED_CORRIDOR) {
                 x_update = 300;
                 y_update = 270;
+                y_length = 300;
+                percent_change = 0.65;
                 box.forceTo(x_update, y_update);
             } else if (state == GameState.DISTURBED_CORRIDOR && to == GameState.DISTURBED_AVERY_ROOM) {
                 x_update = 608;
@@ -228,6 +232,8 @@ public class Avery extends Actor {
             } else if (state == GameState.AVERY_ROOM && to == GameState.CORRIDOR) {
                 x_update = 300;
                 y_update = 270;
+                y_length = 300;
+                percent_change = 0.65;
                 box.forceTo(x_update, y_update);
             } else if (state == GameState.CORRIDOR && to == GameState.AVERY_ROOM) {
                 x_update = 608;

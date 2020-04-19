@@ -56,7 +56,7 @@ public class Settings extends Window {
         ss.knob = new TextureRegionDrawable(new TextureRegion(mainAdapter.getManager().getTexture("sounds/slider_knob.png")));
 
         slider = new Slider(0f, 1f, 0.2f, false, ss);
-        slider.setValue(1f);
+        slider.setValue(0.25f);
         slider.setPosition(225, 365);
         slider.setSize(200, 20);
         slider.addListener(new InputListener() {
@@ -72,7 +72,7 @@ public class Settings extends Window {
         });
 
         effects_slider = new Slider(0f, 1f, 0.2f, false, ss);
-        effects_slider.setValue(1f);
+        effects_slider.setValue(0.5f);
         effects_slider.setPosition(225, 265);
         effects_slider.setSize(200, 20);
         effects_slider.addListener(new InputListener() {
