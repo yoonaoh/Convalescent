@@ -231,6 +231,8 @@ public class Main extends BasicGame {
         state = gameState;
         avery.force(gameState);
 
+        currentBackground().getStage().addAction(Actions.sequence(Actions.fadeIn(1.0f)));
+
         Gdx.input.setInputProcessor(currentBackground().getStage());
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
@@ -245,7 +247,6 @@ public class Main extends BasicGame {
         }
         settings.remove();
         currentBackground().getBackground().addActor(settings);
-
         currentBackground().onOpen();
 
         // Change out music

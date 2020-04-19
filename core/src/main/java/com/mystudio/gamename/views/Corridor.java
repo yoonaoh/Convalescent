@@ -18,7 +18,7 @@ public class Corridor extends View {
     public Corridor(final MainAdapter mainAdapter) {
         super(mainAdapter);
 
-        background = new Texture("views/hallway_colored_sketch.png");
+        background = new Texture("views/hallway.png");
         floorspace = new Polygon(new float[]{
                 0, 0,
                 0, 150,
@@ -31,14 +31,14 @@ public class Corridor extends View {
         sceneName = "corridor";
 
         // Add bedroom door
-        InteractableItem bedroomDoor = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(340, 265, 115, 260), mainAdapter);
+        InteractableItem bedroomDoor = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(343, 265, 115, 270), mainAdapter);
         SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.AVERY_ROOM, mainAdapter);
         bedroomDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
         bedroomDoor.addListener(bedroomDoorTrigger);
         actors.addActor(bedroomDoor);
 
         // Add other doors
-        InteractableItem door1 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(510, 200, 160, 350), mainAdapter);
+        InteractableItem door1 = new InteractableItem(sceneName, "door2", new CollisionBox(520, 193, 150, 365), mainAdapter);
         door1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -47,7 +47,7 @@ public class Corridor extends View {
         });
         actors.addActor(door1);
 
-        InteractableItem door2 = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(760, 80, 240, 500), mainAdapter);
+        InteractableItem door2 = new InteractableItem(sceneName, "door2", new CollisionBox(780, 80, 220, 500), mainAdapter);
         door2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -55,6 +55,9 @@ public class Corridor extends View {
             }
         });
         actors.addActor(door2);
+
+//        InteractableItem attic = new InteractableItem(sceneName, "atticdoor", new CollisionBox(880, 580, 220, 500), mainAdapter);
+//        actors.addActor(attic);
 
         // Add bgm
         bgmFile = "sounds/secure_world.mp3";
