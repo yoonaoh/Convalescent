@@ -52,8 +52,34 @@ public class Menu extends View {
 
         });
 
+        // Start button
+//        final TextButton saveButton = new TextButton("SAVE", skin);
+//        saveButton.setBounds(500, 250, 100, 50);
+//        saveButton.addListener(new ClickListener() {
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                mainAdapter.saveGame();
+//            }
+//
+//        });
+//
+//        // Start button
+//        final TextButton loadButton = new TextButton("LOAD", skin);
+//        loadButton.setBounds(680, 250, 100, 50);
+//        loadButton.addListener(new ClickListener() {
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                mainAdapter.loadGame();
+//            }
+//
+//        });
+
         actors.addActor(startButton);
         actors.addActor(quitButton);
+//        actors.addActor(saveButton);
+//        actors.addActor(loadButton);
 
         // Add music
         bgmFile = "sounds/menu.mp3";

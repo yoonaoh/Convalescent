@@ -2,12 +2,14 @@ package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
-import com.mystudio.gamename.items.*;
+import com.mystudio.gamename.items.InteractableItem;
+import com.mystudio.gamename.items.Item;
+import com.mystudio.gamename.items.MinigameTrigger;
+import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
@@ -55,7 +57,7 @@ public class DarkAveryRoom extends View {
         // Add drawer 1
         InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 238, 125, 45), mainAdapter);
         MiniGame drawer1_closeup = new MiniGame("UI/drawer_dark_bg.png", mainAdapter);
-        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
         drawer1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -73,7 +75,7 @@ public class DarkAveryRoom extends View {
         InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(393, 198, 130, 56),
                 mainAdapter);
         MiniGame drawer2_closeup = new MiniGame("UI/drawer_dark_bg.png", mainAdapter);
-        drawer2.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer2.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, 628, 154));
         drawer2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -85,7 +87,7 @@ public class DarkAveryRoom extends View {
         // Add drawer 3
         InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62),
                 mainAdapter);
-        drawer3.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer3.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, 628, 154));
         drawer3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -97,7 +99,7 @@ public class DarkAveryRoom extends View {
         // Add drawer 4
         InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45),
                 mainAdapter);
-        drawer4.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer4.addListener(new MinigameTrigger(drawer2_closeup, mainAdapter, 628, 154));
         drawer4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -110,35 +112,35 @@ public class DarkAveryRoom extends View {
         InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125),
                 mainAdapter);
         MiniGame shelf_closeup = new MiniGame("UI/shelf_dark_bg.png", mainAdapter);
-        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, (long) 1.5, 628, 154));
+        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, 628, 154));
 
         // Add fan in desk shelf
         final boolean[] gears = {false};
         InteractableItem fan = new InteractableItem(sceneName, "fan", new CollisionBox(550, 30, 142, 214), mainAdapter);
         shelf_closeup.addActor(fan);
         fan.setAsDropTraget("dark_bedroom/screwdriver", new BiConsumer<InteractableItem, InteractableItem>() {
-                    @Override
-                    public void accept(InteractableItem source, InteractableItem target) {
-                        if (!gears[0]) {
-                            Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
-                            Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
-                            gear2.pickup();
-                            gear6.pickup();
-                            gears[0] = true;
-                        }
-                        source.handleDropReset();
-                    }
-                });
+            @Override
+            public void accept(InteractableItem source, InteractableItem target) {
+                if (!gears[0]) {
+                    Gear gear2 = new Gear(mainAdapter, 428, 280, 48, 0);
+                    Gear gear6 = new Gear(mainAdapter, 430, 157, 72, 50);
+                    gear2.pickup();
+                    gear6.pickup();
+                    gears[0] = true;
+                }
+                source.handleDropReset();
+            }
+        });
         actors.addActor(shelf);
 
         // Add bunny
         InteractableItem bunny = new InteractableItem(sceneName, "bunny_dark", new CollisionBox(1100, 240, 75, 75),
                 mainAdapter);
-        bunny.addListener(new MinigameTrigger(new GearPuzzleGame(mainAdapter), mainAdapter, (long) 1.5, 984, 76));
+        bunny.addListener(new MinigameTrigger(new GearPuzzleGame(mainAdapter), mainAdapter, 984, 76));
         actors.addActor(bunny);
 
         // Add fan stub in the shelf
-        Item fan_stub = new Item(sceneName+"/normal/"+"fan.png", new CollisionBox(560, 383, 47, 70));
+        Item fan_stub = new Item(sceneName + "/normal/" + "fan.png", new CollisionBox(560, 383, 47, 70));
         actors.addActor(fan_stub);
 
         // Play music

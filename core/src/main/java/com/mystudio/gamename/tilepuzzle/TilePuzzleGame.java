@@ -103,8 +103,8 @@ public class TilePuzzleGame extends MiniGame {
                 if (i != holeY || j != holeX) {
                     int id = nums.removeIndex(0);
                     buttonGrid[i][j] = new Tile(skin, id, new TextureRegion(image, (image.getHeight() / boardSize) * j, (image.getWidth() / boardSize) * i, image.getWidth() / boardSize, image.getHeight() / boardSize));
-                    buttonGrid[i][j].setPosition((camera.viewportWidth / 3) - 330 + (101 * j),
-                            (camera.viewportHeight / 3) + 100 - (101 * i));
+                    buttonGrid[i][j].setPosition((camera.viewportWidth / 3) - 330 + (100 * j),
+                            (camera.viewportHeight / 3) + 100 - (100 * i));
                     buttonGrid[i][j].setSize(100, 100);
                     buttonGrid[i][j].addAction(sequence(alpha(0), delay((j + 1 + (i * boardSize)) / 60f),
                             parallel(fadeIn(.5f), Actions.moveBy(0, -10, .25f, Interpolation.pow5Out))));
@@ -166,14 +166,14 @@ public class TilePuzzleGame extends MiniGame {
         if (x < holeX) {
             for (; holeX > x; holeX--) {
                 button = buttonGrid[holeY][holeX - 1];
-                button.addAction(Actions.moveBy(101, 0, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(100, 0, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY][holeX - 1] = null;
             }
         } else {
             for (; holeX < x; holeX++) {
                 button = buttonGrid[holeY][holeX + 1];
-                button.addAction(Actions.moveBy(-101, 0, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(-100, 0, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY][holeX + 1] = null;
             }
@@ -182,14 +182,14 @@ public class TilePuzzleGame extends MiniGame {
         if (y < holeY) {
             for (; holeY > y; holeY--) {
                 button = buttonGrid[holeY - 1][holeX];
-                button.addAction(Actions.moveBy(0, -101, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(0, -100, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY - 1][holeX] = null;
             }
         } else {
             for (; holeY < y; holeY++) {
                 button = buttonGrid[holeY + 1][holeX];
-                button.addAction(Actions.moveBy(0, 101, .5f, Interpolation.pow5Out));
+                button.addAction(Actions.moveBy(0, 100, .5f, Interpolation.pow5Out));
                 buttonGrid[holeY][holeX] = button;
                 buttonGrid[holeY + 1][holeX] = null;
             }

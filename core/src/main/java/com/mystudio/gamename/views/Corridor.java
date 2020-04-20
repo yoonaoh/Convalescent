@@ -1,19 +1,20 @@
 package com.mystudio.gamename.views;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
-import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
-import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionPolygon;
 import org.mini2Dx.core.geom.Polygon;
+
+import java.util.TimerTask;
 
 public class Corridor extends View {
     public Corridor(final MainAdapter mainAdapter) {
@@ -33,7 +34,7 @@ public class Corridor extends View {
 
         // Add bedroom door
         InteractableItem bedroomDoor = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(343, 265, 115, 270), mainAdapter);
-        SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.AVERY_ROOM, mainAdapter);
+        SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.AVERY_ROOM, mainAdapter, 329, 269);
         bedroomDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
         bedroomDoor.addListener(bedroomDoorTrigger);
         actors.addActor(bedroomDoor);
@@ -43,8 +44,7 @@ public class Corridor extends View {
         door0.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's locked.");
+                mainAdapter.moveAveryTo(187, 282, createTask("It's locked."));
             }
         });
         actors.addActor(door0);
@@ -53,8 +53,7 @@ public class Corridor extends View {
         door1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's locked.");
+                mainAdapter.moveAveryTo(538, 204, createTask("It's locked."));
             }
         });
         actors.addActor(door1);
@@ -63,29 +62,44 @@ public class Corridor extends View {
         door2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's locked.");
+                mainAdapter.moveAveryTo(836, 99, createTask("It's locked."));
             }
         });
         actors.addActor(door2);
 
         // Add attic door
-        Item attic = new Item(new CollisionPolygon(new float[] {
-            110, 596,
-            79, 700,
-            415, 703,
-            287, 593
+        Item attic = new Item(new CollisionPolygon(new float[]{
+                110, 596,
+                79, 700,
+                415, 703,
+                287, 593
         }));
         attic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's closed.");
+                mainAdapter.moveAveryTo(245, 187, createTask("It's closed."));
             }
         });
         actors.addActor(attic);
 
         // Add bgm
         bgmFile = "sounds/secure_world.mp3";
+    }
+
+    public TimerTask createTask(final String s) {
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+                        mainAdapter.showDialog(s);
+                    }
+                });
+
+            }
+        };
+        return task;
     }
 }

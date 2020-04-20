@@ -13,6 +13,7 @@ import com.mystudio.gamename.windows.Manager;
 import org.mini2Dx.core.geom.Polygon;
 
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 public interface MainAdapter {
 
@@ -40,9 +41,13 @@ public interface MainAdapter {
 
     Manager getManager();
 
-    void moveAveryTo(float x, float y);
+    void moveAveryTo(float x, float y, TimerTask task);
 
     void playSoundEffect(String sound);
 
     void showDialog(String dialog);
+
+    void saveGame();
+
+    void loadGame();
 }

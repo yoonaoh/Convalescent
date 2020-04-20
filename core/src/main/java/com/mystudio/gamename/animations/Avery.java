@@ -10,10 +10,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Avery extends Actor {
 
@@ -39,6 +43,8 @@ public class Avery extends Actor {
     MainAdapter mainAdapter;
     GameState state = GameState.MENU;
     boolean debug = false;
+
+    Array<TimerTask> executes = new Array<TimerTask>();
 
     public Avery(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;
@@ -76,6 +82,7 @@ public class Avery extends Actor {
     }
 
     public void update() {
+        boolean ret = false;
         if ((box.getX() < x_update - 2 || box.getX() > x_update + 2) && (box.getY() < y_update - 2 || box.getY() > y_update + 2)) {
             if (status == AveryStates.LEFT_STANDING) {
                 status = AveryStates.LEFT_WALKING;
@@ -91,7 +98,6 @@ public class Avery extends Actor {
             if (floorspace != null) {
                 if (!floorspace.contains(box)) {
                     box.forceTo(x_old, y_old);
-
                     box.moveTowards(x_update, y_old, 4f);
                     if (!floorspace.contains(box)) {
                         box.forceTo(x_old, y_old);
@@ -106,6 +112,7 @@ public class Avery extends Actor {
                 }
             }
         } else {
+            ret = true;
             if (status == AveryStates.LEFT_WALKING) {
                 status = AveryStates.LEFT_STANDING;
             } else if (status == AveryStates.RIGHT_WALKING) {
@@ -121,6 +128,12 @@ public class Avery extends Actor {
 
         box.setWidth(scale(100));
 
+        if (ret && executes.size != 0) {
+            final Timer timer = new Timer();
+            TimerTask task = executes.removeIndex(0);
+
+            timer.schedule(task, 0);
+        }
 
     }
 
@@ -146,6 +159,11 @@ public class Avery extends Actor {
                 flip();
             }
         }
+    }
+
+    public void move(float x, float y, TimerTask task) {
+        executes.add(task);
+        move(x, y);
     }
 
     private void flip() {
@@ -266,4 +284,6 @@ public class Avery extends Actor {
 
         return b;
     }
+
+
 }

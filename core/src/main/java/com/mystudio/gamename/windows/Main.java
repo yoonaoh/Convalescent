@@ -3,11 +3,13 @@ package com.mystudio.gamename.windows;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -15,12 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.animations.Avery;
 import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.utils.GameState;
+import com.mystudio.gamename.utils.LaunchAdapter;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.engine.geom.CollisionBox;
@@ -30,6 +34,7 @@ import org.mini2Dx.core.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TimerTask;
 
 public class Main extends BasicGame {
 
@@ -42,7 +47,11 @@ public class Main extends BasicGame {
 
     private GameState state;
 
+    private GameState nextState;
+
     private SpriteBatch batch;
+
+    private ShapeRenderer shapeRenderer;
 
     private Viewport viewport;
 
@@ -64,14 +73,31 @@ public class Main extends BasicGame {
 
     private Music bgm = null;
 
+    LaunchAdapter launchAdapter = null;
+
     public Main(boolean debug) {
         this.debug = debug;
     }
 
+    public Main(boolean debug, LaunchAdapter launchAdapter) {
+        this.debug = debug;
+        this.launchAdapter = launchAdapter;
+    }
+
+    private FileHandle fileHandle;
+
+    private Json json = new Json();
+
+    private float alpha = 1.01f;
+
+    private boolean transitioning = false;
+
+    private boolean fade = true;
+
     private MainAdapter mainAdapter = new MainAdapter() {
         @Override
         public void updateState(GameState gameState) {
-            changeState(gameState);
+            switchState(gameState);
         }
 
         @Override
@@ -138,8 +164,8 @@ public class Main extends BasicGame {
         }
 
         @Override
-        public void moveAveryTo(float x, float y) {
-            avery.move(x, y);
+        public void moveAveryTo(float x, float y, TimerTask task) {
+            avery.move(x, y, task);
         }
 
         @Override
@@ -151,15 +177,27 @@ public class Main extends BasicGame {
         public void showDialog(String dialog) {
             addDialog(dialog);
         }
+
+        @Override
+        public void saveGame() {
+            saveData();
+        }
+
+        @Override
+        public void loadGame() {
+            loadData();
+        }
     };
 
     @Override
     public void initialise() {
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         Camera camera = new OrthographicCamera();
         camera.position.set(640, 360, 0);
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
         avery = new Avery(mainAdapter);
         manager = new Manager();
 
@@ -172,7 +210,7 @@ public class Main extends BasicGame {
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
         views.put(GameState.MAZE, new Maze(mainAdapter));
         views.put(GameState.ATTIC_TRANSITION, new TransitionToAttic(mainAdapter));
-        views.put(GameState.BLANK, new Blank(mainAdapter));
+//        views.put(GameState.BLANK, new Blank(mainAdapter));
 //        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
@@ -212,6 +250,10 @@ public class Main extends BasicGame {
 
     @Override
     public void render(Graphics g) {
+        if (transitioning) {
+            Gdx.gl.glClearColor(0, 0, 0, 0);
+            Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+        }
 
         currentBackground().drawBackground();
         currentBackground().getStage().setDebugAll(debug);
@@ -220,6 +262,28 @@ public class Main extends BasicGame {
         if (currentBackground().includesAvery() && !game_in_progress)
             avery.render(batch);
 
+        if (transitioning) {
+            Gdx.gl.glEnable(Gdx.gl.GL_BLEND);
+            Gdx.gl.glBlendFunc(Gdx.gl.GL_SRC_ALPHA, Gdx.gl.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.setColor(0, 0, 0, alpha);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.rect(-1, -1, 2000, 1000);
+            shapeRenderer.end();
+
+            Gdx.gl.glDisable(Gdx.gl.GL_BLEND);
+
+            if (alpha >= 1) {
+                changeState(nextState);
+                fade = false;
+            } else if (alpha < 0) {
+                transitioning = false;
+            }
+            if (fade) {
+                alpha += 0.01f;
+            } else {
+                alpha -= 0.01f;
+            }
+        }
     }
 
     @Override
@@ -227,7 +291,22 @@ public class Main extends BasicGame {
         manager.dispose();
     }
 
+    public void switchState(GameState gameState) {
+        if (gameState != state &&
+                !(state == GameState.DISTURBED_AVERY_ROOM && gameState == GameState.AVERY_ROOM) &&
+                !(state == GameState.AVERY_ROOM && gameState == GameState.DISTURBED_AVERY_ROOM) &&
+                !(state == GameState.MAZE && gameState == GameState.ATTIC)) {
+            alpha = 0;
+            nextState = gameState;
+            transitioning = true;
+            fade = true;
+        } else {
+            changeState(gameState);
+        }
+    }
+
     public void changeState(GameState gameState) {
+
         if (gameState == GameState.MENU) {
             views.get(gameState).setChangeToState(state);
         }
@@ -291,6 +370,14 @@ public class Main extends BasicGame {
     @Override
     public void resize(int width, int height) {
         viewport.setScreenSize(width, height);
+    }
+
+    public void saveData() {
+        fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(this)), false);
+    }
+
+    public void loadData() {
+        launchAdapter.switchMain(json.fromJson(Main.class, Base64Coder.decodeString(fileHandle.readString())));
     }
 
 }

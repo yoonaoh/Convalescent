@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
-import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.memorypuzzle.MemoryPuzzleGame;
-import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
 import com.mystudio.gamename.utils.GameState;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.Inventory;
@@ -19,18 +16,20 @@ import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.geom.Polygon;
 
+import java.util.TimerTask;
+
 public class AveryRoom extends View {
 
     public AveryRoom(final MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture(Gdx.files.internal("views/avery_bedroom.png"));
-        floorspace = new Polygon(new float[] {
-            0, 0,
-            30, 30,
-            300, 30,
-            387, 170,
-            887, 170,
-            1095, 0
+        floorspace = new Polygon(new float[]{
+                0, 0,
+                30, 30,
+                300, 30,
+                387, 170,
+                887, 170,
+                1095, 0
         });
         includesAvery = true;
         includesInventory = false;
@@ -39,13 +38,13 @@ public class AveryRoom extends View {
         // Add memory puzzle game frame
         MiniGame memory = new MemoryPuzzleGame(mainAdapter);
         final InteractableItem frame3 = new InteractableItem(sceneName, "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
-        frame3.addListener(new MinigameTrigger(memory, mainAdapter));
+        frame3.addListener(new MinigameTrigger(memory, mainAdapter, 384, 145));
         actors.addActor(frame3);
         frame3.setTouchable(Touchable.disabled);
 
         // Add door to hallway
-        final InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(660, 178, 200, 362),  mainAdapter);
-        SceneTrigger doorTrigger = new SceneTrigger(GameState.CORRIDOR, mainAdapter);
+        final InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(660, 178, 200, 362), mainAdapter);
+        SceneTrigger doorTrigger = new SceneTrigger(GameState.CORRIDOR, mainAdapter, 690, 178);
         doorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
         door.addListener(doorTrigger);
         actors.addActor(door);
@@ -54,7 +53,7 @@ public class AveryRoom extends View {
         // Add drawer 1
         final InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 235, 125, 45), mainAdapter);
         MiniGame drawer1_closeup = new MiniGame("UI/drawer_bg.png", mainAdapter);
-        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
         drawer1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -65,7 +64,7 @@ public class AveryRoom extends View {
         drawer1.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(390, 202, 130, 56), mainAdapter);
-        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
         drawer2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -76,7 +75,7 @@ public class AveryRoom extends View {
         drawer2.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62), mainAdapter);
-        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
         drawer3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -87,7 +86,7 @@ public class AveryRoom extends View {
         drawer3.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45), mainAdapter);
-        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
         drawer4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -99,15 +98,15 @@ public class AveryRoom extends View {
 
         final InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125), mainAdapter);
         MiniGame shelf_closeup = new MiniGame("UI/shelf_bg.png", mainAdapter);
-        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, (long) 1.5, 628, 154));
+        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, 628, 154));
         actors.addActor(shelf);
         shelf.setTouchable(Touchable.disabled);
 
         // Add backpack
         final InteractableItem backpack = new InteractableItem(sceneName, "bag", new CollisionBox(555, 169, 75, 75), mainAdapter);
-        backpack.addListener(new ClickListener() {
+        final TimerTask task = new TimerTask() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void run() {
                 mainAdapter.playSoundEffect("sounds/backpack.mp3");
                 backpack.getItem().remove();
                 mainAdapter.initializeInventory(new Inventory(mainAdapter));
@@ -121,10 +120,17 @@ public class AveryRoom extends View {
                 drawer4.setTouchable(Touchable.enabled);
                 shelf.setTouchable(Touchable.enabled);
             }
+        };
+        backpack.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.moveAveryTo(629, 158, task);
+            }
         });
         actors.addActor(backpack);
 
         // Add bgm
         bgmFile = "sounds/secure_world.mp3";
     }
+
 }

@@ -19,8 +19,10 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class Manager {
     private AssetManager assetManager;
-    private float musicvol = (float) 0.25;
-    private float effectvol = (float) 0.3;
+    private float basemusicvol = 0.25f;
+    private float musicvol = 0.25f;
+    private float baseeffectvol = 0.3f;
+    private float effectvol = 0.3f;
     private Music cur_music = null;
     private String cur_music_file = null;
     private Skin skin;
@@ -76,14 +78,14 @@ public class Manager {
     }
 
     public void setMastervol(float volume) {
-        musicvol = volume;
+        musicvol = volume * basemusicvol;
         if (cur_music != null) {
             cur_music.setVolume(musicvol);
         }
     }
 
     public void setEffectvol(float volume) {
-        effectvol = volume;
+        effectvol = baseeffectvol * volume;
     }
 
     public Skin getSkin() {

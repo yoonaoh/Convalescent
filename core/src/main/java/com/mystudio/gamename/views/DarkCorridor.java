@@ -1,9 +1,9 @@
 package com.mystudio.gamename.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.utils.GameState;
@@ -11,6 +11,8 @@ import com.mystudio.gamename.utils.MainAdapter;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.engine.geom.CollisionPolygon;
 import org.mini2Dx.core.geom.Polygon;
+
+import java.util.TimerTask;
 
 public class DarkCorridor extends View {
     public DarkCorridor(final MainAdapter mainAdapter) {
@@ -28,11 +30,8 @@ public class DarkCorridor extends View {
         sceneName = "dark_corridor";
 
         // Add the bedroom door
-//        Item bedroomDoor = new Item(null, new CollisionBox(340, 265, 115, 260));
-//        bedroomDoor.addListener(new SceneTrigger(GameState.DISTURBED_AVERY_ROOM, mainAdapter));
-//        actors.addActor(bedroomDoor);
         Item door = new Item(new CollisionBox(345, 270, 115, 260));
-        SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.DISTURBED_AVERY_ROOM, mainAdapter);
+        SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.DISTURBED_AVERY_ROOM, mainAdapter, 329, 269);
         bedroomDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
         door.addListener(bedroomDoorTrigger);
         actors.addActor(door);
@@ -42,8 +41,7 @@ public class DarkCorridor extends View {
         door0.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's locked.");
+                mainAdapter.moveAveryTo(187, 282, createTask("It's locked."));
             }
         });
         actors.addActor(door0);
@@ -52,8 +50,7 @@ public class DarkCorridor extends View {
         door1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's locked.");
+                mainAdapter.moveAveryTo(538, 204, createTask("It's locked."));
             }
         });
         actors.addActor(door1);
@@ -62,34 +59,49 @@ public class DarkCorridor extends View {
         door2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's locked.");
+                mainAdapter.moveAveryTo(836, 99, createTask("It's locked."));
             }
         });
         actors.addActor(door2);
 
         // Add attic door
-        Item attic = new Item(new CollisionPolygon(new float[] {
-            110, 596,
-            79, 700,
-            415, 703,
-            287, 593
+        Item attic = new Item(new CollisionPolygon(new float[]{
+                110, 596,
+                79, 700,
+                415, 703,
+                287, 593
         }));
         attic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
-                mainAdapter.showDialog("It's closed.");
+                mainAdapter.moveAveryTo(245, 187, createTask("It's closed."));
             }
         });
         actors.addActor(attic);
 
         // Add the end of the hallway that leads to the maze tile puzzle
         Item hallway_end = new Item(new CollisionBox(900, 0, 380, 720));
-        hallway_end.addListener(new SceneTrigger(GameState.MAZE, mainAdapter));
+        hallway_end.addListener(new SceneTrigger(GameState.MAZE, mainAdapter, 1114, 0));
         hallway_end.setCursorImage("UI/right.png");
         getStage().addActor(hallway_end);
 
         bgmFile = "sounds/disturbed.mp3";
+    }
+
+    public TimerTask createTask(final String s) {
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+                        mainAdapter.showDialog(s);
+                    }
+                });
+
+            }
+        };
+        return task;
     }
 }

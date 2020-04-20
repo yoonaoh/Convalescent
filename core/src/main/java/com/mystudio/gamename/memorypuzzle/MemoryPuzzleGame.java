@@ -17,7 +17,6 @@ import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.windows.MiniGame;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,8 +112,7 @@ public class MemoryPuzzleGame extends MiniGame {
                     public void clicked(InputEvent event, float x, float y) {
                         if (solutions.get(currentRound).contains(buttonGrid[iFin][jFin])) {
                             buttonGrid[iFin][jFin].setDisabled(true);
-                        }
-                        else {
+                        } else {
                             if (!buttonGrid[iFin][jFin].isDisabled())
                                 buttonGrid[iFin][jFin].setChecked(false);
 
@@ -138,7 +136,7 @@ public class MemoryPuzzleGame extends MiniGame {
     }
 
     public boolean solutionFound() {
-        for (MemoryTile solution: solutions.get(currentRound)) {
+        for (MemoryTile solution : solutions.get(currentRound)) {
             if (!solution.isDisabled())
                 return false;
         }
