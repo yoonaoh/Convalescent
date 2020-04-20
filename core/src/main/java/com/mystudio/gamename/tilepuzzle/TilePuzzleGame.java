@@ -46,7 +46,7 @@ public class TilePuzzleGame extends MiniGame {
 
         this.progress = 0f;
         this.skin = mainAdapter.getManager().getSkin();
-        image = mainAdapter.getManager().getTexture("tilepuzzle/TileLevel0.png");
+        image = mainAdapter.getManager().getTexture("tilepuzzle/Maze.png");
         addActor(new Actor() {
             @Override
             public void draw(Batch batch, float parentAlpha) {

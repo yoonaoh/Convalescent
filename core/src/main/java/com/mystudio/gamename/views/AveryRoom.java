@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
@@ -50,24 +51,49 @@ public class AveryRoom extends View {
         actors.addActor(door);
         door.setTouchable(Touchable.disabled);
 
+        // Add drawer 1
         final InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 235, 125, 45), mainAdapter);
         MiniGame drawer1_closeup = new MiniGame("UI/drawer_bg.png", mainAdapter);
-        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
+            }
+        });
         actors.addActor(drawer1);
         drawer1.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(390, 202, 130, 56), mainAdapter);
-        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
+            }
+        });
         actors.addActor(drawer2);
         drawer2.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62), mainAdapter);
-        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
+            }
+        });
         actors.addActor(drawer3);
         drawer3.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45), mainAdapter);
-        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 1.5, 628, 154));
+        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, (long) 0, 628, 154));
+        drawer4.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
+            }
+        });
         actors.addActor(drawer4);
         drawer4.setTouchable(Touchable.disabled);
 
@@ -97,7 +123,6 @@ public class AveryRoom extends View {
             }
         });
         actors.addActor(backpack);
-
 
         // Add bgm
         bgmFile = "sounds/secure_world.mp3";

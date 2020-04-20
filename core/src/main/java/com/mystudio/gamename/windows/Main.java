@@ -171,6 +171,8 @@ public class Main extends BasicGame {
         views.put(GameState.DISTURBED_AVERY_ROOM, new DarkAveryRoom(mainAdapter));
         views.put(GameState.DISTURBED_CORRIDOR, new DarkCorridor(mainAdapter));
         views.put(GameState.MAZE, new Maze(mainAdapter));
+        views.put(GameState.ATTIC_TRANSITION, new TransitionToAttic(mainAdapter));
+        views.put(GameState.BLANK, new Blank(mainAdapter));
 //        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
@@ -224,16 +226,16 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
-        System.out.println("Changing state from " + state + " to " + gameState);
         if (gameState == GameState.MENU) {
             views.get(gameState).setChangeToState(state);
         }
         state = gameState;
         avery.force(gameState);
 
-        currentBackground().getStage().addAction(Actions.sequence(Actions.fadeIn(1.0f)));
+        currentBackground().getStage().addAction(Actions.sequence(Actions.fadeIn(5.0f)));
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
+        // TODO: Do we need this?
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
         // Change out assets

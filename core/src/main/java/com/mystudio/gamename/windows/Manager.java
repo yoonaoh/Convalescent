@@ -13,13 +13,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class Manager {
     private AssetManager assetManager;
     private float musicvol = (float) 0.25;
-    private float effectvol = (float) 0.5;
+    private float effectvol = (float) 0.3;
     private Music cur_music = null;
     private String cur_music_file = null;
     private Skin skin;
@@ -40,19 +41,20 @@ public class Manager {
 
         // Fonts
         assetManager.load("fonts/default.ttf", BitmapFont.class, params4);
-        assetManager.load("skin/uiskin.atlas", TextureAtlas.class);
+        assetManager.load("skin/uiskin2.atlas", TextureAtlas.class);
         assetManager.finishLoading();
 
         // Skins
         skin = new Skin();
-        skin.addRegions(assetManager.get("skin/uiskin.atlas", TextureAtlas.class));
+        skin.addRegions(assetManager.get("skin/uiskin2.atlas", TextureAtlas.class));
         skin.add("default-font", assetManager.get("fonts/default.ttf"));
-        skin.load(Gdx.files.internal("skin/uiskin.json"));
+        skin.load(Gdx.files.internal("skin/uiskin2.json"));
 
         // Music
         assetManager.load("sounds/menu.mp3", Music.class);
         assetManager.load("sounds/intro.mp3", Music.class);
         assetManager.load("sounds/secure_world.mp3", Music.class);
+        assetManager.load("sounds/maze.mp3", Music.class);
         assetManager.load("sounds/mode_transition.mp3", Music.class);
         assetManager.load("sounds/disturbed.mp3", Music.class);
 
@@ -62,11 +64,12 @@ public class Manager {
         assetManager.load("sounds/backpack.mp3", Sound.class);
         assetManager.load("sounds/windup_toy.mp3", Sound.class);
         assetManager.load("sounds/inventory_item.mp3", Sound.class);
+        assetManager.load("sounds/drawer_open.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
         assetManager.load("sounds/slider_knob.png", Texture.class);
-        assetManager.load("tilepuzzle/TileLevel0.png", Texture.class);
+        assetManager.load("tilepuzzle/Maze.png", Texture.class);
 
         assetManager.finishLoading();
     }
@@ -95,18 +98,29 @@ public class Manager {
     }
 
     public Music getMusic(String filename) {
-        return assetManager.get(filename, Music.class);
+        if (filename != null)
+            return assetManager.get(filename, Music.class);
+        return null;
+    }
+
+    public LabelStyle getPlainTextStyle() {
+        LabelStyle plainText = new LabelStyle();
+        plainText.font = getFont();
+        return plainText;
     }
 
     public void playMusic(String filename) {
-        System.out.println("Called play music with " + filename);
-
         if (cur_music != null && filename == null) {
-            cur_music.pause();
+            cur_music.stop();
         } else if (!filename.equals(cur_music_file)) {
+
             if (cur_music != null) {
-                cur_music.pause();
+                if (cur_music_file.equals("sounds/menu.mp3"))
+                    cur_music.stop();
+                else
+                    cur_music.pause();
             }
+
             cur_music = assetManager.get(filename, Music.class);
             cur_music_file = filename;
             cur_music.setVolume(musicvol);
@@ -117,8 +131,6 @@ public class Manager {
     }
 
     public void playSound(String filename) {
-        System.out.println("Called play music with " + filename);
-
         Sound effect = assetManager.get(filename, Sound.class);
         long effect_id = effect.play();
         effect.setVolume(effect_id, effectvol);

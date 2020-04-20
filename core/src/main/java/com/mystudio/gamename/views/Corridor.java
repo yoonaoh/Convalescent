@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
+import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.tilepuzzle.TilePuzzleGame;
@@ -38,11 +39,22 @@ public class Corridor extends View {
         actors.addActor(bedroomDoor);
 
         // Add other doors
+        Item door0 = new Item(new CollisionBox(127, 311, 130, 198));
+        door0.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+                mainAdapter.showDialog("It's locked.");
+            }
+        });
+        actors.addActor(door0);
+
         InteractableItem door1 = new InteractableItem(sceneName, "door2", new CollisionBox(520, 193, 150, 365), mainAdapter);
         door1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+                mainAdapter.showDialog("It's locked.");
             }
         });
         actors.addActor(door1);
@@ -52,12 +64,26 @@ public class Corridor extends View {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+                mainAdapter.showDialog("It's locked.");
             }
         });
         actors.addActor(door2);
 
-//        InteractableItem attic = new InteractableItem(sceneName, "atticdoor", new CollisionBox(880, 580, 220, 500), mainAdapter);
-//        actors.addActor(attic);
+        // Add attic door
+        Item attic = new Item(new CollisionPolygon(new float[] {
+            110, 596,
+            79, 700,
+            415, 703,
+            287, 593
+        }));
+        attic.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.playSoundEffect("sounds/locked_door.mp3");
+                mainAdapter.showDialog("It's closed.");
+            }
+        });
+        actors.addActor(attic);
 
         // Add bgm
         bgmFile = "sounds/secure_world.mp3";

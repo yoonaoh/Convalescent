@@ -5,7 +5,6 @@ package com.mystudio.gamename.utils;
  */
 public enum GameState {
     MENU,
-    ABOUT,
     INTRO,
     DARK_ATTIC,
     ATTIC,
@@ -14,7 +13,7 @@ public enum GameState {
     DISTURBED_AVERY_ROOM,
     CORRIDOR,
     DISTURBED_CORRIDOR,
-    BATHROOM,
-    END,
-    MAZE
+    MAZE,
+    ATTIC_TRANSITION,
+    BLANK
 }

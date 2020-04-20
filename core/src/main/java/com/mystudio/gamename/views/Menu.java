@@ -31,6 +31,7 @@ public class Menu extends View {
 
                 if (changeToState != null && changeToState != GameState.MENU) {
                     mainAdapter.updateState(changeToState);
+                    startButton.setChecked(false);
                 } else {
                     mainAdapter.updateState(GameState.INTRO);
                 }

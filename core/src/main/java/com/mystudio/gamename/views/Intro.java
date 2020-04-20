@@ -1,9 +1,7 @@
 package com.mystudio.gamename.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,9 +17,9 @@ public class Intro extends View {
     public Intro(final MainAdapter mainAdapter) {
         super(mainAdapter);
 
-        String line1 = "I always seem to find myself back at that place.";
-        String line2 = "Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me";
-        String line3 = "My only hope is that I'll have the strength to leave again...";
+        final String line1 = "I always seem to find myself back at that place.";
+        final String line2 = "Though it's been over 20 years since I left, I'm reminded of it, like it never wants to leave me";
+        final String line3 = "My only hope is that I'll have the strength to leave again...";
 
         background = new Texture("skin/Black.jpg");
         floorspace = new Polygon(new float[]{});
@@ -30,27 +28,27 @@ public class Intro extends View {
 
         state = 1;
 
-        final Label part1 = new Label(line1, mainAdapter.getManager().getSkin());
+        final Label part1 = new Label(line1, mainAdapter.getManager().getPlainTextStyle());
         part1.setWrap(true);
         part1.setAlignment(Align.center);
         part1.setWidth(500);
         part1.setHeight(100);
-        part1.setPosition(390, 360);
+        part1.setPosition(411, 335);
         part1.addAction(Actions.fadeIn((float) 2.0));
 
-        final Label part2 = new Label(line2, mainAdapter.getManager().getSkin());
+        final Label part2 = new Label(line2, mainAdapter.getManager().getPlainTextStyle());
         part2.setWrap(true);
         part2.setAlignment(Align.center);
         part2.setWidth(500);
         part2.setHeight(150);
-        part2.setPosition(390, 335);
+        part2.setPosition(438, 314);
 
-        final Label part3 = new Label(line3, mainAdapter.getManager().getSkin());
+        final Label part3 = new Label(line3, mainAdapter.getManager().getPlainTextStyle());
         part3.setWrap(true);
         part3.setAlignment(Align.center);
         part3.setWidth(500);
         part3.setHeight(100);
-        part3.setPosition(390, 360);
+        part3.setPosition(426, 334);
 
         actors.addActor(part1);
         stage.addListener(new ClickListener() {

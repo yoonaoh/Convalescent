@@ -45,11 +45,11 @@ public class Settings extends Window {
         });
         addActor(close);
 
-        Label sound_label = new Label("Music: ", mainAdapter.getManager().getSkin());
-        sound_label.setPosition(100, 350);
+        Label sound_label = new Label("Music: ", mainAdapter.getManager().getPlainTextStyle());
+        sound_label.setPosition(95, 355);
 
-        Label effects_label = new Label("Effects: ", mainAdapter.getManager().getSkin());
-        effects_label.setPosition(100, 250);
+        Label effects_label = new Label("Effects: ", mainAdapter.getManager().getPlainTextStyle());
+        effects_label.setPosition(95, 255);
 
         Slider.SliderStyle ss = new Slider.SliderStyle();
         ss.background = new TextureRegionDrawable(new TextureRegion(mainAdapter.getManager().getTexture("sounds/slider_background.png")));
@@ -97,6 +97,7 @@ public class Settings extends Window {
         mainMenuBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                mainAdapter.closeWindow();
                 mainAdapter.updateState(GameState.MENU);
             }
          });

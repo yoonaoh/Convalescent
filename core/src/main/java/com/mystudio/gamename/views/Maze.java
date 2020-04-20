@@ -7,9 +7,9 @@ import com.mystudio.gamename.utils.MainAdapter;
 public class Maze extends View {
     public Maze(MainAdapter mainAdapter) {
         super(mainAdapter);
-        background = new Texture("views/blank.jpg");
+        background = new Texture("tilepuzzle/Maze.png");
         includesAvery = false;
-        includesInventory = true;
+        includesInventory = false;
         sceneName = "maze";
 
         bgmFile = "sounds/disturbed.mp3";
