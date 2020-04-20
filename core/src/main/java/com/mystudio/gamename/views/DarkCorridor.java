@@ -13,7 +13,7 @@ import org.mini2Dx.core.engine.geom.CollisionPolygon;
 import org.mini2Dx.core.geom.Polygon;
 
 public class DarkCorridor extends View {
-    public DarkCorridor(MainAdapter mainAdapter) {
+    public DarkCorridor(final MainAdapter mainAdapter) {
         super(mainAdapter);
         background = new Texture("views/disturbed_hallway.png");
         floorspace = new Polygon(new float[]{

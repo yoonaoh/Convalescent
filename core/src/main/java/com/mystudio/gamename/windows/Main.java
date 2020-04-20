@@ -183,7 +183,7 @@ public class Main extends BasicGame {
         manager.playMusic("sounds/menu.mp3");
 
         settings = new InteractableItem("sounds", "settings", new CollisionBox(10, 670, 50, 50), mainAdapter);
-        Settings settingsWindow = new Settings(mainAdapter);
+        final Settings settingsWindow = new Settings(mainAdapter);
         settings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

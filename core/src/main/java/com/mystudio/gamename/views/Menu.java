@@ -22,7 +22,7 @@ public class Menu extends View {
         Skin skin = mainAdapter.getManager().getSkin();
 
         // Start button
-        TextButton startButton = new TextButton("START", skin);
+        final TextButton startButton = new TextButton("START", skin);
         startButton.setBounds(500, 150, 100, 50);
         startButton.addListener(new ClickListener() {
 
