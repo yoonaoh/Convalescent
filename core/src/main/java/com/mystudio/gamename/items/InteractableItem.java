@@ -127,7 +127,7 @@ public class InteractableItem extends Item {
                 if (dragItemName.equals(item.sceneName + "/" + item.name)) {
                     func.accept(item, getItem());
                 } else {
-                    handleDropReset();
+                    item.handleDropReset();
                 }
             }
         };
@@ -141,7 +141,6 @@ public class InteractableItem extends Item {
                     target.getStage().addActor(nextItem);
                     target.remove();
                     source.remove();
-                    source.handleDropReset();
                 }
             }
         });
