@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.items.Item;
@@ -32,11 +33,10 @@ public class MiniGame extends Window {
         setSize(800, 500);
 
         Actor close = new Item("UI/game_close.png", new CollisionBox(30, 450, 30, 30));
-        close.addListener(new InputListener() {
+        close.addListener(new ClickListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mainAdapter.closeWindow();
-                return true;
+            public void clicked(InputEvent event, float x, float y) {
+                close();
             }
         });
         addActor(close);

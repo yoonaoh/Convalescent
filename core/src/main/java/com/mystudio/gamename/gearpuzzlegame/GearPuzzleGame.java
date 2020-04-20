@@ -2,6 +2,9 @@ package com.mystudio.gamename.gearpuzzlegame;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.MainAdapter;
@@ -139,6 +142,19 @@ public class GearPuzzleGame extends MiniGame {
 
                 }
             }
+        }
+    }
+
+    @Override
+    public void start() {
+        if (!success) {
+            Label prompt = new Label("It's missing some gears.", getMainAdapter().getManager().getPlainTextStyle());
+            prompt.setWrap(true);
+            prompt.setAlignment(Align.left);
+            prompt.setWidth(500);
+            prompt.setPosition(215, 15);
+            prompt.addAction(Actions.sequence(Actions.delay(3.0f), Actions.fadeOut(1.0f), Actions.removeActor()));
+            addActor(prompt);
         }
     }
 }

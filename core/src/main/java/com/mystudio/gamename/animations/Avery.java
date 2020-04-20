@@ -88,19 +88,21 @@ public class Avery extends Actor {
 
             box.moveTowards(x_update, y_update, 4f);
             Polygon floorspace = mainAdapter.getFloorspace();
-            if (!floorspace.contains(box)) {
-                box.forceTo(x_old, y_old);
-
-                box.moveTowards(x_update, y_old, 4f);
+            if (floorspace != null) {
                 if (!floorspace.contains(box)) {
                     box.forceTo(x_old, y_old);
-                    box.moveTowards(x_old, y_update, 4f);
+
+                    box.moveTowards(x_update, y_old, 4f);
                     if (!floorspace.contains(box)) {
                         box.forceTo(x_old, y_old);
-                        x_update = x_old;
-                        y_update = y_old;
-                    }
+                        box.moveTowards(x_old, y_update, 4f);
+                        if (!floorspace.contains(box)) {
+                            box.forceTo(x_old, y_old);
+                            x_update = x_old;
+                            y_update = y_old;
+                        }
 
+                    }
                 }
             }
         } else {

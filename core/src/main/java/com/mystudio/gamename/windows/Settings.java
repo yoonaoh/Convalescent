@@ -36,11 +36,10 @@ public class Settings extends Window {
 
         // Add close button
         Actor close = new Item("UI/game_close.png", new CollisionBox(30, 450, 30, 30));
-        close.addListener(new InputListener() {
+        close.addListener(new ClickListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 mainAdapter.closeWindow();
-                return true;
             }
         });
         addActor(close);

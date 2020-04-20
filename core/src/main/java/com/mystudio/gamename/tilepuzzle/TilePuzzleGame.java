@@ -46,7 +46,7 @@ public class TilePuzzleGame extends MiniGame {
 
         this.progress = 0f;
         this.skin = mainAdapter.getManager().getSkin();
-        image = mainAdapter.getManager().getTexture("tilepuzzle/Maze.png");
+        image = mainAdapter.getManager().getTexture("tilepuzzle/maze_center.png");
         addActor(new Actor() {
             @Override
             public void draw(Batch batch, float parentAlpha) {
@@ -231,6 +231,12 @@ public class TilePuzzleGame extends MiniGame {
             e.printStackTrace();
         }
         getMainAdapter().updateState(GameState.AVERY_ROOM);
+    }
+
+    @Override
+    public void close() {
+        getMainAdapter().updateState(GameState.DISTURBED_CORRIDOR);
+        super.close();
     }
 
 
