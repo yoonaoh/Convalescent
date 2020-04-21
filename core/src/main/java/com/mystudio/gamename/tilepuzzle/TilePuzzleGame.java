@@ -19,7 +19,6 @@ import com.mystudio.gamename.windows.MiniGame;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -153,7 +152,7 @@ public class TilePuzzleGame extends MiniGame {
                                             timer.cancel();
                                         }
                                     };
-                                    timer.schedule(task1, 3*1000); //delay in milliseconds
+                                    timer.schedule(task1, 3 * 1000); //delay in milliseconds
                                 }
                             }
                         }
