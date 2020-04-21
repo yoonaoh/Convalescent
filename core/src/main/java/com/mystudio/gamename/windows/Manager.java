@@ -61,7 +61,7 @@ public class Manager {
         assetManager.load("sounds/disturbed.mp3", Music.class);
 
         // Sound Effects
-        assetManager.load("sounds/wood_door_close.mp3", Sound.class);
+        assetManager.load("sounds/wood_door_open.mp3", Sound.class);
         assetManager.load("sounds/locked_door.mp3", Sound.class);
         assetManager.load("sounds/backpack.mp3", Sound.class);
         assetManager.load("sounds/windup_toy.mp3", Sound.class);

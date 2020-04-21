@@ -32,7 +32,7 @@ public class DarkCorridor extends View {
         // Add the bedroom door
         Item door = new Item(new CollisionBox(345, 270, 115, 260));
         SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.DISTURBED_AVERY_ROOM, mainAdapter, 329, 269);
-        bedroomDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        bedroomDoorTrigger.setSoundEffect("sounds/wood_door_open.mp3");
         door.addListener(bedroomDoorTrigger);
         actors.addActor(door);
 

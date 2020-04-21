@@ -45,7 +45,7 @@ public class AveryRoom extends View {
         // Add door to hallway
         final InteractableItem door = new InteractableItem(sceneName, "door", new CollisionBox(660, 178, 200, 362), mainAdapter);
         SceneTrigger doorTrigger = new SceneTrigger(GameState.CORRIDOR, mainAdapter, 690, 178);
-        doorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        doorTrigger.setSoundEffect("sounds/wood_door_open.mp3");
         door.addListener(doorTrigger);
         actors.addActor(door);
         door.setTouchable(Touchable.disabled);

@@ -47,7 +47,7 @@ public class DarkAveryRoom extends View {
         door.setDialog("It's locked...");
         InteractableItem opened_door = new InteractableItem(sceneName, "open_door", new CollisionBox(658, 130, 200, 410), mainAdapter);
         SceneTrigger openedDoorTrigger = new SceneTrigger(GameState.DISTURBED_CORRIDOR, mainAdapter);
-        openedDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        openedDoorTrigger.setSoundEffect("sounds/wood_door_open.mp3");
         opened_door.addListener(openedDoorTrigger);
         door.setAsDropTraget("gearpuzzle/key", opened_door);
 

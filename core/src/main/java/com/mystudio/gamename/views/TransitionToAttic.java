@@ -76,7 +76,7 @@ public class TransitionToAttic extends View {
                         @Override
                         public void run() {
                             state = 1;
-                            mainAdapter.updateState(GameState.AVERY_ROOM);
+                            mainAdapter.updateState(GameState.MENU);
                         }
                     };
                     timer.scheduleTask(task, 3);
@@ -85,6 +85,6 @@ public class TransitionToAttic extends View {
         });
 
         // Add music
-        bgmFile = "sounds/intro.mp3";
+        bgmFile = "sounds/disturbed.mp3";
     }
 }

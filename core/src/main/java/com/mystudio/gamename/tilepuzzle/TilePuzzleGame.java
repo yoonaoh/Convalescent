@@ -140,15 +140,15 @@ public class TilePuzzleGame extends MiniGame {
                                         @Override
                                         public void run() {
                                             close();
-                                            for (int i = 0; i < 3; i++) {
-                                                flicker();
-                                            }
+//                                            for (int i = 0; i < 3; i++) {
+//                                                flicker();
+//                                            }
                                             try {
-                                                Thread.sleep(50);
+                                                Thread.sleep(100);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
-                                            getMainAdapter().updateState(GameState.AVERY_ROOM);
+                                            getMainAdapter().updateState(GameState.ATTIC_TRANSITION);
                                             timer.cancel();
                                         }
                                     };
@@ -222,18 +222,18 @@ public class TilePuzzleGame extends MiniGame {
     }
 
     private void flicker() {
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        getMainAdapter().updateState(GameState.AVERY_ROOM);
+//        try {
+//            Thread.sleep(50);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
+//        try {
+//            Thread.sleep(50);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        getMainAdapter().updateState(GameState.AVERY_ROOM);
     }
 
     @Override

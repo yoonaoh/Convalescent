@@ -35,7 +35,7 @@ public class Corridor extends View {
         // Add bedroom door
         InteractableItem bedroomDoor = new InteractableItem(sceneName, "bedroom_door", new CollisionBox(343, 265, 115, 270), mainAdapter);
         SceneTrigger bedroomDoorTrigger = new SceneTrigger(GameState.AVERY_ROOM, mainAdapter, 329, 269);
-        bedroomDoorTrigger.setSoundEffect("sounds/wood_door_close.mp3");
+        bedroomDoorTrigger.setSoundEffect("sounds/wood_door_open.mp3");
         bedroomDoor.addListener(bedroomDoorTrigger);
         actors.addActor(bedroomDoor);
 
