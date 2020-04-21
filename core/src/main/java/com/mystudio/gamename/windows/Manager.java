@@ -73,6 +73,7 @@ public class Manager {
         assetManager.load("sounds/slider_knob.png", Texture.class);
         assetManager.load("tilepuzzle/Maze.png", Texture.class);
         assetManager.load("tilepuzzle/maze_center.png", Texture.class);
+        assetManager.load("views/whitescreen.jpg", Texture.class);
 
         assetManager.finishLoading();
     }

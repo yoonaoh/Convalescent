@@ -47,10 +47,14 @@ public class TilePuzzleGame extends MiniGame {
         this.progress = 0f;
         this.skin = mainAdapter.getManager().getSkin();
         image = mainAdapter.getManager().getTexture("tilepuzzle/maze_center.png");
+        final Texture blank = mainAdapter.getManager().getTexture("views/whitescreen.jpg");
         addActor(new Actor() {
             @Override
             public void draw(Batch batch, float parentAlpha) {
-                batch.setColor(1, 1, 1, 0.5f);
+                batch.setColor(1, 1, 1, 0.3f);
+                batch.draw(blank, (camera.viewportWidth / 3) - 330,
+                        (camera.viewportHeight / 3) - 110, 300, 300);
+                batch.setColor(1, 1, 1, 0.7f);
                 batch.draw(image, (camera.viewportWidth / 3) - 330,
                         (camera.viewportHeight / 3) - 110, 300, 300);
                 batch.setColor(1, 1, 1, 1f);

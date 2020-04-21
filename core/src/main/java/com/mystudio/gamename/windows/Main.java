@@ -215,7 +215,7 @@ public class Main extends BasicGame {
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        state = GameState.MENU;
+        state = GameState.MAZE;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         manager.playMusic("sounds/menu.mp3");

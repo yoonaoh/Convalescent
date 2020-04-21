@@ -263,8 +263,7 @@ public class Avery extends Actor {
                 darken = true;
             } else if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.AVERY_ROOM) {
                 darken = false;
-            } else if (state == GameState.MAZE && to == GameState.DISTURBED_AVERY_ROOM) {
-                System.out.println("Working!");
+            } else if (state == GameState.MAZE && to == GameState.AVERY_ROOM) {
                 x_update = 608;
                 y_update = 36;
                 box.forceTo(x_update, y_update);
