@@ -306,7 +306,6 @@ public class Main extends BasicGame {
     }
 
     public void changeState(GameState gameState) {
-
         if (gameState == GameState.MENU) {
             views.get(gameState).setChangeToState(state);
         }
@@ -316,7 +315,7 @@ public class Main extends BasicGame {
         currentBackground().getStage().addAction(Actions.sequence(Actions.fadeIn(5.0f)));
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
-        // TODO: Do we need this?
+        // We do need this
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
         // Change out assets

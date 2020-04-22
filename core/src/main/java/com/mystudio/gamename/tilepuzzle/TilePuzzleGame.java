@@ -65,11 +65,11 @@ public class TilePuzzleGame extends MiniGame {
         setSize(500, 500);
 
         initGrid();
-        shuffle();
+//        shuffle();
     }
 
     // Shuffles the tiles
-    private void shuffle() {
+    public void shuffle() {
         int swaps = 0; // debug variable
         int shuffles;
 
@@ -81,6 +81,11 @@ public class TilePuzzleGame extends MiniGame {
             if (holeX == posX || holeY == posX) {
                 moveButtons(posX, posY);
                 swaps++;
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
