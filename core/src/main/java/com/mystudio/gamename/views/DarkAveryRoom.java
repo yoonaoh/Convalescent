@@ -3,6 +3,7 @@ package com.mystudio.gamename.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.gearpuzzlegame.Gear;
 import com.mystudio.gamename.gearpuzzlegame.GearPuzzleGame;
@@ -141,6 +142,7 @@ public class DarkAveryRoom extends View {
 
         // Add fan stub in the shelf
         Item fan_stub = new Item(sceneName + "/normal/" + "fan.png", new CollisionBox(560, 383, 47, 70));
+        fan_stub.setTouchable(Touchable.disabled);
         actors.addActor(fan_stub);
 
         // Play music
