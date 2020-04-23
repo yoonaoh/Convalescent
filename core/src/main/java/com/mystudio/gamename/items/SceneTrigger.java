@@ -31,7 +31,7 @@ public class SceneTrigger extends ClickListener {
     }
 
     @Override
-    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+    public void clicked(InputEvent event, float x, float y) {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -43,7 +43,6 @@ public class SceneTrigger extends ClickListener {
         } else {
             start();
         }
-        return true;
     }
 
     public void setSoundEffect(String filename) {

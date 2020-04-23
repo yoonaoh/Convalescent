@@ -113,7 +113,6 @@ public class DarkAveryRoom extends View {
         InteractableItem shelf = new InteractableItem(sceneName, "shelf", new CollisionBox(409, 393, 216, 125),
                 mainAdapter);
         MiniGame shelf_closeup = new MiniGame("UI/shelf_dark_bg.png", mainAdapter);
-        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, 628, 154));
 
         // Add fan in desk shelf
         final boolean[] gears = {false};
@@ -144,6 +143,7 @@ public class DarkAveryRoom extends View {
         Item fan_stub = new Item(sceneName + "/normal/" + "fan.png", new CollisionBox(560, 383, 47, 70));
         fan_stub.setTouchable(Touchable.disabled);
         actors.addActor(fan_stub);
+        shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, 628, 154));
 
         // Play music
         bgmFile = "sounds/mode_transition.mp3";

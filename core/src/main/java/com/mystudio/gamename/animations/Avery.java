@@ -73,9 +73,8 @@ public class Avery extends Actor {
 
         this.addCaptureListener(new ClickListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 move(x, y);
-                return true;
             }
         });
 

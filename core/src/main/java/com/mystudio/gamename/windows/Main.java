@@ -215,7 +215,7 @@ public class Main extends BasicGame {
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        state = GameState.MENU;
+        state = GameState.DISTURBED_AVERY_ROOM;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         manager.playMusic("sounds/menu.mp3");
@@ -289,6 +289,8 @@ public class Main extends BasicGame {
     @Override
     public void dispose() {
         manager.dispose();
+        Gdx.app.exit();
+        System.exit(0);
     }
 
     public void switchState(GameState gameState) {

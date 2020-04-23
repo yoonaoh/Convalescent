@@ -65,7 +65,8 @@ public class TilePuzzleGame extends MiniGame {
         setSize(500, 500);
 
         initGrid();
-//        shuffle();
+        shuffle();
+        this.setKeepWithinStage(false);
     }
 
     // Shuffles the tiles
@@ -139,25 +140,7 @@ public class TilePuzzleGame extends MiniGame {
                                 moveButtons(buttonX, buttonY);
 
                                 if (solutionFound() && shouldFlicker) {
-                                    // Thread to trigger disturbed world scene
-                                    final Timer timer = new Timer();  //At this line a new Thread will be created
-                                    TimerTask task1 = new TimerTask() {
-                                        @Override
-                                        public void run() {
-                                            close();
-//                                            for (int i = 0; i < 3; i++) {
-//                                                flicker();
-//                                            }
-                                            try {
-                                                Thread.sleep(100);
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            }
-                                            getMainAdapter().updateState(GameState.ATTIC_TRANSITION);
-                                            timer.cancel();
-                                        }
-                                    };
-                                    timer.schedule(task1, 3 * 1000); //delay in milliseconds
+                                    success();
                                 }
                             }
                         }
@@ -226,25 +209,34 @@ public class TilePuzzleGame extends MiniGame {
         return true;
     }
 
-    private void flicker() {
-//        try {
-//            Thread.sleep(50);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
-//        try {
-//            Thread.sleep(50);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        getMainAdapter().updateState(GameState.AVERY_ROOM);
-    }
-
     @Override
     public void close() {
         getMainAdapter().updateState(GameState.DISTURBED_CORRIDOR);
         super.close();
+    }
+
+    public void success() {
+        addActor(new Actor() {
+            @Override
+            public void draw(Batch batch, float parentAlpha) {
+                batch.draw(image, (camera.viewportWidth / 3) - 330, (camera.viewportHeight / 3) - 110, 300, 300);
+            }
+        });
+        final Timer timer = new Timer();
+        TimerTask task1 = new TimerTask() {
+            @Override
+            public void run() {
+                close();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                getMainAdapter().updateState(GameState.ATTIC_TRANSITION);
+                timer.cancel();
+            }
+        };
+        timer.schedule(task1, 3 * 1000); //delay in milliseconds
     }
 
 

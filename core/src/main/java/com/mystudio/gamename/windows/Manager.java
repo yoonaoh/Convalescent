@@ -13,15 +13,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class Manager {
     private AssetManager assetManager;
-    private float basemusicvol = 0.25f;
+    float basemusicvol = 0f;
     private float musicvol = 0.25f;
-    private float baseeffectvol = 0.3f;
+    float baseeffectvol = 0f;
     private float effectvol = 0.3f;
     private Music cur_music = null;
     private String cur_music_file = null;
@@ -74,6 +74,7 @@ public class Manager {
         assetManager.load("tilepuzzle/Maze.png", Texture.class);
         assetManager.load("tilepuzzle/maze_center.png", Texture.class);
         assetManager.load("views/whitescreen.jpg", Texture.class);
+        assetManager.load("items/skip.png", Texture.class);
 
         assetManager.finishLoading();
     }
