@@ -1,8 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -52,9 +51,12 @@ public class TransitionToAttic extends View {
         part3.setWidth(500);
         part3.setHeight(100);
         part3.setPosition(390, 360);
-
         actors.addActor(part1);
-        stage.addListener(new ClickListener() {
+
+        Actor clickListener = new Actor();
+        clickListener.setPosition(0, 0);
+        clickListener.setSize(1280, 720);
+        clickListener.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (state == 1) {
@@ -83,6 +85,7 @@ public class TransitionToAttic extends View {
                 }
             }
         });
+        bg_actors.addActor(clickListener);
 
         // Add music
         bgmFile = "sounds/disturbed.mp3";

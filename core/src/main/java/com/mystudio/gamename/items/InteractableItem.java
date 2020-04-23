@@ -55,11 +55,10 @@ public class InteractableItem extends Item {
 
     private ClickListener dialogListener = new ClickListener() {
         @Override
-        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        public void clicked(InputEvent event, float x, float y) {
             if (!dialog.equals("")) {
                 mainAdapter.showDialog(dialog);
             }
-            return super.touchDown(event, x, y, pointer, button);
         }
     };
 
@@ -149,9 +148,8 @@ public class InteractableItem extends Item {
     public void setPickUpable() {
         pickupListener = new ClickListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 pickup();
-                return true;
             }
         };
         addListener(pickupListener);

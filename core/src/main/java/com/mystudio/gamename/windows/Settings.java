@@ -1,7 +1,6 @@
 package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,7 +27,7 @@ public class Settings extends Window {
 
     public Settings(final MainAdapter mainAdapter) {
         super("", new Window.WindowStyle(new BitmapFont(), Color.BLACK,
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("UI/game_bg.png"))))));
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("UI/game_bg.png"))))));
         this.mainAdapter = mainAdapter;
 
         setPosition(200, 100);
@@ -58,15 +57,11 @@ public class Settings extends Window {
         slider.setValue(1f);
         slider.setPosition(225, 365);
         slider.setSize(200, 20);
-        slider.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                setMusicVolume(slider.getValue());
-            }
+        slider.addListener(new ClickListener() {
 
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
+            public void clicked(InputEvent event, float x, float y) {
+                setMusicVolume(slider.getValue());
             }
         });
 
@@ -74,15 +69,10 @@ public class Settings extends Window {
         effects_slider.setValue(1f);
         effects_slider.setPosition(225, 265);
         effects_slider.setSize(200, 20);
-        effects_slider.addListener(new InputListener() {
+        effects_slider.addListener(new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 setEffectVolume(effects_slider.getValue());
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
             }
         });
 
@@ -99,7 +89,7 @@ public class Settings extends Window {
                 mainAdapter.closeWindow();
                 mainAdapter.updateState(GameState.MENU);
             }
-         });
+        });
         addActor(mainMenuBtn);
 
 
@@ -112,8 +102,6 @@ public class Settings extends Window {
     private void setEffectVolume(float i) {
         mainAdapter.getManager().setEffectvol(i);
     }
-
-
 
 
 }

@@ -24,7 +24,8 @@ public class Inventory extends Table {
 
     /**
      * Constructs the Inventory
-     * @param mainAdapter
+     *
+     * @param mainAdapter the adapter from Main
      */
     public Inventory(MainAdapter mainAdapter) {
         this.mainAdapter = mainAdapter;

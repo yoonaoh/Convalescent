@@ -1,6 +1,5 @@
 package com.mystudio.gamename.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -25,7 +24,6 @@ public class Menu extends View {
         final TextButton startButton = new TextButton("START", skin);
         startButton.setBounds(500, 150, 100, 50);
         startButton.addListener(new ClickListener() {
-
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -52,34 +50,8 @@ public class Menu extends View {
 
         });
 
-        // Start button
-//        final TextButton saveButton = new TextButton("SAVE", skin);
-//        saveButton.setBounds(500, 250, 100, 50);
-//        saveButton.addListener(new ClickListener() {
-//
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                mainAdapter.saveGame();
-//            }
-//
-//        });
-//
-//        // Start button
-//        final TextButton loadButton = new TextButton("LOAD", skin);
-//        loadButton.setBounds(680, 250, 100, 50);
-//        loadButton.addListener(new ClickListener() {
-//
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                mainAdapter.loadGame();
-//            }
-//
-//        });
-
         actors.addActor(startButton);
         actors.addActor(quitButton);
-//        actors.addActor(saveButton);
-//        actors.addActor(loadButton);
 
         // Add music
         bgmFile = "sounds/menu.mp3";

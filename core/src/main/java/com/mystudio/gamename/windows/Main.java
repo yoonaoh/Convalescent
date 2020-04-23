@@ -2,8 +2,6 @@ package com.mystudio.gamename.windows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,14 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Base64Coder;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mystudio.gamename.animations.Avery;
 import com.mystudio.gamename.items.InteractableItem;
 import com.mystudio.gamename.utils.GameState;
-import com.mystudio.gamename.utils.LaunchAdapter;
 import com.mystudio.gamename.utils.MainAdapter;
 import com.mystudio.gamename.views.*;
 import org.mini2Dx.core.engine.geom.CollisionBox;
@@ -71,22 +66,9 @@ public class Main extends BasicGame {
 
     private Manager manager;
 
-    private Music bgm = null;
-
-    LaunchAdapter launchAdapter = null;
-
     public Main(boolean debug) {
         this.debug = debug;
     }
-
-    public Main(boolean debug, LaunchAdapter launchAdapter) {
-        this.debug = debug;
-        this.launchAdapter = launchAdapter;
-    }
-
-    private FileHandle fileHandle;
-
-    private Json json = new Json();
 
     private float alpha = 1.01f;
 
@@ -178,15 +160,6 @@ public class Main extends BasicGame {
             addDialog(dialog);
         }
 
-        @Override
-        public void saveGame() {
-            saveData();
-        }
-
-        @Override
-        public void loadGame() {
-            loadData();
-        }
     };
 
     @Override
@@ -215,7 +188,7 @@ public class Main extends BasicGame {
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
-        state = GameState.DISTURBED_AVERY_ROOM;
+        state = GameState.AVERY_ROOM;
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
         manager.playMusic("sounds/menu.mp3");
@@ -371,14 +344,6 @@ public class Main extends BasicGame {
     @Override
     public void resize(int width, int height) {
         viewport.setScreenSize(width, height);
-    }
-
-    public void saveData() {
-        fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(this)), false);
-    }
-
-    public void loadData() {
-        launchAdapter.switchMain(json.fromJson(Main.class, Base64Coder.decodeString(fileHandle.readString())));
     }
 
 }
