@@ -202,7 +202,7 @@ public class Main extends BasicGame {
 
             }
         });
-        currentBackground().getStage().addActor(settings);
+        currentBackground().addActor(settings);
 
         changeState(state);
     }
@@ -303,7 +303,7 @@ public class Main extends BasicGame {
             currentBackground().getStage().addActor(inventory);
         }
         settings.remove();
-        currentBackground().getBackground().addActor(settings);
+        currentBackground().addActor(settings);
         currentBackground().onOpen();
 
         // Change out music

@@ -1,6 +1,7 @@
 package com.mystudio.gamename.views;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mystudio.gamename.utils.GameState;
@@ -74,5 +75,9 @@ public class View {
 
     public void setChangeToState(GameState prevState) {
         this.changeToState = prevState;
+    }
+
+    public void addActor(Actor a) {
+        actors.addActor(a);
     }
 }
