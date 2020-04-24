@@ -1,5 +1,6 @@
 package com.mystudio.gamename.items;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -140,6 +141,20 @@ public class InteractableItem extends Item {
                     target.getStage().addActor(nextItem);
                     target.remove();
                     source.remove();
+                }
+            }
+        });
+    }
+
+    public void setAsDropTraget(final String dragItemName, final InteractableItem nextItem, final String soundEffect) {
+        setAsDropTraget(dragItemName, new BiConsumer<InteractableItem, InteractableItem>() {
+            @Override
+            public void accept(InteractableItem source, InteractableItem target) {
+                if (nextItem != null) {
+                    target.getStage().addActor(nextItem);
+                    target.remove();
+                    source.remove();
+                    mainAdapter.playSoundEffect(soundEffect);
                 }
             }
         });

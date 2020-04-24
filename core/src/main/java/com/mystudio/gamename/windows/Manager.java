@@ -67,6 +67,8 @@ public class Manager {
         assetManager.load("sounds/windup_toy.mp3", Sound.class);
         assetManager.load("sounds/inventory_item.mp3", Sound.class);
         assetManager.load("sounds/drawer_open.mp3", Sound.class);
+        assetManager.load("sounds/button_click.mp3", Sound.class);
+        assetManager.load("sounds/gear_mount.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
@@ -112,6 +114,10 @@ public class Manager {
         LabelStyle plainText = new LabelStyle();
         plainText.font = getFont();
         return plainText;
+    }
+
+    public void fadeMusic() {
+
     }
 
     public void playMusic(String filename) {

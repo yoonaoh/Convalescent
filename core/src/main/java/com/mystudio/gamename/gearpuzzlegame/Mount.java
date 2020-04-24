@@ -20,6 +20,7 @@ public class Mount extends InteractableItem {
                         item.handleDropReset();
                     } else {
                         getItem().handleDropReappear(item);
+                        mainAdapter.playSoundEffect("sounds/gear_mount.mp3");
                         mounted = true;
                         gear.originalAngle = angle;
                         gearAdapter.addGear(gear);

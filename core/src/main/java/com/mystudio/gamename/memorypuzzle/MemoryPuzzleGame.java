@@ -110,6 +110,7 @@ public class MemoryPuzzleGame extends MiniGame {
                 buttonGrid[i][j].addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        getMainAdapter().playSoundEffect("sounds/button_click.mp3");
                         if (solutions.get(currentRound).contains(buttonGrid[iFin][jFin])) {
                             buttonGrid[iFin][jFin].setDisabled(true);
                         } else {
@@ -149,8 +150,10 @@ public class MemoryPuzzleGame extends MiniGame {
             float xPos = (camera.viewportWidth / 3) - 200 + (101 * 0);
             float yPos = (camera.viewportHeight / 3) + 100 - (101 * 3);
             Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 404, 404));
-            clearPicItem.addAction(fadeIn(4));
+            clearPicItem.addAction(fadeIn(4.0f));
             addActor(clearPicItem);
+
+
 
             // Thread to trigger disturbed world scene
             final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
@@ -183,7 +186,7 @@ public class MemoryPuzzleGame extends MiniGame {
                     timer.cancel();
                 }
             };
-            timer.schedule(task1, 2000); //delay in milliseconds
+            timer.schedule(task1, 3000); //delay in milliseconds
         }
 
         return true;
