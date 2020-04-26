@@ -62,7 +62,7 @@ public class Main extends BasicGame {
 
     private Avery avery;
 
-    private boolean game_in_progress = false;
+    private GameState game_in_progress = null;
 
     private Manager manager;
 
@@ -147,7 +147,7 @@ public class Main extends BasicGame {
 
         @Override
         public void moveAveryTo(float x, float y, TimerTask task) {
-            avery.move(x, y, task);
+            avery.move(x, y, task, state);
         }
 
         @Override
@@ -232,7 +232,7 @@ public class Main extends BasicGame {
         currentBackground().getStage().setDebugAll(debug);
         currentBackground().drawStage();
 
-        if (currentBackground().includesAvery() && !game_in_progress)
+        if (currentBackground().includesAvery() && game_in_progress != state)
             avery.render(batch);
 
         if (transitioning) {
@@ -317,7 +317,7 @@ public class Main extends BasicGame {
     }
 
     private void setWindow(Window window) {
-        game_in_progress = true;
+        game_in_progress = state;
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
         currentBackground().getStage().addActor(window);
@@ -326,7 +326,7 @@ public class Main extends BasicGame {
     }
 
     private void removeWindow() {
-        game_in_progress = false;
+        game_in_progress = null;
         window.remove();
         currentBackground().getActors().setTouchable(Touchable.enabled);
     }

@@ -116,10 +116,6 @@ public class Manager {
         return plainText;
     }
 
-    public void fadeMusic() {
-
-    }
-
     public void playMusic(String filename) {
         if (cur_music != null && filename == null) {
             cur_music.stop();

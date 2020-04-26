@@ -160,7 +160,10 @@ public class Avery extends Actor {
         }
     }
 
-    public void move(float x, float y, TimerTask task) {
+    public void move(float x, float y, TimerTask task, GameState state) {
+        if (executes.size != 0) {
+            executes.removeIndex(0);
+        }
         executes.add(task);
         move(x, y);
     }
