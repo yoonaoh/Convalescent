@@ -25,10 +25,6 @@ public class Item extends Actor {
 
     public boolean visible = true;
 
-    public float delay = 0;
-
-    public int[] moveLocation = new int[]{-1, -1};
-
     public Item(String image, CollisionShape shape) {
         if (image != null)
             setSprite(image);
@@ -105,14 +101,5 @@ public class Item extends Actor {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
-    }
-
-    public void setDelay(float del) {
-        delay = del * 1000;
-    }
-
-    public void setMoveTo(int x, int y) {
-        moveLocation[0] = x;
-        moveLocation[1] = y;
     }
 }

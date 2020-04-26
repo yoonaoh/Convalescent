@@ -53,46 +53,22 @@ public class AveryRoom extends View {
         // Add drawer 1
         final InteractableItem drawer1 = new InteractableItem(sceneName, "drawer1", new CollisionBox(394, 235, 125, 45), mainAdapter);
         MiniGame drawer1_closeup = new MiniGame("UI/drawer_bg.png", mainAdapter);
-        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
-        drawer1.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
-            }
-        });
+        drawer1.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154, "sounds/drawer_open.mp3"));
         actors.addActor(drawer1);
         drawer1.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer2 = new InteractableItem(sceneName, "drawer2", new CollisionBox(390, 202, 130, 56), mainAdapter);
-        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
-        drawer2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
-            }
-        });
+        drawer2.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154, "sounds/drawer_open.mp3"));
         actors.addActor(drawer2);
         drawer2.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer3 = new InteractableItem(sceneName, "drawer3", new CollisionBox(394, 161, 125, 62), mainAdapter);
-        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
-        drawer3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
-            }
-        });
+        drawer3.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154, "sounds/drawer_open.mp3"));
         actors.addActor(drawer3);
         drawer3.setTouchable(Touchable.disabled);
 
         final InteractableItem drawer4 = new InteractableItem(sceneName, "drawer4", new CollisionBox(499, 238, 138, 45), mainAdapter);
-        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154));
-        drawer4.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.playSoundEffect("sounds/drawer_open.mp3");
-            }
-        });
+        drawer4.addListener(new MinigameTrigger(drawer1_closeup, mainAdapter, 628, 154, "sounds/drawer_open.mp3"));
         actors.addActor(drawer4);
         drawer4.setTouchable(Touchable.disabled);
 

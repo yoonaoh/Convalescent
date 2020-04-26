@@ -50,13 +50,12 @@ public class Maze extends View {
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println("Added");
                         bg_actors.addActor(skip);
                         timer.cancel();
                     }
                 });
             }
         };
-        timer.schedule(task, 5000);
+        timer.schedule(task, 60 * 1000);
     }
 }

@@ -13,6 +13,7 @@ public class MinigameTrigger extends ClickListener {
     private MiniGame miniGame;
     private MainAdapter mainAdapter;
     private int[] moveLocation = new int[]{-1, -1};
+    private String sound = "";
 
     /**
      * Constructs an trigger item
@@ -27,6 +28,14 @@ public class MinigameTrigger extends ClickListener {
         this.mainAdapter = mainAdapter;
         this.moveLocation[0] = x;
         this.moveLocation[1] = y;
+    }
+
+    public MinigameTrigger(final MiniGame miniGame, final MainAdapter mainAdapter, int x, int y, String s) {
+        this.miniGame = miniGame;
+        this.mainAdapter = mainAdapter;
+        this.moveLocation[0] = x;
+        this.moveLocation[1] = y;
+        this.sound = s;
     }
 
     @Override
@@ -48,6 +57,9 @@ public class MinigameTrigger extends ClickListener {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
+                if (!sound.equals("")) {
+                    mainAdapter.playSoundEffect(sound);
+                }
                 mainAdapter.openWindow(miniGame);
                 miniGame.start();
             }

@@ -1,6 +1,6 @@
 package com.mystudio.gamename.items;
 
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,6 +13,7 @@ import org.mini2Dx.core.engine.geom.CollisionShape;
 import org.mini2Dx.core.graphics.TextureRegion;
 
 import java.util.ArrayList;
+import java.util.TimerTask;
 import java.util.function.BiConsumer;
 
 public class InteractableItem extends Item {
@@ -40,12 +41,14 @@ public class InteractableItem extends Item {
     public boolean inInventory = false;
     public boolean changeShape = false;
 
+    public int[] moveLocation = new int[]{-1, -1};
+
     private ClickListener hoverListener = new ClickListener() {
         @Override
         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
             super.enter(event, x, y, pointer, fromActor);
             getItem().glow();
-    }
+        }
 
         @Override
         public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -57,11 +60,23 @@ public class InteractableItem extends Item {
     private ClickListener dialogListener = new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            if (!dialog.equals("")) {
-                mainAdapter.showDialog(dialog);
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    startDialog();
+                }
+            };
+            System.out.println("Location: " + moveLocation[0] + ", " + moveLocation[1]);
+            if (moveLocation[0] != -1 && moveLocation[1] != -1) {
+                System.out.println("Moves avery in dialog listener!");
+                mainAdapter.moveAveryTo(moveLocation[0], moveLocation[1], task);
+            } else {
+                startDialog();
             }
         }
     };
+
+    private String sound;
 
     public InteractableItem(String sceneName, String name, CollisionShape shape, final MainAdapter mainAdapter) {
         super(shape);
@@ -80,9 +95,35 @@ public class InteractableItem extends Item {
         addListener(hoverListener);
     }
 
+    public InteractableItem(String sceneName, String name, CollisionShape shape, final MainAdapter mainAdapter, int x, int y) {
+        this(sceneName, name, shape, mainAdapter);
+        moveLocation[0] = x;
+        moveLocation[1] = y;
+    }
+
+
+    public InteractableItem(String sceneName, String name, CollisionShape shape, final MainAdapter mainAdapter, int x, int y, String s) {
+        this(sceneName, name, shape, mainAdapter, x, y);
+        sound = s;
+    }
+
     public void setDialog(String dialog) {
         this.dialog = dialog;
         addListener(dialogListener);
+    }
+
+    public void startDialog() {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                if (sound != "") {
+                    mainAdapter.playSoundEffect(sound);
+                }
+                if (!dialog.equals("")) {
+                    mainAdapter.showDialog(dialog);
+                }
+            }
+        });
     }
 
     public void setDraggable() {

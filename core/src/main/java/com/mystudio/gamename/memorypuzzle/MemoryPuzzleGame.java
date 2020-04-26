@@ -154,7 +154,6 @@ public class MemoryPuzzleGame extends MiniGame {
             addActor(clearPicItem);
 
 
-
             // Thread to trigger disturbed world scene
             final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
             TimerTask task1 = new TimerTask() {
