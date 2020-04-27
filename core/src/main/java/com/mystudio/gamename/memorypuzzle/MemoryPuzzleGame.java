@@ -21,6 +21,7 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimerTask;
 
 
 public class MemoryPuzzleGame extends MiniGame {
@@ -147,7 +148,7 @@ public class MemoryPuzzleGame extends MiniGame {
             start();
         } else {
             // Reveal true picture
-            float xPos = (camera.viewportWidth / 3) - 355 + (91 * 0);
+            float xPos = (camera.viewportWidth / 3) - 355 + (0);
             float yPos = (camera.viewportHeight / 3) + 100 - (91 * 3);
             final Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 364, 364));
 
@@ -164,14 +165,14 @@ public class MemoryPuzzleGame extends MiniGame {
             clearTimer.scheduleTask(clearPic, 2);
 
             // Thread to trigger disturbed world scene
-            final Timer timer = new Timer();  //At this line a new Thread will be created
-            Timer.Task task1 = new Timer.Task() {
+            final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
+            TimerTask task1 = new TimerTask() {
                 @Override
                 public void run() {
                     // Close the minigame
                     close();
-                    Item blackScreen = new Item("memorypuzzle/black.jpg", new CollisionBox(0, 0, 1280, 720));
-                    addActor(blackScreen);
+//                    Item blackScreen = new Item("memorypuzzle/black.jpg", new CollisionBox(0, 0, 1280, 720));
+//                    addActor(blackScreen);
 
                     // Give some time for the disturbed world transition
                     try {
@@ -193,9 +194,10 @@ public class MemoryPuzzleGame extends MiniGame {
                     }
 
                     getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
+                    timer.cancel();
                 }
             };
-            timer.schedule(task1, 3); //delay in milliseconds
+            timer.schedule(task1, 3 * 1000); //delay in milliseconds
         }
 
         return true;
@@ -231,7 +233,7 @@ public class MemoryPuzzleGame extends MiniGame {
         getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
 
         try {
-            Thread.sleep(100);
+                Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -62,7 +62,12 @@ public class View {
     }
 
     public void drawStage() {
-        stage.draw();
+        try {
+            stage.draw();
+        } catch (NullPointerException e) {
+            System.out.println("Stage null pointer exception");
+            stage.getBatch().end();
+        }
     }
 
     public Group getBackground() {
