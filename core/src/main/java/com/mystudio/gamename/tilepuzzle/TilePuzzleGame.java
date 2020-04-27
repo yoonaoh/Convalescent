@@ -232,7 +232,6 @@ public class TilePuzzleGame extends MiniGame {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                getMainAdapter().playSoundEffect("sounds/button_click.mp3");
                 getMainAdapter().updateState(GameState.ATTIC_TRANSITION);
                 timer.cancel();
             }
