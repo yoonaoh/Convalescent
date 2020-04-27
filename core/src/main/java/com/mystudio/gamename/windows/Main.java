@@ -191,8 +191,8 @@ public class Main extends BasicGame {
 
         state = GameState.MENU;
         // Uncomment these two lines to start in demo mode
-        state = GameState.DEMO;
-        mainAdapter.initializeInventory(new Inventory(mainAdapter));
+//        state = GameState.DEMO;
+//        mainAdapter.initializeInventory(new Inventory(mainAdapter));
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
