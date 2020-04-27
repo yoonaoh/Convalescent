@@ -5,6 +5,12 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	}
 }
 com.badlogic.gdx.graphics.Color: {
+	Black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
 	White: {
 		r: 1
 		g: 1
@@ -14,9 +20,10 @@ com.badlogic.gdx.graphics.Color: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
-		up: button_up
-		down: button_down
-		over: button_down
+		up: button_up2
+		down: button_down2
+		over: button_down2
+		checked: button_down2
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
@@ -38,11 +45,11 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: default
-		fontColor: White
-		up: button_up
-		down: button_down
-		over: button_down
-		checked: button_down
+		fontColor: Black
+		up: button_up2
+		down: button_down2
+		over: button_down2
+		checked: button_down2
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

@@ -41,7 +41,7 @@ public class DarkCorridor extends View {
         door0.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainAdapter.moveAveryTo(187, 282, createTask("It's locked."));
+                mainAdapter.moveAveryTo(187, 282, createTask("I don't want to go there."));
             }
         });
         actors.addActor(door0);

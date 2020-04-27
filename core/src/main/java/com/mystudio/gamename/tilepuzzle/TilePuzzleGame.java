@@ -50,7 +50,7 @@ public class TilePuzzleGame extends MiniGame {
         addActor(new Actor() {
             @Override
             public void draw(Batch batch, float parentAlpha) {
-                batch.setColor(1, 1, 1, 0.3f);
+                batch.setColor(1, 1, 1, 0.4f);
                 batch.draw(blank, (camera.viewportWidth / 3) - 330,
                         (camera.viewportHeight / 3) - 110, 300, 300);
                 batch.setColor(1, 1, 1, 0.7f);

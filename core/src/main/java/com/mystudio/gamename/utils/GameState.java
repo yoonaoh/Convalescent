@@ -16,5 +16,6 @@ public enum GameState {
     MAZE,
     ATTIC_TRANSITION,
     BLANK,
-    DEMO
+    DEMO,
+    CREDITS
 }

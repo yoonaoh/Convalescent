@@ -189,7 +189,6 @@ public class Avery extends Actor {
             batch.draw(avery_walks.getKeyFrame(walk_elapsed, true),
                     box.getX() - scale(50), box.getY() - scale(35),
                     w, h);
-
         } else if (status == AveryStates.LEFT_STANDING || status == AveryStates.RIGHT_STANDING) {
             batch.draw(avery_stands.getKeyFrame(walk_elapsed, true),
                     box.getX() - scale(50), box.getY() - scale(35),
@@ -261,14 +260,9 @@ public class Avery extends Actor {
                 x_update = 608;
                 y_update = 36;
                 box.forceTo(670, 170);
-            } else if (state == GameState.AVERY_ROOM && to == GameState.DISTURBED_AVERY_ROOM) {
+            } else if (to == GameState.DISTURBED_AVERY_ROOM) {
                 darken = true;
-            } else if (state == GameState.DISTURBED_AVERY_ROOM && to == GameState.AVERY_ROOM) {
-                darken = false;
-            } else if (state == GameState.MAZE && to == GameState.AVERY_ROOM) {
-                x_update = 608;
-                y_update = 36;
-                box.forceTo(x_update, y_update);
+            } else if (to == GameState.AVERY_ROOM) {
                 darken = false;
             }
             state = to;

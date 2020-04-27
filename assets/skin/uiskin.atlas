@@ -4,7 +4,7 @@ size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-button_down
+button_down2
   rotate: false
   xy: 1, 338
   size: 50, 50
@@ -12,7 +12,7 @@ button_down
   orig: 50, 50
   offset: 0, 0
   index: -1
-button_up
+button_up2
   rotate: false
   xy: 1, 390
   size: 50, 50

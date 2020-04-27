@@ -37,7 +37,7 @@ public class AveryRoom extends View {
 
         // Add memory puzzle game frame
         MiniGame memory = new MemoryPuzzleGame(mainAdapter);
-        final InteractableItem frame3 = new InteractableItem(sceneName, "frame3", new CollisionBox(260, 400, 114, 96), mainAdapter);
+        final InteractableItem frame3 = new InteractableItem(sceneName, "puzzle_frame", new CollisionBox(260, 400, 86, 86), mainAdapter);
         frame3.addListener(new MinigameTrigger(memory, mainAdapter, 384, 145));
         actors.addActor(frame3);
         frame3.setTouchable(Touchable.disabled);
@@ -77,6 +77,9 @@ public class AveryRoom extends View {
         shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, 628, 154));
         actors.addActor(shelf);
         shelf.setTouchable(Touchable.disabled);
+
+        // Add poster
+        // InteractableItem poster = new InteractableItem();
 
         // Add backpack
         final InteractableItem backpack = new InteractableItem(sceneName, "bag", new CollisionBox(555, 169, 75, 75), mainAdapter);

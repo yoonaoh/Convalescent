@@ -37,20 +37,20 @@ public class Manager {
 
         // Parameters
         FreetypeFontLoader.FreeTypeFontLoaderParameter params4 = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        params4.fontFileName = "fonts/default.ttf";
+        params4.fontFileName = "skin/default.ttf";
         params4.fontParameters.size = 24;
         params4.fontParameters.color = Color.WHITE;
 
         // Fonts
-        assetManager.load("fonts/default.ttf", BitmapFont.class, params4);
-        assetManager.load("skin/uiskin2.atlas", TextureAtlas.class);
+        assetManager.load("skin/default.ttf", BitmapFont.class, params4);
+        assetManager.load("skin/uiskin.atlas", TextureAtlas.class);
         assetManager.finishLoading();
 
         // Skins
         skin = new Skin();
-        skin.addRegions(assetManager.get("skin/uiskin2.atlas", TextureAtlas.class));
-        skin.add("default-font", assetManager.get("fonts/default.ttf"));
-        skin.load(Gdx.files.internal("skin/uiskin2.json"));
+        skin.addRegions(assetManager.get("skin/uiskin.atlas", TextureAtlas.class));
+        skin.add("default-font", assetManager.get("skin/default.ttf"));
+        skin.load(Gdx.files.internal("skin/uiskin.json"));
 
         // Music
         assetManager.load("sounds/menu.mp3", Music.class);
@@ -69,6 +69,7 @@ public class Manager {
         assetManager.load("sounds/drawer_open.mp3", Sound.class);
         assetManager.load("sounds/button_click.mp3", Sound.class);
         assetManager.load("sounds/gear_mount.mp3", Sound.class);
+        assetManager.load("sounds/single_footstep.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
@@ -76,7 +77,7 @@ public class Manager {
         assetManager.load("tilepuzzle/Maze.png", Texture.class);
         assetManager.load("tilepuzzle/maze_center.png", Texture.class);
         assetManager.load("views/whitescreen.jpg", Texture.class);
-        assetManager.load("items/skip.png", Texture.class);
+        assetManager.load("tilepuzzle/skip.png", Texture.class);
 
         assetManager.finishLoading();
     }
@@ -97,7 +98,7 @@ public class Manager {
     }
 
     public BitmapFont getFont() {
-        return assetManager.get("fonts/default.ttf");
+        return assetManager.get("skin/default.ttf");
     }
 
     public Texture getTexture(String image) {
@@ -120,7 +121,6 @@ public class Manager {
         if (cur_music != null && filename == null) {
             cur_music.stop();
         } else if (!filename.equals(cur_music_file)) {
-
             if (cur_music != null) {
                 if (cur_music_file.equals("sounds/menu.mp3"))
                     cur_music.stop();

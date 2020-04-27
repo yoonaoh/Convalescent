@@ -20,8 +20,8 @@ public class TransitionToAttic extends View {
         super(mainAdapter);
 
         final String line1 = "I had to leave. I was desperate to find a way out.";
-        final String line2 = "But every path I went down seemed endless, like I was running towards nothing.";
-        final String line3 = "But I had to keep going. Staying here only made me deeply afraid.";
+        final String line2 = "Every path I went down seemed endless, like I was running towards nothing.";
+        final String line3 = "But I had to keep going. Staying here only made me more afraid.";
 
         background = new Texture("skin/Black.jpg");
         floorspace = new Polygon(new float[]{});
@@ -78,7 +78,7 @@ public class TransitionToAttic extends View {
                         @Override
                         public void run() {
                             state = 1;
-                            mainAdapter.updateState(GameState.MENU);
+                            mainAdapter.updateState(GameState.CREDITS);
                         }
                     };
                     timer.scheduleTask(task, 3);

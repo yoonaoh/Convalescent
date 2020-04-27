@@ -184,7 +184,8 @@ public class Main extends BasicGame {
         views.put(GameState.MAZE, new Maze(mainAdapter));
         views.put(GameState.ATTIC_TRANSITION, new TransitionToAttic(mainAdapter));
         views.put(GameState.DEMO, new Demo(mainAdapter));
-//        views.put(GameState.BLANK, new Blank(mainAdapter));
+        views.put(GameState.CREDITS, new EndingCredit(mainAdapter));
+        views.put(GameState.BLANK, new Blank(mainAdapter));
 //        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
 //        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
 //        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
@@ -294,7 +295,7 @@ public class Main extends BasicGame {
         currentBackground().getStage().addAction(Actions.sequence(Actions.fadeIn(5.0f)));
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
-        // We do need this
+
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
         // Change out assets

@@ -32,7 +32,7 @@ public class Maze extends View {
         final Actor skip = new Actor() {
             @Override
             public void draw(Batch batch, float parentAlpha) {
-                batch.draw(mainAdapter.getManager().getTexture("items/skip.png"), getX(), getY(), getWidth(), getHeight());
+                batch.draw(mainAdapter.getManager().getTexture("tilepuzzle/skip.png"), getX(), getY(), getWidth(), getHeight());
             }
         };
         skip.setSize(60, 60);

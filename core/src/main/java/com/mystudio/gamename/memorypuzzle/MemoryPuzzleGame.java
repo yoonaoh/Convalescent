@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -41,7 +42,9 @@ public class MemoryPuzzleGame extends MiniGame {
     private Map<Integer, ArrayList<MemoryTile>> solutions = new HashMap<Integer, ArrayList<MemoryTile>>();
 
     public MemoryPuzzleGame(MainAdapter mainAdapter) {
-        super("memorypuzzle/game_bg.png", mainAdapter);
+        super("memorypuzzle/square_frame.png", mainAdapter);
+        setPosition(400, 100);
+        setSize(500, 500);
 
         this.camera = mainAdapter.getViewPort().getCamera();
         this.font24 = mainAdapter.getManager().getFont();
@@ -79,8 +82,8 @@ public class MemoryPuzzleGame extends MiniGame {
                 int heightNew = blurImg.getHeight() / boardSize;
 
                 // Getting the position of each tile
-                float xPos = (camera.viewportWidth / 3) - 200 + (101 * j);
-                float yPos = (camera.viewportHeight / 3) + 100 - (101 * i);
+                float xPos = (camera.viewportWidth / 3) - 355 + (91 * j);
+                float yPos = (camera.viewportHeight / 3) + 100 - (91 * i);
 
                 // Initializing the texture regions and drawables
                 TextureRegion region = new TextureRegion(image, 0, 0, 100, 100);
@@ -92,7 +95,7 @@ public class MemoryPuzzleGame extends MiniGame {
                 // Initializing the MemoryTile
                 buttonGrid[i][j] = new MemoryTile(id, drawable, drawable, checkedDrawable);
                 buttonGrid[i][j].setPosition(xPos, yPos);
-                buttonGrid[i][j].setSize(100, 100);
+                buttonGrid[i][j].setSize(90, 90);
 
                 // Categorize memory tiles as solutions by round
                 if (id == 1 || id == 4 || id == 11 || id == 13 || id == 14) {
@@ -147,24 +150,35 @@ public class MemoryPuzzleGame extends MiniGame {
             start();
         } else {
             // Reveal true picture
-            float xPos = (camera.viewportWidth / 3) - 200 + (101 * 0);
-            float yPos = (camera.viewportHeight / 3) + 100 - (101 * 3);
-            Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 404, 404));
-            clearPicItem.addAction(fadeIn(4.0f));
-            addActor(clearPicItem);
+            float xPos = (camera.viewportWidth / 3) - 355 + (91 * 0);
+            float yPos = (camera.viewportHeight / 3) + 100 - (91 * 3);
+            Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 364, 364));
 
+            Timer clearTimer = new Timer();
+            Timer.Task clearPic = new Timer.Task() {
+                @Override
+                public void run() {
+                    clearPicItem.addAction(Actions.fadeOut(0f));
+                    clearPicItem.addAction(Actions.fadeIn(4.0f));
+                    addActor(clearPicItem);
+
+                }
+            };
+            clearTimer.scheduleTask(clearPic, 2);
 
             // Thread to trigger disturbed world scene
-            final java.util.Timer timer = new java.util.Timer();  //At this line a new Thread will be created
-            TimerTask task1 = new TimerTask() {
+            final Timer timer = new Timer();  //At this line a new Thread will be created
+            Timer.Task task1 = new Timer.Task() {
                 @Override
                 public void run() {
                     // Close the minigame
                     close();
+                    Item blackScreen = new Item("memorypuzzle/black.jpg", new CollisionBox(0, 0, 1280, 720));
+                    addActor(blackScreen);
 
                     // Give some time for the disturbed world transition
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -176,16 +190,15 @@ public class MemoryPuzzleGame extends MiniGame {
 
                     // Give some time for the disturbed world transition
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
                     getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
-                    timer.cancel();
                 }
             };
-            timer.schedule(task1, 3000); //delay in milliseconds
+            timer.schedule(task1, 3); //delay in milliseconds
         }
 
         return true;
@@ -213,16 +226,15 @@ public class MemoryPuzzleGame extends MiniGame {
     }
 
     private void flicker() {
-
         try {
-            Thread.sleep(50);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         getMainAdapter().updateState(GameState.DISTURBED_AVERY_ROOM);
 
         try {
-            Thread.sleep(50);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -34,7 +34,7 @@ public class Intro extends View {
         part1.setAlignment(Align.center);
         part1.setWidth(500);
         part1.setHeight(100);
-        part1.setPosition(411, 335);
+        part1.setPosition(405, 335);
         part1.addAction(Actions.fadeIn((float) 2.0));
 
         final Label part2 = new Label(line2, mainAdapter.getManager().getPlainTextStyle());
@@ -42,14 +42,14 @@ public class Intro extends View {
         part2.setAlignment(Align.center);
         part2.setWidth(500);
         part2.setHeight(150);
-        part2.setPosition(410, 314);
+        part2.setPosition(404, 314);
 
         final Label part3 = new Label(line3, mainAdapter.getManager().getPlainTextStyle());
         part3.setWrap(true);
         part3.setAlignment(Align.center);
         part3.setWidth(500);
         part3.setHeight(100);
-        part3.setPosition(410, 334);
+        part3.setPosition(404, 334);
 
         actors.addActor(part1);
         Actor clickListener = new Actor();
@@ -71,7 +71,7 @@ public class Intro extends View {
                     part3.addAction(Actions.fadeIn(2.0f));
                     state = 3;
                 } else if (state == 3) {
-                    part3.addAction(Actions.sequence(Actions.fadeOut((float) 2.0), Actions.removeActor()));
+                    part3.addAction(Actions.sequence(Actions.fadeOut((float) 2.5), Actions.removeActor()));
                     Timer timer = new Timer();
                     Timer.Task task = new Timer.Task() {
                         @Override
@@ -80,7 +80,7 @@ public class Intro extends View {
                             mainAdapter.updateState(GameState.AVERY_ROOM);
                         }
                     };
-                    timer.scheduleTask(task, 3);
+                    timer.scheduleTask(task, 5);
                 }
             }
         });
