@@ -317,6 +317,9 @@ public class Main extends BasicGame {
     }
 
     private void setWindow(Window window) {
+        if (this.window != null) {
+            removeWindow();
+        }
         game_in_progress = state;
         this.window = window;
         currentBackground().getActors().setTouchable(Touchable.disabled);
@@ -328,6 +331,7 @@ public class Main extends BasicGame {
     private void removeWindow() {
         game_in_progress = null;
         window.remove();
+        window = null;
         currentBackground().getActors().setTouchable(Touchable.enabled);
     }
 

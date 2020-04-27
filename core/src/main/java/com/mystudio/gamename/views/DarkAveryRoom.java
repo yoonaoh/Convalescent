@@ -22,7 +22,7 @@ public class DarkAveryRoom extends View {
     public DarkAveryRoom(final MainAdapter mainAdapter) {
         super(mainAdapter);
         sceneName = "dark_bedroom";
-        background = new Texture(Gdx.files.internal("views/room_disturbed_concept.png"));
+        background = new Texture(Gdx.files.internal("views/room_disturbed.png"));
         floorspace = new Polygon(new float[]{
                 0, 0,
                 30, 30,
@@ -99,6 +99,12 @@ public class DarkAveryRoom extends View {
                 source.handleDropReset();
             }
         });
+        actors.addActor(shelf);
+
+        // Add piece of paper
+        InteractableItem paper = new InteractableItem(sceneName, "paper", new CollisionBox(250, 30, 100, 100), mainAdapter);
+        shelf_closeup.addActor(paper);
+        paper.addListener(new MinigameTrigger(new MiniGame("UI/blueprint.png", mainAdapter), mainAdapter));
         actors.addActor(shelf);
 
         // Add bunny
