@@ -179,7 +179,7 @@ public class InteractableItem extends Item {
             @Override
             public void accept(InteractableItem source, InteractableItem target) {
                 if (nextItem != null) {
-                    target.getStage().addActor(nextItem);
+                    target.getParent().addActor(nextItem);
                     target.remove();
                     source.remove();
                 }

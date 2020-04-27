@@ -15,5 +15,6 @@ public enum GameState {
     DISTURBED_CORRIDOR,
     MAZE,
     ATTIC_TRANSITION,
-    BLANK
+    BLANK,
+    DEMO
 }
