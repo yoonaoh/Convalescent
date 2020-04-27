@@ -23,7 +23,7 @@ public class Inventory extends Table {
     private MainAdapter mainAdapter;
 
     /**
-     * Constructs the Inventory
+     * Constructs the inventory
      *
      * @param mainAdapter the adapter from Main
      */

@@ -187,14 +187,11 @@ public class Main extends BasicGame {
         views.put(GameState.DEMO, new Demo(mainAdapter));
         views.put(GameState.CREDITS, new EndingCredit(mainAdapter));
         views.put(GameState.BLANK, new Blank(mainAdapter));
-//        views.put(GameState.ATTIC, new LightAttic(mainAdapter));
-//        views.put(GameState.DARK_ATTIC, new DarkAttic(mainAdapter));
-//        views.put(GameState.ATTIC_SHELF, new AtticShelf(mainAdapter));
 
         state = GameState.MENU;
         // Uncomment these two lines to start in demo mode
 //        state = GameState.DEMO;
-//        mainAdapter.initializeInventory(new Inventory(mainAdapter));
+//        mainAdapter.initializeInventory(new inventory(mainAdapter));
 
         Gdx.input.setInputProcessor(currentBackground().getStage());
 
