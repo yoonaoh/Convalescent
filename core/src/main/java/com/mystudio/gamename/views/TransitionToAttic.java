@@ -35,7 +35,7 @@ public class TransitionToAttic extends View {
         part1.setAlignment(Align.center);
         part1.setWidth(500);
         part1.setHeight(100);
-        part1.setPosition(390, 360);
+        part1.setPosition(390, 350);
         part1.addAction(Actions.fadeIn((float) 2.0));
 
         final Label part2 = new Label(line2, mainAdapter.getManager().getPlainTextStyle());
@@ -43,14 +43,14 @@ public class TransitionToAttic extends View {
         part2.setAlignment(Align.center);
         part2.setWidth(500);
         part2.setHeight(150);
-        part2.setPosition(390, 335);
+        part2.setPosition(390, 325);
 
         final Label part3 = new Label(line3, mainAdapter.getManager().getPlainTextStyle());
         part3.setWrap(true);
         part3.setAlignment(Align.center);
         part3.setWidth(500);
         part3.setHeight(100);
-        part3.setPosition(390, 360);
+        part3.setPosition(390, 350);
         actors.addActor(part1);
 
         Actor clickListener = new Actor();

@@ -29,7 +29,7 @@ public class EndingCredit extends View {
         part1.setAlignment(Align.center);
         part1.setWidth(600);
         part1.setHeight(100);
-        part1.setPosition(290, 360);
+        part1.setPosition(335, 350);
         part1.addAction(Actions.fadeIn((float) 2.0));
 
         addActor(part1);
@@ -47,9 +47,12 @@ public class EndingCredit extends View {
                         mainAdapter.updateState(GameState.MENU);
                     }
                 };
-                timer.scheduleTask(task, 4);
+                timer.scheduleTask(task, 3);
             }
         });
         bg_actors.addActor(clickListener);
+
+        // Add music
+        bgmFile = "sounds/disturbed.mp3";
     }
 }

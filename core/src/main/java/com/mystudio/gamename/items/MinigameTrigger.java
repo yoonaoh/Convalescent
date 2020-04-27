@@ -23,6 +23,12 @@ public class MinigameTrigger extends ClickListener {
         this.mainAdapter = mainAdapter;
     }
 
+    public MinigameTrigger(final MiniGame miniGame, final MainAdapter mainAdapter, String sound) {
+        this.miniGame = miniGame;
+        this.mainAdapter = mainAdapter;
+        this.sound = sound;
+    }
+
     public MinigameTrigger(final MiniGame miniGame, final MainAdapter mainAdapter, int x, int y) {
         this.miniGame = miniGame;
         this.mainAdapter = mainAdapter;

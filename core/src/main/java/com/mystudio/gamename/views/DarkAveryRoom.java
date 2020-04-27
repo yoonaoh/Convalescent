@@ -104,7 +104,7 @@ public class DarkAveryRoom extends View {
         // Add piece of paper
         InteractableItem paper = new InteractableItem(sceneName, "paper", new CollisionBox(250, 30, 100, 100), mainAdapter);
         shelf_closeup.addActor(paper);
-        paper.addListener(new MinigameTrigger(new MiniGame("UI/blueprint.png", mainAdapter), mainAdapter));
+        paper.addListener(new MinigameTrigger(new MiniGame("UI/blueprint.png", mainAdapter), mainAdapter, "sounds/opening_paper.mp3"));
         actors.addActor(shelf);
 
         // Add bunny

@@ -70,6 +70,7 @@ public class Manager {
         assetManager.load("sounds/button_click.mp3", Sound.class);
         assetManager.load("sounds/gear_mount.mp3", Sound.class);
         assetManager.load("sounds/single_footstep.mp3", Sound.class);
+        assetManager.load("sounds/opening_paper.mp3", Sound.class);
 
         // Textures
         assetManager.load("sounds/slider_background.png", Texture.class);
