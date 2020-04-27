@@ -21,9 +21,6 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimerTask;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 
 
 public class MemoryPuzzleGame extends MiniGame {
@@ -152,7 +149,7 @@ public class MemoryPuzzleGame extends MiniGame {
             // Reveal true picture
             float xPos = (camera.viewportWidth / 3) - 355 + (91 * 0);
             float yPos = (camera.viewportHeight / 3) + 100 - (91 * 3);
-            Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 364, 364));
+            final Item clearPicItem = new Item("memorypuzzle/averypic.png", new CollisionBox(xPos, yPos, 364, 364));
 
             Timer clearTimer = new Timer();
             Timer.Task clearPic = new Timer.Task() {

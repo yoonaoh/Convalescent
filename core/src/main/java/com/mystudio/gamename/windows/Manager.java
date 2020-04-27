@@ -143,6 +143,10 @@ public class Manager {
         effect.setVolume(effect_id, effectvol);
     }
 
+    public Sound playSoundControl(String filename) {
+        return assetManager.get(filename, Sound.class);
+    }
+
     public void dispose() {
         try {
             assetManager.dispose();
@@ -150,5 +154,9 @@ public class Manager {
         } catch (GdxRuntimeException e) {
             System.out.println("Exception: " + e);
         }
+    }
+
+    public float getEffectvol() {
+        return effectvol;
     }
 }

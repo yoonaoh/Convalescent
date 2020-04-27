@@ -1,6 +1,7 @@
 package com.mystudio.gamename.animations;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -43,6 +44,7 @@ public class Avery extends Actor {
     MainAdapter mainAdapter;
     GameState state = GameState.MENU;
     boolean debug = false;
+    Sound sound;
 
     Array<TimerTask> executes = new Array<TimerTask>();
 
@@ -77,6 +79,7 @@ public class Avery extends Actor {
                 move(x, y);
             }
         });
+        sound = mainAdapter.getManager().playSoundControl("sounds/single_footstep.mp3");
 
     }
 
@@ -111,6 +114,7 @@ public class Avery extends Actor {
                 }
             }
         } else {
+            sound.pause();
             ret = true;
             if (status == AveryStates.LEFT_WALKING) {
                 status = AveryStates.LEFT_STANDING;
@@ -158,6 +162,8 @@ public class Avery extends Actor {
                 flip();
             }
         }
+        long sid = sound.play(mainAdapter.getManager().getEffectvol());
+        sound.setLooping(sid, true);
     }
 
     public void move(float x, float y, TimerTask task, GameState state) {

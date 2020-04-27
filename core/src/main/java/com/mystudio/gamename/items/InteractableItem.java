@@ -66,9 +66,7 @@ public class InteractableItem extends Item {
                     startDialog();
                 }
             };
-            System.out.println("Location: " + moveLocation[0] + ", " + moveLocation[1]);
             if (moveLocation[0] != -1 && moveLocation[1] != -1) {
-                System.out.println("Moves avery in dialog listener!");
                 mainAdapter.moveAveryTo(moveLocation[0], moveLocation[1], task);
             } else {
                 startDialog();

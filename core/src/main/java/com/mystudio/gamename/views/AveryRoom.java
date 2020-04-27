@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mystudio.gamename.items.InteractableItem;
+import com.mystudio.gamename.items.Item;
 import com.mystudio.gamename.items.MinigameTrigger;
 import com.mystudio.gamename.items.SceneTrigger;
 import com.mystudio.gamename.memorypuzzle.MemoryPuzzleGame;
@@ -79,7 +80,9 @@ public class AveryRoom extends View {
         shelf.setTouchable(Touchable.disabled);
 
         // Add poster
-        // InteractableItem poster = new InteractableItem();
+        Item poster = new Item(sceneName + "/normal/" + "poster.png", new CollisionBox(970, 333, 305, 350));
+        poster.setTouchable(Touchable.disabled);
+        actors.addActor(poster);
 
         // Add backpack
         final InteractableItem backpack = new InteractableItem(sceneName, "bag", new CollisionBox(555, 169, 75, 75), mainAdapter);

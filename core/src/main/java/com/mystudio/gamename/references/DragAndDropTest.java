@@ -1,5 +1,3 @@
-// TODO: TO BE DELETED (just here for reference)
-
 package com.mystudio.gamename.references;
 
 import com.badlogic.gdx.Gdx;
@@ -27,7 +25,6 @@ public class DragAndDropTest {
 
         final Skin skin = new Skin();
         skin.add("default", new LabelStyle(new BitmapFont(), Color.WHITE));
-//        skin.add("badlogic", new Texture("data/badlogic.jpg"));
 
         Image sourceImage = new Image(new Texture("big_gear.png"));
         sourceImage.setBounds(50, 125, 100, 100);

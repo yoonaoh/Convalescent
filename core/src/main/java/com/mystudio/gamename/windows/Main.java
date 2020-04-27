@@ -171,8 +171,9 @@ public class Main extends BasicGame {
         viewport = new FitViewport(1280, 720, camera);
         batch.setProjectionMatrix(camera.combined);
         shapeRenderer.setProjectionMatrix(camera.combined);
-        avery = new Avery(mainAdapter);
+
         manager = new Manager();
+        avery = new Avery(mainAdapter);
 
         views = new HashMap<GameState, View>();
         views.put(GameState.MENU, new Menu(mainAdapter));

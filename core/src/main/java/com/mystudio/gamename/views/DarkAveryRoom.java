@@ -117,6 +117,12 @@ public class DarkAveryRoom extends View {
         Item fan_stub = new Item(sceneName + "/normal/" + "fan.png", new CollisionBox(560, 383, 47, 70));
         fan_stub.setTouchable(Touchable.disabled);
         actors.addActor(fan_stub);
+
+        // Add paper stub in the shelf
+        Item paper_stub = new Item(sceneName + "/normal/" + "paper.png", new CollisionBox(500, 390, 20, 20));
+        paper_stub.setTouchable(Touchable.disabled);
+        actors.addActor(paper_stub);
+
         shelf.addListener(new MinigameTrigger(shelf_closeup, mainAdapter, 628, 154));
 
         // Play music

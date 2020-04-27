@@ -14,7 +14,7 @@ import org.mini2Dx.core.geom.Polygon;
 
 public class EndingCredit extends View {
 
-    public EndingCredit(MainAdapter mainAdapter) {
+    public EndingCredit(final MainAdapter mainAdapter) {
         super(mainAdapter);
 
         final String line1 = "Thanks for playing\n - Thera, Mattie, Yoona, Gai, and Aurelia";
