@@ -4,8 +4,8 @@ COMP 460: Advanced Computer Game Creation.
 
 
 ## Background
-Presentation [here](https://docs.google.com/presentation/d/1eiXpGKnxIXIjNXViqnIkRlTOc64Kg09F3kWJdTaQlUA/edit?usp=sharing)
-![](https://github.com/yoonaoh/Convalescent/tree/master/assets/presentation.png)
+Presentation [here](https://docs.google.com/presentation/d/1eiXpGKnxIXIjNXViqnIkRlTOc64Kg09F3kWJdTaQlUA/edit?usp=sharing) <br/>
+![Title slide](https://github.com/yoonaoh/Convalescent/tree/master/assets/presentation.png)
 
 
 ## Installation
